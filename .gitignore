@@ -1,0 +1,23 @@
+##maven compile
+**/target/
+
+##eclipse files
+.classpath
+.project
+.settings/
+
+##idea files
+*.iml
+.idea/
+*.ipr
+*.iws
+
+##mac files
+.DS_Store
+
+##bak files
+*.bak
+*.log
+##other
+CATALINA_BASE_IS_UNDEFINED
+/target
