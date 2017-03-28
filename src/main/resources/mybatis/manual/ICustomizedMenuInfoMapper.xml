@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.manual.ICustomizedMenuInfoMapper">
+
+    <!-- 获取菜单列表 -->
+    <resultMap id="resultMaps" type="com.manager.pojo.manual.MenuInfoDto">
+        <id property="id" jdbcType="INTEGER" column="id" />
+        <result property="menuName" jdbcType="VARCHAR" column="menu_name" />
+        <result property="menuUrl" jdbcType="VARCHAR" column="menu_url" />
+        <result property="parentId" jdbcType="INTEGER" column="parent_id" />
+        <result property="roleType" jdbcType="INTEGER" column="role_type" />
+    </resultMap>
+
+
+    <!-- 菜单列表 -->
+    <select id="findAllMenuInfo" parameterType="com.manager.request.menu.MenuRequest" resultMap="resultMaps">
+        SELECT
+        t1.id,
+        t1.menu_name,
+        t1.menu_url,
+        t1.parent_id,
+        t2.role_type
+        FROM
+        menu_info t1 LEFT JOIN role_menu_info t2 ON t1.id = t2.menu_info_id
+        WHERE
+        t1.be_used = 1
+    </select>
+</mapper>

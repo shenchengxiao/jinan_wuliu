@@ -37,9 +37,7 @@ public enum BusinessStatusEnum implements IBusinessStatusEnum {
     LOGIN_ACCOUNT_LOG_ON_OTHER_CLIENT(              100400101, "您的账号已经在其他移动设备登录."),
     /** 1005XXXXX系统错误 */
     SYSTEM_ERROR(                                   100500000, "系统错误."),
-    SMS_SEND_FAIL(                                  100500001, "短信发送失败."),
-    /** */
-    DATE_EXCHANGE_ERROR(                            100600000, "由于运营商系统维护，当月1号与月末后2日均无法充值，请自行调整充值时间。"),
+
     /** 1009XXXXX描述无法从系统中获得数据*/
     EMPTY_RESULT(                                   100900000, "数据不存在."),
     ;

@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <typeHandlers>
+        <typeHandler handler="com.manager.utils.IntegerEnumTypeHandler" javaType="com.manager.utils.UserRoleEnum" />
+    </typeHandlers>
+
     <plugins>
         <plugin interceptor="com.manager.interceptor.PageMybatisInterceptor" />
     </plugins>

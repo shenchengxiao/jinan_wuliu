@@ -119,14 +119,10 @@ public class AuthUser implements Serializable {
      * 登录用户
      * @param id 用户标识
      * @param name 用户名
-     * @param merchantId 商家用户ID
-     * @param businessCode 企业编码
-     * @param merchantType 商家类型
      * @param userRole 用户角色
      * @return 登录是否成功
      */
-    public boolean login(Long id, String name, Integer merchantId,
-                         String businessCode, Integer merchantType, Integer userRole){
+    public boolean login(Long id, String name,Integer userRole){
         this.setId(id);
         this.setName(name);
         this.setUserRole(userRole);

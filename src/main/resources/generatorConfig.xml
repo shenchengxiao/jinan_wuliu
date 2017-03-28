@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <!-- optional，旨在创建class时，对注释进行控制 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test" userId="root" password="123456">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.manager.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.manager.request.BaseEntity"/>
+            <property name="javaExampleTargetPackage" value="com.manager.criteria"/>
+            <property name="javaExampleTargetProject" value="src/main/java"/>
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mybatis.mapping" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.manager.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 要生成哪些表-->
+        <table tableName="menu_info">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+        <table tableName="role_menu_info">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

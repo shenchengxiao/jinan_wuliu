@@ -24,7 +24,8 @@ public class CookieUtils {
 	public static void writeCookie(final HttpServletResponse response, String domain, String name, String value, int expireInterval) {
 		Cookie cookie = new Cookie(name, value);
 		cookie.setPath("/");
-		cookie.setDomain(domain);
+//		cookie.setDomain(domain);
+
         if(expireInterval>0) cookie.setMaxAge(expireInterval);
 		response.addCookie(cookie);
 	}

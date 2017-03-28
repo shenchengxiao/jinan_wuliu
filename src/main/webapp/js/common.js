@@ -241,7 +241,7 @@ function logout() {
         dataType: 'json',
         success: function (data) {
             sessionStorage.clear();
-            window.location.href = '/html/login.html';
+            window.location.href = '/html/login.jsp';
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 

@@ -1,5 +1,7 @@
 package com.manager.controller;
 
+import com.manager.core.ActionContext;
+import com.manager.core.AuthUser;
 import com.manager.pojo.manual.UserResponse;
 import com.manager.utils.APIResponse;
 import com.manager.utils.BusinessStatusEnum;
@@ -23,6 +25,11 @@ public class UserController {
         APIResponse<UserResponse> apiResponse = new APIResponse<UserResponse>();
         UserResponse userResponse = new UserResponse();
         if (userName.equals("yuzhibo")&&passwd.equals("123456")){
+            Integer role = 255;
+            Long id = 1l;
+            AuthUser user = ActionContext.getActionContext().currentUser();
+
+            user.login(id,userName,role);
             userResponse.setUserName(userName);
             userResponse.setPasswd(passwd);
             apiResponse.setStatus(BusinessStatusEnum.SUCCESS.getStatus());

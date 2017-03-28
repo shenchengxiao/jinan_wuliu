@@ -84,8 +84,7 @@ function login(){
         },
         success:function(data) {
             if(data.status == 0){
-                alert(111111111111111);
-                window.location.href = '/html/index.html';
+                window.location.href = '/views/index.jsp';
             }else{
                 $.toast('用户名或密码错误，请重新输入',3000);
             }
