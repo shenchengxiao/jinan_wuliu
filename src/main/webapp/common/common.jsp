@@ -21,10 +21,6 @@
     <![endif]-->
 
 </head>
-<!-- HTML5 兼容支持 -->
-<script src="static/js/libs/bootstrap/html5shiv.min.js"></script>
-<script src="static/js/libs/bootstrap/respond.min.js"></script>
-
 
 <!-- build:js scripts/build.js -->
 <script src="/js/libs/jquery/jquery-1.10.1.min.js"></script>

@@ -2,12 +2,15 @@ package com.manager.handler;
 
 import com.manager.core.PasswordEncrypt;
 import com.manager.exception.DatabaseException;
+import com.manager.exception.ValidationException;
 import com.manager.exception.YCException;
 import com.manager.pojo.UserInfo;
 import com.manager.request.user.UserInfoRequest;
 import com.manager.service.UserInfoService;
+import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,12 +28,18 @@ public class UserInfoHandler {
 
     Logger LOG = LoggerFactory.getLogger(UserInfoHandler.class);
 
+    /**
+     * 用户登录
+     * @param request
+     * @return
+     * @throws YCException
+     */
     public UserInfo getUserInfoByNameAndPasswd(UserInfoRequest request) throws YCException {
         /** 参数校验 */
         Validator.isEmpty(request, YCSystemStatusEnum.PARAM_EMPTY);
         Validator.isEmpty(request.getUserName(), YCSystemStatusEnum.USER_NAME);
         Validator.isEmpty(request.getPasswd(), YCSystemStatusEnum.USER_PASSWD);
-        //用户名和密码联接后MD5
+        //密码加密（用户名和密码联接后MD5）
         String pwd = PasswordEncrypt.encrypt(request.getUserName(),request.getPasswd());
         request.setPasswd(pwd);
         try {
@@ -48,17 +57,104 @@ public class UserInfoHandler {
      * @param userInfo
      * @throws YCException
      */
-    public void addUserInfo(UserInfo userInfo) throws YCException {
+    public void addUserInfo(UserInfo userInfo,String roleArr) throws YCException {
 
+        Integer role = 0;
+        if (StringUtils.isNotBlank(roleArr)) {
+            String[] roles = roleArr.split(",");
+            for (String r : roles) {
+                //角色值或运算
+                role = role | Integer.valueOf(r);
+            }
+        }
+        userInfo.setRole(role);
         /** 参数校验 */
         Validator.isEmpty(userInfo, YCSystemStatusEnum.PARAM_EMPTY);
         Validator.isEmpty(userInfo.getUserName(), YCSystemStatusEnum.USER_NAME);
         Validator.isEmpty(userInfo.getPasswd(), YCSystemStatusEnum.USER_PASSWD);
         Validator.isEmpty(userInfo.getRole(), YCSystemStatusEnum.USER_ROLE);
+
         try {
-            userInfoService.addUserInfo(userInfo);
+            //ID为空则添加，否则更新
+            if (userInfo.getId() == null){
+                userInfo.setPasswd(PasswordEncrypt.encrypt(userInfo.getUserName(),userInfo.getPasswd()));
+                userInfo.setBeUsed(1);
+                userInfoService.addUserInfo(userInfo);
+            }else {
+                userInfoService.updateUserInfo(userInfo);
+            }
         } catch (DatabaseException e) {
             LOG.error("add userInfo exception",userInfo);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 获取用户列表信息
+     * @param request
+     * @return
+     * @throws YCException
+     */
+    public Page<UserInfo> fetchUserInfoList(UserInfoRequest request) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
+        Page<UserInfo> page = null;
+        try {
+            page = userInfoService.fetchUserInfoList(request);
+        } catch (DatabaseException e) {
+            LOG.error("fetchUserInfoList exception",request);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+        return page;
+    }
+
+    /**
+     * 根据主键获取用户详情
+     * @param id
+     * @return
+     * @throws YCException
+     */
+    public UserInfo fetchUserInfoDetail(Integer id) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
+        UserInfo userInfo = null;
+        try {
+            userInfo = userInfoService.fetchUserInfoById(id);
+        } catch (DatabaseException e) {
+            LOG.error("fetchUserInfoDetail exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+        return userInfo;
+    }
+
+    public void deleteUserInfo(Integer id) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
+        try {
+             userInfoService.deleteUserInfo(id);
+        } catch (DatabaseException e) {
+            LOG.error("deleteUserInfo exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 禁用启用
+     * @param id
+     * @param status
+     * @throws YCException
+     */
+    public void modifyStatus(Integer id,Integer status) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
+        Validator.isEmpty(status,YCSystemStatusEnum.USER_ID_EMPTY);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setBeUsed(status);
+        try {
+            userInfoService.updateUserInfo(userInfo);
+        } catch (DatabaseException e) {
+            LOG.error("modifyStatus exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }

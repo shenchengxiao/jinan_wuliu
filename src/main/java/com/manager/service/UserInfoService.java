@@ -32,4 +32,12 @@ public interface UserInfoService {
      * @return
      */
     UserInfo fetchUserByUserNameAndPasswd(UserInfoRequest userInfoRequest) throws DatabaseException;
+
+    boolean updateUserInfo(UserInfo userInfo) throws DatabaseException;
+
+    boolean deleteUserInfo(Integer id) throws DatabaseException;
+
+    UserInfo fetchUserInfoById(Integer id) throws DatabaseException;
+
+
 }

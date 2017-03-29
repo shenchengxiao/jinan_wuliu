@@ -131,7 +131,7 @@ $(function () {
 
 // 获取角色 
 var Role = {
-    SuperAdmin:{Name:'超级管理员',Value:16},
+    SuperAdmin:{Name:"超级管理员",Value:16},
     CustomerServer:{Name:"客服人员",Value:32}
 }
 

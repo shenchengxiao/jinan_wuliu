@@ -63,15 +63,16 @@
                         </div>
                         <form id="kl_user_form" method="get">
                             <input type="hidden" name="pageNum" id="pageNum" value="1"  >
-                            <input type="hidden" name="businessAccountId" id="businessAccountId" value="6"  >
+                            <input type="hidden" name="userName" id="businessAccountId" value="6"  >
                         </form>
 
                         <div class="box">
                             <div class="portlet-body no-more-tables">
-                                <table class="table table-bordered table-striped table-condensed cf table-hover" id="kl_user_list">
+                                <table class="table table-bordered table-striped table-condensed cf table-hover" id="jn_user_list">
                                     <thead class="cf">
                                     <tr>
                                         <th>用户名</th>
+                                        <th>手机号</th>
                                         <th>管理权限</th>
                                         <th>状态</th>
                                         <th>操作</th>
@@ -123,26 +124,20 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">手机号码<span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" name="phoneNum" class="span8 m-wrap">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">分配权限<span class="required">*</span></label>
                             <div class="controls">
-                                <!-- <label>
+                                <label>
                                     <input type="checkbox" value="16" name="roleArr">
                                     超级管理员
-                                </label> -->
+                                </label>
                                 <label>
                                     <input type="checkbox" value="32" name="roleArr">
-                                    通道管理员
-                                </label>
-                                <label>
-                                    <input type="checkbox" value="64" name="roleArr">
-                                    审核人员
-                                </label>
-                                <label>
-                                    <input type="checkbox" value="128" name="roleArr">
-                                    运营编辑
-                                </label>
-                                <label>
-                                    <input type="checkbox" value="256" name="roleArr">
                                     客服人员
                                 </label>
                                 <span class="help-block">请至少分配一项权限</span>
@@ -151,10 +146,9 @@
                         <div class="control-group">
                             <label class="control-label">密码<span class="required">*</span></label>
                             <div class="controls">
-                                <input type="password" name="password" class="span8 m-wrap">
+                                <input type="password" name="passwd" class="span8 m-wrap">
                             </div>
                         </div>
-                        <input type="hidden" name="businessAccountId" value="6">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

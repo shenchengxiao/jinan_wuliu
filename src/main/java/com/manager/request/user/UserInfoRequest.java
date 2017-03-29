@@ -7,6 +7,8 @@ import com.manager.request.BaseQuery;
  */
 public class UserInfoRequest extends BaseQuery {
 
+    private Integer id;
+
     /**
      * 用户名
      */
@@ -26,6 +28,15 @@ public class UserInfoRequest extends BaseQuery {
      * 用户状态
      */
     private Integer status;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;

@@ -9,7 +9,7 @@ public class BaseQuery extends BaseEntity {
     /**
      * 按ID查询
      */
-    private Long id;
+    private Integer id;
 
     /**
      * id列表查询
@@ -39,11 +39,11 @@ public class BaseQuery extends BaseEntity {
     private String orderByClause;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

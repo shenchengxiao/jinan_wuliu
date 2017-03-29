@@ -113,6 +113,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             UserInfoExample.Criteria criteria = example.createCriteria();
             criteria.andUserNameEqualTo(userInfoRequest.getUserName());
             criteria.andPasswdEqualTo(userInfoRequest.getPasswd());
+            criteria.andBeUsedEqualTo(1);
             List<UserInfo> list = userInfoMapper.selectByExample(example);
             if (list == null || list.size() == 0){
                 return null;
@@ -122,6 +123,51 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         } catch (Throwable e) {
             LOG.error("fetchUserByUserNameAndPasswd 异常",userInfoRequest);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean updateUserInfo(UserInfo userInfo) throws DatabaseException {
+        try {
+            if (userInfo == null){
+                LOG.error("updateUserInfo 信息为空",userInfo);
+                return false;
+            }
+           int val = userInfoMapper.updateByPrimaryKeySelective(userInfo);
+            return (val > 0)?true:false;
+        } catch (Throwable e) {
+            LOG.error("updateUserInfo 异常",userInfo);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean deleteUserInfo(Integer id) throws DatabaseException {
+        try {
+            if (id == null){
+                LOG.error("deleteUserInfo id为空",id);
+                return false;
+            }
+            int val = userInfoMapper.deleteByPrimaryKey(id);
+            return (val>0)?true:false;
+        } catch (Throwable e) {
+            LOG.error("deleteUserInfo 异常",id);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public UserInfo fetchUserInfoById(Integer id) throws DatabaseException {
+        try {
+            if (id == null){
+                LOG.error("fetchUserInfoById id为空",id);
+                return null;
+            }
+            UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
+            return userInfo;
+        } catch (Throwable e) {
+            LOG.error("fetchUserInfoById 异常",id);
             throw new DatabaseException(e.getMessage());
         }
     }

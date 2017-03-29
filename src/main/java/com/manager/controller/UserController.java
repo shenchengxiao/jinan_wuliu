@@ -1,14 +1,13 @@
 package com.manager.controller;
 
+import com.manager.annotations.Authentication;
 import com.manager.core.ActionContext;
 import com.manager.core.AuthUser;
 import com.manager.exception.YCException;
 import com.manager.handler.UserInfoHandler;
 import com.manager.pojo.UserInfo;
 import com.manager.request.user.UserInfoRequest;
-import com.manager.utils.APIResponse;
-import com.manager.utils.BusinessStatusEnum;
-import com.manager.utils.YCSystemStatusEnum;
+import com.manager.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -54,7 +53,7 @@ public class UserController {
                 apiResponse.setStatus(BusinessStatusEnum.EMPTY_RESULT.getCode());
                 apiResponse.setMsg(BusinessStatusEnum.EMPTY_RESULT.getDesc());
             }
-        } catch (YCException e) {
+        } catch (Throwable e) {
             LOG.error("用户登录发生异常",userInfoRequest);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
@@ -87,14 +86,104 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
-    public APIResponse addUser(HttpServletRequest request, UserInfo userInfo){
+    public APIResponse addUser(HttpServletRequest request, UserInfo userInfo,String roleArr){
         APIResponse apiResponse = new APIResponse();
         try {
-            userInfoHandler.addUserInfo(userInfo);
+            userInfoHandler.addUserInfo(userInfo,roleArr);
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
-        } catch (YCException e) {
+        } catch (Throwable e) {
             LOG.error("添加用户发生异常",userInfo);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 获取用户列表
+     * @param request
+     * @param userInfoRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @Authentication(allow = UserRoleEnum.SuperAdmin)
+    public APIResponse<Page<UserInfo>> list(HttpServletRequest request,UserInfoRequest userInfoRequest){
+        APIResponse<Page<UserInfo>> apiResponse = new APIResponse<>();
+        Page<UserInfo> page = null;
+        try {
+            page = userInfoHandler.fetchUserInfoList(userInfoRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(page);
+        } catch (Throwable e) {
+            LOG.error("获取用户列表发生异常",userInfoRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 获取用户详情信息
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    @Authentication(allow = UserRoleEnum.SuperAdmin)
+    public APIResponse<UserInfo> detail(HttpServletRequest request,Integer id){
+        APIResponse<UserInfo> apiResponse = new APIResponse<>();
+        UserInfo userInfo = null;
+        try {
+            userInfo = userInfoHandler.fetchUserInfoDetail(id);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(userInfo);
+        } catch (Throwable e) {
+            LOG.error("获取用户详情信息发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 删除
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @Authentication(allow = UserRoleEnum.SuperAdmin)
+    public APIResponse delete(HttpServletRequest request, Integer id){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+            userInfoHandler.deleteUserInfo(id);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("删除用户信息发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/modify_status",method = RequestMethod.POST)
+    @Authentication(allow = UserRoleEnum.SuperAdmin)
+    public APIResponse modifyUserStatus(HttpServletRequest request, Integer id,Integer status){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+            userInfoHandler.modifyStatus(id,status);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("禁用启用发生异常",id);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }
