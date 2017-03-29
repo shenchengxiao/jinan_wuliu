@@ -31,12 +31,12 @@ $('#form_login').validate({
             userName:{
                 required:true
             },
-            txtUserPass:{
+            passwd:{
                 required:true
             },
         },
         messages:{
-            passwd:{
+            userName:{
                 required:'请输入用户名'
             },
             passwd:{

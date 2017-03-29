@@ -13,6 +13,9 @@ public enum YCSystemStatusEnum implements IBusinessStatusEnum {
 
     /** 1XXXXX 参数类错误. */
     PARAM_EMPTY(                        100001, "参数为空."),
+    USER_NAME(                          100002, "用户名称为空"),
+    USER_PASSWD(                        100003,  "用户密码为空"),
+    USER_ROLE(                          100004,  "用户角色为空"),
     PHONE_NUMBER(                       100008,  "手机号不能为空"),
 
 
@@ -22,9 +25,6 @@ public enum YCSystemStatusEnum implements IBusinessStatusEnum {
     NUB_AND_VERIFY(                     200003, "手机号与验证码不匹配"),
     USER_NAME_PASSWORD_EMPTY(           200004,  "用户名或密码错误"),
     LOGIN_FAIL(                         200005, "登录失败."),
-    API_SIGN_FAIL(                      200006, "Api接口签名失败."),
-    API_SIGN_TIMESTAMP_EXPIRE(          200007, "接口请求已过期."),
-    API_SIGN_VERIFY_EXCEPTION(          200008, "接口签名验证发生异常."),
 
 
     /** 3XXXXX 数据逻辑错误(偏业务层) */
@@ -40,7 +40,7 @@ public enum YCSystemStatusEnum implements IBusinessStatusEnum {
 
     /** 9XXXXX 系统类错误.*/
     SYSTEM_ERROR(                       -1, "系统异常."),
-    INVOKE_API_RETURN_EXCEPTION(        900001, "调用接口响应失败状态."),
+    INVOKE_API_RETURN_EXCEPTION(        900001, "调用接口失败状态."),
     NETWORK_ERROR(                      900002, "网络异常"),
     ;
 

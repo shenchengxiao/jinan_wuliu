@@ -29,10 +29,10 @@
 		<jsp:include page="../include/footer.jsp"></jsp:include>
 		<!-- 页尾 end -->
 <!-- build:js scripts/index-build.js -->
-<script src="/js/libs/jquery/jquery-1.10.1.min.js"></script>
-<script src="/js/libs/bootstrap/bootstrap.min.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/common.js"></script>
+<%--<script src="/js/libs/jquery/jquery-1.10.1.min.js"></script>--%>
+<%--<script src="/js/libs/bootstrap/bootstrap.min.js"></script>--%>
+<%--<script src="/js/app.js"></script>--%>
+<%--<script src="/js/common.js"></script>--%>
 <script type="text/javascript">
 	$(function() {
 		$('.page-sidebar-menu li').removeClass("active");

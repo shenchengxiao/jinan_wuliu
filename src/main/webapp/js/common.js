@@ -72,7 +72,6 @@
     });
 })($);
 
-var IMG_URL = 'http://img.ruwe.cn/';
 var FILE_URL  = '';
 var provinceId = 0;
 
@@ -84,8 +83,6 @@ $(function () {
 
     $("#username").html(App.req.user.uname);
     $("#logout").click(logout); //退出登录
-
-    $('input:file.uploadify').fileUpload();
 
     $('input[data-laydate="start"]').click(function(){
         laydate(start);
@@ -135,10 +132,7 @@ $(function () {
 // 获取角色 
 var Role = {
     SuperAdmin:{Name:'超级管理员',Value:16},
-    ChannelAdmin:{Name:"通道管理员",Value:32},
-    Reviewer:{Name:"审核人员",Value:64},
-    Editor:{Name:"运营编辑",Value:128},
-    CustomerServer:{Name:"客服人员",Value:256}
+    CustomerServer:{Name:"客服人员",Value:32}
 }
 
 function getRoleName(roleNum,Role){
@@ -241,7 +235,7 @@ function logout() {
         dataType: 'json',
         success: function (data) {
             sessionStorage.clear();
-            window.location.href = '/html/login.jsp';
+            window.location.href = '/views/login.jsp';
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 

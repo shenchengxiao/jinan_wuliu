@@ -971,14 +971,14 @@ App.getFullPath = function(path) {
         }
     }
     //未登录,跳转登录页
-    // if(!user.isAuthenticated && location.href.indexOf('/html/login.jsp')<0) location.href="/html/login.jsp";
+    if(!user.isAuthenticated && location.href.indexOf('/views/login.jsp')<0) location.href="/views/login.jsp";
 
     App.req = { params:params,cookies:cookies,user:user };
 })();
 
 //获取权限菜单
 $(function(){
-    if(location.href.indexOf('/html/login.jsp')>=0) return;
+    if(location.href.indexOf('/views/login.jsp')>=0) return;
     function menu_render(list){
         $.each(list, function(index,item){
             var temp = '<li class="">' +
