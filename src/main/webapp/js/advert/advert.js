@@ -15,14 +15,14 @@ $(function(){
     //创建modal弹出层class="modal"
     $('#creat_banner_icon').on('click',function(){
         clearModal();//清空modal弹出层里面的参数；
-        $('#addBannerModal').modal('show');//modle层显示
+        $('#addAdvertModal').modal('show');//modle层显示
     });
 
     $('#btn_add_advert').on('click',function(){
         //非空验证
         var b = $('#add_advert_form').valid();//true false
         if(b){
-            addBanner();//添加新的banner;
+            addAdvert();//添加新的banner;
             $('#addAdvertModal').modal('hide');//modle层隐藏
         }else{
             return false;
@@ -32,35 +32,35 @@ $(function(){
 
 
     /**
-     *  功能描述：添加banner验证
+     *  功能描述：添加广告验证
      */
 
-    $('#add_banner_form').validate({
+    $('#add_advert_form').validate({
         errorElement:'span',
         errorClass:'help-inline',
         focusInvalid:false,
         ignore:'',
         rules:{
-            adName:{
+            startTime:{
                 required:true
             },
-            start_time:{
-                required:function(){
-                    if($('#adType').val() == 7){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }
+            endTime: {
+                required: true
             },
-            end_time:{
-                required:function(){
-                    if($('#adType').val() == 7){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }
+            price:{
+                required: true
+            },
+            linkedName:{
+                required: true
+            },
+            phoneNumber:{
+                required: true
+            },
+            beUsed:{
+                required :true
+            },
+            content:{
+                required: true
             }
         },
         messages:{
@@ -96,8 +96,17 @@ $(function(){
 
 
 });
+function getRootPath()
+{
+    var pathName = window.location.pathname.substring(1);
+    var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));
+    var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;
+    console.log(path)
+    return path;
 
+}
 
+var path=getRootPath();
 /**
  *  功能描述：获取广告列表信息
  *  请求方式：GET
@@ -108,7 +117,7 @@ $(function(){
 function getAdvertList(){
     var temp = "";
     $.ajax({
-        url: '/api/advert/list',
+        url: 'path/api/advert/list',
         type: 'GET',
         dataType: 'json',
         data: $('#advert_list_form').serialize(), //通过表单id进行序列化提交
@@ -138,7 +147,7 @@ function getAdvertList(){
 
 
                     temp += '<tr>'
-                        + '<td data-title="开始时间" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="' + item.linkUrl + '" >' + item.startTime + '</td>'
+                        + '<td data-title="开始时间">' + item.startTime + '</td>'
                         + '<td data-title="结束时间">' + item.endTime + '</td>'
                         + '<td data-title="价格">' + item.price + '</td>'
                         + '<td data-title="联系人">' + item.linkedName + '</td>'
@@ -151,7 +160,6 @@ function getAdvertList(){
                         + '</tr>';
 
                     $('#banner_List tbody').html(temp);
-                    //Banner链接hover显示详情
                     $("[data-toggle='popover']").popover();
                     //操作按钮hover显示详情
                     $("[data-toggle='tooltip']").tooltip();
@@ -185,7 +193,7 @@ function getAdvertList(){
 
 function modifyStatus(id,beUsed){
     $.ajax({
-        url: '/api/banner/modify_status',
+        url: '/api/advert/modify_status',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -198,7 +206,7 @@ function modifyStatus(id,beUsed){
         success:function(data){
             if(data.status == 0){
                 $.toast(data.msg,3000);
-                getBannerList();
+                getAdvertList();
             }else{
                 $.toast(data.msg,3000);
             }

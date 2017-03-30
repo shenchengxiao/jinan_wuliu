@@ -934,7 +934,7 @@ App.getFullPath = function(path) {
         }
     }
     //未登录,跳转登录页
-    if(!user.isAuthenticated && location.href.indexOf('/views/login.jsp')<0) location.href="/views/login.jsp";
+    // if(!user.isAuthenticated && location.href.indexOf('/views/login.jsp')<0) location.href="/views/login.jsp";
 
     App.req = { params:params,cookies:cookies,user:user };
 })();

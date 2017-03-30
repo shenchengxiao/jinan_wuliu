@@ -36,4 +36,8 @@
 <script src="${ctx}/js/libs/laydate.dev.js"></script>
 <script src="${ctx}/js/app.js"></script>
 <script src="${ctx}/js/common.js"></script>
+
+
+<script src="${ctx}/js/login.js"></script>
+
 <!-- endbuild -->

@@ -65,20 +65,21 @@
                         <div class="portlet-body">
                             <div class="row-fluid">
                                 <form id="advert_list_form" method="get">
-                                    <div class="span4">
-                                        <select class="m-wrap pull-left span12" name="adType" id="adtypelist">
-                                            <option value="0">首页</option>
-                                            <option value="1">签到</option>
-                                            <option value="2">流量淘</option>
-                                            <option value="3">流量玩-H5游戏</option>
-                                            <option value="4">流量玩-客户端游戏</option>
-                                            <option value="5">邀好友</option>
-                                            <option value="6">赚流量</option>
-                                            <option value="7">乐园广告</option>
-                                        </select>
+                                    <div class="span2">
+                                        <input type="text" name="adName" placeholder="请输入价格" class="m-wrap span12" id="price">
                                     </div>
-                                    <div class="span4">
-                                        <input type="text" name="adName" placeholder="请输入关键词" class="m-wrap span12" id="nameText_search">
+                                    <div class="span2">
+                                        <input type="text" name="adName" placeholder="请输入联系人" class="m-wrap span12" id="linkedName">
+                                    </div>
+                                    <div class="span2">
+                                        <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
+                                    </div>
+                                    <div class="span2">
+                                        <select class="m-wrap span6" name="adType" id="adType">
+                                            <option value=" ">请选择</option>
+                                            <option value="0">无效</option>
+                                            <option value="1">有效</option>
+                                        </select>
                                     </div>
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search">查找</button>

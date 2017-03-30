@@ -94,7 +94,7 @@
 		2017 &copy; Design by shencx
 
 	</div>
-	<script src="${ctx}/js/login.js"></script>
+	
 
 </body>
 
