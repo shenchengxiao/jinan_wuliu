@@ -2,18 +2,18 @@
 		 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<jsp:include page="../common/common.jsp"></jsp:include>
+<jsp:include page="/common/common.jsp"></jsp:include>
 
 <body class="page-header-fixed"> 
 		<!-- 头部 begin -->
 		<!--@@include('../inclheader.jsphtml')-->
-		<jsp:include page="../include/header.jsp"></jsp:include>
+		<jsp:include page="/include/header.jsp"></jsp:include>
 		<!-- 头部 end -->
 
 		<!-- 页面主体 begin -->
 		<div class="page-container row-fluid">
 		<!-- 左侧菜单 begin-->
-			<jsp:include page="../include/left_sidebar.jsp"></jsp:include>
+			<jsp:include page="/include/left_sidebar.jsp"></jsp:include>
 		<!-- 左侧菜单 end-->
 			<!-- 内容区域 begin-->
 			<div class="page-content">
@@ -26,7 +26,7 @@
 		<!-- 页面主体 end -->
 		<!-- 页尾 begin -->
 		<!--@@include('../inclfooter.jsphtml')-->
-		<jsp:include page="../include/footer.jsp"></jsp:include>
+		<jsp:include page="/include/footer.jsp"></jsp:include>
 		<!-- 页尾 end -->
 <!-- build:js scripts/index-build.js -->
 <%--<script src="/js/libs/jquery/jquery-1.10.1.min.js"></script>--%>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title></title>
-	<jsp:include page="../common/common.jsp"></jsp:include>
+	<jsp:include page="/common/common.jsp"></jsp:include>
 </head>
 
 <!-- BEGIN BODY -->
@@ -94,7 +94,7 @@
 		2017 &copy; Design by shencx
 
 	</div>
-	<script src="/js/login.js"></script>
+	<script src="${ctx}/js/login.js"></script>
 
 </body>
 

@@ -104,8 +104,8 @@ function checkBox(typeStr) {
         for (var j = 0; j < aCh.length; j++) {
             if (roleArr[i] == aCh[j].value ) {
                 aCh[j].defaultChecked = true;
-                // var index = j;
-                // $('input[name=roleArr]').eq(index).parent().addClass('checked');
+                var index = j;
+                $('input[name=roleArr]').eq(index).parent().addClass('checked');
             }
         }
     }
