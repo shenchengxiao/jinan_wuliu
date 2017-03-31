@@ -2,7 +2,6 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-console.log(${ctx})
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,6 +37,7 @@ console.log(${ctx})
 <script src="${ctx}/js/app.js"></script>
 <script src="${ctx}/js/common.js"></script>
 
-
-	<script src="${ctx}/js/login.js"></script>
+<!-- 页面访问js-->
+<%--<script src="${ctx}/js/login.js"></script>--%>
+<script src="${ctx}/js/admin/admin.js"></script>
 <!-- endbuild -->

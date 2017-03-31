@@ -1,8 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
-<jsp:include page="/common/common.jsp"></jsp:include>
+<link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${ctx}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/style-metro.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/animate.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/animate.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/ui-form.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/css/default.css" rel="stylesheet" type="text/css"/>
 
 <body class="page-header-fixed"> 
 		<!-- 头部 begin -->
@@ -29,10 +41,10 @@
 		<jsp:include page="/include/footer.jsp"></jsp:include>
 		<!-- 页尾 end -->
 <!-- build:js scripts/index-build.js -->
-<%--<script src="/js/libs/jquery/jquery-1.10.1.min.js"></script>--%>
-<%--<script src="/js/libs/bootstrap/bootstrap.min.js"></script>--%>
-<%--<script src="/js/app.js"></script>--%>
-<%--<script src="/js/common.js"></script>--%>
+<script src="${ctx}/js/libs/jquery/jquery-1.10.1.min.js"></script>
+<script src="${ctx}/js/libs/bootstrap/bootstrap.min.js"></script>
+<script src="${ctx}/js/app.js"></script>
+<script src="${ctx}/js/common.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('.page-sidebar-menu li').removeClass("active");

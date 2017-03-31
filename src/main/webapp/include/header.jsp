@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <div class="header navbar navbar-inverse navbar-fixed-top">
 
 		<!-- 顶部导航 -->
@@ -19,7 +21,7 @@
 				<!-- 导航菜单 -->
 
 				<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-					<img src="/images/menu-toggler.png" alt=""/>
+					<img src="${ctx}/images/menu-toggler.png" alt=""/>
 				</a>
 
 				<!-- 导航菜单结束 -->

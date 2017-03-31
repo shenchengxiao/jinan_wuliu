@@ -1,7 +1,7 @@
 package com.manager.service;
 
 import com.manager.exception.DatabaseException;
-import com.manager.pojo.UserInfo;
+import com.manager.pojo.Admin;
 import com.manager.request.user.UserInfoRequest;
 import com.manager.utils.Page;
 
@@ -17,27 +17,27 @@ public interface UserInfoService {
      * @return
      * @throws DatabaseException
      */
-    Page<UserInfo> fetchUserInfoList(UserInfoRequest request) throws DatabaseException;
+    Page<Admin> fetchUserInfoList(UserInfoRequest request) throws DatabaseException;
 
     /**
      * 添加用户
      * @param userInfo
      * @return
      */
-    Integer addUserInfo(UserInfo userInfo) throws DatabaseException;
+    Integer addUserInfo(Admin userInfo) throws DatabaseException;
 
     /**
      * 用户登录
      * @param userInfoRequest
      * @return
      */
-    UserInfo fetchUserByUserNameAndPasswd(UserInfoRequest userInfoRequest) throws DatabaseException;
+    Admin fetchUserByUserNameAndPasswd(UserInfoRequest userInfoRequest) throws DatabaseException;
 
-    boolean updateUserInfo(UserInfo userInfo) throws DatabaseException;
+    boolean updateUserInfo(Admin userInfo) throws DatabaseException;
 
     boolean deleteUserInfo(Integer id) throws DatabaseException;
 
-    UserInfo fetchUserInfoById(Integer id) throws DatabaseException;
+    Admin fetchUserInfoById(Integer id) throws DatabaseException;
 
 
 }

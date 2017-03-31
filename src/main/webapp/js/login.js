@@ -69,7 +69,11 @@ function login(){
     var userName = $("#UserName").val();
     var password = $("#UserPass").val();
     $.ajax({
+<<<<<<< Updated upstream
         url:path+'/api/user/login',
+=======
+        url:${pageContext.request.contextPath}+'/api/user/login',
+>>>>>>> Stashed changes
         type: 'POST',
         dataType: 'json',
         beforeSend:function(data){
@@ -81,7 +85,11 @@ function login(){
         },
         success:function(data) {
             if(data.status == 0){
+<<<<<<< Updated upstream
                 window.location.href = path+'/views/index.jsp';
+=======
+                window.location.href = '/views/index.jsp';
+>>>>>>> Stashed changes
             }else{
                 $.toast('用户名或密码错误，请重新输入',3000);
             }

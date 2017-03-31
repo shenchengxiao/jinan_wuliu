@@ -2,9 +2,8 @@ package com.manager.handler;
 
 import com.manager.core.PasswordEncrypt;
 import com.manager.exception.DatabaseException;
-import com.manager.exception.ValidationException;
 import com.manager.exception.YCException;
-import com.manager.pojo.UserInfo;
+import com.manager.pojo.Admin;
 import com.manager.request.user.UserInfoRequest;
 import com.manager.service.UserInfoService;
 import com.manager.utils.Page;
@@ -34,7 +33,7 @@ public class UserInfoHandler {
      * @return
      * @throws YCException
      */
-    public UserInfo getUserInfoByNameAndPasswd(UserInfoRequest request) throws YCException {
+    public Admin getUserInfoByNameAndPasswd(UserInfoRequest request) throws YCException {
         /** 参数校验 */
         Validator.isEmpty(request, YCSystemStatusEnum.PARAM_EMPTY);
         Validator.isEmpty(request.getUserName(), YCSystemStatusEnum.USER_NAME);
@@ -43,8 +42,8 @@ public class UserInfoHandler {
         String pwd = PasswordEncrypt.encrypt(request.getUserName(),request.getPasswd());
         request.setPasswd(pwd);
         try {
-            UserInfo userInfo = userInfoService.fetchUserByUserNameAndPasswd(request);
-            return userInfo;
+            Admin admin = userInfoService.fetchUserByUserNameAndPasswd(request);
+            return admin;
         } catch (DatabaseException e) {
             LOG.error("getUserInfoByNameAndPasswd exception",request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
@@ -57,7 +56,7 @@ public class UserInfoHandler {
      * @param userInfo
      * @throws YCException
      */
-    public void addUserInfo(UserInfo userInfo,String roleArr) throws YCException {
+    public void addUserInfo(Admin userInfo,String roleArr) throws YCException {
 
         Integer role = 0;
         if (StringUtils.isNotBlank(roleArr)) {
@@ -95,10 +94,10 @@ public class UserInfoHandler {
      * @return
      * @throws YCException
      */
-    public Page<UserInfo> fetchUserInfoList(UserInfoRequest request) throws YCException {
+    public Page<Admin> fetchUserInfoList(UserInfoRequest request) throws YCException {
         /** 参数校验 */
         Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
-        Page<UserInfo> page = null;
+        Page<Admin> page = null;
         try {
             page = userInfoService.fetchUserInfoList(request);
         } catch (DatabaseException e) {
@@ -114,10 +113,10 @@ public class UserInfoHandler {
      * @return
      * @throws YCException
      */
-    public UserInfo fetchUserInfoDetail(Integer id) throws YCException {
+    public Admin fetchUserInfoDetail(Integer id) throws YCException {
         /** 参数校验 */
         Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
-        UserInfo userInfo = null;
+        Admin userInfo = null;
         try {
             userInfo = userInfoService.fetchUserInfoById(id);
         } catch (DatabaseException e) {
@@ -148,7 +147,7 @@ public class UserInfoHandler {
         /** 参数校验 */
         Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
         Validator.isEmpty(status,YCSystemStatusEnum.USER_ID_EMPTY);
-        UserInfo userInfo = new UserInfo();
+        Admin userInfo = new Admin();
         userInfo.setId(id);
         userInfo.setBeUsed(status);
         try {

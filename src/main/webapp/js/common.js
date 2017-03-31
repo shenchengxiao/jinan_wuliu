@@ -230,12 +230,12 @@ function getUrlParam(name) {
 //退出登录
 function logout() {
     $.ajax({
-        url: '/api/user/logout',
+        url: manage_path+'/api/user/logout',
         type: 'get',
         dataType: 'json',
         success: function (data) {
             sessionStorage.clear();
-            window.location.href = '/views/login.jsp';
+            window.location.href =manage_path+ '/views/login.jsp';
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 

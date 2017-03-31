@@ -3,9 +3,8 @@ package com.manager.controller;
 import com.manager.annotations.Authentication;
 import com.manager.core.ActionContext;
 import com.manager.core.AuthUser;
-import com.manager.exception.YCException;
 import com.manager.handler.UserInfoHandler;
-import com.manager.pojo.UserInfo;
+import com.manager.pojo.Admin;
 import com.manager.request.user.UserInfoRequest;
 import com.manager.utils.*;
 import org.slf4j.Logger;
@@ -38,9 +37,9 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public APIResponse<UserInfo> userLogin(HttpServletRequest request, UserInfoRequest userInfoRequest){
-        APIResponse<UserInfo> apiResponse = new APIResponse<UserInfo>();
-        UserInfo userInfo = null;
+    public APIResponse<Admin> userLogin(HttpServletRequest request, UserInfoRequest userInfoRequest){
+        APIResponse<Admin> apiResponse = new APIResponse<Admin>();
+        Admin userInfo = null;
         try {
             userInfo = userInfoHandler.getUserInfoByNameAndPasswd(userInfoRequest);
             if (userInfo != null){
@@ -86,7 +85,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
-    public APIResponse addUser(HttpServletRequest request, UserInfo userInfo,String roleArr){
+    public APIResponse addUser(HttpServletRequest request, Admin userInfo,String roleArr){
         APIResponse apiResponse = new APIResponse();
         try {
             userInfoHandler.addUserInfo(userInfo,roleArr);
@@ -109,9 +108,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @Authentication(allow = UserRoleEnum.SuperAdmin)
-    public APIResponse<Page<UserInfo>> list(HttpServletRequest request,UserInfoRequest userInfoRequest){
-        APIResponse<Page<UserInfo>> apiResponse = new APIResponse<>();
-        Page<UserInfo> page = null;
+    public APIResponse<Page<Admin>> list(HttpServletRequest request,UserInfoRequest userInfoRequest){
+        APIResponse<Page<Admin>> apiResponse = new APIResponse<>();
+        Page<Admin> page = null;
         try {
             page = userInfoHandler.fetchUserInfoList(userInfoRequest);
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
@@ -134,9 +133,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/detail",method = RequestMethod.GET)
     @Authentication(allow = UserRoleEnum.SuperAdmin)
-    public APIResponse<UserInfo> detail(HttpServletRequest request,Integer id){
-        APIResponse<UserInfo> apiResponse = new APIResponse<>();
-        UserInfo userInfo = null;
+    public APIResponse<Admin> detail(HttpServletRequest request,Integer id){
+        APIResponse<Admin> apiResponse = new APIResponse<>();
+        Admin userInfo = null;
         try {
             userInfo = userInfoHandler.fetchUserInfoDetail(id);
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());

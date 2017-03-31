@@ -939,6 +939,8 @@ App.getFullPath = function(path) {
     App.req = { params:params,cookies:cookies,user:user };
 })();
 
+
+
 //获取权限菜单
 $(function(){
     if(location.href.indexOf('/views/login.jsp')>=0) return;

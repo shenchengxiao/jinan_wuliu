@@ -96,17 +96,7 @@ $(function(){
 
 
 });
-function getRootPath()
-{
-    var pathName = window.location.pathname.substring(1);
-    var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));
-    var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;
-    console.log(path)
-    return path;
 
-}
-
-var path=getRootPath();
 /**
  *  功能描述：获取广告列表信息
  *  请求方式：GET
@@ -117,7 +107,7 @@ var path=getRootPath();
 function getAdvertList(){
     var temp = "";
     $.ajax({
-        url: 'path/api/advert/list',
+        url: path+'/api/advert/list',
         type: 'GET',
         dataType: 'json',
         data: $('#advert_list_form').serialize(), //通过表单id进行序列化提交

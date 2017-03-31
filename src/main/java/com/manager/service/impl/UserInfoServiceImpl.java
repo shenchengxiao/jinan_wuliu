@@ -2,9 +2,9 @@ package com.manager.service.impl;
 
 import com.manager.exception.DatabaseException;
 import com.manager.interceptor.PageMybatisInterceptor;
-import com.manager.mapper.UserInfoMapper;
-import com.manager.pojo.UserInfo;
-import com.manager.pojo.UserInfoExample;
+import com.manager.mapper.AdminMapper;
+import com.manager.pojo.Admin;
+import com.manager.pojo.AdminExample;
 import com.manager.request.user.UserInfoRequest;
 import com.manager.service.UserInfoService;
 import com.manager.utils.Page;
@@ -24,7 +24,7 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
-    private UserInfoMapper userInfoMapper;
+    private AdminMapper userInfoMapper;
 
     Logger LOG = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
@@ -36,15 +36,15 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @throws DatabaseException
      */
     @Override
-    public Page<UserInfo> fetchUserInfoList(UserInfoRequest request) throws DatabaseException {
+    public Page<Admin> fetchUserInfoList(UserInfoRequest request) throws DatabaseException {
 
         try {
             if (request == null){
                 LOG.error("fetchUserInfoList 信息为空",request);
                 return null;
             }
-            UserInfoExample example = new UserInfoExample();
-            UserInfoExample.Criteria criteria = example.createCriteria();
+            AdminExample example = new AdminExample();
+            AdminExample.Criteria criteria = example.createCriteria();
             if (StringUtils.isNotBlank(request.getUserName())){
                 StringBuffer sb = new StringBuffer();
                 String userName = request.getUserName();
@@ -53,16 +53,13 @@ public class UserInfoServiceImpl implements UserInfoService {
                 sb.append("%");
                 criteria.andUserNameLike(sb.toString());
             }
-            if (StringUtils.isNoneBlank(request.getPhoneNumber())){
-                criteria.andPhoneNumEqualTo(request.getPhoneNumber());
-            }
             if (request.getStatus() != null){
                 criteria.andBeUsedEqualTo(request.getStatus());
             }
             example.setOrderByClause("create_time desc");
             PageMybatisInterceptor.startPage(request.getPageNum(),request.getPageSize());
             userInfoMapper.selectByExample(example);
-            Page<UserInfo> page = PageMybatisInterceptor.endPage();
+            Page<Admin> page = PageMybatisInterceptor.endPage();
             return page;
         } catch (Throwable e) {
             LOG.error("fetchUserInfoListm 异常",request);
@@ -77,7 +74,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @throws DatabaseException
      */
     @Override
-    public Integer addUserInfo(UserInfo userInfo) throws DatabaseException {
+    public Integer addUserInfo(Admin userInfo) throws DatabaseException {
         try {
             if (userInfo == null){
                 LOG.error("addUserInfo 信息为空",userInfo);
@@ -103,18 +100,18 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @throws DatabaseException
      */
     @Override
-    public UserInfo fetchUserByUserNameAndPasswd(UserInfoRequest userInfoRequest) throws DatabaseException {
+    public Admin fetchUserByUserNameAndPasswd(UserInfoRequest userInfoRequest) throws DatabaseException {
         try {
             if (userInfoRequest == null){
                 LOG.error("fetchUserByUserNameAndPasswd 信息为空",userInfoRequest);
                 return null;
             }
-            UserInfoExample example = new UserInfoExample();
-            UserInfoExample.Criteria criteria = example.createCriteria();
+            AdminExample example = new AdminExample();
+            AdminExample.Criteria criteria = example.createCriteria();
             criteria.andUserNameEqualTo(userInfoRequest.getUserName());
             criteria.andPasswdEqualTo(userInfoRequest.getPasswd());
             criteria.andBeUsedEqualTo(1);
-            List<UserInfo> list = userInfoMapper.selectByExample(example);
+            List<Admin> list = userInfoMapper.selectByExample(example);
             if (list == null || list.size() == 0){
                 return null;
             }else {
@@ -128,7 +125,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public boolean updateUserInfo(UserInfo userInfo) throws DatabaseException {
+    public boolean updateUserInfo(Admin userInfo) throws DatabaseException {
         try {
             if (userInfo == null){
                 LOG.error("updateUserInfo 信息为空",userInfo);
@@ -158,13 +155,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfo fetchUserInfoById(Integer id) throws DatabaseException {
+    public Admin fetchUserInfoById(Integer id) throws DatabaseException {
         try {
             if (id == null){
                 LOG.error("fetchUserInfoById id为空",id);
                 return null;
             }
-            UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
+            Admin userInfo = userInfoMapper.selectByPrimaryKey(id);
             return userInfo;
         } catch (Throwable e) {
             LOG.error("fetchUserInfoById 异常",id);
