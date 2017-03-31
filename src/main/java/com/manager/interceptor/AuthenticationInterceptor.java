@@ -7,6 +7,8 @@ import com.manager.core.AuthUser;
 import com.manager.exception.YCIllegalAccessException;
 import com.manager.utils.JsonMapper;
 import com.manager.utils.UserRoleEnum;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -35,7 +37,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         }
         return false;
     }
-
     private void verify(HandlerMethod handler) throws YCIllegalAccessException {
         ActionContext context = ActionContext.getActionContext();
         AuthUser user = context.currentUser();

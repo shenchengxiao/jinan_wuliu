@@ -64,25 +64,12 @@ $('#form_login').validate({
     }); 
 });
 
-function getRootPath()
-{
-    var pathName = window.location.pathname.substring(1);
-    console.log(pathName);
-    var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));
-    console.log(webName);
-    var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;
-    console.log(path)
-    return path;
-
-}
-
-var path=getRootPath();
 // 提交登录
 function login(){
     var userName = $("#UserName").val();
     var password = $("#UserPass").val();
     $.ajax({
-        url:'/api/user/login',
+        url:path+'/api/user/login',
         type: 'POST',
         dataType: 'json',
         beforeSend:function(data){
@@ -94,7 +81,7 @@ function login(){
         },
         success:function(data) {
             if(data.status == 0){
-                window.location.href = '${ctx}/views/index.jsp';
+                window.location.href = path+'/views/index.jsp';
             }else{
                 $.toast('用户名或密码错误，请重新输入',3000);
             }

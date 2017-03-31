@@ -72,7 +72,6 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
@@ -97,6 +96,4 @@
     <!--session跟踪 cookie、url、ssl -->
     <tracking-mode>COOKIE</tracking-mode>
   </session-config>
-
-
 </web-app>

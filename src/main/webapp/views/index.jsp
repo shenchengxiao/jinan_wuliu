@@ -10,7 +10,7 @@
 		<jsp:include page="/include/header.jsp"></jsp:include>
 		<!-- 头部 end -->
 
-		<!-- 页面主体 begin -->
+		<!-- 页面主体 begin --> 
 		<div class="page-container row-fluid">
 		<!-- 左侧菜单 begin-->
 			<jsp:include page="/include/left_sidebar.jsp"></jsp:include>
