@@ -99,7 +99,7 @@ function login(){
 function getRootPath()
 {
     var pathName = window.location.pathname.substring(1);
-    console.log(pathName);
+
     var webName = pathName == '' ? '' : pathName.substring(0,pathName.indexOf('/'));
 
     var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;

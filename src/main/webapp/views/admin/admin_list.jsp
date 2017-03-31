@@ -124,12 +124,6 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">手机号码<span class="required">*</span></label>
-                            <div class="controls">
-                                <input type="text" name="phoneNum" class="span8 m-wrap">
-                            </div>
-                        </div>
-                        <div class="control-group">
                             <label class="control-label">分配权限<span class="required">*</span></label>
                             <div class="controls">
                                 <label>
@@ -165,6 +159,5 @@
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
 
-<script src="/js/admin/admin.js"></script>
 </body>
 </html>

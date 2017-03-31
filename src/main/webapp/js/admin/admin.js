@@ -81,7 +81,6 @@ $(function(){
     $('#btn_addRole_modal').on('click',function(){
         $('input[name=id]').val('');
         $('input[name=userName]').val('');
-        $('input[name=phoneNum]').val('');
         $('input[name=passwd]').val('').data("original","");
         var aCh = $('input[name=roleArr]');
         $.each(aCh,function(index,item){
@@ -183,7 +182,6 @@ function getUserDetail(id){
                 var json = data.data;
                 $('input[name=id]').val(id);
                 $('input[name=userName]').val(json.userName);
-                $('input[name=phoneNum]').val(json.phoneNum);
                 $('input[name=passwd]').val(json.passwd).data('original',json.passwd);
                 checkBox(getRoleValue(json.role,Role));
                 // checkBox('32');
@@ -224,7 +222,7 @@ function getUserList(){
                 var operate = '';
                 for(var i=0;i<list.length;i++){
                     //角色分配
-                    var role = list[i].role; //-这里是从服务器端获取的值，比如是160
+                    var role = list[i].role;
                     var roleName = '';
                     for(var r in Role){
                         if(Role[r].Value & role)

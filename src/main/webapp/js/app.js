@@ -934,7 +934,7 @@ App.getFullPath = function(path) {
         }
     }
     //未登录,跳转登录页
-     if(!user.isAuthenticated && location.href.indexOf('/views/login.jsp')<0) location.href="/views/login.jsp";
+     if(!user.isAuthenticated && location.href.indexOf('/views/login.jsp')<0) location.href="login.jsp";
 
     App.req = { params:params,cookies:cookies,user:user };
 })();
@@ -1000,7 +1000,7 @@ $(function(){
 function getRootPath()
 {
     var pathName = window.location.pathname.substring(1);
-    console.log(pathName);
+
     var webName = pathName == '' ? '' : pathName.substring(0,pathName.indexOf('/'));
 
     var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;
