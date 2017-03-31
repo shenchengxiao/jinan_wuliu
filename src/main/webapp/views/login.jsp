@@ -94,8 +94,8 @@
 		2017 &copy; Design by shencx
 
 	</div>
-	
 
+	<script src="/js/login.js"></script>
 </body>
 
 <!-- END BODY -->

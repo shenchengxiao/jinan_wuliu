@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>用户管理</title>
-    <jsp:include page="../../common/common.jsp"></jsp:include>
+    <jsp:include page="/common/common.jsp"></jsp:include>
     <style>
         .checker{
             display:inline-block!important;
@@ -165,6 +165,6 @@
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
 
-<script src="${ctx}/js/user/user.js"></script>
+<script src="/js/admin/admin.js"></script>
 </body>
 </html>

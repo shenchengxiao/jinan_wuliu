@@ -202,7 +202,7 @@
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
 <!-- build:js scripts/build.js -->
-<script src="${ctx}/js/advert/advert.js"></script>
+<script src="/js/advert/advert.js"></script>
 <!-- endbuild -->
 <script>
 </script>

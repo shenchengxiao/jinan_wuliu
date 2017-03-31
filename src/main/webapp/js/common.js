@@ -76,8 +76,6 @@ var FILE_URL  = '';
 var provinceId = 0;
 
 
-var ctx = '${ctx}';
-
 $(function () {
     App.init();
     //设置用户名
