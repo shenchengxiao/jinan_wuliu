@@ -69,11 +69,7 @@ function login(){
     var userName = $("#UserName").val();
     var password = $("#UserPass").val();
     $.ajax({
-<<<<<<< Updated upstream
-        url:path+'/api/user/login',
-=======
-        url:${pageContext.request.contextPath}+'/api/user/login',
->>>>>>> Stashed changes
+        url:manage_path+'/api/user/login',
         type: 'POST',
         dataType: 'json',
         beforeSend:function(data){
@@ -85,11 +81,7 @@ function login(){
         },
         success:function(data) {
             if(data.status == 0){
-<<<<<<< Updated upstream
-                window.location.href = path+'/views/index.jsp';
-=======
-                window.location.href = '/views/index.jsp';
->>>>>>> Stashed changes
+                window.location.href = manage_path+'/views/index.jsp';
             }else{
                 $.toast('用户名或密码错误，请重新输入',3000);
             }
@@ -102,3 +94,18 @@ function login(){
         }
     });
 };
+
+//获取项目路径
+function getRootPath()
+{
+    var pathName = window.location.pathname.substring(1);
+    console.log(pathName);
+    var webName = pathName == '' ? '' : pathName.substring(0,pathName.indexOf('/'));
+
+    var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;
+
+    return path;
+
+}
+//定义路径全局变量
+var manage_path=getRootPath();

@@ -939,8 +939,6 @@ App.getFullPath = function(path) {
     App.req = { params:params,cookies:cookies,user:user };
 })();
 
-
-
 //获取权限菜单
 $(function(){
     if(location.href.indexOf('/views/login.jsp')>=0) return;
@@ -955,7 +953,7 @@ $(function(){
             var $menu = $(temp);
 
             $.each(item.childNodes,function(index2,item2) {
-                var $li = $('<li><a href="'+item2.url+'">'+item2.name+'</a></li>');
+                var $li = $('<li><a href="'+manage_path+item2.url+'">'+item2.name+'</a></li>');
                 $li.children('a').data('menuid',item2.id);
                 if(App.req.cookies._menuid == item2.id){
                     $menu.addClass('active');
@@ -974,7 +972,7 @@ $(function(){
     }
     else {
         $.ajax({
-            url: path+'/api/menu/list',
+            url: manage_path+'/api/menu/list',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -998,6 +996,18 @@ $(function(){
     });
 });
 
+//获取项目路径
+function getRootPath()
+{
+    var pathName = window.location.pathname.substring(1);
+    console.log(pathName);
+    var webName = pathName == '' ? '' : pathName.substring(0,pathName.indexOf('/'));
 
+    var path = window.location.protocol + '//' + window.location.host + '/'+ webName ;
 
+    return path;
+
+}
+//定义路径全局变量
+var manage_path=getRootPath();
 

@@ -72,7 +72,7 @@
                                     <thead class="cf">
                                     <tr>
                                         <th>用户名</th>
-                                        <th>手机号</th>
+                                        <%--<th>手机号</th>--%>
                                         <th>管理权限</th>
                                         <th>状态</th>
                                         <th>操作</th>

@@ -134,7 +134,7 @@ function addRole(){
         console.log(data);
     }
     $.ajax({
-        url:'/api/user/add',
+        url:manage_path+'/api/user/add',
         type:'post',
         dataType:'json',
         data:data,
@@ -169,7 +169,7 @@ function addRole(){
 function getUserDetail(id){
 
     $.ajax({
-        url:'/api/user/detail',
+        url:manage_path+'/api/user/detail',
         type:'GET',
         dataType:'json',
         data:{
@@ -209,7 +209,7 @@ function getUserDetail(id){
  */
 function getUserList(){
     $.ajax({
-        url:"/api/user/list",
+        url:manage_path+"/api/user/list",
         type:"get",
         dataType:"json",
         data: $('#jn_user_list').serialize(),
@@ -247,7 +247,7 @@ function getUserList(){
                     }
                     var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="removeUser('+list[i].id+')"><i class="icon-remove icon-white"></i></a>';
                     arow+='<tr><td data-title="用户名">'+list[i].userName+'</td>'+
-                        '<td data-title="手机号">'+list[i].phoneNum+'</td>'+
+                        // '<td data-title="手机号">'+list[i].phoneNum+'</td>'+
                         '<td data-title="管理权限">'+getRoleName(list[i].role,Role)+'</td>'+
                         '<td data-title="状态">'+accountStatus+'</td>'+
                         '<td data-title="操作">'+
@@ -286,7 +286,7 @@ function getUserList(){
  */
 function updateStatus(id,accountStatus){
     $.ajax({
-        url: "/api/user/modify_status",
+        url:manage_path+ "/api/user/modify_status",
         type: "POST",
         dataType: "json",
         data:{
@@ -320,7 +320,7 @@ function updateStatus(id,accountStatus){
 function removeUser(id){
     if(!confirm("确定删除吗?")) return;
     $.ajax({
-        url: '/api/user/delete',
+        url:manage_path+ '/api/user/delete',
         type: 'POST',
         dataType: 'json',
         data: {
