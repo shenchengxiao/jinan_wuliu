@@ -9,7 +9,7 @@ import com.manager.utils.Page;
 /**
  * Created by shencx on 2017/3/28.
  */
-public interface UserInfoService {
+public interface AdminInfoService {
 
     /**
      * 获取用户列表

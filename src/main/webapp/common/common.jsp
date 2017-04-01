@@ -20,7 +20,7 @@
     <link href="${ctx}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/default.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/date.css" rel="stylesheet" type="text/css"/>
-
+    <link href="${ctx}/js/libs/uploadify/uploadify.css" rel="stylesheet" type="text/css"/>
     <![endif]-->
 
 </head>
@@ -41,5 +41,4 @@
 <%--<script src="${ctx}/js/login.js"></script>--%>
 <script src="${ctx}/js/admin/admin.js"></script>
 
-<script src="${ctx}/js/advert/advert.js"></script>
 <!-- endbuild -->

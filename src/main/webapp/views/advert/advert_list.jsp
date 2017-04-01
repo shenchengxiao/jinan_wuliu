@@ -209,8 +209,7 @@
 <!-- 页尾 begin -->
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
-<!-- build:js scripts/build.js -->
-
+<script src="../../js/advert/advert.js"></script>
 <!-- endbuild -->
 </body>
 

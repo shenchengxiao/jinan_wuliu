@@ -1,4 +1,3 @@
-'use strict'
 
 $(function(){
 
@@ -140,43 +139,44 @@ function getAdvertList(){
                 var list = json.result;
                 if (list != null && list.length>0){
                 var operation, upDown = ''; //操作按钮
-                $.each(list, function (index, item) {
-                    var adStatus = item.beUsed;//banner状态
-                    console.log(item.endTime);
-                    if (adStatus == 0) {
-                        adStatus = "无效";
-                        upDown = ' <a href="#" class="btn mini green" data-toggle="tooltip" data-placement="top" title="上架" onclick="modifyStatus(' + item.id + ',1)"><i class="icon-ok-circle"></i></a>';
-                    } else {
-                        adStatus = "有效";
-                        upDown = ' <a href="#" class="btn mini grey" data-toggle="tooltip" data-placement="top" title="下架" onclick="modifyStatus(' + item.id + ',0)"><i class="icon-ban-circle"></i></a>';
-                    }
+                    $.each(list, function (index, item) {
+                        var adStatus = item.beUsed;//banner状态
+                        console.log(item.endTime);
+                        if (adStatus == 0) {
+                            adStatus = "无效";
+                            upDown = ' <a href="#" class="btn mini green" data-toggle="tooltip" data-placement="top" title="上架" onclick="modifyStatus(' + item.id + ',1)"><i class="icon-ok-circle"></i></a>';
+                        } else {
+                            adStatus = "有效";
+                            upDown = ' <a href="#" class="btn mini grey" data-toggle="tooltip" data-placement="top" title="下架" onclick="modifyStatus(' + item.id + ',0)"><i class="icon-ban-circle"></i></a>';
+                        }
 
-                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAdvert(' + item.id + ')"><i class="icon-remove icon-white"></i></a>';
-                    //操作按钮拼接
-                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getAdvertDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
+                        var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAdvert(' + item.id + ')"><i class="icon-remove icon-white"></i></a>';
+                        //操作按钮拼接
+                        operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getAdvertDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
 
 
-                    temp += '<tr>'
-                        + '<td data-title="开始时间">' + item.startTime + '</td>'
-                        + '<td data-title="结束时间">' + item.endTime + '</td>'
-                        + '<td data-title="价格">' + item.price + '</td>'
-                        + '<td data-title="联系人">' + item.linkedName + '</td>'
-                        + '<td data-title="联系电话">' + item.phoneNumber + '</td>'
-                        + '<td data-title="是否有效">' + adStatus + '</td>'
-                        + '<td data-title="广告内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'" >'
-                        +  item.content
-                        +  '</td>'
-                        + '<td data-title="操作">' + operation + '</td>'
-                        + '</tr>';
-
+                        temp += '<tr>'
+                            + '<td data-title="开始时间">' + item.startTime + '</td>'
+                            + '<td data-title="结束时间">' + item.endTime + '</td>'
+                            + '<td data-title="价格">' + item.price + '</td>'
+                            + '<td data-title="联系人">' + item.linkedName + '</td>'
+                            + '<td data-title="联系电话">' + item.phoneNumber + '</td>'
+                            + '<td data-title="是否有效">' + adStatus + '</td>'
+                            + '<td data-title="广告内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'" >'
+                            +  item.content
+                            +  '</td>'
+                            + '<td data-title="操作">' + operation + '</td>'
+                            + '</tr>';
+                    })
                     $('#banner_List tbody').html(temp);
-                    $("[data-toggle='popover']").popover();
+                    // $("[data-toggle='popover']").popover();
                     //操作按钮hover显示详情
                     $("[data-toggle='tooltip']").tooltip();
+                    $("[data-toggle='modal']").tooltip();
                     // 数据分页  #pageNum 为页面隐藏 <input type="hidden" name="pageNum" id="pageNum" value="1"  >
                     // 当没有条件查询时，必须也要加默认的第一页#pageNum  value = 1
                     page('#pagination', json.pagecount, json.pageindex, json.pagesize, getAdvertList, '#pageNum');
-                })
+
                 }else{
                     $.toast("没有查到数据",3000);
                     $('#banner_List tbody').html('');
@@ -342,8 +342,11 @@ function addAdvert(){
         },
         success:function(data){
             if(data.status == 0){
-                $.toast('操作成功',5000);
-                getAdvertList();
+                $.toast('操作成功',3000);
+                setTimeout(function(){
+                    window.location.reload();
+                },500);
+                // getAdvertList();
             }else {
                 $.toast('操作失败,系统错误',3000);
             }

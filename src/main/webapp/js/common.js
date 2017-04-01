@@ -48,8 +48,8 @@
                 });
 
                 $this.uploadify({
-                    'swf': '/js/libs/uploadify/uploadify.swf',
-                    'uploader': fullPath('api/upload/file'),
+                    'swf':  manage_path+'/js/libs/uploadify/uploadify.swf',
+                    'uploader': manage_path+'/api/banner/upload',
                     'buttonText': '浏览',
                     'fileObjName': 'file',
                     'fileTypeExts': filters,
@@ -83,6 +83,8 @@ $(function () {
 
     $("#username").html(App.req.user.uname);
     $("#logout").click(logout); //退出登录
+
+    $('input:file.uploadify').fileUpload();
 
     $('input[data-laydate="start"]').click(function(){
         laydate(start);
@@ -179,42 +181,6 @@ $('input[data-file="upload"]').change(function(){
     $('.fileupload-preview').html($(this).val());
     $('#upload_msgBox').modal('show');
 });
-function uploadFile(fileId,callBack){
-    var fileTarget = "#" + fileId;
-    //var errorTarget = "#" + errorid;
-    var file = $(fileTarget).val();
-    if (file != null && file != '') {
-        //$(errorTarget).html("上传中，请稍后");
-        $.ajaxFileUpload({
-            url : FILE_URL+'/api/web/upload/submit',
-            secureuri : false,
-            fileElementId : fileId,
-            dataType : 'json',
-            success : function(data, textStatus) {
-                console.log(data);
-                if (data.code == 200) {
-                    $.toast(data.message,3000);
-                    $.globalEval(callBack(data.fileInfo));
-                }else{
-                    $.toast(data.message,3000);
-                }
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-                $.toast('服务器未响应,请稍候重试',5000);
-            }
-        });
-    }else{
-        $.toast('请选择上传文件',3000);
-    }
-}
-
-/**
- * 上传文件回调
- */
-function uploadCallBack(fileInfo) {
-
-    $("#excelInfo").append('<input type="hidden" name="path" value="' + fileInfo.path + '">');
-}
 
 /**
  * 获取url参数

@@ -215,53 +215,53 @@ function getUserList(){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCancel:true});
         },
         success:function(data){
-            if(data.status == 0){
+            if(data.status == 0) {
                 var arow = '';
                 var json = data.data;
                 var list = data.data.result;
-                var operate = '';
-                for(var i=0;i<list.length;i++){
-                    //角色分配
-                    var role = list[i].role;
-                    var roleName = '';
-                    for(var r in Role){
-                        if(Role[r].Value & role)
-                        {
-                            roleName += Role[r].Name + '+';
+                if (list != null && list.length > 0) {
+                    var operate = '';
+                    for (var i = 0; i < list.length; i++) {
+                        //角色分配
+                        var role = list[i].role;
+                        var roleName = '';
+                        for (var r in Role) {
+                            if (Role[r].Value & role) {
+                                roleName += Role[r].Name + '+';
+                            }
                         }
-                    }
-                    if (roleName.length > 0)
-                    {
-                        roleName = roleName.substring(0,roleName.length-1);
-                    }
-                    //转换状态值
-                    var accountStatus = list[i].beUsed;
-                    if(accountStatus == 1){
-                        accountStatus = "启用";
-                        operate = '<a class="btn mini grey" data-toggle="tooltip" data-placement="top" title="禁用" onclick="updateStatus('+list[i].id+',0)"><i class="icon-ban-circle"></i></a>';
-                    }else {
-                        accountStatus = "禁用";
-                        operate = '<a class="btn mini green" data-toggle="tooltip" data-placement="top" title="启用" onclick="updateStatus('+list[i].id+',1)"><i class="icon-ok"></i></a>';
-                    }
-                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="removeUser('+list[i].id+')"><i class="icon-remove icon-white"></i></a>';
-                    arow+='<tr><td data-title="用户名">'+list[i].userName+'</td>'+
-                        // '<td data-title="手机号">'+list[i].phoneNum+'</td>'+
-                        '<td data-title="管理权限">'+getRoleName(list[i].role,Role)+'</td>'+
-                        '<td data-title="状态">'+accountStatus+'</td>'+
-                        '<td data-title="操作">'+
-                        '<a class="btn mini blue" data-toggle="modal" href="#addUserModal" onclick="getUserDetail('+list[i].id+')" data-toggle="tooltip" data-placement="top" title="编辑"><i class="icon-edit icon-white"></i></a>&nbsp;'+operate+Deleted
+                        if (roleName.length > 0) {
+                            roleName = roleName.substring(0, roleName.length - 1);
+                        }
+                        //转换状态值
+                        var accountStatus = list[i].beUsed;
+                        if (accountStatus == 1) {
+                            accountStatus = "启用";
+                            operate = '<a class="btn mini grey" data-toggle="tooltip" data-placement="top" title="禁用" onclick="updateStatus(' + list[i].id + ',0)"><i class="icon-ban-circle"></i></a>';
+                        } else {
+                            accountStatus = "禁用";
+                            operate = '<a class="btn mini green" data-toggle="tooltip" data-placement="top" title="启用" onclick="updateStatus(' + list[i].id + ',1)"><i class="icon-ok"></i></a>';
+                        }
+                        var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="removeUser(' + list[i].id + ')"><i class="icon-remove icon-white"></i></a>';
+                        arow += '<tr><td data-title="用户名">' + list[i].userName + '</td>' +
+                            // '<td data-title="手机号">'+list[i].phoneNum+'</td>'+
+                            '<td data-title="管理权限">' + getRoleName(list[i].role, Role) + '</td>' +
+                            '<td data-title="状态">' + accountStatus + '</td>' +
+                            '<td data-title="操作">' +
+                            '<a class="btn mini blue" data-toggle="modal" href="#addUserModal" onclick="getUserDetail(' + list[i].id + ')" data-toggle="tooltip" data-placement="top" title="编辑"><i class="icon-edit icon-white"></i></a>&nbsp;' + operate + Deleted
                         '</td> </tr>';
-                }
-                $('#jn_user_list tbody').html(arow);
-                //按钮hover详情
-                $("[data-toggle='tooltip']").tooltip();
-                $("[data-toggle='modal']").tooltip();
-                page('#pagination',json.pagecount,json.pageindex,json.pagesize,getUserList,'#pageNum');
-            }else{
-                $.toast('没有查到数据！',3000);
-                $('#jn_user_list tbody').html('');
-                if($('#pagination').html().length > 0 ){
-                    $('#pagination').jqPaginator("destroy");
+                    }
+                    $('#jn_user_list tbody').html(arow);
+                    //按钮hover详情
+                    $("[data-toggle='tooltip']").tooltip();
+                    $("[data-toggle='modal']").tooltip();
+                    page('#pagination', json.pagecount, json.pageindex, json.pagesize, getUserList, '#pageNum');
+                } else {
+                    $.toast('没有查到数据！', 3000);
+                    $('#jn_user_list tbody').html('');
+                    if ($('#pagination').html().length > 0) {
+                        $('#pagination').jqPaginator("destroy");
+                    }
                 }
             }
         },

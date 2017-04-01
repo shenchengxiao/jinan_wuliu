@@ -47,10 +47,22 @@
         <!--<table tableName="admin">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <table tableName="advert">
+        <table tableName="banner_info">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+            <!-- 转换成枚举 -->
+            <columnOverride column="be_used" javaType="com.manager.enums.YesNoEnum"/>
+        </table>
+        <table tableName="user">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
             <!-- 转换成枚举 -->
             <columnOverride column="status" javaType="com.manager.enums.YesNoEnum"/>
+            <columnOverride column="is_manager" javaType="com.manager.enums.YesNoEnum"/>
+            <columnOverride column="is_synchro" javaType="com.manager.enums.YesNoEnum"/>
+        </table>
+
+        <table tableName="user_binding">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+            <columnOverride column="is_binding" javaType="com.manager.enums.YesNoEnum"/>
         </table>
 
     </context>

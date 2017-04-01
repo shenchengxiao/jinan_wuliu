@@ -22,11 +22,7 @@
 		<property name="prefix" value="/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	<!-- 配置文件上传解析器 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="2000000"></property>
-	</bean>
+
 
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -52,6 +48,17 @@
 		</property>
 	</bean>
 
+	<!-- file upload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<description>
+			<![CDATA[
+		1. 上传大小默认30M
+		2. 内存大小为4M
+	    ]]>
+		</description>
+		<property name="maxUploadSize" value="31457280"/>
+		<property name="maxInMemorySize" value="4096"/>
+	</bean>
 	<!--拦截器配置-->
 	<mvc:interceptors>
 		<!--配置拒绝interceptors的请求 -->

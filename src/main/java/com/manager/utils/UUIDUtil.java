@@ -3,7 +3,7 @@ package com.manager.utils;
 import java.util.UUID;
 
 /**
- * comment: 商家CODE随机码
+ * comment: 随机码
  *
  * @author: shenchengxiao
  * @date: 16/9/13 下午4:10

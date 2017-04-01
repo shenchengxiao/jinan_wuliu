@@ -5,7 +5,7 @@ import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
 import com.manager.pojo.Admin;
 import com.manager.request.user.UserInfoRequest;
-import com.manager.service.UserInfoService;
+import com.manager.service.AdminInfoService;
 import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 public class UserInfoHandler {
 
     @Resource
-    private UserInfoService userInfoService;
+    private AdminInfoService adminInfoService;
 
     Logger LOG = LoggerFactory.getLogger(UserInfoHandler.class);
 
@@ -42,7 +42,7 @@ public class UserInfoHandler {
         String pwd = PasswordEncrypt.encrypt(request.getUserName(),request.getPasswd());
         request.setPasswd(pwd);
         try {
-            Admin admin = userInfoService.fetchUserByUserNameAndPasswd(request);
+            Admin admin = adminInfoService.fetchUserByUserNameAndPasswd(request);
             return admin;
         } catch (DatabaseException e) {
             LOG.error("getUserInfoByNameAndPasswd exception",request);
@@ -78,9 +78,9 @@ public class UserInfoHandler {
             if (userInfo.getId() == null){
                 userInfo.setPasswd(PasswordEncrypt.encrypt(userInfo.getUserName(),userInfo.getPasswd()));
                 userInfo.setBeUsed(1);
-                userInfoService.addUserInfo(userInfo);
+                adminInfoService.addUserInfo(userInfo);
             }else {
-                userInfoService.updateUserInfo(userInfo);
+                adminInfoService.updateUserInfo(userInfo);
             }
         } catch (DatabaseException e) {
             LOG.error("add userInfo exception",userInfo);
@@ -99,7 +99,7 @@ public class UserInfoHandler {
         Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
         Page<Admin> page = null;
         try {
-            page = userInfoService.fetchUserInfoList(request);
+            page = adminInfoService.fetchUserInfoList(request);
         } catch (DatabaseException e) {
             LOG.error("fetchUserInfoList exception",request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
@@ -118,7 +118,7 @@ public class UserInfoHandler {
         Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
         Admin userInfo = null;
         try {
-            userInfo = userInfoService.fetchUserInfoById(id);
+            userInfo = adminInfoService.fetchUserInfoById(id);
         } catch (DatabaseException e) {
             LOG.error("fetchUserInfoDetail exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
@@ -130,7 +130,7 @@ public class UserInfoHandler {
         /** 参数校验 */
         Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
         try {
-             userInfoService.deleteUserInfo(id);
+            adminInfoService.deleteUserInfo(id);
         } catch (DatabaseException e) {
             LOG.error("deleteUserInfo exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
@@ -151,7 +151,7 @@ public class UserInfoHandler {
         userInfo.setId(id);
         userInfo.setBeUsed(status);
         try {
-            userInfoService.updateUserInfo(userInfo);
+            adminInfoService.updateUserInfo(userInfo);
         } catch (DatabaseException e) {
             LOG.error("modifyStatus exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());

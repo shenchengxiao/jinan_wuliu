@@ -6,7 +6,7 @@ import com.manager.mapper.AdminMapper;
 import com.manager.pojo.Admin;
 import com.manager.pojo.AdminExample;
 import com.manager.request.user.UserInfoRequest;
-import com.manager.service.UserInfoService;
+import com.manager.service.AdminInfoService;
 import com.manager.utils.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,12 +21,12 @@ import java.util.List;
  * Created by shencx on 2017/3/28.
  */
 @Service
-public class UserInfoServiceImpl implements UserInfoService {
+public class AdminInfoServiceImpl implements AdminInfoService {
 
     @Resource
     private AdminMapper userInfoMapper;
 
-    Logger LOG = LoggerFactory.getLogger(UserInfoServiceImpl.class);
+    Logger LOG = LoggerFactory.getLogger(AdminInfoServiceImpl.class);
 
 
     /**
