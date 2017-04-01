@@ -14,7 +14,7 @@ public class AdvertInfoResponse implements Serializable{
 
     private String endTime;
 
-    private BigDecimal price;
+    private Float price;
 
     private String linkedName;
 
@@ -23,6 +23,8 @@ public class AdvertInfoResponse implements Serializable{
     private Integer beUsed;
 
     private String content;
+
+    private String linkUrl;
 
     public Integer getId() {
         return id;
@@ -48,11 +50,11 @@ public class AdvertInfoResponse implements Serializable{
         this.endTime = endTime;
     }
 
-    public BigDecimal getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -88,6 +90,14 @@ public class AdvertInfoResponse implements Serializable{
         this.content = content;
     }
 
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("AdvertInfoResponse{");
@@ -99,6 +109,7 @@ public class AdvertInfoResponse implements Serializable{
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", beUsed=").append(beUsed);
         sb.append(", content='").append(content).append('\'');
+        sb.append(", linkUrl='").append(linkUrl).append('\'');
         sb.append('}');
         return sb.toString();
     }

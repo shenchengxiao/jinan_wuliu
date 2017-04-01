@@ -1,4 +1,4 @@
-package com.manager.utils;
+package com.manager.enums;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

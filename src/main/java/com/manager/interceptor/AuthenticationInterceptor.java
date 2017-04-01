@@ -6,9 +6,8 @@ import com.manager.core.ApiResponse;
 import com.manager.core.AuthUser;
 import com.manager.exception.YCIllegalAccessException;
 import com.manager.utils.JsonMapper;
-import com.manager.utils.UserRoleEnum;
+import com.manager.enums.UserRoleEnum;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

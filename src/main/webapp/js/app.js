@@ -890,12 +890,6 @@ function setCookie(name, value, option) {
 
 }();
 
-//获取图片完整路径
-App.getFullPath = function(path) {
-    if (/^http:\/\//.test(path)) return path;
-    return location.host.replace(/^cms\.(.+)/, "http://img.$1/") + path;
-};
-
 /**
  * 初始化req对象
  */
@@ -934,14 +928,14 @@ App.getFullPath = function(path) {
         }
     }
     //未登录,跳转登录页
-     if(!user.isAuthenticated && location.href.indexOf('/views/login.jsp')<0) location.href="login.jsp";
+     if(!user.isAuthenticated && location.href.indexOf('/login.jsp')<0) location.href="login.jsp";
 
     App.req = { params:params,cookies:cookies,user:user };
 })();
 
 //获取权限菜单
 $(function(){
-    if(location.href.indexOf('/views/login.jsp')>=0) return;
+    if(location.href.indexOf('/login.jsp')>=0) return;
     function menu_render(list){
         $.each(list, function(index,item){
             var temp = '<li class="">' +

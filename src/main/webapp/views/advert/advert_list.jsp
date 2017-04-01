@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>广告管理</title>
     <!-- build:css css/main.css -->
-    <jsp:include page="../../common/common.jsp"></jsp:include>
+    <jsp:include page="/common/common.jsp"></jsp:include>
     <![endif]-->
     <style>
         .table-bordered th,
@@ -21,6 +21,8 @@
             display: none;
         }
     </style>
+
+
 </head>
 
 <body class="page-header-fixed">
@@ -40,7 +42,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.jsp">首页</a>
+                            <a href="${ctx}/index.jsp">首页</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
@@ -57,7 +59,7 @@
                                 <i class="icon-reorder"></i> 广告管理
                             </div>
                             <div class="actions">
-                                <a class="btn green repoActivity" id="creat_banner_icon">
+                                <a class="btn green repoActivity" id="creat_advert_icon">
                                     <i class="icon-pencil"></i> 新增广告
                                 </a>
                             </div>
@@ -66,16 +68,16 @@
                             <div class="row-fluid">
                                 <form id="advert_list_form" method="get">
                                     <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入价格" class="m-wrap span12" id="price">
+                                        <input type="text" name="price" placeholder="请输入价格" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系人" class="m-wrap span12" id="linkedName">
+                                        <input type="text" name="linkedName" placeholder="请输入联系人" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
+                                        <input type="text" name="phoneNumber" placeholder="请输入联系电话" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <select class="m-wrap span6" name="adType" id="adType">
+                                        <select class="m-wrap span6" name="beUsed" id="be_used">
                                             <option value=" ">请选择</option>
                                             <option value="0">无效</option>
                                             <option value="1">有效</option>
@@ -122,7 +124,7 @@
     </div>
     <!-- 内容区域 end -->
     <!-- modal 添加 begin -->
-    <form action="#" class="form-horizontal" id="add_advert_form">
+    <form class="form-horizontal" id="add_advert_form">
         <div class="modal fade hide" id="addAdvertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -137,7 +139,7 @@
                             <label class="control-label">开始日期：<span class="required">*</span></label>
                             <div class="controls">
                                 <div class="input-append date">
-                                    <input data-laydate="start" class="m-wrap input-small start-time mh_date" type="text" value="" name="starTime" id="startTime" readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                    <input data-laydate="start" class="m-wrap input-small start-time mh_date" type="text" value="" name="startTime" id="startTime" readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -153,36 +155,42 @@
                         <div class="control-group">
                             <label class="control-label">价格: <span class="required">*</span></label>
                             <div class="controls">
-                                <input type="text" class="span8 m-wrap" name="price">
+                                <input type="text" class="span8 m-wrap" name="price" id="price">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">联系人: <span class="required">*</span></label>
                             <div class="controls">
-                                <input type="text" class="span8 m-wrap" name="linkedName">
+                                <input type="text" class="span8 m-wrap" name="linkedName" id="linkedName">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">联系电话: <span class="required">*</span></label>
                             <div class="controls">
-                                <input type="text" class="span8 m-wrap" name="phoneNumber">
+                                <input type="text" class="span8 m-wrap" name="phoneNumber" id="phoneNumber">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">是否有效: <span class="required">*</span></label>
                             <div class="controls">
                                 <label class="radio">
-                                    <input type="radio" value="0" name="beUsed"> 无效
+                                    <input type="radio" value="0" name="beUsed" > 无效
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" value="1" name="beUsed"> 有效
+                                    <input type="radio" value="1" name="beUsed" checked> 有效
                                 </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">链接地址: <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" class="span8 m-wrap" name="linkUrl" id="linkUrl">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">广告内容: <span class="required">*</span></label>
                             <div class="controls">
-                                <textarea class="span8 m-wrap" rows="5" name="regular" id="regular"></textarea>
+                                <textarea class="span8 m-wrap" rows="5" name="content" id="content"></textarea>
                             </div>
                         </div>
 
@@ -202,10 +210,8 @@
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
 <!-- build:js scripts/build.js -->
-<script src="/js/advert/advert.js"></script>
+
 <!-- endbuild -->
-<script>
-</script>
 </body>
 
 </html>

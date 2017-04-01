@@ -1,20 +1,16 @@
-package com.manager.utils;
-
+package com.manager.enums;
 
 import com.manager.service.IEnum;
 
 /**
- * Created by shencx on 17/3/29.
+ * Created by shencx on 2017/3/31.
  */
-public enum UserRoleEnum implements IEnum<Integer> {
+public enum YesNoEnum implements IEnum<Integer> {
 
-    /**
-     * 用户角色
-     */
-    SuperAdmin(16, "超级管理员"),
-    CustomerServer(32, "客服人员")
+    NO(0, "否"),
+    YES(1, "是")
     ;
-    UserRoleEnum(int value, String title) {
+    YesNoEnum(int value, String title) {
         this.value = value;
         this.title = title;
     }
@@ -31,7 +27,7 @@ public enum UserRoleEnum implements IEnum<Integer> {
         return title;
     }
 
-    public static UserRoleEnum create(Integer value) {
+    public static YesNoEnum create(Integer value) {
         return EnumUtils.getEnum(values(), value);
     }
 }

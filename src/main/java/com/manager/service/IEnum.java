@@ -1,7 +1,7 @@
 package com.manager.service;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.manager.utils.EnumResponseConverter;
+import com.manager.enums.EnumResponseConverter;
 
 
 /**

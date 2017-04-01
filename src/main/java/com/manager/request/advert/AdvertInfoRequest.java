@@ -2,14 +2,21 @@ package com.manager.request.advert;
 
 import com.manager.request.BaseQuery;
 
-import java.math.BigDecimal;
 
 /**
  * Created by shencx on 2017/3/30.
  */
 public class AdvertInfoRequest extends BaseQuery{
 
-    private BigDecimal price;
+    private Integer id;
+
+    private String startTime;
+
+    private String endTime;
+
+    private String content;
+
+    private Float price;
 
     private String linkedName;
 
@@ -17,11 +24,47 @@ public class AdvertInfoRequest extends BaseQuery{
 
     private Integer beUsed;
 
-    public BigDecimal getPrice() {
+    private String linkUrl;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -47,5 +90,13 @@ public class AdvertInfoRequest extends BaseQuery{
 
     public void setBeUsed(Integer beUsed) {
         this.beUsed = beUsed;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
     }
 }

@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.manager.utils;
+package com.manager.enums;
 
 
 import com.manager.service.IBusinessStatusEnum;

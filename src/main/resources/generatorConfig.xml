@@ -37,18 +37,20 @@
         </javaClientGenerator>
 
         <!-- 要生成哪些表-->
-        <table tableName="menu_info">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
-        <table tableName="role_menu_info">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
+        <!--<table tableName="menu_info">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="role_menu_info">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="admin">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
+        <!--<table tableName="admin">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
         <table tableName="advert">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+            <!-- 转换成枚举 -->
+            <columnOverride column="status" javaType="com.manager.enums.YesNoEnum"/>
         </table>
 
     </context>

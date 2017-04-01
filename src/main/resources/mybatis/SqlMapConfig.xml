@@ -5,7 +5,8 @@
 <configuration>
 
     <typeHandlers>
-        <typeHandler handler="com.manager.utils.IntegerEnumTypeHandler" javaType="com.manager.utils.UserRoleEnum" />
+        <typeHandler handler="com.manager.enums.IntegerEnumTypeHandler" javaType="com.manager.enums.UserRoleEnum" />
+        <typeHandler handler="com.manager.enums.IntegerEnumTypeHandler" javaType="com.manager.enums.YesNoEnum" />
     </typeHandlers>
 
     <plugins>

@@ -1,6 +1,6 @@
 package com.manager.annotations;
 
-import com.manager.utils.UserRoleEnum;
+import com.manager.enums.UserRoleEnum;
 
 import java.lang.annotation.*;
 

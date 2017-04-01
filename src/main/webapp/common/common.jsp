@@ -40,4 +40,6 @@
 <!-- 页面访问js-->
 <%--<script src="${ctx}/js/login.js"></script>--%>
 <script src="${ctx}/js/admin/admin.js"></script>
+
+<script src="${ctx}/js/advert/advert.js"></script>
 <!-- endbuild -->

@@ -3,6 +3,8 @@ package com.manager.controller;
 import com.manager.annotations.Authentication;
 import com.manager.core.ActionContext;
 import com.manager.core.AuthUser;
+import com.manager.enums.BusinessStatusEnum;
+import com.manager.enums.UserRoleEnum;
 import com.manager.handler.UserInfoHandler;
 import com.manager.pojo.Admin;
 import com.manager.request.user.UserInfoRequest;
@@ -85,6 +87,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
+    @Authentication(allow = UserRoleEnum.SuperAdmin)
     public APIResponse addUser(HttpServletRequest request, Admin userInfo,String roleArr){
         APIResponse apiResponse = new APIResponse();
         try {

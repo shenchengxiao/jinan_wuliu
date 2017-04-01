@@ -1,4 +1,4 @@
-package com.manager.utils;
+package com.manager.enums;
 
 
 import com.fasterxml.jackson.databind.util.StdConverter;

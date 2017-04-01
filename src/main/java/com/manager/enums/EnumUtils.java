@@ -1,4 +1,4 @@
-package com.manager.utils;
+package com.manager.enums;
 
 import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.SerializeWriter;

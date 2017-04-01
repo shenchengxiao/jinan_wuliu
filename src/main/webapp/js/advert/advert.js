@@ -2,10 +2,10 @@
 
 $(function(){
 
-    getAdvertList();//先执行一次获取banner列表信息；
+    getAdvertList();//先执行一次获取列表信息；
     $('#btn_search').on('click',function(){
         $("#pageNum").val(1);
-        getAdvertList();//获取banner列表信息；
+        getAdvertList();//获取列表信息；
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
@@ -13,23 +13,29 @@ $(function(){
         }
     });
     //创建modal弹出层class="modal"
-    $('#creat_banner_icon').on('click',function(){
+    $('#creat_advert_icon').on('click',function(){
         clearModal();//清空modal弹出层里面的参数；
         $('#addAdvertModal').modal('show');//modle层显示
+
     });
 
     $('#btn_add_advert').on('click',function(){
         //非空验证
         var b = $('#add_advert_form').valid();//true false
         if(b){
-            addAdvert();//添加新的banner;
+            addAdvert();//添加新广告
             $('#addAdvertModal').modal('hide');//modle层隐藏
         }else{
             return false;
         }
     });
 
-
+    //自定义校验规则
+    $.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
 
     /**
      *  功能描述：添加广告验证
@@ -54,24 +60,38 @@ $(function(){
                 required: true
             },
             phoneNumber:{
-                required: true
-            },
-            beUsed:{
-                required :true
+                required: true,
+                isMobile : true
             },
             content:{
+                required: true
+            },
+            linkUrl:{
                 required: true
             }
         },
         messages:{
-            adName:{
-                required:'请输入banner名称'
+            startTime:{
+                required:'请输入开始时间'
             },
-            start_time:{
-                required:'请选择开始时间'
+            endTime:{
+                required:'请输入结束时间'
             },
-            end_time:{
-                required:'请选择结束时间'
+            price:{
+                required:'请输入价格'
+            },
+            linkedName:{
+                required:'请输入联系人'
+            },
+            phoneNumber:{
+                required:'请输入手机号码',
+                isMobile : "请正确填写手机号码"
+            },
+            content:{
+                required:'请选择广告内容'
+            },
+            linkUrl:{
+                required:'链接地址不能为空'
             }
         },
         invalidHandler:function(event,validator){
@@ -107,7 +127,7 @@ $(function(){
 function getAdvertList(){
     var temp = "";
     $.ajax({
-        url: path+'/api/advert/list',
+        url: manage_path+'/api/advert/list',
         type: 'GET',
         dataType: 'json',
         data: $('#advert_list_form').serialize(), //通过表单id进行序列化提交
@@ -118,7 +138,7 @@ function getAdvertList(){
             if(data.status == 0) {
                 var json = data.data;
                 var list = json.result;
-                console.log(list);
+                if (list != null && list.length>0){
                 var operation, upDown = ''; //操作按钮
                 $.each(list, function (index, item) {
                     var adStatus = item.beUsed;//banner状态
@@ -131,9 +151,9 @@ function getAdvertList(){
                         upDown = ' <a href="#" class="btn mini grey" data-toggle="tooltip" data-placement="top" title="下架" onclick="modifyStatus(' + item.id + ',0)"><i class="icon-ban-circle"></i></a>';
                     }
 
-                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.id + ',1)"><i class="icon-remove icon-white"></i></a>';
+                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAdvert(' + item.id + ')"><i class="icon-remove icon-white"></i></a>';
                     //操作按钮拼接
-                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="editBanner(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
+                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getAdvertDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
 
 
                     temp += '<tr>'
@@ -157,11 +177,14 @@ function getAdvertList(){
                     // 当没有条件查询时，必须也要加默认的第一页#pageNum  value = 1
                     page('#pagination', json.pagecount, json.pageindex, json.pagesize, getAdvertList, '#pageNum');
                 })
-            }else
-                {
-                    $.toast('没有查到数据！', 3000);
+                }else{
+                    $.toast("没有查到数据",3000);
+                    $('#banner_List tbody').html('');
+                    if($('#pagination').html().length > 0){
+                        $('#pagination').jqPaginator('destory');
+                    }
                 }
-
+            }
         },
         complete:function(){
             $.progressBar().close();
@@ -176,19 +199,19 @@ function getAdvertList(){
 /**
  *  功能描述：失效有效
  *  请求方式：POST
- *  请求地址：/api/banner/modify_status
+ *  请求地址：/api/advert/modify
  *  函数名称：modifyStatus
  *  参数：id:主键ID;  beUsed:是否失效;
  */
 
 function modifyStatus(id,beUsed){
     $.ajax({
-        url: '/api/advert/modify_status',
+        url:manage_path+ '/api/advert/modify',
         type: 'POST',
         dataType: 'json',
         data: {
             'id':id,
-            'beUsed':beUsed
+            'status':beUsed
         },
         beforeSend:function(){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:false,canCancel:true});
@@ -216,29 +239,25 @@ function modifyStatus(id,beUsed){
 /**
  *  功能描述：删除
  *  请求方式：POST
- *  请求地址：/api/banner/modify_status
- *  函数名称：modifyStatus_remove
- *  参数：id:banner主键ID; adType:banner类型; beUsed:上架下架; stick:置顶;isDeleted:删除;
+ *  请求地址：/api/advert/delete
+ *  函数名称：deleteAdvert
+ *  参数：id:主键ID;
  */
 
-function modifyStatus_remove(id,adType,isDeleted){
+function deleteAdvert(id){
     if(!confirm("确定删除吗?")) return;
     $.ajax({
-        url: '/api/banner/modify_status',
+        url:manage_path+ '/api/advert/delete',
         type: 'POST',
         dataType: 'json',
-        data: {
-            'id':id,
-            'adType':adType,
-            'isDeleted':isDeleted
-        },
+        data: {'id':id},
         beforeSend:function(){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:false,canCancel:true});
         },
         success:function(data){
             if(data.status == 0){
                 $.toast(data.msg,3000);
-                getBannerList();
+                getAdvertList();
             }else{
                 $.toast(data.msg,3000);
             }
@@ -254,67 +273,43 @@ function modifyStatus_remove(id,adType,isDeleted){
 }
 
 /**
- *  功能描述：修改banner
+ *  功能描述：获取详情
  *  请求方式：POST
- *  请求地址：/api/banner/edit
- *  函数名称：editBanner
- *  参数：id:bannerID; adType:banner类型;
+ *  请求地址：/api/advert/detail
+ *  函数名称：getAdvertDetail
+ *  参数：id:ID
  */
 
-function editBanner(id,adType){
-    $('#addBannerModal').modal('show');
+function getAdvertDetail(id){
+    $('#addAdvertModal').modal('show');
     $.ajax({
-        url:'/api/banner/edit',
-        type:'POST',
+        url:manage_path+'/api/advert/detail',
+        type:'GET',
         dataType:'json',
         data:{
-            id:id,
-            adType:adType
+            id:id
         },
         beforeSend:function(){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
         },
         success:function(data){
-            console.log(data);
             if(data.status == 0){
-                $('#myModalLabel').text('Banner编辑');
+                $('#myModalLabel').text('广告修改');
                 var json = data.data;
-                var supportPlatType;
-                //banner类型
-                checkBox_adType(json.adType);
+
                 $('input[name=id]').val(json.id);
-                //banner名称
-                $('.name_text_adName').val(json.name);
+                $('#startTime').val(json.startTime);
+                $('#endTime').val(json.endTime);
+                $('#price').val(json.price);
+                $('#linkedName').val(json.linkedName);
+                $('#phoneNumber').val(json.phoneNumber);
+                $('#content').val(json.content);
+                $('#linkUrl').val(json.linkUrl);
 
-                $("input[name='supportPlatform']")
-                    .removeAttr('checked')
-                    .parent().removeClass('checked');
+                //先清空在获取
+                $('input[name=beUsed]').parent().removeClass('checked');
+                $('input[name=beUsed]').eq(json.beUsed).parent().addClass('checked');
 
-                //banner平台类型
-                if(json.supportPlatform == "全平台"){
-                    supportPlatType = 0;
-                }else if(json.supportPlatform == "ios"){
-                    supportPlatType = 1;
-                }else if(json.supportPlatform == "android"){
-                    supportPlatType = 2;
-                }
-
-                $("input[name='supportPlatform']")
-                    .eq(supportPlatType)
-                    .attr('checked',"checked")
-                    .parent().addClass('checked');
-
-                //通过返回的imageMd5,添加到图片;
-                $('#txtUrl').val(json.imageMd5).trigger('change');
-                //链接
-                $('input[name=linkUrl]').val(json.linkUrl);
-                if(json.adType == 7){
-                    $('#adTime').show();
-                    $('#startTime').val(json.startTime);
-                    $('#endTime').val(json.endTime);
-                }else{
-                    $('#adTime').hide();
-                }
             }
         },
         complete:function(){
@@ -327,25 +322,18 @@ function editBanner(id,adType){
 }
 
 
-// 设置banner类型选中状态
-function checkBox_adType(num) {
-    var aCh = document.getElementById('adType');
-    for(var i=0;i<aCh.length;i++){
-        if(aCh[i].value==num){
-            aCh[i].selected = true;
-        }
-    }
-}
+
 
 /**
  *  功能描述：添加广告
  *  请求方式：POST
- *  请求地址：/api/banner/add
+ *  请求地址：/api/advert/editor
  *  函数名称：addAdvert
  */
 function addAdvert(){
+
     $.ajax({
-        url:'/api/advert/edit',
+        url:manage_path+'/api/advert/editor',
         type:'POST',
         dataType:'json',
         data:$('#add_advert_form').serialize(),
@@ -356,6 +344,8 @@ function addAdvert(){
             if(data.status == 0){
                 $.toast('操作成功',5000);
                 getAdvertList();
+            }else {
+                $.toast('操作失败,系统错误',3000);
             }
         },
         complete:function(){
@@ -370,22 +360,20 @@ function addAdvert(){
 
 //清空modal里面的参数
 function clearModal(){
-    $('input[name=adName]').val('');
-    //终端全平台
-    var aCh = $('input[name=supportPlatform]').parent();
-    aCh.removeClass('checked');
-    //aCh.eq(0).addClass('checked');
-    //上传图片置空
-    $('#imgIcon').attr({
-        'src': ''
-    });
-    $('#txtUrl').val('');
-    //链接置空
-    $('input[name=linkUrl]').val('');
+    $('input[name=price]').val('');
+    //是否有效 先清空在选中
+    $('input[name=beUsed]').parent().removeClass('checked');
+    $('input[name=beUsed]').eq(1).parent().addClass('checked');
+    $('#content').val('');
+    $('input[name=phoneNumber]').val('');
+    $('input[name=linkedName]').val('');
     $('input[name=id]').val('');
-    $('#adType').val($('#adtypelist').val());
+
     $('#startTime').val('');
     $('#endTime').val('');
+    $('#linkUrl').val('');
+
+    $('#myModalLabel').text('新增广告');
 }
 
 
