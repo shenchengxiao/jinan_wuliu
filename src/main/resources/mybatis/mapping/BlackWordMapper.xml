@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.BlackWordMapper">
+  <resultMap id="BaseResultMap" type="com.manager.pojo.BlackWord">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    <id column="b_w_id" jdbcType="INTEGER" property="bWId" />
+    <result column="black_word" jdbcType="VARCHAR" property="blackWord" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    b_w_id, black_word, create_time, update_time, enabled
+  </sql>
+  <select id="selectByExample" parameterType="com.manager.pojo.BlackWordExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from black_word
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from black_word
+    where b_w_id = #{bWId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    delete from black_word
+    where b_w_id = #{bWId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.manager.pojo.BlackWordExample">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    delete from black_word
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.manager.pojo.BlackWord">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    insert into black_word (b_w_id, black_word, create_time, 
+      update_time, enabled)
+    values (#{bWId,jdbcType=INTEGER}, #{blackWord,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.manager.pojo.BlackWord">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    insert into black_word
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bWId != null">
+        b_w_id,
+      </if>
+      <if test="blackWord != null">
+        black_word,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bWId != null">
+        #{bWId,jdbcType=INTEGER},
+      </if>
+      <if test="blackWord != null">
+        #{blackWord,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.manager.pojo.BlackWordExample" resultType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    select count(*) from black_word
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    update black_word
+    <set>
+      <if test="record.bWId != null">
+        b_w_id = #{record.bWId,jdbcType=INTEGER},
+      </if>
+      <if test="record.blackWord != null">
+        black_word = #{record.blackWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    update black_word
+    set b_w_id = #{record.bWId,jdbcType=INTEGER},
+      black_word = #{record.blackWord,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      enabled = #{record.enabled,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manager.pojo.BlackWord">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    update black_word
+    <set>
+      <if test="blackWord != null">
+        black_word = #{blackWord,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+    </set>
+    where b_w_id = #{bWId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manager.pojo.BlackWord">
+    <!--
+      WARNING - @mbggenerated
+      Generated on 2017-03-31 14:46:06.
+    -->
+    update black_word
+    set black_word = #{blackWord,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      enabled = #{enabled,jdbcType=INTEGER}
+    where b_w_id = #{bWId,jdbcType=INTEGER}
+  </update>
+</mapper>
