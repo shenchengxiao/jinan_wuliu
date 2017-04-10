@@ -158,6 +158,6 @@
 <!-- 页尾 begin -->
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
-
+<script src="../../js/admin/admin.js"></script>
 </body>
 </html>
