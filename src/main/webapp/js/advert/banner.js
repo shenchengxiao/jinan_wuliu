@@ -289,7 +289,8 @@ function addBanner(){
             if(data.status == 0){
                 $.toast('操作成功',3000);
                 setTimeout(function(){
-                    getBannerList();
+                    // getBannerList();
+                    window.location.reload();
                 },500)
             }
         },

@@ -47,11 +47,11 @@
         <!--<table tableName="admin">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <table tableName="banner_info">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-            <!-- 转换成枚举 -->
-            <columnOverride column="be_used" javaType="com.manager.enums.YesNoEnum"/>
-        </table>
+        <!--<table tableName="banner_info">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+            <!--&lt;!&ndash; 转换成枚举 &ndash;&gt;-->
+            <!--<columnOverride column="be_used" javaType="com.manager.enums.YesNoEnum"/>-->
+        <!--</table>-->
         <table tableName="user">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
             <!-- 转换成枚举 -->
@@ -60,10 +60,16 @@
             <columnOverride column="is_synchro" javaType="com.manager.enums.YesNoEnum"/>
         </table>
 
-        <table tableName="user_binding">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-            <columnOverride column="is_binding" javaType="com.manager.enums.YesNoEnum"/>
-        </table>
+        <!--<table tableName="user_binding">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+            <!--<columnOverride column="is_binding" javaType="com.manager.enums.YesNoEnum"/>-->
+        <!--</table>-->
 
+        <!--<table tableName="user_custom">-->
+             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+             <!--<columnOverride column="is_send" javaType="com.manager.enums.YesNoEnum"/>-->
+             <!--<columnOverride column="is_receive" javaType="com.manager.enums.YesNoEnum"/>-->
+             <!--<columnOverride column="is_receive_self" javaType="com.manager.enums.YesNoEnum"/>-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

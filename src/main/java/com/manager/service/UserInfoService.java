@@ -1,5 +1,6 @@
 package com.manager.service;
 
+import com.manager.exception.DatabaseException;
 import com.manager.pojo.User;
 
 /**
@@ -7,5 +8,7 @@ import com.manager.pojo.User;
  */
 public interface UserInfoService {
 
-    Integer addUserInfo(User user);
+    Integer addUser(User user) throws DatabaseException;
+
+    boolean updateUser(User user) throws DatabaseException;
 }
