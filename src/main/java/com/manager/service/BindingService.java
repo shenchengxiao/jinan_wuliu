@@ -25,6 +25,8 @@ public interface BindingService {
     public boolean updateBlackword(BlackWord blackWord) throws DatabaseException;
     
     public boolean addBinding(UserBinding userBinding) throws DatabaseException;
+
+    boolean updateUserBinding(UserBinding userBinding) throws DatabaseException;
     
     BlackWord fetchBlackWordDetail(Integer id) throws DatabaseException;
 

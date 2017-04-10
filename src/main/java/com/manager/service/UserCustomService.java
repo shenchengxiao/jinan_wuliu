@@ -1,5 +1,6 @@
 package com.manager.service;
 
+import com.manager.exception.DatabaseException;
 import com.manager.pojo.UserCustom;
 import org.springframework.stereotype.Service;
 
@@ -9,5 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserCustomService {
 
-    Integer addUserCustomInfo(UserCustom userCustom);
+    Integer addUserCustomInfo(UserCustom userCustom) throws DatabaseException;
+
+    boolean updateUserCustomInfo(UserCustom userCustom) throws DatabaseException;
 }

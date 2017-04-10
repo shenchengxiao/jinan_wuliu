@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -80,6 +81,26 @@ public class BindingServiceImpl implements BindingService{
             throw new DatabaseException(e.getMessage());
         }
 		
+	}
+
+	@Override
+	public boolean updateUserBinding(UserBinding userBinding) throws DatabaseException {
+		try {
+			if (userBinding == null){
+				LOG.error("updateUserBinding 信息为空",userBinding);
+				return false;
+			}
+			UserBindingExample example = new UserBindingExample();
+			UserBindingExample.Criteria criteria = example.createCriteria();
+			if (userBinding.getUserId() != null){
+				criteria.andUserIdEqualTo(userBinding.getUserId());
+			}
+			Integer val = userBindingMapper.updateByExampleSelective(userBinding,example);
+			return val>0?true:false;
+		}catch (Throwable e) {
+			LOG.error("updateUserBinding 异常",userBinding.getId());
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 	@Override
