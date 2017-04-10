@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.manual.ItemResponseMapper">
+
+    <!-- 获取菜单列表 -->
+    <resultMap id="resultMaps" type="com.manager.pojo.manual.ItemResponse">
+	    <id column="item_id" property="itemId" jdbcType="BIGINT" />
+	    <result column="user_id" property="userId" jdbcType="INTEGER" />
+	    <result column="user_phones" property="userPhones" jdbcType="VARCHAR" />
+	    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="status" property="status" jdbcType="TINYINT" />
+	    <result column="user_num" jdbcType="CHAR" property="userNum" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.manager.pojo.manual.ItemResponse" extends="resultMaps" >
+    	<result column="content" property="content" jdbcType="LONGVARCHAR" />
+    </resultMap>
+	
+  
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.manager.request.item.ItemRequest" >
+    select
+     i.item_id, i.user_id, i.user_phones, i.type_id, i.create_time, i.status,u.user_num
+    ,i.content
+    from items as i LEFT JOIN user as u ON i.user_id = u.id
+    where 1=1
+    <if test='userId != null and userId != ""' >
+      and i.user_id = #{userId}
+    </if>
+    <if test='content != null and content != ""' >
+      and i.content like '%${content}%'
+    </if>
+      ORDER BY i.create_time DESC
+  </select>
+
+</mapper>
