@@ -1,21 +1,16 @@
 package com.manager.handler;
 
-import com.manager.core.PasswordEncrypt;
+
 import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
-import com.manager.pojo.Admin;
-import com.manager.pojo.Advert;
 import com.manager.pojo.BlackWord;
 import com.manager.request.blackword.BlackWordRequest;
-import com.manager.request.user.UserInfoRequest;
-import com.manager.response.AdvertInfoResponse;
 import com.manager.response.BlackWordResponse;
 import com.manager.service.BlackWordService;
-import com.manager.service.UserInfoService;
 import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
-import org.apache.commons.lang3.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

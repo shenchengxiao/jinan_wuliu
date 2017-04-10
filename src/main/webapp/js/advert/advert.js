@@ -138,10 +138,9 @@ function getAdvertList(){
                 var json = data.data;
                 var list = json.result;
                 if (list != null && list.length>0){
-                var operation, upDown = ''; //操作按钮
+                    var operation, upDown = ''; //操作按钮
                     $.each(list, function (index, item) {
                         var adStatus = item.beUsed;//banner状态
-                        console.log(item.endTime);
                         if (adStatus == 0) {
                             adStatus = "无效";
                             upDown = ' <a href="#" class="btn mini green" data-toggle="tooltip" data-placement="top" title="上架" onclick="modifyStatus(' + item.id + ',1)"><i class="icon-ok-circle"></i></a>';
@@ -153,7 +152,6 @@ function getAdvertList(){
                         var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAdvert(' + item.id + ')"><i class="icon-remove icon-white"></i></a>';
                         //操作按钮拼接
                         operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getAdvertDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
-
 
                         temp += '<tr>'
                             + '<td data-title="开始时间">' + item.startTime + '</td>'
@@ -168,7 +166,7 @@ function getAdvertList(){
                             + '<td data-title="操作">' + operation + '</td>'
                             + '</tr>';
                     })
-                    $('#banner_List tbody').html(temp);
+                    $('#advert_list tbody').html(temp);
                     // $("[data-toggle='popover']").popover();
                     //操作按钮hover显示详情
                     $("[data-toggle='tooltip']").tooltip();
@@ -179,7 +177,7 @@ function getAdvertList(){
 
                 }else{
                     $.toast("没有查到数据",3000);
-                    $('#banner_List tbody').html('');
+                    $('#advert_list tbody').html('');
                     if($('#pagination').html().length > 0){
                         $('#pagination').jqPaginator('destory');
                     }

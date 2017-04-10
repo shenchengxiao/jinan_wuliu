@@ -58,7 +58,7 @@ public class AdvertServiceImpl implements AdvertService{
             if (StringUtils.isNoneBlank(advertInfoRequest.getPhoneNumber())){
                 criteria.andLinkphoneEqualTo(advertInfoRequest.getPhoneNumber());
             }
-            if (advertInfoRequest.getBeUsed() != null){
+            if (advertInfoRequest.getBeUsed() != null ){
                 criteria.andStatusEqualTo(YesNoEnum.create(advertInfoRequest.getBeUsed()));
             }
             example.setOrderByClause("create_time desc");

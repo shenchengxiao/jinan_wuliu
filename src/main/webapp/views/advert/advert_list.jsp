@@ -10,17 +10,7 @@
     <title>广告管理</title>
     <!-- build:css css/main.css -->
     <jsp:include page="/common/common.jsp"></jsp:include>
-    <![endif]-->
-    <style>
-        .table-bordered th,
-        .table-bordered td {
-            border-left: 1px solid #ddd;
-            border-top: 1px solid #ddd;
-        }
-        #adTime{
-            display: none;
-        }
-    </style>
+
 
 
 </head>
@@ -92,7 +82,7 @@
                         </div>
                         <div class="box">
                             <div class="portlet-body no-more-tables">
-                                <table class="table-bordered table-striped table-condensed cf" id="banner_List">
+                                <table class="table-bordered table-striped table-condensed cf" id="advert_list">
                                     <thead class="cf">
                                     <tr>
                                         <th>开始时间</th>

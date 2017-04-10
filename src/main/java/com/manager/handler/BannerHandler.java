@@ -35,23 +35,17 @@ public class BannerHandler {
     /**
      * 添加 修改
      * @param bannerInfo
-     * @param imageFile
-     * @param request
      * @throws YCException
      * @throws IOException
      */
-    public void addBanner(BannerInfo bannerInfo,File imageFile, HttpServletRequest request) throws YCException, IOException {
+    public void addBanner(BannerInfo bannerInfo) throws YCException, IOException {
         /** 参数校验 */
         Validator.isEmpty(bannerInfo, YCSystemStatusEnum.PARAM_EMPTY);
         Validator.isEmpty(bannerInfo.getBannerName(),"图片名称不能为空");
         Validator.isEmpty(bannerInfo.getImageUrl(),"图片地址不能为空");
 
-        //获取文件上传的名称
-//        String image_url = uploadFile(imageFile,request);
-//        bannerInfo.setImageUrl(image_url);
-
         try {
-            if (bannerInfo == null) {
+            if (bannerInfo.getId() == null) {
                 bannerService.addBannerInfo(bannerInfo);
             }else {
                 bannerService.updateBannerInfo(bannerInfo);
@@ -86,6 +80,57 @@ public class BannerHandler {
             return page;
         } catch (DatabaseException e) {
             LOG.error("getBannerList exception",baseQuery);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @throws YCException
+     */
+    public void deleteBannerInfo(Integer id) throws YCException {
+        Validator.isEmpty(id,"banner主键不能为空");
+
+        try {
+            bannerService.deleteBannerInfo(id);
+        } catch (DatabaseException e) {
+            LOG.error("deleteBannerInfo exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 启用、禁用
+     * @param id
+     * @param status
+     * @throws YCException
+     */
+    public void modifyBannerStatus(Integer id ,Integer status) throws YCException {
+        Validator.isEmpty(id,"banner主键不能为空");
+        Validator.isEmpty(status,"状态不能为空");
+        try {
+            bannerService.modifyStatus(id,status);
+        } catch (DatabaseException e) {
+            LOG.error("modifyStatus exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 获取详情
+     * @param id
+     * @return
+     * @throws YCException
+     */
+    public BannerInfoResponse getBannerDetail(Integer id) throws YCException {
+        Validator.isEmpty(id,"banner主键不能为空");
+        try {
+            BannerInfo bannerInfo = bannerService.fetchBannerInfoDetail(id);
+            BannerInfoResponse bannerInfoResponse = fetchBannerInfoConvert(bannerInfo);
+            return bannerInfoResponse;
+        } catch (DatabaseException e) {
+            LOG.error("getBannerDetail exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }

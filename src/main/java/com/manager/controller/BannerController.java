@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,21 +42,24 @@ public class BannerController {
     @Resource
     private BannerHandler bannerHandler;
 
+    @Value("${upload.file.path}")
+    private String filePath;
+
+
     Logger LOG = LoggerFactory.getLogger(BannerController.class);
 
     /**
      * 添加banner
      * @param request
-     * @param file
      * @param bannerInfo
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/editor",method = RequestMethod.POST)
-    public APIResponse editor(HttpServletRequest request, File file, BannerInfo bannerInfo){
+    public APIResponse editor(HttpServletRequest request, BannerInfo bannerInfo){
         APIResponse apiResponse = new APIResponse();
         try {
-            bannerHandler.addBanner(bannerInfo,file,request);
+            bannerHandler.addBanner(bannerInfo);
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
         } catch (Throwable e) {
@@ -91,6 +95,77 @@ public class BannerController {
         return apiResponse;
     }
 
+    /**
+     * 删除
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public APIResponse delete(HttpServletRequest request ,Integer id){
+        APIResponse apiResponse = new APIResponse();
+        try {
+            bannerHandler.deleteBannerInfo(id);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("delete 发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 启用、禁用
+     * @param request
+     * @param id
+     * @param status
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/modify",method = RequestMethod.POST)
+    public APIResponse modify(HttpServletRequest request ,Integer id,Integer status){
+        APIResponse apiResponse = new APIResponse();
+        try {
+            bannerHandler.modifyBannerStatus(id,status);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("modify 发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+
+    /**
+     * 获取详情信息
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    public APIResponse<BannerInfoResponse> detail(HttpServletRequest request, Integer id){
+        APIResponse<BannerInfoResponse> apiResponse = new APIResponse<>();
+        BannerInfoResponse bannerInfoResponse = null;
+
+        try {
+            bannerInfoResponse = bannerHandler.getBannerDetail(id);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(bannerInfoResponse);
+        } catch (YCException e) {
+            LOG.error("list 发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
 
     /**
      * 图片上传
@@ -103,42 +178,6 @@ public class BannerController {
     @ResponseBody
     @RequestMapping(value = "/upload")
     public FileUpload uploadFile(MultipartHttpServletRequest request, HttpServletResponse response) throws FileNotFoundException, IOException {
-//        try {
-//            InputStream in = new FileInputStream(imageFile);
-//            String dir = request.getSession().getServletContext().getRealPath("/upload");
-//            File fileLocation = new File(dir);
-//            //此处也可以在应用根目录手动建立目标上传目录
-//            if(!fileLocation.exists()){
-//                boolean isCreated  = fileLocation.mkdir();
-//                if(!isCreated) {
-//                    //目标上传目录创建失败,可做其他处理,例如抛出自定义异常等,一般应该不会出现这种情况。
-//                    return null;
-//                }
-//            }
-//
-//            //获取图片后缀类型
-//            String suffix = imageFile.getName().substring(imageFile.getName().lastIndexOf(".") + 1);
-//            //生成一个32位随机码
-//            String fileName = IdGenerator.getUUIDHex32()+suffix;
-//
-//            System.out.println(fileName);
-//            File uploadFile = new File(dir, fileName);
-//            OutputStream out = new FileOutputStream(uploadFile);
-//            byte[] buffer = new byte[1024 * 1024];
-//            int length;
-//            while ((length = in.read(buffer)) > 0) {
-//                out.write(buffer, 0, length);
-//            }
-//            in.close();
-//            out.close();
-//            return fileName;
-//        } catch (FileNotFoundException ex) {
-//            return null;
-//        } catch (IOException ex) {
-//            return null;
-//        }
-//    }
-
         FileUpload fileUploadRs = new FileUpload();
         InputStream in = null;
         FileOutputStream os = null;
@@ -153,48 +192,45 @@ public class BannerController {
                     String fileType = StringUtils.substringAfterLast(uploadFileName, ".");
                     // 生成唯一文件名称
                     String uuidFileName = StringUtils.lowerCase(IdGenerator.getUUIDHex32());
-                    //文件类型判断 是否可以上传
-                    boolean isUpload = false;
 
-                    if (isUpload) {
-                        //文件上传位置
-                        String saveFilePath = request.getSession().getServletContext().getRealPath("/upload");
-                        File dirTempFile = new File(saveFilePath);
-                        final String physicalPath = saveFilePath + "/" + uuidFileName + "." + fileType;
-                        try {
-                            if (!dirTempFile.exists())
-                                dirTempFile.mkdirs();
-                        } catch (Exception e) {
-
-                        }
-                        byte[] data = null;
-                        int bytesRead = 0;
-                        int offset = 0;
-
-                        long contentLength = patch.getSize();
-                        InputStream raw = patch.getInputStream();
-                        in = new BufferedInputStream(raw);
-                        long startTime = System.currentTimeMillis();
-                        File tempFile = new File(physicalPath);
-                        os = new FileOutputStream(tempFile);
-                        while (offset < contentLength) {
-                            data = new byte[1024 * 1024];
-                            bytesRead = in.read(data);
-                            os.write(data, 0, bytesRead);
-                            if (bytesRead == -1)
-                                break;
-                            offset += bytesRead;
-                        }
-
-                        FileInfo fileInfo = new FileInfo();
-                        fileInfo.setName(uploadFileName);
-                        fileInfo.setPath(physicalPath);
-                        fileInfo.setSize(contentLength);
-                        fileUploadRs.setFileInfo(fileInfo);
-                        fileUploadRs.setCode(200);
-                        fileUploadRs.setMessage("上传成功");
+                    //文件上传位置
+                    String saveFilePath = filePath;
+                    File dirTempFile = new File(saveFilePath);
+                    String new_fileName= uuidFileName + "." + fileType;
+                    final String physicalPath = saveFilePath +new_fileName;
+                    try {
+                        if (!dirTempFile.exists())
+                            dirTempFile.mkdirs();
+                    } catch (Exception e) {
 
                     }
+                    byte[] data = null;
+                    int bytesRead = 0;
+                    int offset = 0;
+
+                    long contentLength = patch.getSize();
+                    InputStream raw = patch.getInputStream();
+                    in = new BufferedInputStream(raw);
+                    File tempFile = new File(physicalPath);
+                    os = new FileOutputStream(tempFile);
+                    while (offset < contentLength) {
+                        data = new byte[1024 * 1024];
+                        bytesRead = in.read(data);
+                        os.write(data, 0, bytesRead);
+                        if (bytesRead == -1)
+                            break;
+                        offset += bytesRead;
+                    }
+
+                    FileInfo fileInfo = new FileInfo();
+                    fileInfo.setName(uploadFileName);
+                    fileInfo.setPath(new_fileName);
+                    fileInfo.setSize(contentLength);
+                    fileUploadRs.setFileInfo(fileInfo);
+                    fileUploadRs.setCode(200);
+                    fileUploadRs.setMessage("上传成功");
+
+
                 }
                 break;
             }

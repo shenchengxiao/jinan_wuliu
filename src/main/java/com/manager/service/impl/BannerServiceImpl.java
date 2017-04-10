@@ -153,7 +153,7 @@ public class BannerServiceImpl implements BannerService{
             BannerInfo record = new BannerInfo();
             record.setId(id);
             record.setBeUsed(YesNoEnum.create(status));
-            Integer val = bannerInfoMapper.updateByPrimaryKey(record);
+            Integer val = bannerInfoMapper.updateByPrimaryKeySelective(record);
             return (val>0)?true:false;
         } catch (Throwable e) {
             LOG.error("modifyStatus 异常",id);

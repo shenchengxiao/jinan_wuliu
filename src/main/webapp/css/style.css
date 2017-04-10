@@ -5293,7 +5293,7 @@ Datatables Plugin(in v1.3)
   background: url("../../static/image/datatable-row-openclose.png") no-repeat 0 0;
 }
 
-.dataTable .row-details.row-details-open {  
+.dataTable .row-details.row-details-open {
   background: url("../../static/image/datatable-row-openclose.png") no-repeat 0 -23px  !important;
 }
 
@@ -5399,6 +5399,16 @@ Invoice page
     vertical-align: middle;
 }
 
+#advert_list td{
+  text-align: center;
+  vertical-align: middle;
+}
+
+#blackword_List td{
+  text-align: center;
+  vertical-align: middle;
+}
+
 .popover-content {
     word-wrap: break-word;
 }
@@ -5418,7 +5428,7 @@ Invoice page
   position: absolute;
   top:-10px;
   right: -10px;
-  background:url(../../images/pic_Remove_btn_icon.png) no-repeat;
+  background:url(../images/pic_Remove_btn_icon.png) no-repeat;
 }
 
 /***

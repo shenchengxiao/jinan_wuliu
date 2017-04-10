@@ -10,16 +10,7 @@
     <title>广告banner</title>
     <!-- build:css css/main.css -->
     <jsp:include page="/common/common.jsp"></jsp:include>
-    <style>
-        .table-bordered th,
-        .table-bordered td {
-            border-left: 1px solid #ddd;
-            border-top: 1px solid #ddd;
-        }
-        #adTime{
-            display: none;
-        }
-    </style>
+
 </head>
 
 <body class="page-header-fixed">
@@ -39,7 +30,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.jsp">首页</a>
+                            <a href="${ctx}/index.jsp">首页</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
@@ -100,8 +91,9 @@
                         <h4 class="modal-title" id="myModalLabel">新增Banner</h4>
                     </div>
                     <div class="modal-body">
+                        <input type="hidden" name="id">
                         <div class="control-group">
-                            <label class="control-label">Banner名称</label>
+                            <label class="control-label">Banner名称:<span class="required">*</span></label>
                             <div class="controls">
                                 <input type="text" class="span6 m-wrap name_text_adName" name="bannerName" />
                             </div>
@@ -109,8 +101,13 @@
                         <div class="control-group">
                             <label class="control-label">上传Banner图</label>
                             <div class="controls">
-                                <input id="txtUrl" type="text" name="imageUrl" class="span6 m-wrap" />
+
+                                <input id="txtUrl" type="text" name="imageUrl" class="span6 m-wrap" readonly />
                                 <input class="uploadify" type="file" name="imageFile" id="file" >
+
+                                <div>
+                                    <img id="logoImg" width="120px" height="120px"/>
+                                </div>
                             </div>
                         </div>
 
@@ -130,10 +127,14 @@
 <!-- 页尾 begin -->
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
-<script src="../../js/libs/uploadify/jquery.uploadify.min.js"></script>
-<script src="../../js/advert/banner.js"></script>
-<script src="../../js/libs/jquery/ajaxfileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/uploadify/jquery.uploadify.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/advert/banner.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/ajaxfileupload.js"></script>
 <script>
+
+    //获取上传IP和端口号
+    var ipAndPort = window.location.protocol + '//' + window.location.host+'/';
+
     $(function () {
         $("#file").uploadify({
             'swf': '${pageContext.request.contextPath}/js/libs/uploadify/uploadify.swf',
@@ -143,9 +144,9 @@
             'buttonText': '上传图片',
             'onUploadSuccess': function (file, data, response) {
                 var json = JSON.parse(data);
-                $('#logoImg').attr('src', "${imageHost}/api/show/image?fileKey=" + json.data.md5);
-                var input = $('input[name="imagemd5"]');
-                input.val(json.data.md5);
+                $('#logoImg').attr('src', ipAndPort + json.fileInfo.path);
+                var input = $('input[name="imageUrl"]');
+                input.val(json.fileInfo.path);
             },
             'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
                 $('#progress').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');

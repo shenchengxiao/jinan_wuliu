@@ -14,7 +14,6 @@
     <link href="${ctx}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/style-metro.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/animate.css" rel="stylesheet" type="text/css"/>
-    <link href="${ctx}/css/animate.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/ui-form.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/style-responsive.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +21,16 @@
     <link href="${ctx}/css/date.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/js/libs/uploadify/uploadify.css" rel="stylesheet" type="text/css"/>
     <![endif]-->
-
+    <style>
+        .table-bordered th,
+        .table-bordered td {
+            border-left: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+        #adTime{
+            display: none;
+        }
+    </style>
 </head>
 
 <!-- build:js scripts/build.js -->
