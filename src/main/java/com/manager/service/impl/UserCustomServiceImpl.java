@@ -6,6 +6,7 @@ import com.manager.pojo.UserCustom;
 import com.manager.pojo.UserCustomExample;
 import com.manager.pojo.UserCustomExample.Criteria;
 import com.manager.pojo.UserCustomExample;
+import com.manager.pojo.UserCustomExample;
 import com.manager.service.UserCustomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

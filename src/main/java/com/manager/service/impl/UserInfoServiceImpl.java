@@ -8,9 +8,9 @@ import com.manager.mapper.manual.ICustomizedUserManageMapper;
 import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
 import com.manager.pojo.UserExample.Criteria;
-import com.manager.response.UserInfoResponse;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
+
 import com.manager.service.UserInfoService;
 import com.manager.utils.Page;
 import org.apache.commons.lang3.StringUtils;
@@ -95,6 +95,7 @@ public class UserInfoServiceImpl implements UserInfoService{
 	        throw new DatabaseException(e.getMessage());
 	    }
 	}
+
 
     /**
      * 获取用户详情信息
