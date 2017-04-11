@@ -4,11 +4,15 @@ import com.manager.exception.DatabaseException;
 import com.manager.mapper.UserMapper;
 import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
+import com.manager.pojo.UserExample.Criteria;
+import com.manager.response.UserInfoResponse;
 import com.manager.service.UserInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -62,4 +66,24 @@ public class UserInfoServiceImpl implements UserInfoService{
             throw new DatabaseException(e.getMessage());
         }
     }
+
+	@Override
+	public List<User> queryUser(User user) throws DatabaseException {
+		try {
+			UserExample example = new UserExample();
+			Criteria criteria = example.createCriteria();
+			if(StringUtils.isNoneEmpty(user.getUserNum())){
+				criteria.andUserNumEqualTo(user.getUserNum());
+			}
+			if(StringUtils.isNoneEmpty(user.getUsername())){
+				criteria.andUsernameEqualTo(user.getUsername());
+			}
+			
+			return userMapper.selectByExample(example);
+			
+		} catch (Throwable e) {
+	        LOG.error("queryUser 异常",user);
+	        throw new DatabaseException(e.getMessage());
+	    }
+	}
 }

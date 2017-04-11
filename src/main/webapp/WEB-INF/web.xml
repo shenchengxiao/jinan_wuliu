@@ -74,6 +74,7 @@
     <url-pattern>*.swf</url-pattern>
     <url-pattern>*.woff</url-pattern>
     <url-pattern>*.html</url-pattern>
+    <url-pattern>*.json</url-pattern>
   </servlet-mapping>
   <session-config>
     <cookie-config>
