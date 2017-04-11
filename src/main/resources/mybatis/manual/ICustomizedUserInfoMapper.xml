@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.manual.ICustomizedUserManageMapper">
+
+    <resultMap id="resultMaps" type="com.manager.response.UserMangeResponse">
+        <id property="id" jdbcType="INTEGER" column="id" />
+        <result property="userName" jdbcType="CHAR" column="username" />
+        <result property="userNum" jdbcType="CHAR" column="user_num" />
+        <result property="password" jdbcType="CHAR" column="password" />
+        <result property="passwordVerify" jdbcType="CHAR" column="password_confirm" />
+        <result property="phoneNumber" jdbcType="VARCHAR" column="phones" />
+        <result property="province" jdbcType="CHAR" column="province" />
+        <result property="city" jdbcType="CHAR" column="city" />
+        <result property="county" jdbcType="CHAR" column="district" />
+        <result property="startTime" jdbcType="DATE" column="begin_time" />
+        <result property="endTime" jdbcType="DATE" column="end_time" />
+        <result property="isAbled" jdbcType="TINYINT" column="status" />
+        <result property="isManager" jdbcType="TINYINT" column="is_manager" />
+        <result property="isSync" jdbcType="TINYINT" column="is_synchro" />
+        <result property="userEmail" jdbcType="VARCHAR" column="mailbox" />
+        <result property="postCode" jdbcType="VARCHAR" column="post_code" />
+        <result property="companyName" jdbcType="VARCHAR" column="company_name" />
+        <result property="registerIp" jdbcType="VARCHAR" column="register_ip" />
+        <result property="loginIp" jdbcType="VARCHAR" column="login_ip" />
+        <result property="identityNum" jdbcType="VARCHAR" column="identification" />
+        <result property="address" jdbcType="VARCHAR" column="address" />
+        <result property="lastQuitNum" jdbcType="CHAR" column="last_quit_num" />
+        <result property="thisLoadNum" jdbcType="CHAR" column="this_load_num" />
+        <result property="checkLimit" jdbcType="INTEGER" column="check_limit" />
+        <result property="checkNum" jdbcType="INTEGER" column="check_num" />
+        <result property="hardNum" jdbcType="VARCHAR" column="hardpan_num" />
+        <result property="networkNum" jdbcType="VARCHAR" column="network_card" />
+        <result property="temporaryCard" jdbcType="VARCHAR" column="temporary_card" />
+        <result property="isBinding" jdbcType="TINYINT" column="is_binding" />
+        <result property="sendCity" jdbcType="VARCHAR" column="send_city" />
+        <result property="receiveCity" jdbcType="VARCHAR" column="receive_city" />
+        <result property="isSend" jdbcType="TINYINT" column="is_send" />
+        <result property="isReceive" jdbcType="TINYINT" column="is_receive" />
+        <result property="isReceiveSelf" jdbcType="TINYINT" column="is_receive_self" />
+    </resultMap>
+
+
+    <resultMap id="BaseResultMaps" type="com.manager.response.UserMangeResponse">
+        <id property="id" jdbcType="INTEGER" column="id" />
+        <result property="userName" jdbcType="CHAR" column="username" />
+        <result property="userNum" jdbcType="CHAR" column="user_num" />
+        <result property="password" jdbcType="CHAR" column="password" />
+        <result property="phoneNumber" jdbcType="VARCHAR" column="phones" />
+        <result property="province" jdbcType="CHAR" column="province" />
+        <result property="city" jdbcType="CHAR" column="city" />
+        <result property="county" jdbcType="CHAR" column="district" />
+        <result property="startTime" jdbcType="DATE" column="begin_time" />
+        <result property="endTime" jdbcType="DATE" column="end_time" />
+        <result property="isAbled" jdbcType="TINYINT" column="status" />
+        <result property="hardNum" jdbcType="VARCHAR" column="hardpan_num" />
+        <result property="networkNum" jdbcType="VARCHAR" column="network_card" />
+    </resultMap>
+
+    <!-- 获取用户列表 -->
+    <select id="findUserInfoPage" parameterType="com.manager.request.user.UserManageRequest" resultMap="BaseResultMaps">
+        SELECT
+        u.id,
+        u.username,
+        u.user_num,
+        u.password,
+        u.phones,
+        u.province,
+        u.city,
+        u.district,
+        u.begin_time,
+        u.end_time,
+        u.status,
+        ub.hardpan_num,
+        ub.network_card
+        FROM
+        user u,
+        user_binding ub
+        WHERE
+        u.id=ub.user_id
+        <if test="userName != null and userName != ''">
+            AND u.username like '%${userName}%'
+        </if>
+        <if test="userNum != null and userNum != ''" >
+            AND u.user_num = #{userNum}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''" >
+            AND u.phones = #{phoneNumber}
+        </if>
+        <if test="isAbled != null and isAbled != ''" >
+            AND u.status = #{isAbled}
+        </if>
+        ORDER BY u.id DESC
+    </select>
+
+
+    <!-- 获取用户详情 -->
+    <select id="findUserInfoDetail" parameterType="com.manager.request.user.UserManageRequest" resultMap="resultMaps">
+        SELECT
+        u.id,
+        u.username,
+        u.user_num,
+        u.password,
+        u.password_confirm,
+        u.phones,
+        u.province,
+        u.city,
+        u.district,
+        u.begin_time,
+        u.end_time,
+        u.status,
+        u.is_manager,
+        u.is_synchro,
+        u.mailbox,
+        u.post_code,
+        u.company_name,
+        u.register_ip,
+        u.login_ip,
+        u.identification,
+        u.address,
+        u.last_quit_num,
+        u.this_load_num,
+        u.check_limit,
+        u.check_num,
+        ub.hardpan_num,
+        ub.network_card,
+        ub.temporary_card,
+        ub.is_binding,
+        uc.send_city,
+        uc.receive_city,
+        uc.is_send,
+        uc.is_receive,
+        uc.is_receive_self
+        FROM
+        user u,
+        user_binding ub,
+        user_custom uc
+        WHERE
+        u.id=ub.user_id
+        AND
+        u.id=uc.user_id
+        AND
+        u.id=#{id}
+    </select>
+</mapper>
