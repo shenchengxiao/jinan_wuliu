@@ -5,6 +5,7 @@ import com.manager.mapper.UserCustomMapper;
 import com.manager.pojo.UserCustom;
 import com.manager.pojo.UserCustomExample;
 import com.manager.pojo.UserCustomExample.Criteria;
+import com.manager.pojo.UserCustomExample;
 import com.manager.service.UserCustomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,12 @@ public class UserCustomServiceImpl implements UserCustomService{
         }
     }
 
+    /**
+     * 根据用户主键ID更新　信息
+     * @param userCustom
+     * @return
+     * @throws DatabaseException
+     */
     @Override
     public boolean updateUserCustomInfo(UserCustom userCustom) throws DatabaseException {
         try {
@@ -52,7 +59,14 @@ public class UserCustomServiceImpl implements UserCustomService{
                 LOG.error("updateUserCustomInfo 信息为空",userCustom);
                 return false;
             }
-            int val = userCustomMapper.updateByPrimaryKeySelective(userCustom);
+            if (userCustom.getUserId() == null){
+                LOG.error("updateUserCustomInfo 用户主键ID为空",userCustom);
+                return false;
+            }
+            UserCustomExample example = new UserCustomExample();
+            UserCustomExample.Criteria criteria = example.createCriteria();
+            criteria.andUserIdEqualTo(userCustom.getUserId());
+            int val = userCustomMapper.updateByExampleSelective(userCustom,example);
             return (val>0)?true:false;
         } catch (Throwable e) {
             LOG.error("updateUserCustomInfo 异常",userCustom);
@@ -92,7 +106,7 @@ public class UserCustomServiceImpl implements UserCustomService{
             if(userCustom.getUserId() != null){
             	criteria.andUserIdEqualTo(userCustom.getUserId());
             }
-            
+
             return userCustomMapper.selectByExample(example);
         } catch (Throwable e) {
             LOG.error("updateUserCustomInfoByUserId 异常",userCustom);

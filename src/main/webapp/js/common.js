@@ -72,8 +72,6 @@
     });
 })($);
 
-var FILE_URL  = '';
-var provinceId = 0;
 
 
 $(function () {
@@ -97,18 +95,20 @@ $(function () {
      *  日期插件初始化
      */
     var start = {
-        format: 'YYYY-MM-DD', //自动生成的时间格式
-        min: '2000-01-01', //创建当前日期为最小日期
-        max: '2099-06-16', //创建最大日期
+        istime: true,
+        format: 'YYYY-MM-DD hh:mm:ss', //自动生成的时间格式
+        min: '1900-01-01 00:00:00', //创建当前日期为最小日期
+        max: '2099-06-16 23:59:59', //创建最大日期
         choose: function (datas) {
             end.min = datas; //开始日选好后，重置结束日的最小日期
             end.start = datas //将结束日的初始值设定为开始日
         }
     };
     var end = {
-        format: 'YYYY-MM-DD', //自动生成的时间格式
-        min: '2000-01-01',
-        max: '2099-06-16', //创建最大日期
+        istime: true,
+        format: 'YYYY-MM-DD hh:mm:ss', //自动生成的时间格式
+        min: '1900-01-01 00:00:00',
+        max: '2099-06-16 23:59:59', //创建最大日期
         choose: function (datas) {
             start.max = datas; //结束日选好后，重置开始日的最大日期
         }
@@ -249,18 +249,6 @@ function isNull(str) {
     }
 }
 
-/**
- * 在数组中查找某个数
- */
-function findInArr(item,arr){
-    for(var i=0;i<arr.length;i++){
-        if(item == arr[i]){
-            return true;
-        }
-    }
-    return false;
-}
-
 
 
 
@@ -297,45 +285,7 @@ function timestampFormat(timestamp) {
     return (new Date(timestamp)).Format('yyyy-MM-dd hh:mm:ss');
 }
 
-/**
- *  功能描述：获取省份
- *  请求方式：GET
- *  请求地址：/api/channel/province
- *  函数名称：getProvince
- */
-function getProvince() {
-    $('#province').html('<option value="">全部区域</option>');
-    $.ajax({
-        url: '/api/channel/province',
-        type: 'get',
-        dataType: 'json',
-        //beforeSend: function (data) {
-        //    $.progressBar({message: '<p>正在努力加载数据...</p>', modal: true, canCancel: true});
-        //},
-        success: function (data) {
-            if (data.status == 0) {
-                var json = data.data;
-                $.each(json, function (index, item) {
-                    $('<option '+ (item.province_id == provinceId?'selected="selected"':'') +' value="' + item.province_id + '">' + item.province_name + '</option>').appendTo($('#province'));                });
-            } else {
-                $.toast('没有查到数据！', 3000);
-            }
-        },
-        complete: function () {
-            $.progressBar().close();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $.toast('服务器未响应,请稍候重试', 5000);
-        }
-    });
-}
 
-/**
- * 当数为负数时，返回
- */
-function getPositiveNum(num) {
-    return num < 0 ? 0 : num;
-}
 
 /**
  * 获取cookie

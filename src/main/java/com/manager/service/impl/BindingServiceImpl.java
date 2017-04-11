@@ -83,6 +83,12 @@ public class BindingServiceImpl implements BindingService{
 		
 	}
 
+	/**
+	 * 根据用户主键ID更新信息
+	 * @param userBinding
+	 * @return
+	 * @throws DatabaseException
+	 */
 	@Override
 	public boolean updateUserBinding(UserBinding userBinding) throws DatabaseException {
 		try {
@@ -90,11 +96,13 @@ public class BindingServiceImpl implements BindingService{
 				LOG.error("updateUserBinding 信息为空",userBinding);
 				return false;
 			}
+			if (userBinding.getUserId() == null){
+				LOG.error("updateUserBinding 用户主键ID为空",userBinding);
+				return false;
+			}
 			UserBindingExample example = new UserBindingExample();
 			UserBindingExample.Criteria criteria = example.createCriteria();
-			if (userBinding.getUserId() != null){
-				criteria.andUserIdEqualTo(userBinding.getUserId());
-			}
+			criteria.andUserIdEqualTo(userBinding.getUserId());
 			Integer val = userBindingMapper.updateByExampleSelective(userBinding,example);
 			return val>0?true:false;
 		}catch (Throwable e) {

@@ -47,25 +47,26 @@
                                 <i class="icon-reorder"></i> 用户管理
                             </div>
                             <div class="actions">
-                                <a class="btn green repoActivity" id="creat_banner_icon">
-                                    <i class="icon-pencil"></i> 新增用户
+                                <a href="user_add.jsp" class="btn green repoActivity">
+                                    <i class="icon-pencil"></i>
+                                    添加用户
                                 </a>
                             </div>
                         </div>
                         <div class="portlet-body">
                             <div class="row-fluid">
-                                <form id="advert_list_form" method="get">
+                                <form id="user_list_form" method="get">
                                     <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入价格" class="m-wrap span12" id="price">
+                                        <input type="text" name="userName" placeholder="请输入用户名称" class="m-wrap span12">
                                     </div>
                                     <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系人" class="m-wrap span12" id="linkedName">
+                                        <input type="text" name="userNum" placeholder="请输入用户编号" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
+                                        <input type="text" name="phoneNumber" placeholder="请输入联系电话" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <select class="m-wrap span6" name="adType" id="adType">
+                                        <select class="m-wrap span6" name="isAbled" >
                                             <option value=" ">请选择</option>
                                             <option value="0">无效</option>
                                             <option value="1">有效</option>
@@ -80,16 +81,21 @@
                         </div>
                         <div class="box">
                             <div class="portlet-body no-more-tables">
-                                <table class="table-bordered table-striped table-condensed cf" id="banner_List">
+                                <table class="table-bordered table-striped table-condensed cf" id="user_manage_list">
                                     <thead class="cf">
                                     <tr>
                                         <th>用户名称</th>
-                                        <th>结束时间</th>
-                                        <th>价格</th>
-                                        <th>联系人</th>
+                                        <th>用户编号</th>
+                                        <th>用户密码</th>
                                         <th>联系电话</th>
-                                        <th>是否有效</th>
-                                        <th>广告内容</th>
+                                        <th>省份</th>
+                                        <th>城市</th>
+                                        <th>县区</th>
+                                        <th>服务开始时间</th>
+                                        <th>服务结束时间</th>
+                                        <th>硬盘号</th>
+                                        <th>网卡号</th>
+                                        <th>状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -117,10 +123,9 @@
 <jsp:include page="/include/footer.jsp"></jsp:include>
 <!-- 页尾 end -->
 <!-- build:js scripts/build.js -->
-<script src="/js/advert/advert.js"></script>
 <!-- endbuild -->
-<script>
-</script>
+<script src="${pageContext.request.contextPath}/js/background/user_list.js"></script>
+
 </body>
 
 </html>

@@ -1,12 +1,18 @@
 package com.manager.service.impl;
 
+import com.manager.enums.YesNoEnum;
 import com.manager.exception.DatabaseException;
+import com.manager.interceptor.PageMybatisInterceptor;
 import com.manager.mapper.UserMapper;
+import com.manager.mapper.manual.ICustomizedUserManageMapper;
 import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
 import com.manager.pojo.UserExample.Criteria;
 import com.manager.response.UserInfoResponse;
+import com.manager.request.user.UserManageRequest;
+import com.manager.response.UserMangeResponse;
 import com.manager.service.UserInfoService;
+import com.manager.utils.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +30,9 @@ public class UserInfoServiceImpl implements UserInfoService{
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private ICustomizedUserManageMapper customizedUserManageMapper;
 
     Logger LOG = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
@@ -59,7 +68,7 @@ public class UserInfoServiceImpl implements UserInfoService{
                 LOG.error("updateUser 信息为空",user);
                 return false;
             }
-            Integer val = userMapper.updateByPrimaryKeySelective(user);
+            int val = userMapper.updateByPrimaryKeySelective(user);
             return val>0?true:false;
         } catch (Throwable e) {
             LOG.error("updateUser 异常",user);
@@ -78,12 +87,79 @@ public class UserInfoServiceImpl implements UserInfoService{
 			if(StringUtils.isNoneEmpty(user.getUsername())){
 				criteria.andUsernameEqualTo(user.getUsername());
 			}
-			
+
 			return userMapper.selectByExample(example);
-			
+
 		} catch (Throwable e) {
 	        LOG.error("queryUser 异常",user);
 	        throw new DatabaseException(e.getMessage());
 	    }
 	}
+
+    /**
+     * 获取用户详情信息
+     * @param request
+     * @return
+     * @throws DatabaseException
+     */
+    public UserMangeResponse getUserDetail(UserManageRequest request) throws DatabaseException {
+        try {
+            if (request == null){
+                LOG.error("getUserDetail 信息为空",request);
+                return null;
+            }
+            if (request.getId() == null){
+                LOG.error("getUserDetail 主键ID为空",request);
+                return null;
+            }
+            UserMangeResponse userMangeResponse = customizedUserManageMapper.findUserInfoDetail(request);
+            return userMangeResponse;
+        }  catch (Throwable e) {
+            LOG.error("getUserDetail 异常",request);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    /**
+     * 获取用户列表
+     * @param request
+     * @return
+     * @throws DatabaseException
+     */
+    public Page<UserMangeResponse> getUserList(UserManageRequest request) throws DatabaseException {
+        try {
+            if (request == null){
+                LOG.error("getUserList 信息为空",request);
+                return null;
+            }
+            PageMybatisInterceptor.startPage(request.getPageNum(),request.getPageSize());
+            customizedUserManageMapper.findUserInfoPage(request);
+            Page<UserMangeResponse> page = PageMybatisInterceptor.endPage();
+            return page;
+        }  catch (Throwable e) {
+            LOG.error("getUserList 异常",request);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean modifyStatus(Integer id, Integer enabled) throws DatabaseException {
+        try {
+            if (id == null){
+                LOG.error("modifyStatus id为空",id);
+                return false;
+            }
+            User record = new User();
+            record.setId(id);
+            record.setStatus(YesNoEnum.create(enabled));
+            UserExample example = new UserExample();
+            UserExample.Criteria criteria = example.createCriteria();
+            criteria.andIdEqualTo(id);
+            int val = userMapper.updateByExampleSelective(record,example);
+            return val>0?true:false;
+        } catch (Throwable e) {
+            LOG.error("modifyStatus 异常",id);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
 }

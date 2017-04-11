@@ -5409,6 +5409,11 @@ Invoice page
   vertical-align: middle;
 }
 
+#user_manage_list td{
+  text-align: center;
+  vertical-align: middle;
+}
+
 .popover-content {
     word-wrap: break-word;
 }

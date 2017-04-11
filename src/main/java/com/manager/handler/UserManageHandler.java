@@ -8,10 +8,12 @@ import com.manager.pojo.User;
 import com.manager.pojo.UserBinding;
 import com.manager.pojo.UserCustom;
 import com.manager.request.user.UserManageRequest;
+import com.manager.response.UserMangeResponse;
 import com.manager.service.BindingService;
 import com.manager.service.UserCustomService;
 import com.manager.service.UserInfoService;
 import com.manager.utils.DateTimeUtil;
+import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
 import org.slf4j.Logger;
@@ -53,6 +55,7 @@ public class UserManageHandler {
 
         //用户基本信息
         User user = new User();
+        user.setId(request.getId());
         user.setUsername(request.getUserName());
         user.setUserNum(request.getUserNum());
         user.setPassword(request.getPassword());
@@ -62,7 +65,7 @@ public class UserManageHandler {
         user.setCity(request.getCity());
         user.setDistrict(request.getCounty());
         user.setBeginTime(DateTimeUtil.convertDate(request.getStartTime()));
-        user.setEndTime(DateTimeUtil.convertDate(request.getEndTime()+" 23:59:59"));
+        user.setEndTime(DateTimeUtil.convertDate(request.getEndTime()));
         user.setStatus(YesNoEnum.create(request.getIsAbled()));
         user.setIsManager(YesNoEnum.create(request.getIsManager()));
         user.setIsSynchro(YesNoEnum.create(request.getIsSync()));
@@ -121,6 +124,64 @@ public class UserManageHandler {
             }
         } catch (DatabaseException e) {
             LOG.error("editUser exception",request);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 根据ID获取详情
+     * @param id
+     * @return
+     * @throws YCException
+     */
+    public UserMangeResponse fetchUserManageDetail(Integer id) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(id,"用户主键ID不能为空");
+        UserManageRequest request = new UserManageRequest();
+        request.setId(id);
+        UserMangeResponse userMangeResponse = null;
+        try {
+            userMangeResponse = userInfoService.getUserDetail(request);
+            return userMangeResponse;
+        } catch (DatabaseException e) {
+            LOG.error("fetchUserManageDetail exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 获取列表
+     * @param request
+     * @return
+     * @throws YCException
+     */
+    public Page<UserMangeResponse> fetchUserManageList(UserManageRequest request) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
+        Page<UserMangeResponse> userMangeResponsePage = null;
+        try {
+            userMangeResponsePage = userInfoService.getUserList(request);
+            return userMangeResponsePage;
+        } catch (DatabaseException e) {
+            LOG.error("fetchUserManageList exception",request);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 更新用户状态
+     * @param id
+     * @param enabled
+     * @throws YCException
+     */
+    public void modifyUserStatus(Integer id,Integer enabled) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(id,"主键ID不能为空");
+        Validator.isEmpty(enabled,"状态值不能为空");
+        try {
+            userInfoService.modifyStatus(id,enabled);
+        } catch (DatabaseException e) {
+            LOG.error("modifyUserStatus exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
