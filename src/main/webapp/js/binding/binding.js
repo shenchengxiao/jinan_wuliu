@@ -76,8 +76,10 @@ function addbinding(){
             if(data.status == 0){
                 $.toast('操作成功',5000);
                 location.reload();
-            }else{
+            }else if(data.status == '500002'){
             	$.toast('该账号不存在',5000);
+            }else {
+                $.toast('操作失败,系统错误',1000);
             }
         },
         complete:function(){

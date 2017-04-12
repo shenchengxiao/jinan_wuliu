@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.exception.YCException;
 import com.manager.handler.ItemHandler;
+import com.manager.pojo.Items;
 import com.manager.request.blackword.BlackWordRequest;
 import com.manager.request.item.ItemRequest;
 import com.manager.response.BlackWordResponse;
@@ -109,6 +110,26 @@ public class ItemController {
     		apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
     	} catch (Throwable e) {
     		LOG.error("修改信息状态发生异常",id);
+    		apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+    		apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+    	}
+    	return apiResponse;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/pushItem",method = RequestMethod.POST)
+    public APIResponse pushItem(HttpServletRequest request, Items item){
+    	APIResponse apiResponse = new APIResponse<>();
+    	try {
+    		if(itemHandler.addItem(item)){
+	    		apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+	    		apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+    		}else{
+    			apiResponse.setStatus(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode());
+	    		apiResponse.setMsg(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+    		}
+    	} catch (Throwable e) {
+    		LOG.error("发布信息发生异常",item.getUserId());
     		apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
     		apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
     	}
