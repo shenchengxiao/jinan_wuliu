@@ -10,7 +10,7 @@ public class SessionManager {
     /**
      * 将用户添加到在线列表
      * @param userCode
-     * @param sessionId
+     * @param
      */
     public static synchronized void addUser(int userCode, HttpSession session) {
         if (mapOnline.containsKey(userCode)){
@@ -28,7 +28,7 @@ public class SessionManager {
     /**
      * 是否为合法用户
      * @param userCode
-     * @param sessionId
+     * @param
      * @return
      */
     public static boolean isValidUser(int userCode, HttpSession session) {

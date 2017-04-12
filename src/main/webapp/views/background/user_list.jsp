@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="span2">
                                         <select class="m-wrap span6" name="isAbled" >
-                                            <option value=" ">请选择</option>
+                                            <option value="">请选择</option>
                                             <option value="0">无效</option>
                                             <option value="1">有效</option>
                                         </select>

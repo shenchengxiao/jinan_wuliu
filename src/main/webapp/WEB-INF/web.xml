@@ -76,12 +76,5 @@
     <url-pattern>*.html</url-pattern>
     <url-pattern>*.json</url-pattern>
   </servlet-mapping>
-  <session-config>
-    <cookie-config>
-      <!-- session cookie http only -->
-      <http-only>true</http-only>
-    </cookie-config>
-    <!--session跟踪 cookie、url、ssl -->
-    <tracking-mode>COOKIE</tracking-mode>
-  </session-config>
+
 </web-app>

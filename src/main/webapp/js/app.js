@@ -928,7 +928,11 @@ function setCookie(name, value, option) {
         }
     }
     //未登录,跳转登录页
-     if(!user.isAuthenticated && location.href.indexOf('/login.jsp')<0) location.href="login.jsp";
+     if(!user.isAuthenticated && location.href.indexOf('/login.jsp')<0 && location.href.indexOf('/index.jsp')>0){
+         location.href="login.jsp";
+     } else if (!user.isAuthenticated && location.href.indexOf('/login.jsp')<0){
+         location.href="../login.jsp";
+     }
 
     App.req = { params:params,cookies:cookies,user:user };
 })();
