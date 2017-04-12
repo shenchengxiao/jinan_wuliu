@@ -10,8 +10,198 @@ $(function(){
             $("#btn_search").click();
         }
     });
+    
+    
+    var clicknum = 1;
+    var idsArr  = [];
+    //ids 传递ids的集合对象
+    function setIdsInfo(){
+        var arrId = [];
+        $.each(idsArr,function(index,item){
+            var IDs = {
+                id:item
+            };
+            arrId.push(IDs);
+        });
+
+        var json = JSON.stringify(arrId);
+        $('#ids').val(json);
+    }
+
+
+
+    //全选||非全选
+    $('#btn_chooseAll').on('click',function(){
+        if(clicknum%2){    
+            //第一次点击
+            $('input[name="idArr"]').each(function(i){
+                idsArr.push($(this).val());
+            });
+            setIdsInfo();
+            console.log(idsArr);
+            $('#btn_chooseAll').text('取消全选');
+            $('input[name="chooseTag"]').prop({
+                checked: 'checked'
+            }).parent().css({
+                color:'green'
+            });
+        }else{
+            //第二次点击
+            idsArr.length=0;
+            setIdsInfo();
+            $('#btn_chooseAll').text('全选');
+            $('input[name="chooseTag"]').prop({
+                checked: ''
+            }).parent().css({
+                color:'#000'
+            });
+            console.log(idsArr);
+        }
+        clicknum++; 
+    });
+
+
+    $('#user_manage_list').on('change','input[name="chooseTag"]',function(){
+        /*$this = $(this);*/
+        var thisID = $(this).next('input').val();
+        if($(this).is(':checked')){
+            idsArr.push(thisID);
+            setIdsInfo(); 
+            $(this).parent().css({
+                color:'green'
+            });
+            console.log(idsArr);
+        }else{
+            removeInArr(thisID);
+            setIdsInfo();
+            $(this).parent().css({
+                color:'#000'
+            });
+            console.log(idsArr);
+        }
+    });
+
+    //查找某个值在数组中的位置
+    function indexOfInArr(val) {
+        for (var i = 0; i < idsArr.length; i++) {
+            if (idsArr[i] == val) return i;
+        }
+        return -1;
+    };
+
+    //定义一个remove的方法
+    function removeInArr(val) {
+        var index = indexOfInArr(val);
+        if (index > -1) {
+            idsArr.splice(index, 1);
+        }
+    };
+
+
+  //创建modal弹出层class="modal"
+    $('#btn_send').on('click',function(){
+    	var ids = $('#ids').val();
+    	if(ids != null && ids.length > 0){
+    		
+    		clearModal();//清空modal弹出层里面的参数；
+    		$('#sendUserMessageModal').modal('show');//modle层显示
+    	}else{
+    		alert("请先选择用户");
+    	}
+    	
+    });
+
+    $('#btn_send_usermessage').on('click',function(){
+        //非空验证
+        var b = $('#send_usermessagee_form').valid();//true false
+        if(b){
+        	sendsysmessage();//添加黑词
+            $('#sendUserMessageModal').modal('hide');//modle层隐藏
+        }else{
+            return false;
+        }
+    });
+    
+    $('#btn_clear').on('click',function(){
+    	
+    	$("#content").val("");
+    });
+
+    /**
+     *  功能描述：添加黑词验证
+     */
+
+    $('#send_usermessagee_form').validate({
+        errorElement:'span',
+        errorClass:'help-inline',
+        focusInvalid:false,
+        ignore:'',
+        rules:{
+            content:{
+                required: true
+            }
+        },
+        messages:{
+        	content:{
+                required:'请输入消息内容'
+            }
+        },
+        invalidHandler:function(event,validator){
+            $('.alert-success').hide();
+            $('.alert-error').show();
+        },
+        highlight:function(element){
+            $(element).closest('.help-inline').removeClass('ok');
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+        },
+        unhighlight:function(element){
+            $(element).closest('.control-group').removeClass('error');
+        },
+        success:function(label){
+            label.addClass('valid').addClass('help-inline ok').closest('.control-group').removeClass('error').addClass('success');
+        },
+        submitHandler:function(form){
+            $('.alert-success').show();
+            $('.alert-error').hide();
+        }
+    });
+    
 
 });
+
+function sendsysmessage(){
+    $.ajax({
+        url:manage_path+'/api/message/send',
+        type:'POST',
+        dataType:'json',
+        data:$('#send_usermessagee_form').serialize(),
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                $.toast('发送成功',5000);
+                location.reload();
+            }else{
+            	$.toast('发送失败',5000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    });
+}
+
+//清空modal里面的参数
+function clearModal(){
+	$('textarea[name=content]').val('');
+    /*$('input[name=ids]').val('');*/
+    
+    $('#myModalLabel').text('发送消息通知');
+}
 
 /**
  *  功能描述：获取用户列表信息
@@ -48,12 +238,11 @@ function getUserList(){
                         }
 
                         var Deleted ='<a href="user_detail.jsp?id='+item.id+'" class="btn mini purple" data-toggle="tooltip" data-placement="top" title="查看" ><i class="icon-tasks"></i></a>&nbsp;'
-                        var push ='<a href="user_push.jsp?id='+item.id+'" class="btn yellow mini" data-toggle="tooltip" data-placement="top" title="发布" ><i class="icon-hand-right"></i></a>&nbsp;'
                         //操作按钮拼接
-                        operation = upDown + ' <a href="user_edit.jsp?id='+item.id+'" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" ><i class="icon-edit icon-white"></i></a> ' 
-                        + Deleted + push;
+                        operation = upDown + ' <a href="user_edit.jsp?id='+item.id+'" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" ><i class="icon-edit icon-white"></i></a> ' + Deleted;
 
                         temp += '<tr>'
+                        	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
                             + '<td data-title="用户编号">' + item.userNum + '</td>'
                             + '<td data-title="用户密码">' + item.password + '</td>'

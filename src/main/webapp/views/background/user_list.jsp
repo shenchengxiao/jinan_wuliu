@@ -75,6 +75,19 @@
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search">查找</button>
                                     </div>
+                                    <div class="span2" align="right">
+                                            <div class="controls">
+                                                <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                                                                                                                                                              全选
+                                                    <i class="icon-down"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="javascript:;" class="btn red" id="btn_send">
+                                                    	发送消息     
+                                                    <i class="icon-down"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <!-- <input type="hidden" name="" value="" id="ids"> -->
+                                            </div>
+                                    </div>
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
                             </div>
@@ -84,6 +97,7 @@
                                 <table class="table-bordered table-striped table-condensed cf" id="user_manage_list">
                                     <thead class="cf">
                                     <tr>
+                                        <th></th>
                                         <th>用户名称</th>
                                         <th>用户编号</th>
                                         <th>用户密码</th>
@@ -117,6 +131,35 @@
         </div>
     </div>
     <!-- 内容区域 end -->
+    <!-- modal 添加 begin -->
+    <form action="#" class="form-horizontal" id="send_usermessagee_form">
+            <div class="modal fade hide" id="sendUserMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h4 class="modal-title" id="myModalLabel">发送消息通知</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="userIds" value="" id="ids">
+                        <div class="control-group">
+                            <label class="control-label">消息内容: <span class="required">*</span></label>
+                            <div class="controls">
+                                <textarea class="span10 m-wrap" id="content" name="content" rows="6" style="resize:none;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-default" id="btn_clear">重置</button>
+                        <button type="button" class="btn btn-primary green" id="btn_send_usermessage">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </form>
+    <!-- modal 添加 end -->
 </div>
 <!-- 页面主体 end -->
 <!-- 页尾 begin -->
