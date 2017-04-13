@@ -93,6 +93,47 @@
     </select>
 
 
+    <!-- 获取在线用户 -->
+    <select id="findUserByUserIds" parameterType="com.manager.request.user.OnlineUserRequest" resultMap="BaseResultMaps">
+        SELECT
+        u.id,
+        u.username,
+        u.user_num,
+        u.password,
+        u.phones,
+        u.province,
+        u.city,
+        u.district,
+        u.begin_time,
+        u.end_time,
+        u.status,
+        ub.hardpan_num,
+        ub.network_card
+        FROM
+        user u,
+        user_binding ub
+        WHERE
+        u.id=ub.user_id
+        AND u.id IN
+        <foreach item="id" index="index" collection="idsList" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+        <if test="userName != null and userName != ''">
+            AND u.username like '%${userName}%'
+        </if>
+        <if test="userNum != null and userNum != ''" >
+            AND u.user_num = #{userNum}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''" >
+            AND u.phones = #{phoneNumber}
+        </if>
+        <if test="isAbled != null and isAbled != ''" >
+            AND u.status = #{isAbled}
+        </if>
+        ORDER BY u.id DESC
+    </select>
+
     <!-- 获取用户详情 -->
     <select id="findUserInfoDetail" parameterType="com.manager.request.user.UserManageRequest" resultMap="resultMaps">
         SELECT

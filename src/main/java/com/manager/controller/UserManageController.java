@@ -4,6 +4,7 @@ import com.manager.annotations.Authentication;
 import com.manager.enums.UserRoleEnum;
 import com.manager.exception.YCException;
 import com.manager.handler.UserManageHandler;
+import com.manager.request.user.OnlineUserRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 import com.manager.utils.APIResponse;
@@ -119,6 +120,30 @@ public class UserManageController {
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
         } catch (Throwable e) {
             LOG.error("更新用户状态发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 获取在线用户
+     * @param request
+     * @param onlineUserRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/online_user",method = RequestMethod.GET)
+    public APIResponse<Page<UserMangeResponse>> online(HttpServletRequest request, OnlineUserRequest onlineUserRequest){
+        APIResponse<Page<UserMangeResponse>> apiResponse = new APIResponse<>();
+        Page<UserMangeResponse> page = null;
+        try {
+            page = userManageHandler.fetchOnlineUserList(onlineUserRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(page);
+        } catch (Throwable e) {
+            LOG.error("获取在线用户列表发生异常",onlineUserRequest);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }

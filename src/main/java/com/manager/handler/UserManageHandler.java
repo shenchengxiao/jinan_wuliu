@@ -1,26 +1,29 @@
 package com.manager.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import com.manager.enums.YesNoEnum;
 import com.manager.exception.DatabaseException;
-import com.manager.exception.ValidationException;
 import com.manager.exception.YCException;
 import com.manager.pojo.User;
 import com.manager.pojo.UserBinding;
 import com.manager.pojo.UserCustom;
+import com.manager.request.user.OnlineUserRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 import com.manager.service.BindingService;
 import com.manager.service.UserCustomService;
 import com.manager.service.UserInfoService;
-import com.manager.utils.DateTimeUtil;
-import com.manager.utils.Page;
-import com.manager.utils.Validator;
-import com.manager.utils.YCSystemStatusEnum;
+import com.manager.utils.*;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by shencx on 2017/4/10.
@@ -185,4 +188,31 @@ public class UserManageHandler {
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
+
+    /**
+     * 获取在线用户列表
+     * @param request
+     * @return
+     * @throws YCException
+     */
+    public Page<UserMangeResponse> fetchOnlineUserList(OnlineUserRequest request) throws YCException {
+        Page<UserMangeResponse> userMangeResponsePage = null;
+        try {
+            userMangeResponsePage = userInfoService.getUserByUserIds(request);
+            return userMangeResponsePage;
+        } catch (DatabaseException e) {
+            LOG.error("fetchOnlineUserList exception",request);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+//    public String fetchUserIds(){
+//        List<NameValuePair> params = new ArrayList<NameValuePair>();
+//        params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
+//        params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
+////        JSONObject reqJson = new JSONObject();
+////        reqJson.put("business_id", businessId);
+//        String userIds =  URLConnUtil.doPost(rwChannelUrl+action,params);
+//        return userIds;
+//    }
 }

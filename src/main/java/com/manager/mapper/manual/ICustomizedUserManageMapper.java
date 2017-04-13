@@ -1,5 +1,6 @@
 package com.manager.mapper.manual;
 
+import com.manager.request.user.OnlineUserRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 import org.springframework.stereotype.Repository;
@@ -25,4 +26,11 @@ public interface ICustomizedUserManageMapper {
      * @return
      */
     List<UserMangeResponse> findUserInfoPage(UserManageRequest request);
+
+    /**
+     * 批量查询用户
+     * @param request
+     * @return
+     */
+    List<UserMangeResponse> findUserByUserIds(OnlineUserRequest request);
 }

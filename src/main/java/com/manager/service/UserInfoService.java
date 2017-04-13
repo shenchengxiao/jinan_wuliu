@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.manager.exception.DatabaseException;
 import com.manager.pojo.User;
+import com.manager.request.user.OnlineUserRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 import com.manager.utils.Page;
@@ -24,4 +25,6 @@ public interface UserInfoService {
     Page<UserMangeResponse> getUserList(UserManageRequest request) throws DatabaseException;
 
     boolean modifyStatus(Integer id,Integer enabled) throws DatabaseException;
+
+    Page<UserMangeResponse> getUserByUserIds(OnlineUserRequest request) throws DatabaseException;
 }

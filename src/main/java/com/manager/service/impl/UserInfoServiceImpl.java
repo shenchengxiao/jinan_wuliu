@@ -8,6 +8,7 @@ import com.manager.mapper.manual.ICustomizedUserManageMapper;
 import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
 import com.manager.pojo.UserExample.Criteria;
+import com.manager.request.user.OnlineUserRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 
@@ -162,6 +163,32 @@ public class UserInfoServiceImpl implements UserInfoService{
             return val>0?true:false;
         } catch (Throwable e) {
             LOG.error("modifyStatus 异常",id);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    /**
+     * 批量查询用户
+     * @param request
+     * @return
+     */
+    @Override
+    public Page<UserMangeResponse> getUserByUserIds(OnlineUserRequest request) throws DatabaseException {
+        try {
+            if (request == null){
+                LOG.error("getUserByUserIds 信息为空",request);
+                return null;
+            }
+            if (request.getIdsList() == null || request.getIdsList().size() ==0){
+                LOG.error("getUserByUserIds id为空",request);
+                return null;
+            }
+            PageMybatisInterceptor.startPage(request.getPageNum(),request.getPageSize());
+            customizedUserManageMapper.findUserByUserIds(request);
+            Page<UserMangeResponse> page = PageMybatisInterceptor.endPage();
+            return page;
+        } catch (Exception e) {
+            LOG.error("getUserByUserIds 异常",request);
             throw new DatabaseException(e.getMessage());
         }
     }
