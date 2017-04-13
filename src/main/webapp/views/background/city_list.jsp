@@ -30,7 +30,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="${ctx}/index.jsp">首页</a>
+                            <a href="../index.jsp">首页</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
@@ -58,9 +58,17 @@
 					                            </div>
 					                        </div>
 					                        <div class="control-group">
-					                            <label class="control-label">城市: &nbsp;&nbsp;</label>
+					                            <label class="control-label">可接收城市: &nbsp;&nbsp;</label>
 					                            <div class="controls">
 					                            <select id="cityTree" name="receiveCity" class="easyui-combotree" 
+					                            data-options="url:'../../tree/tree_data1.json',multiple : true,cascadeCheck:false,onlyLeafCheck:true"
+					                            style="width:66%;height: 100%;"></select>
+					                            </div>
+					                        </div>
+					                        <div class="control-group">
+					                            <label class="control-label">可发布城市: &nbsp;&nbsp;</label>
+					                            <div class="controls">
+					                            <select id="sendCity" name="sendCity" class="easyui-combotree" 
 					                            data-options="url:'../../tree/tree_data1.json',multiple : true,cascadeCheck:false,onlyLeafCheck:true"
 					                            style="width:66%;height: 100%;"></select>
 					                            </div>
