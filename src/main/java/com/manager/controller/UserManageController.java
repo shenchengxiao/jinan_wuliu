@@ -149,4 +149,26 @@ public class UserManageController {
         }
         return apiResponse;
     }
+
+    /**
+     * 踢出用户
+     * @param request
+     * @param userIdsArray
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/kick_out",method = RequestMethod.POST)
+    public APIResponse kickOut(HttpServletRequest request,String[] userIdsArray){
+        APIResponse apiResponse = new APIResponse();
+        try {
+            userManageHandler.kickOutUser(userIdsArray);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("踢出用户发生异常",userIdsArray);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 }

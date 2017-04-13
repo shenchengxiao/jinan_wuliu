@@ -1,6 +1,7 @@
 package com.manager.handler;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.manager.common.SystemParam;
 import com.manager.enums.YesNoEnum;
 import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
@@ -14,10 +15,13 @@ import com.manager.service.BindingService;
 import com.manager.service.UserCustomService;
 import com.manager.service.UserInfoService;
 import com.manager.utils.*;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,6 +43,9 @@ public class UserManageHandler {
 
     @Resource
     private BindingService bindingService;
+
+    @Value("${api.kick.out}")
+    private String kickOutUser;
 
     Logger LOG = LoggerFactory.getLogger(UserManageHandler.class);
 
@@ -206,6 +213,30 @@ public class UserManageHandler {
         }
     }
 
+    /**
+     * 踢出用户
+     * @param userIds
+     * @throws YCException
+     */
+    public void kickOutUser(String[] userIds) throws YCException {
+        List<Integer> list = new ArrayList<>();
+        String[] idArry = userIds;
+        for (String ids : idArry) {
+            list.add(Integer.valueOf(ids));
+        }
+
+        try {
+            //踢出用户
+            kickOutByUserId(list,kickOutUser);
+            //更新用户状态
+            userInfoService.batchUpdateUserStatus(list);
+        }  catch (DatabaseException e) {
+            LOG.error("kickOutUser exception",userIds);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+
+    }
+
 //    public String fetchUserIds(){
 //        List<NameValuePair> params = new ArrayList<NameValuePair>();
 //        params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
@@ -215,4 +246,20 @@ public class UserManageHandler {
 //        String userIds =  URLConnUtil.doPost(rwChannelUrl+action,params);
 //        return userIds;
 //    }
+
+    public boolean kickOutByUserId(List<Integer> userIds,String action) throws YCException {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
+        params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
+        JSONObject reqJson = new JSONObject();
+        reqJson.put("business_id", userIds);
+        String result =  URLConnUtil.doPost(SystemParam.INTERFACE_URL+action,reqJson.toString(),params);
+        JSONObject jsonObject = JSONObject.fromObject(result);
+        if(jsonObject.getString("status") .equals("0")){
+            return true;
+        }else {
+            LOG.error("kickOutByUserId exception",userIds);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
 }

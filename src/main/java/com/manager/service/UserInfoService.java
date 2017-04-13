@@ -27,4 +27,6 @@ public interface UserInfoService {
     boolean modifyStatus(Integer id,Integer enabled) throws DatabaseException;
 
     Page<UserMangeResponse> getUserByUserIds(OnlineUserRequest request) throws DatabaseException;
+
+    boolean batchUpdateUserStatus(List<Integer> ids) throws DatabaseException;
 }

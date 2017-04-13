@@ -53,9 +53,10 @@
                                     <i class="icon-down"></i>
                                 </a>&nbsp;&nbsp;
 
-                                <a  onclick="kickOutUser()" class="btn green repoActivity">
+                                <a  href="javascript:;" class="btn green repoActivity" id="btn_kick_out">
                                     踢出用户
                                 </a>
+                                <input type="hidden" name="" value="" id="userIds">
                             </div>
                         </div>
                         <div class="portlet-body">
