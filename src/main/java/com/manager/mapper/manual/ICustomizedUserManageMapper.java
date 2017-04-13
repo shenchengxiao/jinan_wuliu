@@ -33,4 +33,11 @@ public interface ICustomizedUserManageMapper {
      * @return
      */
     List<UserMangeResponse> findUserByUserIds(OnlineUserRequest request);
+
+    /**
+     * 批量更新
+     * @param ids
+     * @return
+     */
+    Integer batchUpdateStatus(List<Integer> ids);
 }

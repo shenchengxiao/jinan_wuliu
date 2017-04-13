@@ -115,7 +115,7 @@
         WHERE
         u.id=ub.user_id
         AND u.id IN
-        <foreach item="id" index="index" collection="idsList" open="("
+        <foreach item="id" index="index" collection="list" open="("
                  separator="," close=")">
             #{id}
         </foreach>
@@ -133,6 +133,18 @@
         </if>
         ORDER BY u.id DESC
     </select>
+
+    <!-- 批量更新状态 -->
+    <update id="batchUpdateStatus"  parameterType="java.util.List">
+        update
+        user
+        SET status = 1
+        where id IN
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            #{item}
+        </foreach>
+
+    </update>
 
     <!-- 获取用户详情 -->
     <select id="findUserInfoDetail" parameterType="com.manager.request.user.UserManageRequest" resultMap="resultMaps">

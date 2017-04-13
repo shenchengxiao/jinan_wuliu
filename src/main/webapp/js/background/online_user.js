@@ -11,6 +11,96 @@ $(function(){
         }
     });
 
+    var clicknum = 1;
+    var idsArr  = [];
+    //ids 传递ids的集合对象
+    function setIdsInfo(){
+        var arrId = [];
+        $.each(idsArr,function(index,item){
+            arrId.push(item);
+        });
+
+        var json = JSON.stringify(arrId);
+        $('#userIds').val(json);
+    }
+
+    //全选||非全选
+    $('#btn_chooseAll').on('click',function(){
+        if(clicknum%2){
+            //第一次点击
+            $('input[name="userIdArry"]').each(function(i){
+                idsArr.push($(this).val());
+            });
+            setIdsInfo();
+            console.log(idsArr);
+            $('#btn_chooseAll').text('取消全选');
+            $('input[name="chooseTag"]').prop({
+                checked: 'checked'
+            }).parent().css({
+                color:'green'
+            });
+        }else{
+            //第二次点击
+            idsArr.length=0;
+            setIdsInfo();
+            $('#btn_chooseAll').text('全选');
+            $('input[name="chooseTag"]').prop({
+                checked: ''
+            }).parent().css({
+                color:'#000'
+            });
+            console.log(idsArr);
+        }
+        clicknum++;
+    });
+
+
+    $('#user_manage_list').on('change','input[name="chooseTag"]',function(){
+        var thisID = $(this).next('input').val();
+        if($(this).is(':checked')){
+            idsArr.push(thisID);
+            setIdsInfo();
+            $(this).parent().css({
+                color:'green'
+            });
+            console.log(idsArr);
+        }else{
+            removeInArr(thisID);
+            setIdsInfo();
+            $(this).parent().css({
+                color:'#000'
+            });
+            console.log(idsArr);
+        }
+    });
+
+    //查找某个值在数组中的位置
+    function indexOfInArr(val) {
+        for (var i = 0; i < idsArr.length; i++) {
+            if (idsArr[i] == val) return i;
+        }
+        return -1;
+    };
+
+    //定义一个remove的方法
+    function removeInArr(val) {
+        var index = indexOfInArr(val);
+        if (index > -1) {
+            idsArr.splice(index, 1);
+        }
+    };
+
+
+    $('#btn_kick_out').on('click',function(){
+        var userIds = $('#userIds').val();
+        if (userIds != null && userIds.length > 0){
+            kickOutUser();
+        }else {
+            alert("请至少选择一名用户！");
+        }
+
+    });
+
 });
 
 /**
@@ -45,7 +135,7 @@ function getOnlineUserList(){
                         }
 
                         temp += '<tr>'
-                            +'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.id+'"/>'+ '</td>'
+                            +'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="userIdArry" value="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
                             + '<td data-title="用户编号">' + item.userNum + '</td>'
                             + '<td data-title="用户密码">' + item.password + '</td>'
@@ -87,8 +177,41 @@ function getOnlineUserList(){
     })
 }
 
+
+/**
+ *  功能描述：踢出在线用户
+ *  请求方式：POST
+ *  请求地址：/api/user_manage/kick_out
+ *  函数名称：kickOutUser
+ */
 function kickOutUser() {
-    
+    if(!confirm("确定踢出用户吗?")) return;
+    $.ajax({
+        url: manage_path+'/api/user_manage/kick_out',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'userIdsArray':$("#userIds").val()
+        },
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:false,canCancel:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                $.toast("操作成功",3000);
+                getOnlineUserList();
+                $('#ids').val("");
+            }else{
+                $.toast(data.msg,3000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    })
 }
 
 

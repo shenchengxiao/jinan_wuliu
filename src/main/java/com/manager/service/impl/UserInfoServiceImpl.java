@@ -187,8 +187,29 @@ public class UserInfoServiceImpl implements UserInfoService{
             customizedUserManageMapper.findUserByUserIds(request);
             Page<UserMangeResponse> page = PageMybatisInterceptor.endPage();
             return page;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             LOG.error("getUserByUserIds 异常",request);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    /**
+     * 批量更新用户状态
+     * @param ids
+     * @return
+     * @throws DatabaseException
+     */
+    @Override
+    public boolean batchUpdateUserStatus(List<Integer> ids) throws DatabaseException {
+        try {
+            if (ids == null){
+                LOG.error("batchUpdateUserStatus 信息为空",ids);
+                return false;
+            }
+            Integer val = customizedUserManageMapper.batchUpdateStatus(ids);
+            return (val>0)?true:false;
+        } catch (Throwable e) {
+            LOG.error("batchUpdateUserStatus 异常",ids);
             throw new DatabaseException(e.getMessage());
         }
     }
