@@ -19,12 +19,12 @@ $(function(){
         focusInvalid:false,
         ignore:'',
         rules:{
-        	userName:{
+        	userNum:{
                 required: true
             }
         },
         messages:{
-        	userName:{
+        	userNum:{
                 required:'请输入账户'
             }
         },
@@ -59,6 +59,7 @@ $(function(){
  */
 function addcitylist(){
 	$("#cityTree").combotree("setValues",$("#cityTree").combotree("getText"));
+	$("#sendCity").combotree("setValues",$("#sendCity").combotree("getText"));
     $.ajax({
         url:manage_path+'/api/citylist/add',
         type:'POST',

@@ -32,9 +32,6 @@ public class UserCustomHandler {
         /** 参数校验 */
         Validator.isEmpty(user.getUserNum(),YCSystemStatusEnum.USER_ID_EMPTY);
         try {
-        	String rc = userCustom.getReceiveCity();
-        	rc = rc.replaceAll(",", " ");
-        	userCustom.setReceiveCity(rc);
         	List<User> users = userInfoService.queryUser(user);
         	
         	if(users != null && users.size()>0){
