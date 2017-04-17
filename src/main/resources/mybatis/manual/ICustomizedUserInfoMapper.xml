@@ -89,10 +89,10 @@
         <if test="phoneNumber != null and phoneNumber != ''" >
             AND u.phones = #{phoneNumber}
         </if>
-        <if test="isAbled != null and isAbled != ''" >
+        <if test="isAbled != null " >
             AND u.status = #{isAbled}
         </if>
-        <if test="platformType != null and platformType != ''" >
+        <if test="platformType != null " >
             AND u.platform_type = #{platformType}
         </if>
         ORDER BY u.id DESC

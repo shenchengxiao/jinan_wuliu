@@ -225,7 +225,7 @@ function getUserDetail(){
                 $('input[name=sendCity]').val(json.sendCity);
                 $('input[name=receiveCity]').val(json.receiveCity);
 
-
+                $('#platformType').val(json.platformType).selected;
             }
         },
         complete:function(){

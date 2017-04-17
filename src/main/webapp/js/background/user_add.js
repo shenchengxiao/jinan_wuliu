@@ -85,7 +85,7 @@ $(function(){
             },
             endTime:{
                 required:'请输入结束时间'
-            },
+            }
         },
         invalidHandler:function(event,validator){
             $('.alert-success').hide();

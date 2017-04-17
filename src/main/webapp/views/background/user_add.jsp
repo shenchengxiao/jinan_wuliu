@@ -222,6 +222,18 @@
                                             <input class="m-wrap span12" type="text" name="receiveCity" /></div>
                                     </div>
 
+                                    <div class="control-group">
+                                        <label class="control-label">平台类型:<span class="required">*</span></label>
+                                        <div class="span6">
+                                            <select class="m-wrap span3" name="platformType" >
+                                                <option value="0" selected>windows</option>
+                                                <option value="1">Ios</option>
+                                                <option value="2">Android</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
                                 </fieldset>
                                 <fieldset>
                                 <div class="form-actions" align="center">

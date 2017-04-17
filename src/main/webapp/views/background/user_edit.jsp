@@ -98,15 +98,15 @@
                                         <div class="span4">
                                             <select class="m-wrap span3" name="isAbled" id="is_abled_id">
                                                 <option value="0">无效</option>
-                                                <option value="1" selected>有效</option>
+                                                <option value="1" >有效</option>
                                             </select>
                                             <select class="m-wrap span3" name="isManager" id="is_manager_id" >
                                                 <option value="0">不是管理员</option>
-                                                <option value="1" selected>是管理员</option>
+                                                <option value="1" >是管理员</option>
                                             </select>
                                             <select class="m-wrap span3" name="isSync" id="is_sync_id">
                                                 <option value="0">不同步</option>
-                                                <option value="1" selected>同步</option>
+                                                <option value="1" >同步</option>
                                             </select>
                                         </div>
 
@@ -195,19 +195,19 @@
                                         <div class="span6">
                                             <select class="m-wrap span3" name="isSend" id="is_send_id ">
                                                 <option value="0">不能发布信息</option>
-                                                <option value="1" selected>可以发布信息</option>
+                                                <option value="1">可以发布信息</option>
                                             </select>
                                             <select class="m-wrap span3" name="isReceive" id="is_receive_id" >
                                                 <option value="0">不能接收信息</option>
-                                                <option value="1" selected>可以接收信息</option>
+                                                <option value="1">可以接收信息</option>
                                             </select>
                                             <select class="m-wrap span3" name="isReceiveSelf" id="is_receive_self" >
                                                 <option value="0">不接受自己发布信息</option>
-                                                <option value="1" selected>接受自己发布信息</option>
+                                                <option value="1">接受自己发布信息</option>
                                             </select>
                                             <select class="m-wrap span3" name="isBinding" id="is_binding_id" >
                                                 <option value="0">不绑定电脑</option>
-                                                <option value="1" selected>绑定电脑</option>
+                                                <option value="1" >绑定电脑</option>
                                             </select>
                                         </div>
 
@@ -221,6 +221,18 @@
                                         <label class="control-label">可接收城市:</label>
                                         <div class="span4">
                                             <input class="m-wrap span12" type="text" name="receiveCity" /></div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">平台类型:<span class="required">*</span></label>
+                                        <div class="span6">
+                                            <select class="m-wrap span3" name="platformType" id="platformType">
+                                                <option value="0">windows</option>
+                                                <option value="1">Ios</option>
+                                                <option value="2">Android</option>
+                                            </select>
+
+                                        </div>
                                     </div>
 
                                 </fieldset>

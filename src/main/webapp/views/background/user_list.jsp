@@ -77,7 +77,7 @@
                                             <option value="">请选择</option>
                                             <option value="0">windows</option>
                                             <option value="1">Ios</option>
-                                            <option value="1">Android</option>
+                                            <option value="2">Android</option>
                                         </select>
                                     </div>
                                     <div class="span2">
