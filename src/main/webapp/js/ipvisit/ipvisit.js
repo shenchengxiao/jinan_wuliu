@@ -21,6 +21,7 @@ function getIpvisitList(){
         url: manage_path+'/api/ipvisit/list',
         type: 'GET',
         dataType: 'json',
+        data: $('#ipvisit_list_form').serialize(),
         beforeSend:function(data){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCancel:true});
         },

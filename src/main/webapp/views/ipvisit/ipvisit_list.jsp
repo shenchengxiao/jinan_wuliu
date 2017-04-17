@@ -49,9 +49,9 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <!-- <div class="row-fluid">
-                                <form id="blackword_list_form" method="get">
-                                    <div class="span2">
+                            <div class="row-fluid">
+                                <form id="ipvisit_list_form" method="get">
+                                    <!-- <div class="span2">
                                         <input type="text" name="blackWord" placeholder="请输入关键字" class="m-wrap span12">
                                     </div>
                                     <div class="span2">
@@ -69,10 +69,10 @@
                                     </div>
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search1">查找</button>
-                                    </div>
+                                    </div> -->
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="box">
                             <div class="portlet-body no-more-tables">
