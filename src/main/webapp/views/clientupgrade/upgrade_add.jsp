@@ -83,19 +83,16 @@
                                                 </div>
                                             </div>
 
-                                            <div class="control-group">
-                                                <label class="control-label">平台类型: </label>
-                                                <div class="controls">
-                                                    <label class="radio">
-                                                        <input type="radio" name="platformType" value="0" checked="checked">
-                                                        PC
-                                                    </label>
-                                                    <label class="radio">
-                                                        <input type="radio" name="platformType" value="2">
-                                                        Android
-                                                    </label>
-                                                </div>
+                                        <div class="control-group">
+                                            <label class="control-label">平台类型:<span class="required">*</span></label>
+                                            <div class="controls">
+                                                <select class="m-wrap span3" name="platformType" >
+                                                    <option value="0" selected>PC</option>
+                                                    <option value="2">Android</option>
+                                                </select>
+
                                             </div>
+                                        </div>
                                         <div class="form-actions">
                                             <a href="upgrade_list.jsp" class="btn grey">取消</a>
                                             <button type="button" class="btn btn-primary green" id="btn_add_upgrade">提交</button>

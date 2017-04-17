@@ -135,8 +135,8 @@ function getUpgradeDetail(){
                 $('#upgradeDesc').val(json.upgradeDesc);
                 // $("input[name=platformType]").eq(json.platformType).parent().addClass('checked');
 
-                $('input[name=platformType]').parent().removeClass('checked');
-                $('input[name=platformType]').eq(json.platformType).parent().addClass('checked');
+                // $('input[name=platformType]').parent().removeClass('checked');
+                $('#platformType').val(json.platformType).selected;
 
             }
         },
