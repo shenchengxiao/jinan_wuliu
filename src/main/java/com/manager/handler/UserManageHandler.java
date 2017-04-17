@@ -2,6 +2,7 @@ package com.manager.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.manager.common.SystemParam;
+import com.manager.enums.PlatformTypeEnum;
 import com.manager.enums.YesNoEnum;
 import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
@@ -90,6 +91,7 @@ public class UserManageHandler {
         user.setThisLoadNum(request.getThisLoadNum());
         user.setCheckLimit(request.getCheckLimit());
         user.setCheckNum(request.getCheckNum());
+        user.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
 
         //是否发布接收信息入库
         UserCustom userCustom = new UserCustom();

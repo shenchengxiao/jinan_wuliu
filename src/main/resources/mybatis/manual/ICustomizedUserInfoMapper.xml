@@ -37,6 +37,7 @@
         <result property="isSend" jdbcType="TINYINT" column="is_send" />
         <result property="isReceive" jdbcType="TINYINT" column="is_receive" />
         <result property="isReceiveSelf" jdbcType="TINYINT" column="is_receive_self" />
+        <result property="platformType" jdbcType="TINYINT" column="platform_type" />
     </resultMap>
 
 
@@ -52,6 +53,7 @@
         <result property="startTime" jdbcType="DATE" column="begin_time" />
         <result property="endTime" jdbcType="DATE" column="end_time" />
         <result property="isAbled" jdbcType="TINYINT" column="status" />
+        <result property="platformType" jdbcType="TINYINT" column="platform_type" />
         <result property="hardNum" jdbcType="VARCHAR" column="hardpan_num" />
         <result property="networkNum" jdbcType="VARCHAR" column="network_card" />
     </resultMap>
@@ -70,6 +72,7 @@
         u.begin_time,
         u.end_time,
         u.status,
+        u.platform_type,
         ub.hardpan_num,
         ub.network_card
         FROM
@@ -88,6 +91,9 @@
         </if>
         <if test="isAbled != null and isAbled != ''" >
             AND u.status = #{isAbled}
+        </if>
+        <if test="platformType != null and platformType != ''" >
+            AND u.platform_type = #{platformType}
         </if>
         ORDER BY u.id DESC
     </select>
@@ -174,6 +180,7 @@
         u.this_load_num,
         u.check_limit,
         u.check_num,
+        u.platform_type,
         ub.hardpan_num,
         ub.network_card,
         ub.temporary_card,

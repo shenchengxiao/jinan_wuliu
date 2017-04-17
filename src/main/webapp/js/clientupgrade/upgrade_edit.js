@@ -133,6 +133,9 @@ function getUpgradeDetail(){
                 $('input[name=version]').val(json.version);
                 $('input[name=packageUrl]').val(json.packageUrl);
                 $('#upgradeDesc').val(json.upgradeDesc);
+                // $("input[name=platformType]").eq(json.platformType).parent().addClass('checked');
+
+                $('input[name=platformType]').parent().removeClass('checked');
                 $('input[name=platformType]').eq(json.platformType).parent().addClass('checked');
 
             }
@@ -157,7 +160,7 @@ $(function () {
         'fileObjName': 'file',
         'multi': false,
         'buttonText': '上传文件',
-        'onUploadSuccess': function (file, data, response) {
+        'onUploadSuccess': function (file, data) {
             var json = JSON.parse(data);
             var input = $('input[name="packageUrl"]');
             input.val(json.fileInfo.path);
@@ -169,7 +172,7 @@ $(function () {
             alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
         }
     });
-})
+});
 
 
 

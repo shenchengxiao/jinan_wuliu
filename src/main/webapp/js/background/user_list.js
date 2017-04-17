@@ -228,6 +228,18 @@ function getUserList(){
                 if (list != null && list.length>0){
                     var operation, upDown = ''; //操作按钮
                     $.each(list, function (index, item) {
+                        var platform = item.platformType;
+                        switch (platform){
+                            case 0:
+                                platform = 'windows'
+                                break;
+                            case 1:
+                                platform = 'Ios'
+                                break;
+                            case 2:
+                                platform = 'Andoird'
+                                break;
+                        }
                         var enabled = item.isAbled;//banner状态
                         if (enabled == 0) {
                             enabled = "无效";
@@ -258,6 +270,7 @@ function getUserList(){
                             + '<td data-title="硬盘号">' + item.hardNum + '</td>'
                             + '<td data-title="网卡号">' + item.networkNum + '</td>'
                             + '<td data-title="状态">'+  enabled +  '</td>'
+                            + '<td data-title="平台">'+  platform +  '</td>'
                             + '<td data-title="操作">' + operation + '</td>'
                             + '</tr>';
                     })

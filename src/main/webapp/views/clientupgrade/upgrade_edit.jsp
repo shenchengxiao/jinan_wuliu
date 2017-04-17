@@ -88,7 +88,7 @@
                                         <label class="control-label">平台类型: </label>
                                         <div class="controls">
                                             <label class="radio">
-                                                <input type="radio" name="platformType" value="0">
+                                                <input type="radio" name="platformType" value="0" checked>
                                                 PC
                                             </label>
                                             <label class="radio">

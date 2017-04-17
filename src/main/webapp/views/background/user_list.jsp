@@ -73,6 +73,14 @@
                                         </select>
                                     </div>
                                     <div class="span2">
+                                        <select class="m-wrap span6" name="platformType" >
+                                            <option value="">请选择</option>
+                                            <option value="0">windows</option>
+                                            <option value="1">Ios</option>
+                                            <option value="1">Android</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search">查找</button>
                                     </div>
                                     <div class="span2" align="right">
@@ -110,6 +118,7 @@
                                         <th>硬盘号</th>
                                         <th>网卡号</th>
                                         <th>状态</th>
+                                        <th>平台</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>

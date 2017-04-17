@@ -114,6 +114,10 @@ public class UserManageRequest extends BaseQuery{
     /** 可接收城市 */
     private String receiveCity;
 
+    /** 平台类型 */
+    private Integer platformType;
+
+
     @Override
     public Integer getId() {
         return id;
@@ -402,5 +406,13 @@ public class UserManageRequest extends BaseQuery{
 
     public void setReceiveCity(String receiveCity) {
         this.receiveCity = receiveCity;
+    }
+
+    public Integer getPlatformType() {
+        return platformType;
+    }
+
+    public void setPlatformType(Integer platformType) {
+        this.platformType = platformType;
     }
 }

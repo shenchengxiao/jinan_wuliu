@@ -1,78 +1,4 @@
 'use strict'
-//upload
-;(function ($) {
-    function fullPath(path) {
-        if(/^http:\/\//.test(path)) return path;
-        return location.host.replace(/^cms\.(.+)/,"http://img.$1/") + path;
-    }
-    $.extend($.fn, {
-        fileUpload: function () {
-            //上传控件处理
-            $(this).each(function () {
-                var $this = $(this);
-                var filesizelimit = $(this).data('filesizelimit') || "100KB";
-                var multi = $this.data('multi') || false;
-                var filters = $this.data('filters') || '*.gif;*.jpg;*.jpeg;*.png';
-                var $vt = $($this.data('value-target') || '');
-                var $pt = $($this.data('preview-target') || '');
-
-                function previewRender(path) {
-                    var url = fullPath(path);
-                    var values = multi ? ($this.data('values') || []) : [];
-                    values.push(path);
-                    $this.data('values', values);
-                    $vt.val(values.join(','));
-
-                    $pt.is('img') && $pt.attr('src', url);
-                    if (multi && $pt.is('div')) {
-                        var remove = function () {
-                            var $item = $(this).parents('span');
-                            var index = $('span', $pt).index($item);
-                            $item.fadeOut().remove();
-                            values.splice(index, 1);
-                            $vt.val(values.join(','));
-                            return false;
-                        }
-                        $('<img style="width:150px;height:150px"/>').attr('src', url)
-                            .wrap('<span class="pic_Show_box"></span>').parent()
-                            .append($('<a href="javascript:void(0)" class="pic_Remove_btn"></a>').on('click', remove))
-                            .appendTo($pt);
-                    }
-                }
-
-                $vt.on('change', function () {
-                    $this.data('values', null);
-                    $(this).val().split(',').forEach(function (v) {
-                        previewRender(v);
-                    })
-                });
-
-                $this.uploadify({
-                    'swf':  manage_path+'/js/libs/uploadify/uploadify.swf',
-                    'uploader': manage_path+'/api/banner/upload',
-                    'buttonText': '浏览',
-                    'fileObjName': 'file',
-                    'fileTypeExts': filters,
-                    'fileSizeLimit':filesizelimit,
-                    'multi': multi,
-                    'removeCompleted': true,
-                    'onUploadSuccess': function (file, data) {
-                        var json = JSON.parse(data);
-                        previewRender(json.data.md5);
-                    },
-                    'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
-                        console.log(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
-                    },
-                    'onUploadError': function (file, errorCode, errorMsg, errorString) {
-                        console.log('The file ' + file.name + ' could not be uploaded: ' + errorString);
-                    }
-                });
-            });
-        }
-    });
-})($);
-
-
 
 $(function () {
     App.init();
@@ -82,7 +8,6 @@ $(function () {
     $("#username").html(App.req.user.uname);
     $("#logout").click(logout); //退出登录
 
-    $('input:file.uploadify').fileUpload();
 
     $('input[data-laydate="start"]').click(function(){
         laydate(start);
@@ -114,21 +39,6 @@ $(function () {
         }
     };
 
-    //图片加载错误处理,3次重试机会
-    $('div.page-content').on('error','img',function () {
-        var $this = $(this);
-        var try_times = $this.data('try-times') || 0;
-        $this.data('try-times',++try_times);
-        if(try_times>3) return;
-
-        setTimeout(function(){
-            var src = $this.attr('src');
-            if(/^group1\/M00\/00\/01/.test(src)){
-                src = location.host.replace(/^cms\.(.+)/,"http://img.$1/") + src;
-            }
-            $this.attr('src',src);
-        },500);
-    });
 });
 
 // 获取角色 
@@ -170,17 +80,6 @@ function getRoleValue(roleNum,Role){
     return roleValue;
 }
 
-// 文件上传
-$('input[data-file="upload"]').change(function(){
-    $('.fileupload-preview').html('');
-    if ($(this).outerHTML) {
-        $(this).outerHTML = $(this).outerHTML;
-    } else { // FF(包括3.5)
-        $(this).value = "";
-    }
-    $('.fileupload-preview').html($(this).val());
-    $('#upload_msgBox').modal('show');
-});
 
 /**
  * 获取url参数

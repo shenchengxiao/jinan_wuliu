@@ -27,7 +27,7 @@ public class ActionContextBuildFilter implements Filter {
         //暂时先加着
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession session  = httpServletRequest.getSession();
-
+        response.setCharacterEncoding("UTF-8");
         //设置 ActionContext
         ActionContext.setActionContext(session.getServletContext(),
                 (HttpServletRequest)request,
