@@ -17,8 +17,8 @@ public class PushExample {
 	
 	protected static final Logger LOG = LoggerFactory.getLogger(PushExample.class);
 	//在极光注册上传应用的 appKey 和 masterSecret  
-    private static final String APP_KEY ="3576d9a656173ef999d792c9";////必填，例如466f7032ac604e02fb7bda89  
-    private static final String MASTER_SECRET = "08e61e05a2df7e1edd01e374";//必填，每个应用都对应一个masterSecret  
+    private static final String APP_KEY ="6777d550be451f27c6ccd778";////必填，例如466f7032ac604e02fb7bda89  
+    private static final String MASTER_SECRET = "4284e86e110c91438f862442";//必填，每个应用都对应一个masterSecret  
     public static long sendCount = 0;
     
 	/**
