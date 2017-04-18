@@ -92,7 +92,8 @@ public class UserManageHandler {
         user.setCheckLimit(request.getCheckLimit());
         user.setCheckNum(request.getCheckNum());
         user.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
-
+        user.setInLine(request.getInLine());
+        
         //是否发布接收信息入库
         UserCustom userCustom = new UserCustom();
         userCustom.setIsSend(YesNoEnum.create(request.getIsSend()));

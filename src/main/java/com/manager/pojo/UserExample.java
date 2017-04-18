@@ -1747,63 +1747,122 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andInLineIsNull() {
+            addCriterion("in_line is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineIsNotNull() {
+            addCriterion("in_line is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineEqualTo(Integer value) {
+            addCriterion("in_line =", value, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineNotEqualTo(Integer value) {
+            addCriterion("in_line <>", value, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineGreaterThan(Integer value) {
+            addCriterion("in_line >", value, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineGreaterThanOrEqualTo(Integer value) {
+            addCriterion("in_line >=", value, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineLessThan(Integer value) {
+            addCriterion("in_line <", value, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andinLineLessThanOrEqualTo(Integer value) {
+            addCriterion("in_line <=", value, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineIn(List<Integer> values) {
+            addCriterion("in_line in", values, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineNotIn(List<Integer> values) {
+            addCriterion("in_line not in", values, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineBetween(Integer value1, Integer value2) {
+            addCriterion("in_line between", value1, value2, "inLine");
+            return (Criteria) this;
+        }
+
+        public Criteria andInLineNotBetween(Integer value1, Integer value2) {
+            addCriterion("in_line not between", value1, value2, "inLine");
+            return (Criteria) this;
+        }
         public Criteria andCheckLimitIsNull() {
             addCriterion("check_limit is null");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitIsNotNull() {
-            addCriterion("check_limit is not null");
+            addCriterion("in_line is not null");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitEqualTo(Integer value) {
-            addCriterion("check_limit =", value, "checkLimit");
+            addCriterion("in_line =", value, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitNotEqualTo(Integer value) {
-            addCriterion("check_limit <>", value, "checkLimit");
+            addCriterion("in_line <>", value, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitGreaterThan(Integer value) {
-            addCriterion("check_limit >", value, "checkLimit");
+            addCriterion("in_line >", value, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitGreaterThanOrEqualTo(Integer value) {
-            addCriterion("check_limit >=", value, "checkLimit");
+            addCriterion("in_line >=", value, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitLessThan(Integer value) {
-            addCriterion("check_limit <", value, "checkLimit");
+            addCriterion("in_line <", value, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitLessThanOrEqualTo(Integer value) {
-            addCriterion("check_limit <=", value, "checkLimit");
+            addCriterion("in_line <=", value, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitIn(List<Integer> values) {
-            addCriterion("check_limit in", values, "checkLimit");
+            addCriterion("in_line in", values, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitNotIn(List<Integer> values) {
-            addCriterion("check_limit not in", values, "checkLimit");
+            addCriterion("in_line not in", values, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitBetween(Integer value1, Integer value2) {
-            addCriterion("check_limit between", value1, value2, "checkLimit");
+            addCriterion("in_line between", value1, value2, "checkLimit");
             return (Criteria) this;
         }
 
         public Criteria andCheckLimitNotBetween(Integer value1, Integer value2) {
-            addCriterion("check_limit not between", value1, value2, "checkLimit");
+            addCriterion("in_line not between", value1, value2, "checkLimit");
             return (Criteria) this;
         }
 

@@ -117,6 +117,9 @@ public class UserMangeResponse implements Serializable {
 
     /** 平台类型 */
     private Integer platformType;
+    
+    /** 内线*/
+    private String inLine;
 
     public Integer getId() {
         return id;
@@ -413,8 +416,16 @@ public class UserMangeResponse implements Serializable {
     public void setPlatformType(Integer platformType) {
         this.platformType = platformType;
     }
+    
+    public String getInLine() {
+		return inLine;
+	}
 
-    @Override
+	public void setInLine(String inLine) {
+		this.inLine = inLine;
+	}
+
+	@Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("UserMangeResponse{");
         sb.append("id=").append(id);
@@ -453,6 +464,7 @@ public class UserMangeResponse implements Serializable {
         sb.append(", sendCity='").append(sendCity).append('\'');
         sb.append(", receiveProvince='").append(receiveProvince).append('\'');
         sb.append(", receiveCity='").append(receiveCity).append('\'');
+        sb.append(", inLine='").append(inLine).append('\'');
         sb.append(", platformType=").append(platformType);
         sb.append('}');
         return sb.toString();

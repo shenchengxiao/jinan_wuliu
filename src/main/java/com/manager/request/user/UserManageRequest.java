@@ -116,6 +116,9 @@ public class UserManageRequest extends BaseQuery{
 
     /** 平台类型 */
     private Integer platformType;
+    
+    /** 内线*/
+    private String inLine;
 
 
     @Override
@@ -415,4 +418,13 @@ public class UserManageRequest extends BaseQuery{
     public void setPlatformType(Integer platformType) {
         this.platformType = platformType;
     }
+
+	public String getInLine() {
+		return inLine;
+	}
+
+	public void setInLine(String inLine) {
+		this.inLine = inLine;
+	}
+    
 }

@@ -177,7 +177,8 @@ function getUserDetail(){
                 $('input[name=password]').val(json.password);
                 $('input[name=passwordVerify]').val(json.passwordVerify);
                 $('input[name=phoneNumber]').val(json.phoneNumber);
-
+                $('input[name=inLine]').val(json.inLine);
+                
                 //获取省份值并选中，省份下城市获取改变
                 $('#province_id option').each(function () {
                     if ($(this).val() == json.province) {

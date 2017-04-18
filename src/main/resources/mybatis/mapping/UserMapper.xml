@@ -34,6 +34,7 @@
     <result column="check_num" jdbcType="INTEGER" property="checkNum" />
     <result column="platform_type" jdbcType="TINYINT" property="platformType" />
     <result column="registrationID" jdbcType="VARCHAR" property="registrationid" />
+    <result column="in_line" jdbcType="VARCHAR" property="inLine" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -112,7 +113,7 @@
     id, username, user_num, password, password_confirm, phones, province, city, district, 
     begin_time, end_time, status, is_manager, is_synchro, mailbox, post_code, company_name, 
     register_ip, login_ip, identification, address, last_quit_num, this_load_num, check_limit, 
-    check_num, platform_type, registrationID
+    check_num, platform_type, registrationID, in_line
   </sql>
   <select id="selectByExample" parameterType="com.manager.pojo.UserExample" resultMap="BaseResultMap">
     <!--
@@ -181,7 +182,7 @@
       company_name, register_ip, login_ip, 
       identification, address, last_quit_num, 
       this_load_num, check_limit, check_num, 
-      platform_type, registrationID)
+      platform_type, registrationID, in_line)
     values (#{username,jdbcType=CHAR}, #{userNum,jdbcType=CHAR}, #{password,jdbcType=CHAR}, 
       #{passwordConfirm,jdbcType=CHAR}, #{phones,jdbcType=VARCHAR}, #{province,jdbcType=CHAR}, 
       #{city,jdbcType=CHAR}, #{district,jdbcType=CHAR}, #{beginTime,jdbcType=TIMESTAMP}, 
@@ -190,7 +191,7 @@
       #{companyName,jdbcType=VARCHAR}, #{registerIp,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
       #{identification,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{lastQuitNum,jdbcType=CHAR}, 
       #{thisLoadNum,jdbcType=CHAR}, #{checkLimit,jdbcType=INTEGER}, #{checkNum,jdbcType=INTEGER}, 
-      #{platformType,jdbcType=TINYINT}, #{registrationid,jdbcType=VARCHAR})
+      #{platformType,jdbcType=TINYINT}, #{registrationid,jdbcType=VARCHAR}, #{inLine,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.manager.pojo.User">
     <!--
@@ -281,6 +282,9 @@
       <if test="registrationid != null">
         registrationID,
       </if>
+      <if test="inLine != null">
+        in_line,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="username != null">
@@ -360,6 +364,9 @@
       </if>
       <if test="registrationid != null">
         #{registrationid,jdbcType=VARCHAR},
+      </if>
+      <if test="inLine != null">
+        #{inLine,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -462,6 +469,9 @@
       </if>
       <if test="record.registrationid != null">
         registrationID = #{record.registrationid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inLine != null">
+        in_line = #{record.inLine,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -592,6 +602,9 @@
       <if test="registrationid != null">
         registrationID = #{registrationid,jdbcType=VARCHAR},
       </if>
+      <if test="inLine != null">
+        in_line = #{inLine,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -627,7 +640,8 @@
       check_limit = #{checkLimit,jdbcType=INTEGER},
       check_num = #{checkNum,jdbcType=INTEGER},
       platform_type = #{platformType,jdbcType=TINYINT},
-      registrationID = #{registrationid,jdbcType=VARCHAR}
+      registrationID = #{registrationid,jdbcType=VARCHAR},
+      in_line = #{inLine,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
