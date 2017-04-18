@@ -47,6 +47,7 @@ public class AdvertHandler {
         Validator.isEmpty(request.getPrice(),"价格不能为空");
         Validator.isEmpty(request.getLinkUrl(),"连接地址不能为空");
 
+
         Advert advert = new Advert();
         advert.setId(request.getId());
         advert.setStartTime(DateTimeUtil.convertDate(request.getStartTime()));
@@ -57,6 +58,7 @@ public class AdvertHandler {
         advert.setContent(request.getContent());
         advert.setStatus(YesNoEnum.create(request.getBeUsed()));
         advert.setLinkUrl(request.getLinkUrl());
+        advert.setAdvertTitle(request.getAdvertTitle());
         try {
             //id为空则添加，否则为修改
             if (advert.getId() == null){
@@ -170,6 +172,7 @@ public class AdvertHandler {
         advertInfoResponse.setContent(advert.getContent());
         advertInfoResponse.setBeUsed(advert.getStatus().getValue());
         advertInfoResponse.setLinkUrl(advert.getLinkUrl());
+        advertInfoResponse.setAdvertTitle(advert.getAdvertTitle());
         return advertInfoResponse;
     }
 }

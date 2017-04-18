@@ -52,13 +52,10 @@
             <!--&lt;!&ndash; 转换成枚举 &ndash;&gt;-->
             <!--<columnOverride column="be_used" javaType="com.manager.enums.YesNoEnum"/>-->
         <!--</table>-->
-        <table tableName="user">
+        <table tableName="advert">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
             <!-- 转换成枚举 -->
             <columnOverride column="status" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_manager" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_synchro" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="platform_type" javaType="com.manager.enums.PlatformTypeEnum"/>
         </table>
 
         <!--<table tableName="client_upgrade_info">-->

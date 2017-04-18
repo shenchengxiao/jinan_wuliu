@@ -62,6 +62,9 @@ $(function(){
                 required: true,
                 isMobile : true
             },
+            advertTitle:{
+                required: true
+            },
             content:{
                 required: true
             },
@@ -85,6 +88,9 @@ $(function(){
             phoneNumber:{
                 required:'请输入手机号码',
                 isMobile : "请正确填写手机号码"
+            },
+            advertTitle:{
+                required: "请输入广告标题"
             },
             content:{
                 required:'请选择广告内容'
@@ -153,6 +159,15 @@ function getAdvertList(){
                         //操作按钮拼接
                         operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getAdvertDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
 
+                        //截取字符串
+                        var advert_content = item.content.toString();
+                        if (advert_content.length > 10 && advert_content != 0){
+                            advert_content = advert_content.substring(0,7)+"...";
+                        }else {
+                            advert_content
+                        }
+
+
                         temp += '<tr>'
                             + '<td data-title="开始时间">' + item.startTime + '</td>'
                             + '<td data-title="结束时间">' + item.endTime + '</td>'
@@ -161,13 +176,13 @@ function getAdvertList(){
                             + '<td data-title="联系电话">' + item.phoneNumber + '</td>'
                             + '<td data-title="是否有效">' + adStatus + '</td>'
                             + '<td data-title="广告内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'" >'
-                            +  item.content
+                            +  advert_content
                             +  '</td>'
                             + '<td data-title="操作">' + operation + '</td>'
                             + '</tr>';
                     })
                     $('#advert_list tbody').html(temp);
-                    // $("[data-toggle='popover']").popover();
+                    $("[data-toggle='popover']").popover();
                     //操作按钮hover显示详情
                     $("[data-toggle='tooltip']").tooltip();
                     $("[data-toggle='modal']").tooltip();
@@ -303,6 +318,7 @@ function getAdvertDetail(id){
                 $('#phoneNumber').val(json.phoneNumber);
                 $('#content').val(json.content);
                 $('#linkUrl').val(json.linkUrl);
+                $('#advertTitle').val(json.advertTitle);
 
                 //先清空在获取
                 $('input[name=beUsed]').parent().removeClass('checked');

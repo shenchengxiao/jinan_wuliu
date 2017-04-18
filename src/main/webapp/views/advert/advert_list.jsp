@@ -178,6 +178,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">广告标题: <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" class="span8 m-wrap" name="advertTitle" id="advertTitle">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">广告内容: <span class="required">*</span></label>
                             <div class="controls">
                                 <textarea class="span8 m-wrap" rows="5" name="content" id="content"></textarea>

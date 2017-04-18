@@ -26,6 +26,8 @@ public class AdvertInfoResponse implements Serializable{
 
     private String linkUrl;
 
+    private String advertTitle;
+
     public Integer getId() {
         return id;
     }
@@ -98,6 +100,14 @@ public class AdvertInfoResponse implements Serializable{
         this.linkUrl = linkUrl;
     }
 
+    public String getAdvertTitle() {
+        return advertTitle;
+    }
+
+    public void setAdvertTitle(String advertTitle) {
+        this.advertTitle = advertTitle;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("AdvertInfoResponse{");
@@ -110,6 +120,7 @@ public class AdvertInfoResponse implements Serializable{
         sb.append(", beUsed=").append(beUsed);
         sb.append(", content='").append(content).append('\'');
         sb.append(", linkUrl='").append(linkUrl).append('\'');
+        sb.append(", advertTitle='").append(advertTitle).append('\'');
         sb.append('}');
         return sb.toString();
     }

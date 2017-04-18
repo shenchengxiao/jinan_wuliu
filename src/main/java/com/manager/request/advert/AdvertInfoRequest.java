@@ -10,21 +10,32 @@ public class AdvertInfoRequest extends BaseQuery{
 
     private Integer id;
 
+    /** 开始时间 */
     private String startTime;
 
+    /** 结束时间 */
     private String endTime;
 
+    /** 广告内容 */
     private String content;
 
+    /** 价格 */
     private Float price;
 
+    /** 联系人 */
     private String linkedName;
 
+    /** 联系电话 */
     private String phoneNumber;
 
+    /** 是否有效 */
     private Integer beUsed;
 
+    /** 链接地址 */
     private String linkUrl;
+
+    /** 广告标题 */
+    private String advertTitle;
 
     @Override
     public Integer getId() {
@@ -98,5 +109,13 @@ public class AdvertInfoRequest extends BaseQuery{
 
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
+    }
+
+    public String getAdvertTitle() {
+        return advertTitle;
+    }
+
+    public void setAdvertTitle(String advertTitle) {
+        this.advertTitle = advertTitle;
     }
 }
