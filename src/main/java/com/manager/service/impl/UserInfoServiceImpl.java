@@ -213,4 +213,10 @@ public class UserInfoServiceImpl implements UserInfoService{
             throw new DatabaseException(e.getMessage());
         }
     }
+
+	@Override
+	public User selectById(String ids) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(Integer.valueOf(ids));
+	}
 }

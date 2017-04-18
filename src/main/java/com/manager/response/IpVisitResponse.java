@@ -44,8 +44,29 @@ public class IpVisitResponse implements Serializable {
     @mbggenerated 2017-04-14 16:21:16
      */
     private Date createTime;
+    
+    private String functionDesc;
 
-    /**
+    private Integer status;
+    
+
+    public String getFunctionDesc() {
+		return functionDesc;
+	}
+
+	public void setFunctionDesc(String functionDesc) {
+		this.functionDesc = functionDesc;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	/**
      * Table: ip_visit
     @mbggenerated 2017-04-14 16:21:16
      */
@@ -93,9 +114,11 @@ public class IpVisitResponse implements Serializable {
 
 	@Override
 	public String toString() {
-		return "IpVisit [id=" + id + ", ip=" + ip + ", port=" + port + ", domain=" + domain + ", createTime="
-				+ createTime + "]";
+		return "IpVisitResponse [id=" + id + ", ip=" + ip + ", port=" + port + ", domain=" + domain + ", createTime="
+				+ createTime + ", functionDesc=" + functionDesc + ", status=" + status + "]";
 	}
+
+	
     
     
 }

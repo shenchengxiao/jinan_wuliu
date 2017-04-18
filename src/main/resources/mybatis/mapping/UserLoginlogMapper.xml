@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manager.mapper.UserLoginlogMapper" >
+  <resultMap id="BaseResultMap" type="com.manager.pojo.UserLoginlog" >
+    <id column="login_log_id" property="loginLogId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="ip_address" property="ipAddress" jdbcType="CHAR" />
+    <result column="port" property="port" jdbcType="CHAR" />
+    <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="statues" property="statues" jdbcType="INTEGER" />
+    <result column="server_id" property="serverId" jdbcType="INTEGER" />
+    <result column="visit_num" property="visitNum" jdbcType="INTEGER" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="locate_address" property="locateAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    login_log_id, user_id, username, ip_address, port, login_time, statues, server_id, 
+    visit_num, longitude, latitude, locate_address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.pojo.UserLoginlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_loginlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_loginlog
+    where login_log_id = #{loginLogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_loginlog
+    where login_log_id = #{loginLogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.manager.pojo.UserLoginlogExample" >
+    delete from user_loginlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.manager.pojo.UserLoginlog" >
+    insert into user_loginlog (login_log_id, user_id, username, 
+      ip_address, port, login_time, 
+      statues, server_id, visit_num, 
+      longitude, latitude, locate_address
+      )
+    values (#{loginLogId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{username,jdbcType=CHAR}, 
+      #{ipAddress,jdbcType=CHAR}, #{port,jdbcType=CHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{statues,jdbcType=INTEGER}, #{serverId,jdbcType=INTEGER}, #{visitNum,jdbcType=INTEGER}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, #{locateAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.manager.pojo.UserLoginlog" >
+    insert into user_loginlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginLogId != null" >
+        login_log_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="ipAddress != null" >
+        ip_address,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="loginTime != null" >
+        login_time,
+      </if>
+      <if test="statues != null" >
+        statues,
+      </if>
+      <if test="serverId != null" >
+        server_id,
+      </if>
+      <if test="visitNum != null" >
+        visit_num,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="locateAddress != null" >
+        locate_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginLogId != null" >
+        #{loginLogId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="ipAddress != null" >
+        #{ipAddress,jdbcType=CHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=CHAR},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statues != null" >
+        #{statues,jdbcType=INTEGER},
+      </if>
+      <if test="serverId != null" >
+        #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="visitNum != null" >
+        #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="locateAddress != null" >
+        #{locateAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.manager.pojo.UserLoginlogExample" resultType="java.lang.Integer" >
+    select count(*) from user_loginlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_loginlog
+    <set >
+      <if test="record.loginLogId != null" >
+        login_log_id = #{record.loginLogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=CHAR},
+      </if>
+      <if test="record.ipAddress != null" >
+        ip_address = #{record.ipAddress,jdbcType=CHAR},
+      </if>
+      <if test="record.port != null" >
+        port = #{record.port,jdbcType=CHAR},
+      </if>
+      <if test="record.loginTime != null" >
+        login_time = #{record.loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statues != null" >
+        statues = #{record.statues,jdbcType=INTEGER},
+      </if>
+      <if test="record.serverId != null" >
+        server_id = #{record.serverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.visitNum != null" >
+        visit_num = #{record.visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.locateAddress != null" >
+        locate_address = #{record.locateAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_loginlog
+    set login_log_id = #{record.loginLogId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=CHAR},
+      ip_address = #{record.ipAddress,jdbcType=CHAR},
+      port = #{record.port,jdbcType=CHAR},
+      login_time = #{record.loginTime,jdbcType=TIMESTAMP},
+      statues = #{record.statues,jdbcType=INTEGER},
+      server_id = #{record.serverId,jdbcType=INTEGER},
+      visit_num = #{record.visitNum,jdbcType=INTEGER},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      locate_address = #{record.locateAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manager.pojo.UserLoginlog" >
+    update user_loginlog
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=CHAR},
+      </if>
+      <if test="ipAddress != null" >
+        ip_address = #{ipAddress,jdbcType=CHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=CHAR},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statues != null" >
+        statues = #{statues,jdbcType=INTEGER},
+      </if>
+      <if test="serverId != null" >
+        server_id = #{serverId,jdbcType=INTEGER},
+      </if>
+      <if test="visitNum != null" >
+        visit_num = #{visitNum,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="locateAddress != null" >
+        locate_address = #{locateAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where login_log_id = #{loginLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manager.pojo.UserLoginlog" >
+    update user_loginlog
+    set user_id = #{userId,jdbcType=INTEGER},
+      username = #{username,jdbcType=CHAR},
+      ip_address = #{ipAddress,jdbcType=CHAR},
+      port = #{port,jdbcType=CHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      statues = #{statues,jdbcType=INTEGER},
+      server_id = #{serverId,jdbcType=INTEGER},
+      visit_num = #{visitNum,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      locate_address = #{locateAddress,jdbcType=VARCHAR}
+    where login_log_id = #{loginLogId,jdbcType=INTEGER}
+  </update>
+</mapper>

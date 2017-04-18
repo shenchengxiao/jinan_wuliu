@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.manual.UserLoginLogResponseMapper">
+
+    <!-- 获取菜单列表 -->
+    <resultMap id="resultMaps" type="com.manager.pojo.manual.UserLoginlogResponse">
+	    <id column="login_log_id" property="loginLogId" jdbcType="INTEGER" />
+	    <result column="user_id" property="userId" jdbcType="INTEGER" />
+	    <result column="username" property="username" jdbcType="CHAR" />
+	    <result column="ip_address" property="ipAddress" jdbcType="CHAR" />
+	    <result column="port" property="port" jdbcType="CHAR" />
+	    <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+	    <result column="statues" property="statues" jdbcType="INTEGER" />
+	    <result column="server_id" property="serverId" jdbcType="INTEGER" />
+	    <result column="visit_num" property="visitNum" jdbcType="INTEGER" />
+	    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+	    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+	    <result column="locate_address" property="locateAddress" jdbcType="VARCHAR" />
+	    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    </resultMap>
+  
+  <select id="selectByParams" resultMap="resultMaps" parameterType="com.manager.request.userloginlog.UserLoginLogRequest" >
+    SELECT
+	log.login_log_id,
+	log.user_id,
+	u.username,
+	log.ip_address,
+	log.`port`,
+	log.login_time,
+	log.statues,
+	log.server_id,
+	log.visit_num,
+	log.longitude,
+	log.latitude,
+	log.locate_address,
+	ip.ip
+	FROM
+		user_loginlog log
+	LEFT JOIN ip_visit ip ON log.server_id = ip.id
+	LEFT JOIN `user` u ON log.user_id = u.id
+    where 1=1
+    <!-- <if test='userId != null and userId != ""' >
+      and i.user_id = #{userId}
+    </if>
+    <if test='content != null and content != ""' >
+      and i.content like '%${content}%'
+    </if> -->
+      ORDER BY log.login_time DESC
+  </select>
+
+</mapper>

@@ -32,6 +32,14 @@ function getIpvisitList(){
                 var operation, upDown = ''; //操作按钮
                 if (list != null && list.length>0){
 	                $.each(list, function (index, item) {
+	                	var _typeId = item.status;//banner状态
+	                    if(_typeId == 0){
+	                    	_typeId = "未启用";
+	                    }else if(_typeId == 1){
+	                    	_typeId = "启用";
+	                    }else{
+	                    	_typeId = "";
+	                    }
 	                    var adStatus = item.enabled;//banner状态
 	//                    console.log(item.endTime);
 	                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.bWId + ')"><i class="icon-remove icon-white"></i></a>';
@@ -42,7 +50,9 @@ function getIpvisitList(){
 	                        + '<td data-title="服务器IP">' + item.ip + '</td>'
 	                        + '<td data-title="端口号">' + item.port + '</td>'
 	                        + '<td data-title="域名">' + item.domain + '</td>'
-	                        + '<td data-title="创建时间">' + DateHandle(item.createTime) + '</td>'
+	                        + '<td data-title="开始使用时间">' + DateHandle(item.createTime) + '</td>'
+	                        + '<td data-title="功能描述">' + item.functionDesc + '</td>'
+	                        + '<td data-title="状态">' + _typeId + '</td>'
 	                        + '</tr>';
 	                    
 	                });

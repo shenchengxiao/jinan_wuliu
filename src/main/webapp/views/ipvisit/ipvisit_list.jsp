@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>IP访问管理</title>
+    <title>服务器管理</title>
     <!-- build:css css/main.css -->
     <%@ include file="/common/taglibs.jsp"%>
     <jsp:include page="/common/common.jsp"></jsp:include>
@@ -35,7 +35,7 @@
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">IP访问管理</a>
+                            <a href="#">服务器列表</a>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="portlet box grey">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-reorder"></i> IP访问管理
+                                <i class="icon-reorder"></i> 服务器列表
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -82,7 +82,9 @@
                                         <th>服务器IP</th>
                                         <th>端口号</th>
                                         <th>域名</th>
-                                        <th>创建时间</th>
+                                        <th>开始使用时间</th>
+                                        <th>功能描述</th>
+                                        <th>状态</th>
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center;">

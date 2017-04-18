@@ -44,6 +44,8 @@ public class UserMessageServiceImpl implements UserMessageService {
                 LOG.error("sendUserMessage 信息为空",content);
                 return false;
             }
+            int type = 1;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
+            String json = "{\"type\":\"" + type + "\",\"content\":" + content+ "}";
             // 创建连接和频道  
 //    		ConnectionFactory factory = new ConnectionFactory();  
 //    		factory.setHost("139.129.232.78");
@@ -74,11 +76,11 @@ public class UserMessageServiceImpl implements UserMessageService {
             		User user = userMapper.selectByPrimaryKey(userid);
             		if(user != null){
             			if(user.getPlatformType() != null && user.getPlatformType().getValue() == 2 && user.getRegistrationid() != null){
-            				PushExample.SendUsersPushToAndroid("济南网通知",content,user.getRegistrationid());
+            				PushExample.SendUsersPushToAndroid("济南网通知",json,user.getRegistrationid());
 //            				StrAndriod[andriod] = user.getRegistrationid();
 //            				andriod ++;
             			}else if(user.getPlatformType() != null && user.getPlatformType().getValue() == 1 && user.getRegistrationid() != null){
-            				PushExample.SendUsersPushToIOS(content, user.getRegistrationid());
+            				PushExample.SendUsersPushToIOS(json, user.getRegistrationid());
 //							StrIOS[ios] = user.getRegistrationid();
 //							ios ++;
 						}
@@ -109,6 +111,8 @@ public class UserMessageServiceImpl implements UserMessageService {
                 LOG.error("sendUserMessage 信息为空",content);
                 return false;
             }
+            int type = 2;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
+            String json = "{\"type\":\"" + type + "\",\"content\":" + content+ "}";
             // 创建连接和频道  
 //    		ConnectionFactory factory = new ConnectionFactory();  
 //    		factory.setHost("localhost");
@@ -134,7 +138,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 //                    channel.basicPublish(EXCHANGE_NAME, "ALL", null, content  
 //                            .getBytes());  
 //                    System.out.println(" [x] Sent '" + content + "'");
-            		PushExample.SendSysPush(content);
+            		PushExample.SendSysPush(json);
             	}
 //            channel.close();  
 //            connection.close();  

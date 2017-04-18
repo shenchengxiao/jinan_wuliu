@@ -92,8 +92,7 @@ public class UserManageHandler {
         user.setCheckLimit(request.getCheckLimit());
         user.setCheckNum(request.getCheckNum());
         user.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
-        user.setInLine(request.getInLine());
-        
+
         //是否发布接收信息入库
         UserCustom userCustom = new UserCustom();
         userCustom.setIsSend(YesNoEnum.create(request.getIsSend()));
@@ -223,16 +222,31 @@ public class UserManageHandler {
      */
     public void kickOutUser(String[] userIds) throws YCException {
         List<Integer> list = new ArrayList<>();
+        List<Integer> listAll = new ArrayList<>();
+        int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
         String[] idArry = userIds;
         for (String ids : idArry) {
-            list.add(Integer.valueOf(ids));
+        	User user = userInfoService.selectById(ids);
+        	if(user != null && user.getPlatformType() != null){
+        		if(user.getPlatformType().getValue() == 0){
+        			list.add(Integer.valueOf(ids));
+        		}else if(user.getPlatformType().getValue() == 1  && user.getRegistrationid() != null){
+        			//踢出ios用户
+        			String msgContent = "{\"type\":\"" + type + "\",\"content\":" + "系统通知:被踢出下线"+ "}";
+        			PushExample.SendUsersPushToIOS(msgContent, user.getRegistrationid());
+        		}else if(user.getPlatformType().getValue() == 2  && user.getRegistrationid() != null){
+        			//踢出安卓用户
+        			String msgContent = "{\"type\":\"" + type + "\",\"content\":" + "系统通知:被踢出下线"+ "}";
+        			PushExample.SendUsersPushToAndroid("济南网通知:", msgContent, user.getRegistrationid());
+        		}
+        	}
+        	listAll.add(Integer.valueOf(ids));
         }
-
         try {
-            //踢出用户
+            //踢出用户(pc客户端)
             kickOutByUserId(list,kickOutUser);
             //更新用户状态
-            userInfoService.batchUpdateUserStatus(list);
+            userInfoService.batchUpdateUserStatus(listAll);
         }  catch (DatabaseException e) {
             LOG.error("kickOutUser exception",userIds);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
@@ -255,7 +269,6 @@ public class UserManageHandler {
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
         JSONObject reqJson = new JSONObject();
-        reqJson.put("business_id", userIds);
         String result =  URLConnUtil.doPost(SystemParam.INTERFACE_URL+action,reqJson.toString(),params);
         JSONObject jsonObject = JSONObject.fromObject(result);
         if(jsonObject.getString("status") .equals("0")){

@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import com.manager.exception.DatabaseException;
 import com.manager.interceptor.PageMybatisInterceptor;
 import com.manager.mapper.IpVisitMapper;
+import com.manager.mapper.manual.UserLoginLogResponseMapper;
 import com.manager.pojo.IpVisit;
 import com.manager.pojo.IpVisitExample;
+import com.manager.pojo.manual.UserLoginlogResponse;
 import com.manager.request.ipvisit.IpVisitRequest;
+import com.manager.request.userloginlog.UserLoginLogRequest;
 import com.manager.response.BlackWordResponse;
 import com.manager.response.IpVisitResponse;
 import com.manager.service.IpVisitService;
@@ -24,6 +27,8 @@ public class IpVisitServiceImpl implements IpVisitService {
 	
 	@Resource
 	private IpVisitMapper mapper;
+	@Resource
+	private UserLoginLogResponseMapper userLoginLogResponseMapper;
 	
 	 Logger LOG = LoggerFactory.getLogger(IpVisitServiceImpl.class);
 
@@ -41,6 +46,20 @@ public class IpVisitServiceImpl implements IpVisitService {
 	        throw new DatabaseException(e.getMessage());
 	    }
 		
+	}
+
+	@Override
+	public Page<UserLoginlogResponse> fetchIpVisitList2(UserLoginLogRequest request) throws DatabaseException {
+		try{
+			PageMybatisInterceptor.startPage(request.getPageNum(),request.getPageSize());
+			userLoginLogResponseMapper.selectByParams(request);
+			Page<UserLoginlogResponse> page = PageMybatisInterceptor.endPage();
+			
+			return page;
+		} catch (Throwable e) {
+	        LOG.error("fetchBlackwordList 异常",request);
+	        throw new DatabaseException(e.getMessage());
+	    }
 	}
 
 }

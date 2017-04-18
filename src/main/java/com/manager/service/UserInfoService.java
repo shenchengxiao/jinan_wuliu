@@ -29,4 +29,6 @@ public interface UserInfoService {
     Page<UserMangeResponse> getUserByUserIds(OnlineUserRequest request) throws DatabaseException;
 
     boolean batchUpdateUserStatus(List<Integer> ids) throws DatabaseException;
+
+	User selectById(String ids);
 }
