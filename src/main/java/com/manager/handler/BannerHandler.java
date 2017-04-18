@@ -1,17 +1,24 @@
 package com.manager.handler;
 
+import com.manager.enums.YesNoEnum;
 import com.manager.exception.DatabaseException;
 import com.manager.exception.ValidationException;
 import com.manager.exception.YCException;
+import com.manager.pojo.Advert;
 import com.manager.pojo.BannerInfo;
 import com.manager.request.BaseQuery;
+import com.manager.request.advert.AdvertInfoRequest;
+import com.manager.response.AppAdvertisementResponse;
+import com.manager.response.AppBannerResponse;
 import com.manager.response.BannerInfoResponse;
+import com.manager.service.AdvertService;
 import com.manager.service.BannerService;
 import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,6 +36,11 @@ public class BannerHandler {
     @Resource
     private BannerService bannerService;
 
+    @Resource
+    private AdvertService advertService;
+
+    @Value("${image.path.url}")
+    private String imageUrl;
 
     Logger LOG = LoggerFactory.getLogger(BannerHandler.class);
 
@@ -149,4 +161,38 @@ public class BannerHandler {
         return bannerInfoResponse;
     }
 
+    /**
+     * 获取所有广告信息（为app提供）
+     * @param advertInfoRequest
+     * @return
+     * @throws YCException
+     */
+    public AppAdvertisementResponse fetchAdvertisement(AdvertInfoRequest advertInfoRequest) throws YCException {
+        List<AppBannerResponse> responseList = new ArrayList<>();
+        Page<Advert> advertPage = null;
+        AppAdvertisementResponse appAdvertisementResponse = new AppAdvertisementResponse();
+        try {
+            //获取广告轮播图List
+            List<BannerInfo> list  = bannerService.fetchAllBannerInfo();
+            //对象转换
+            for (BannerInfo bannerInfo : list){
+                AppBannerResponse appBannerResponse = new AppBannerResponse();
+                appBannerResponse.setId(bannerInfo.getId());
+                appBannerResponse.setBannerName(bannerInfo.getBannerName());
+                //拼接图片地址
+                appBannerResponse.setImageUrl(imageUrl+bannerInfo.getImageUrl());
+                responseList.add(appBannerResponse);
+            }
+            appAdvertisementResponse.setBannerInfoList(responseList);
+
+            //查询所有有效的广告信息
+            advertInfoRequest.setBeUsed(1);
+            advertPage = advertService.fetchAdvertList(advertInfoRequest);
+            appAdvertisementResponse.setAdvertPage(advertPage);
+            return appAdvertisementResponse;
+        }catch (DatabaseException e) {
+            LOG.error("fetchAdvertisement exception",advertInfoRequest);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
 }

@@ -5,6 +5,8 @@ import com.manager.pojo.BannerInfo;
 import com.manager.request.BaseQuery;
 import com.manager.utils.Page;
 
+import java.util.List;
+
 /**
  * Created by shencx on 2017/4/1.
  */
@@ -21,4 +23,7 @@ public interface BannerService {
     BannerInfo fetchBannerInfoDetail(Integer id) throws DatabaseException;
 
     boolean modifyStatus(Integer id,Integer status) throws DatabaseException;
+
+    List<BannerInfo> fetchAllBannerInfo() throws DatabaseException;
+
 }

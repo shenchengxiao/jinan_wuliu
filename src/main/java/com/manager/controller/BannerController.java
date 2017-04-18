@@ -6,6 +6,8 @@ import com.manager.exception.YCException;
 import com.manager.handler.BannerHandler;
 import com.manager.pojo.BannerInfo;
 import com.manager.request.BaseQuery;
+import com.manager.request.advert.AdvertInfoRequest;
+import com.manager.response.AppAdvertisementResponse;
 import com.manager.response.BannerInfoResponse;
 import com.manager.utils.APIResponse;
 import com.manager.utils.IdGenerator;
@@ -166,6 +168,29 @@ public class BannerController {
         return apiResponse;
     }
 
+    /**
+     * 获取所有广告（为app提供）
+     * @param request
+     * @param advertInfoRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/all_advert",method = RequestMethod.GET)
+    public APIResponse<AppAdvertisementResponse> allAdvert(HttpServletRequest request, AdvertInfoRequest advertInfoRequest){
+        APIResponse<AppAdvertisementResponse> apiResponse = new APIResponse<>();
+        AppAdvertisementResponse appAdvertisementResponse = null;
+        try {
+            appAdvertisementResponse = bannerHandler.fetchAdvertisement(advertInfoRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(appAdvertisementResponse);
+        } catch (YCException e) {
+            LOG.error("allAdvert 发生异常",advertInfoRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 
     /**
      * 图片上传

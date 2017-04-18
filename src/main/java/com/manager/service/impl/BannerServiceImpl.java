@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by shencx on 2017/4/1.
@@ -157,6 +158,26 @@ public class BannerServiceImpl implements BannerService{
             return (val>0)?true:false;
         } catch (Throwable e) {
             LOG.error("modifyStatus 异常",id);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    /**
+     * 获取所有Banner
+     * @return
+     * @throws DatabaseException
+     */
+    @Override
+    public List<BannerInfo> fetchAllBannerInfo() throws DatabaseException {
+        try {
+            BannerInfoExample example = new BannerInfoExample();
+            BannerInfoExample.Criteria criteria = example.createCriteria();
+            criteria.andBeUsedEqualTo(YesNoEnum.YES);
+            example.setOrderByClause("create_time desc");
+            List<BannerInfo> list = bannerInfoMapper.selectByExample(example);
+            return list;
+        } catch (Throwable e) {
+            LOG.error("fetchAllBannerInfo 异常");
             throw new DatabaseException(e.getMessage());
         }
     }

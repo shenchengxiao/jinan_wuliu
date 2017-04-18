@@ -10,7 +10,6 @@
     <title>广告banner</title>
     <!-- build:css css/main.css -->
     <jsp:include page="/common/common.jsp"></jsp:include>
-
 </head>
 
 <body class="page-header-fixed">
@@ -130,33 +129,10 @@
 <script src="${pageContext.request.contextPath}/js/libs/uploadify/jquery.uploadify.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/advert/banner.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/jquery/ajaxfileupload.js"></script>
-<script>
+<!-- 图片放大 -->
+<script src="${pageContext.request.contextPath}/js/libs/jquery/zooming.js"></script>
 
-    //获取上传IP和端口号
-    var ipAndPort = window.location.protocol + '//' + window.location.host+'/';
 
-    $(function () {
-        $("#file").uploadify({
-            'swf': '${pageContext.request.contextPath}/js/libs/uploadify/uploadify.swf',
-            'uploader': '${pageContext.request.contextPath}/api/banner/upload',
-            'fileObjName': 'file',
-            'multi': false,
-            'buttonText': '上传图片',
-            'onUploadSuccess': function (file, data, response) {
-                var json = JSON.parse(data);
-                $('#logoImg').attr('src', ipAndPort + json.fileInfo.path);
-                var input = $('input[name="imageUrl"]');
-                input.val(json.fileInfo.path);
-            },
-            'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
-                $('#progress').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
-            },
-            'onUploadError': function (file, errorCode, errorMsg, errorString) {
-                alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
-            }
-        });
-    })
-</script>
 </body>
 
 </html>

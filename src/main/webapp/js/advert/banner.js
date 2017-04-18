@@ -30,8 +30,6 @@ $(function(){
     });
 
 
-
-
     /**
      *  功能描述：添加banner验证
      */
@@ -116,7 +114,7 @@ function getBannerList(){
                         operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBannerDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
                         temp += '<tr>'
                             + '<td data-title="Banner名称" >' + item.bannerName + '</td>'
-                            + '<td data-title="Banner图片"><img src="' + ip_port_path + item.imageUrl + '" style="width: 50px;height: 50px;"></td>'
+                            + '<td data-title="Banner图片"><img src="' + ip_port_path + item.imageUrl + '" style="width: 60px;height: 50px;" data-action="zoom" ></td>'
                             + '<td data-title="状态">' + adStatus + '</td>'
                             + '<td data-title="操作">' + operation + '</td>'
                             + '</tr>';
@@ -144,6 +142,8 @@ function getBannerList(){
         }
     })
 }
+
+
 
 
 /**
@@ -313,5 +313,28 @@ function clearModal(){
 }
 
 
+//获取上传IP和端口号
+var ipAndPort = window.location.protocol + '//' + window.location.host+'/';
 
+$(function () {
+    $("#file").uploadify({
+        'swf': '../../js/libs/uploadify/uploadify.swf',
+        'uploader': manage_path+'/api/banner/upload',
+        'fileObjName': 'file',
+        'multi': false,
+        'buttonText': '上传图片',
+        'onUploadSuccess': function (file, data, response) {
+            var json = JSON.parse(data);
+            $('#logoImg').attr('src', ipAndPort + json.fileInfo.path);
+            var input = $('input[name="imageUrl"]');
+            input.val(json.fileInfo.path);
+        },
+        'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+            $('#progress').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+        },
+        'onUploadError': function (file, errorCode, errorMsg, errorString) {
+            alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
+        }
+    });
+})
 
