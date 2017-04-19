@@ -50,5 +50,25 @@ public class UserLoginLogHandler {
         }
         return page;
     }
+
+
+	/**
+	 * 用户登录日志
+	 * @param request
+	 * @return
+	 */
+	public Page<UserLoginlogResponse> fetchIpVisitList3(UserLoginLogRequest request) throws YCException{
+		Page<UserLoginlogResponse> page = null;
+        try {
+            page = ipVisitService.fetchIpVisitList3(request);
+            page.setPagesize(page.getPagesize());
+            page.setPageindex(page.getPageindex());
+            page.setTotal(page.getTotal());
+        } catch (DatabaseException e) {
+            LOG.error("fetchIpVisitList3 exception",request);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+        return page;
+	}
     
 }

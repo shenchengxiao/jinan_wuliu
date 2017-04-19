@@ -1,5 +1,6 @@
 package com.manager.request.item;
 
+
 import com.manager.request.BaseQuery;
 
 public class ItemRequest extends BaseQuery{
@@ -17,7 +18,36 @@ public class ItemRequest extends BaseQuery{
 	}
 
 	private String userNum;
-	
+    private Integer typeId;
+    private String createTime;
+    private String endTime;
+    
+    
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
 	private String content;
 
 	

@@ -169,4 +169,21 @@ public class ItemHandler {
         return false;
 
     }
+
+	public Page<ItemResponse> fetchItemList2(ItemRequest itemRequest) throws YCException{
+		/** 参数校验 */
+        //Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
+        Page<ItemResponse> page = null;
+        try {
+            page = itemService.fetchItemList2(itemRequest);
+
+            page.setPagesize(page.getPagesize());
+            page.setPageindex(page.getPageindex());
+            page.setTotal(page.getTotal());
+        } catch (DatabaseException e) {
+            LOG.error("fetchItemList2 exception",itemRequest);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+        return page;
+	}
 }

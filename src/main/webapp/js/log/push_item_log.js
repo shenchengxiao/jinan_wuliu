@@ -143,7 +143,7 @@ function getItemList(){
     var enabled="";
     var arr = [];
     $.ajax({
-        url: manage_path+'/api/item/list',
+        url: manage_path+'/api/item/pushItemLog',
         type: 'GET',
         dataType: 'json',
         data: $('#item_list_form').serialize(), //通过表单id进行序列化提交
@@ -177,20 +177,27 @@ function getItemList(){
 	                    if(num == null){
 	                    	num = "";
 	                    }
+	                  //截取字符串
+                        var advert_content = item.content.toString();
+                        if (advert_content.length > 10 && advert_content != 0){
+                            advert_content = advert_content.substring(0,40)+"...";
+                        }else {
+                            advert_content
+                        }
 	//                    console.log(item.endTime);
-	                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.itemId + ')"><i class="icon-remove icon-white"></i></a>';
+//	                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.itemId + ')"><i class="icon-remove icon-white"></i></a>';
 	                    //操作按钮拼接
-	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="更改状态为已成交" onclick="updateItemStatue(' + item.itemId + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
+//	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="更改状态为已成交" onclick="updateItemStatue(' + item.itemId + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
 	                    
 	                    temp += '<tr>'
-	                    	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.itemId+'"/>'+ '</td>'
+//	                    	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.itemId+'"/>'+ '</td>'
 	                        + '<td data-title="用户编号">' + num + '</td>'
 	                        + '<td data-title="用户电话">' + item.userPhones + '</td>'
 	                        + '<td data-title="类型">' + _typeId + '</td>'
-	                        + '<td data-title="内容">' + item.content + '</td>'
+	                        + '<td data-title="内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'">'
+	                        + advert_content + '</td>'
 	                        + '<td data-title="发布时间">' + DateHandle(item.createTime) + '</td>'
 	                        + '<td data-title="状态">' + item_statue + '</td>'
-	                        + '<td data-title="操作">' + operation + '</td>'
 	                        + '</tr>';
 	                    
 	                });

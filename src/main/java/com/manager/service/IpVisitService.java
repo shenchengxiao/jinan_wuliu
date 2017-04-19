@@ -13,4 +13,6 @@ public interface IpVisitService {
 
 	Page<UserLoginlogResponse> fetchIpVisitList2(UserLoginLogRequest request) throws DatabaseException;
 
+	Page<UserLoginlogResponse> fetchIpVisitList3(UserLoginLogRequest request) throws DatabaseException;
+
 }

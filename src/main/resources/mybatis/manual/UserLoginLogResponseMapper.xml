@@ -16,6 +16,8 @@
 	    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
 	    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
 	    <result column="locate_address" property="locateAddress" jdbcType="VARCHAR" />
+	    <result column="platform_type" jdbcType="TINYINT" property="platformType" />
+	    <result column="platform_item" jdbcType="VARCHAR" property="platformItem" />
 	    <result column="ip" property="ip" jdbcType="VARCHAR" />
     </resultMap>
   
@@ -37,6 +39,29 @@
 	FROM
 		user_loginlog log
 	LEFT JOIN ip_visit ip ON log.server_id = ip.id
+	LEFT JOIN `user` u ON log.user_id = u.id
+    where 1=1
+    <!-- <if test='userId != null and userId != ""' >
+      and i.user_id = #{userId}
+    </if>
+    <if test='content != null and content != ""' >
+      and i.content like '%${content}%'
+    </if> -->
+      ORDER BY log.login_time DESC
+  </select>
+  <select id="selectLoginLogByParams" resultMap="resultMaps" parameterType="com.manager.request.userloginlog.UserLoginLogRequest" >
+	SELECT
+		log.login_log_id,
+		log.user_id,
+		u.username,
+		log.ip_address,
+		log.`port`,
+		log.login_time,
+		log.locate_address,
+		u.platform_type,
+	  log.platform_item
+	FROM
+		user_loginlog log
 	LEFT JOIN `user` u ON log.user_id = u.id
     where 1=1
     <!-- <if test='userId != null and userId != ""' >

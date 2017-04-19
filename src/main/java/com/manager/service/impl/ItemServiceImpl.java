@@ -1,5 +1,7 @@
 package com.manager.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -130,6 +132,36 @@ public class ItemServiceImpl implements ItemService {
     		return result> 0?true:false;
         } catch (Throwable e) {
             LOG.error("deleteUserInfo 异常",id);
+            throw new DatabaseException(e.getMessage());
+        }
+	}
+
+	@Override
+	public Page<ItemResponse> fetchItemList2(ItemRequest itemRequest) throws DatabaseException {
+		try {
+            /*if (request == null){
+                LOG.error("fetchUserInfoList 信息为空",request);
+                return null;
+            }*/
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			
+            if (StringUtils.isNotBlank(itemRequest.getUserNum())){
+            	User user = selectUserByNum(itemRequest.getUserNum());
+            	if(user != null){
+            		itemRequest.setUserId(user.getId());
+            	}
+            }
+            if(StringUtils.isNotBlank(itemRequest.getCreateTime())){
+            	Date date = sdf.parse(itemRequest.getCreateTime());
+            	String dateStr = sdf.format(date);
+            	itemRequest.setEndTime(dateStr+" 23:59:59");
+            }
+            PageMybatisInterceptor.startPage(itemRequest.getPageNum(),itemRequest.getPageSize());
+            itemResponseMapper.selectPushItemsLogByParams(itemRequest);
+            Page<ItemResponse> page = PageMybatisInterceptor.endPage();
+            return page;
+        } catch (Throwable e) {
+            LOG.error("fetchBlackwordList2 异常",itemRequest);
             throw new DatabaseException(e.getMessage());
         }
 	}

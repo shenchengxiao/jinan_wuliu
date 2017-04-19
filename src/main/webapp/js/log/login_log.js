@@ -18,7 +18,7 @@ function getIpvisitList(){
     var temp = "";
     var enabled="";
     $.ajax({
-        url: manage_path+'/api/ipvisit/list2',
+        url: manage_path+'/api/ipvisit/loginLog',
         type: 'GET',
         dataType: 'json',
         data: $('#ipvisit_list_form').serialize(),
@@ -32,31 +32,30 @@ function getIpvisitList(){
                 var operation, upDown = ''; //操作按钮
                 if (list != null && list.length>0){
 	                $.each(list, function (index, item) {
-	                	var _typeId = item.statues;//banner状态
-	                    if(_typeId == 0){
-	                    	_typeId = "正常";
+	                	var _typeId = item.platformType;//banner状态
+	                    /*if(_typeId == 0){
+	                    	_typeId = "windows";
 	                    }else if(_typeId == 1){
-	                    	_typeId = "禁止登录";
+	                    	_typeId = "Ios";
 	                    }else if(_typeId == 2){
-	                    	_typeId = "列入黑名单";
+	                    	_typeId = "Android";
 	                    }else{
 	                    	_typeId = "";
-	                    }
-	                    var adStatus = item.enabled;//banner状态
+	                    }*/
+//	                    var adStatus = item.enabled;//banner状态
 	//                    console.log(item.endTime);
-	                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.bWId + ')"><i class="icon-remove icon-white"></i></a>';
+//	                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.bWId + ')"><i class="icon-remove icon-white"></i></a>';
 	                    //操作按钮拼接
-	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBlackwordDetail(' + item.bWId + ')"><i class="icon-edit icon-white"></i></a> '/* + Deleted*/;
+//	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBlackwordDetail(' + item.bWId + ')"><i class="icon-edit icon-white"></i></a> '/* + Deleted*/;
 	                    
 	                    temp += '<tr>'
 	                        + '<td data-title="用户名称">' + item.username + '</td>'
 	                        + '<td data-title="用户ip">' + item.ipAddress + '</td>'
 	                        + '<td data-title="用户端口">' + item.port + '</td>'
-	                        + '<td data-title="访问时间">' + DateHandle(item.loginTime) + '</td>'
-	                        + '<td data-title="状态">' + _typeId + '</td>'
-	                        + '<td data-title="访问服务器">' + item.ip + '</td>'
-	                        + '<td data-title="访问次数">' + item.visitNum + '</td>'
-	                        + '<td data-title="操作">' + operation + '</td>'
+	                        + '<td data-title="登录时间">' + DateHandle(item.loginTime) + '</td>'
+	                        + '<td data-title="登录地点">' + item.locateAddress + '</td>'
+	                        + '<td data-title="登录类型">' + _typeId + '</td>'
+	                        + '<td data-title="硬件信息">' + item.platformItem + '</td>'
 	                        + '</tr>';
 	                    
 	                });

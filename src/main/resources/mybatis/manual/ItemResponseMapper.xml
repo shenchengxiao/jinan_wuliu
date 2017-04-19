@@ -31,5 +31,22 @@
     </if>
       ORDER BY i.create_time DESC
   </select>
+  <select id="selectPushItemsLogByParams" resultMap="ResultMapWithBLOBs" parameterType="com.manager.request.item.ItemRequest" >
+    select
+     i.item_id, i.user_id, i.user_phones, i.type_id, i.create_time, i.status,u.user_num
+    ,i.content
+    from items as i LEFT JOIN user as u ON i.user_id = u.id
+    where 1=1
+    <if test='userId != null and userId != ""' >
+      and i.user_id = #{userId}
+    </if>
+    <if test='createTime != null and createTime != ""' >
+      and i.create_time BETWEEN #{createTime} AND #{endTime}
+    </if>
+    <if test='typeId != null' >
+      and i.type_id = #{typeId}
+    </if>
+      ORDER BY i.create_time DESC
+  </select>
 
 </mapper>

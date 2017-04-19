@@ -2,6 +2,8 @@ package com.manager.pojo;
 
 import java.util.Date;
 
+import com.manager.enums.PlatformTypeEnum;
+
 public class UserLoginlog {
     private Integer loginLogId;
 
@@ -26,6 +28,10 @@ public class UserLoginlog {
     private Double latitude;
 
     private String locateAddress;
+
+    private PlatformTypeEnum platformType;
+
+    private String platformItem;
 
     public Integer getLoginLogId() {
         return loginLogId;
@@ -121,5 +127,22 @@ public class UserLoginlog {
 
     public void setLocateAddress(String locateAddress) {
         this.locateAddress = locateAddress == null ? null : locateAddress.trim();
+    }
+
+
+    public PlatformTypeEnum getPlatformType() {
+		return platformType;
+	}
+
+	public void setPlatformType(PlatformTypeEnum platformType) {
+		this.platformType = platformType;
+	}
+
+	public String getPlatformItem() {
+        return platformItem;
+    }
+
+    public void setPlatformItem(String platformItem) {
+        this.platformItem = platformItem == null ? null : platformItem.trim();
     }
 }

@@ -64,11 +64,36 @@ public class IPVisistController {
     @ResponseBody
     @RequestMapping(value = "/list2")
     @GetMapping(value = "/list2")
-    public APIResponse<Page<UserLoginlogResponse>> list(UserLoginLogRequest request){
+    public APIResponse<Page<UserLoginlogResponse>> list2(UserLoginLogRequest request){
     	APIResponse<Page<UserLoginlogResponse>> apiResponse = new APIResponse<>();
     	Page<UserLoginlogResponse> page = null;
     	try {
     		page = userLoginLogHandler.fetchIpVisitList2(request);
+    		apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+    		apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+    		apiResponse.setData(page);
+    	} catch (YCException e) {
+    		LOG.error("获取访问服务器列表发生异常",request);
+    		apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+    		apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+    	}
+    	
+    	return apiResponse;
+    	
+    }
+    /**
+     * 用户登录日志
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/loginLog")
+    @GetMapping(value = "/loginLog")
+    public APIResponse<Page<UserLoginlogResponse>> loginLog(UserLoginLogRequest request){
+    	APIResponse<Page<UserLoginlogResponse>> apiResponse = new APIResponse<>();
+    	Page<UserLoginlogResponse> page = null;
+    	try {
+    		page = userLoginLogHandler.fetchIpVisitList3(request);
     		apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
     		apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
     		apiResponse.setData(page);

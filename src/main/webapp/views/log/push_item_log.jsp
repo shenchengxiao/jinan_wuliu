@@ -12,14 +12,10 @@
     <%@ include file="/common/taglibs.jsp"%>
     <jsp:include page="/common/common.jsp"></jsp:include>
     <![endif]-->
-    <style>
-        .table-bordered th,
-        .table-bordered td {
-            border-left: 1px solid #ddd;
-            border-top: 1px solid #ddd;
-        }
-        #adTime{
-            display: none;
+	<style>
+        #item_List td{
+            text-align: center;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -67,15 +63,15 @@
                             <div class="row-fluid">
                                 <form id="item_list_form" method="get">
                                     <div class="span2">
-                                        <input type="text" name="userNum" placeholder="请输入用户编号" class="m-wrap span12" id="linkedName">
+                                        <input type="text" name="userNum" placeholder="请输入用户编号" class="m-wrap span12" id="userNum">
                                     </div>
                                     <div class="span2">
                                           <div class="input-append date">
-                                              <input placeholder="请选择查询日期" data-laydate="start" class="m-wrap span12" type="text" value="" name="startTime"  readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                              <input placeholder="请选择查询日期" data-laydate="start" class="m-wrap span12" type="text" value="" name="createTime"  readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
                                           </div>
                                     </div>
                                     <div class="span2">
-                                            <select class="m-wrap span6" name="isSend" >
+                                            <select class="m-wrap span6" name="typeId" >
                                                 <option value="0">车源</option>
                                                 <option value="1" selected>货源</option>
                                             </select>

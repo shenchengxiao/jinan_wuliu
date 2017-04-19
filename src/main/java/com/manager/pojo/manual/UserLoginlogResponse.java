@@ -3,6 +3,8 @@ package com.manager.pojo.manual;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.manager.enums.PlatformTypeEnum;
+
 public class UserLoginlogResponse implements Serializable{
     private Integer loginLogId;
 
@@ -27,10 +29,30 @@ public class UserLoginlogResponse implements Serializable{
     private Double latitude;
 
     private String locateAddress;
+    private PlatformTypeEnum platformType;
+
+    private String platformItem;
     private String ip;
     
 
-    public String getIp() {
+
+	public PlatformTypeEnum getPlatformType() {
+		return platformType;
+	}
+
+	public void setPlatformType(PlatformTypeEnum platformType) {
+		this.platformType = platformType;
+	}
+
+	public String getPlatformItem() {
+		return platformItem;
+	}
+
+	public void setPlatformItem(String platformItem) {
+		this.platformItem = platformItem;
+	}
+
+	public String getIp() {
 		return ip;
 	}
 
@@ -139,9 +161,11 @@ public class UserLoginlogResponse implements Serializable{
 		return "UserLoginlogResponse [loginLogId=" + loginLogId + ", userId=" + userId + ", username=" + username
 				+ ", ipAddress=" + ipAddress + ", port=" + port + ", loginTime=" + loginTime + ", statues=" + statues
 				+ ", serverId=" + serverId + ", visitNum=" + visitNum + ", longitude=" + longitude + ", latitude="
-				+ latitude + ", locateAddress=" + locateAddress + ", ip=" + ip + "]";
+				+ latitude + ", locateAddress=" + locateAddress + ", platformType=" + platformType + ", platformItem="
+				+ platformItem + ", ip=" + ip + "]";
 	}
 
+    
 	
     
 }

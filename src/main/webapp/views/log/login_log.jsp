@@ -82,11 +82,10 @@
                                         <th>用户名称</th>
                                         <th>用户ip</th>
                                         <th>用户端口</th>
-                                        <th>访问时间</th>
-                                        <th>状态</th>
-                                        <th>访问服务器</th>
-                                        <th>访问次数</th>
-                                        <th>操作</th>
+                                        <th>登录时间</th>
+                                        <th>登录地点</th>
+                                        <th>登录类型</th>
+                                        <th>硬件信息</th>
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center;">

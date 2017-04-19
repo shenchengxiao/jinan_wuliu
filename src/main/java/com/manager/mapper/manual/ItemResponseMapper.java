@@ -10,4 +10,6 @@ import com.manager.request.item.ItemRequest;
 @Repository
 public interface ItemResponseMapper {
 	List<ItemResponse> selectByExampleWithBLOBs(ItemRequest example);
+
+	List<ItemResponse> selectPushItemsLogByParams(ItemRequest itemRequest);
 }

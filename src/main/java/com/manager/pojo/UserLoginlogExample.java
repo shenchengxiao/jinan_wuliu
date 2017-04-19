@@ -864,6 +864,136 @@ public class UserLoginlogExample {
             addCriterion("locate_address not between", value1, value2, "locateAddress");
             return (Criteria) this;
         }
+
+        public Criteria andPlatformTypeIsNull() {
+            addCriterion("platform_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeIsNotNull() {
+            addCriterion("platform_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeEqualTo(Byte value) {
+            addCriterion("platform_type =", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotEqualTo(Byte value) {
+            addCriterion("platform_type <>", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeGreaterThan(Byte value) {
+            addCriterion("platform_type >", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("platform_type >=", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeLessThan(Byte value) {
+            addCriterion("platform_type <", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("platform_type <=", value, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeIn(List<Byte> values) {
+            addCriterion("platform_type in", values, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotIn(List<Byte> values) {
+            addCriterion("platform_type not in", values, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeBetween(Byte value1, Byte value2) {
+            addCriterion("platform_type between", value1, value2, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("platform_type not between", value1, value2, "platformType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemIsNull() {
+            addCriterion("platform_item is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemIsNotNull() {
+            addCriterion("platform_item is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemEqualTo(String value) {
+            addCriterion("platform_item =", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemNotEqualTo(String value) {
+            addCriterion("platform_item <>", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemGreaterThan(String value) {
+            addCriterion("platform_item >", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemGreaterThanOrEqualTo(String value) {
+            addCriterion("platform_item >=", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemLessThan(String value) {
+            addCriterion("platform_item <", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemLessThanOrEqualTo(String value) {
+            addCriterion("platform_item <=", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemLike(String value) {
+            addCriterion("platform_item like", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemNotLike(String value) {
+            addCriterion("platform_item not like", value, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemIn(List<String> values) {
+            addCriterion("platform_item in", values, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemNotIn(List<String> values) {
+            addCriterion("platform_item not in", values, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemBetween(String value1, String value2) {
+            addCriterion("platform_item between", value1, value2, "platformItem");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformItemNotBetween(String value1, String value2) {
+            addCriterion("platform_item not between", value1, value2, "platformItem");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

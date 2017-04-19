@@ -135,5 +135,26 @@ public class ItemController {
     	}
     	return apiResponse;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/pushItemLog")
+    @GetMapping(value = "/pushItemLog")
+    public APIResponse<Page<ItemResponse>> pushItemLog(HttpServletRequest request , ItemRequest itemRequest){
+        APIResponse<Page<ItemResponse>> apiResponse = new APIResponse<>();
+        Page<ItemResponse> page = null;
+        try {
+			page = itemHandler.fetchItemList2(itemRequest);
+			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+	        apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+	        apiResponse.setData(page);
+		} catch (YCException e) {
+			LOG.error("获取信息列表发生异常",itemRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+		}
+        
+        return apiResponse;
+        
+    }
 	
 }

@@ -17,4 +17,6 @@ public interface ItemService {
 
 	boolean updateItemStatue(Integer id) throws DatabaseException;
 
+	Page<ItemResponse> fetchItemList2(ItemRequest itemRequest) throws DatabaseException;
+
 }
