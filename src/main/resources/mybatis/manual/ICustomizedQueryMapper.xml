@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.manual.ICustomizedQueryMapper">
+
+    <!-- 获取查询日志 -->
+    <resultMap id="resultMaps" type="com.manager.response.QueryInfoResponse">
+        <id property="id" jdbcType="BIGINT" column="id" />
+        <result property="userName" jdbcType="VARCHAR" column="username" />
+        <result property="searchContent" jdbcType="VARCHAR" column="content" />
+        <result property="createTime" jdbcType="TIMESTAMP" column="createtime" />
+    </resultMap>
+
+
+    <!-- 获取查询日志 -->
+    <select id="findQueryInfoPage" parameterType="com.manager.request.query.QueryRequest" resultMap="resultMaps">
+        SELECT
+        q.id,
+        q.content,
+        q.createtime,
+        u.username
+        FROM
+        query q ,
+        user u
+        WHERE
+        q.userid = u.id
+        <if test="userName != null and userName != ''">
+            AND u.username LIKE '%${userName}%'
+        </if>
+        <if test="appointedDay != null and appointedDay != ''" >
+            AND q.createtime LIKE '${appointedDay}%'
+        </if>
+        ORDER BY q.createtime DESC
+    </select>
+</mapper>

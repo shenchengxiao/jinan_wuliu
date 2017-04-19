@@ -83,4 +83,39 @@
         ORDER BY ib.create_time DESC
     </select>
 
+    <resultMap id="BaseResultMaps" type="com.manager.response.ItemResponse">
+        <id column="item_id" property="itemId" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="user_phones" property="userPhones" jdbcType="VARCHAR" />
+        <result column="type_id" property="typeId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="user_num" jdbcType="CHAR" property="userNum" />
+        <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    </resultMap>
+
+    <select id="findItemsLogPage" resultMap="BaseResultMaps" parameterType="com.manager.request.item.ItemRequest" >
+        select
+        ib.item_id,
+        ib.user_id,
+        ib.user_phones,
+        ib.type_id,
+        ib.create_time,
+        ib.status,
+        ib.content,
+        u.user_num
+        from
+        items_backup ib ,
+        user u
+        where
+        ib.user_id = u.id
+        <if test='userNum != null and userNum != ""' >
+            and u.user_num = #{userNum}
+        </if>
+        <if test='appointedDate != null and appointedDate != ""' >
+            and ib.create_time like '${appointedDate}%'
+        </if>
+        ORDER BY ib.create_time DESC
+    </select>
+
 </mapper>
