@@ -30,7 +30,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.html">首页</a>
+                            <a href="../index.jsp">首页</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
@@ -244,7 +244,7 @@
                                         <!--/span-->
                                         <div class="span6 ">
                                             <div class="control-group">
-                                                <label class="control-label">硬盘号:</label>
+                                                <label class="control-label">设备码:</label>
                                                 <div class="controls">
                                                     <span class="text bold" name="hard_number"></span>
                                                 </div>
@@ -257,7 +257,7 @@
                                     <div class="row-fluid">
                                         <div class="span6 ">
                                             <div class="control-group">
-                                                <label class="control-label">网卡号:</label>
+                                                <label class="control-label">话机码:</label>
                                                 <div class="controls">
                                                     <span class="text bold" name="network_number"></span>
                                                 </div>

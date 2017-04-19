@@ -7,19 +7,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>信息管理</title>
+    <title>查询日志</title>
     <!-- build:css css/main.css -->
     <%@ include file="/common/taglibs.jsp"%>
     <jsp:include page="/common/common.jsp"></jsp:include>
-    <![endif]-->
+
     <style>
-        .table-bordered th,
-        .table-bordered td {
-            border-left: 1px solid #ddd;
-            border-top: 1px solid #ddd;
-        }
-        #adTime{
-            display: none;
+        #query_list td{
+            text-align: center;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -45,7 +41,7 @@
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">信息管理</a>
+                            <a href="#">查询日志</a>
                         </li>
                     </ul>
                 </div>
@@ -55,68 +51,37 @@
                     <div class="portlet box grey">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-reorder"></i> 信息管理
+                                <i class="icon-reorder"></i> 查询日志
                             </div>
-                            <!-- <div class="actions">
-                                <a class="btn green repoActivity" id="creat_banner_icon">
-                                    <i class="icon-pencil"></i> 新增黑词
-                                </a>
-                            </div> -->
                         </div>
                         <div class="portlet-body">
                             <div class="row-fluid">
-                                <form id="item_list_form" method="get">
+                                <form id="query_list_form" method="get">
                                     <div class="span2">
-                                        <input type="text" name="content" placeholder="请输入关键字" class="m-wrap span12">
+                                        <input type="text" name="userName" placeholder="请输入用户名称" class="m-wrap span12">
                                     </div>
                                     <div class="span2">
-                                        <input type="text" name="userNum" placeholder="请输入用户编号" class="m-wrap span12" id="linkedName">
-                                    </div>
-                                    <div class="span2">
-                                        <button type="button" class="btn blue mgleft10" id="btn_search_item">查找</button>
-                                    </div>
-                                    <div class="span4" align="right">
-                                            <div class="controls">
-                                                <a href="javascript:;" class="btn green" id="btn_chooseAll">
-                                                                                                                                                                              全选
-                                                    <i class="icon-down"></i>
-                                                </a>&nbsp;&nbsp;
-                                                <a href="javascript:;" class="btn red" id="btn_remove">
-                                                                                                                                                                              删除
-                                                    <i class="icon-down"></i>
-                                                </a>&nbsp;&nbsp;
-                                                <input type="hidden" name="" value="" id="ids">
-                                            </div>
+                                        <div class="input-append date">
+                                            <input data-laydate="appointedDay" name="appointedDay" class="m-wrap input-small start-time mh_date"
+                                                   type="text"
+                                                   value=""/><span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
-                                    
-                                    <!-- <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
-                                    </div> -->
-                                    <!-- <div class="span2">
-                                        <select class="m-wrap span6" name="enabled">
-                                            <option value="">是否有效</option>
-                                            <option value="0">无效</option>
-                                            <option value="1">有效</option>
-                                        </select>
-                                    </div> -->
-
+                                    </div>
+                                    <div class="span2">
+                                        <button type="button" class="btn blue mgleft10" id="btn_search_query">查找</button>
+                                    </div>
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
                             </div>
                         </div>
                         <div class="box">
                             <div class="portlet-body no-more-tables">
-                                <table class="table-bordered table-striped table-condensed cf" id="item_List">
+                                <table class="table-bordered table-striped table-condensed cf" id="query_list">
                                     <thead class="cf">
                                     <tr>
-                                        <th></th>
-                                        <th>用户编号</th>
-                                        <th>用户电话</th>
-                                        <th>类型</th>
-                                        <th>内容</th>
-                                        <th>发布时间</th>
-                                        <th>状态</th>
-                                        <th>操作</th>
+                                        <th>用户名称</th>
+                                        <th>搜索内容</th>
+                                        <th>查询时间</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -136,45 +101,6 @@
             </div>
         </div>
     </div>
-    <!-- 内容区域 end -->
-    <!-- modal 添加 begin -->
-    <!-- <form action="#" class="form-horizontal" id="add_blackword_form">
-        <div class="modal fade hide" id="addBlackwordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                        <h4 class="modal-title" id="myModalLabel">新增黑词</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="bWId">
-                        <div class="control-group">
-                            <label class="control-label">黑名词: <span class="required">*</span></label>
-                            <div class="controls">
-                                <input type="text" class="span8 m-wrap" name="blackWord" id="blackWord">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">是否有效: <span class="required">*</span></label>
-                            <div class="controls">
-                                <label class="radio">
-                                    <input type="radio" value="0" name="enabled"> 无效
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" value="1" name="enabled" checked> 有效
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary green" id="btn_add_blackword">提交</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form> -->
-    <!-- modal 添加 end -->
 </div>
 <!-- 页面主体 end -->
 <!-- 页尾 begin -->
@@ -182,6 +108,6 @@
 <!-- 页尾 end -->
 <!-- build:js scripts/build.js -->
 <!-- endbuild -->
-<script src="${pageContext.request.contextPath}/js/item/item.js"></script>
+<script src="${pageContext.request.contextPath}/js/log/search_item_log.js"></script>
 </body>
 </html>

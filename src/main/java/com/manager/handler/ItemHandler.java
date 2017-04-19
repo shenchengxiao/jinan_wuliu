@@ -28,7 +28,6 @@ import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
 import com.manager.mapper.UserMapper;
 import com.manager.pojo.Items;
-import com.manager.pojo.User;
 import com.manager.request.item.ItemRequest;
 import com.manager.response.ItemResponse;
 import com.manager.service.ItemService;
@@ -116,6 +115,23 @@ public class ItemHandler {
         Validator.isEmpty(item.getContent(),"内容不能为空");
 
         return this.httpclientPostItem(SystemParam.INTERFACE_URL+"backgroundpublish", item);
+    }
+
+    /**
+     * 获取清除日志列表
+     * @param itemRequest
+     * @return
+     * @throws YCException
+     */
+    public Page<ItemResponse> getItemsLogList(ItemRequest itemRequest) throws YCException {
+        Page<ItemResponse> page = null;
+        try {
+            page = itemService.fetchItemBackupList(itemRequest);
+            return page;
+        }catch (DatabaseException e) {
+            LOG.error("getItemsLogList exception",itemRequest);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
     }
 
     //使用http方式调用接口

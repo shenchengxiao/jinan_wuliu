@@ -30,7 +30,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.html">首页</a>
+                            <a href="../index.jsp">首页</a>
                             <i class="icon-angle-right"></i>
                         </li>
 

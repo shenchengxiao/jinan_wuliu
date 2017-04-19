@@ -30,7 +30,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="../index.html">首页</a>
+                            <a href="../index.jsp">首页</a>
                             <i class="icon-angle-right"></i>
                         </li>
 
@@ -124,7 +124,7 @@
                                             <input class="m-wrap span12" type="text" name="companyName"/></div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label">注册IP<span class="required">*</span></label>
+                                        <label class="control-label">注册IP:</label>
                                         <div class="span4">
                                             <input class="m-wrap span12" type="text"  name="registerIp" /></div>
                                         <label class="control-label">最后登录IP:</label>
@@ -167,10 +167,10 @@
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label">硬盘号:</label>
+                                        <label class="control-label">设备码:</label>
                                         <div class="span4">
                                             <input class="m-wrap span12" type="text"  name="hardNum" /></div>
-                                        <label class="control-label">网卡号:</label>
+                                        <label class="control-label">话机码:</label>
                                         <div class="span4">
                                             <input class="m-wrap span12" type="text" name="networkNum" /></div>
                                     </div>

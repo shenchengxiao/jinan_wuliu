@@ -50,7 +50,16 @@ public class ItemRequest extends BaseQuery{
 
 	private String content;
 
-	
+	private String appointedDate;
+
+	public String getAppointedDate() {
+		return appointedDate;
+	}
+
+	public void setAppointedDate(String appointedDate) {
+		this.appointedDate = appointedDate;
+	}
+
 	public Long getItemId() {
 		return itemId;
 	}

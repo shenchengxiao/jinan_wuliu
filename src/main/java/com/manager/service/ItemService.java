@@ -19,4 +19,6 @@ public interface ItemService {
 
 	Page<ItemResponse> fetchItemList2(ItemRequest itemRequest) throws DatabaseException;
 
+	Page<ItemResponse> fetchItemBackupList(ItemRequest itemRequest) throws DatabaseException;
+
 }

@@ -16,6 +16,10 @@ $(function () {
         laydate(end);
     });
 
+    $('input[data-laydate="appointedDay"]').click(function(){
+        laydate(appointedDay);
+    });
+
     /**
      *  日期插件初始化
      */
@@ -37,6 +41,13 @@ $(function () {
         choose: function (datas) {
             start.max = datas; //结束日选好后，重置开始日的最大日期
         }
+    };
+
+    var appointedDay = {
+        format: 'YYYY-MM-DD', //自动生成的时间格式
+        min: '1900-01-01',
+        max: '2099-06-16' //创建最大日期
+
     };
 
 });

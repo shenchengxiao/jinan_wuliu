@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.taglibs.standard.lang.jstl.test.Bean1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -144,7 +143,7 @@ public class ItemServiceImpl implements ItemService {
                 return null;
             }*/
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-			
+
             if (StringUtils.isNotBlank(itemRequest.getUserNum())){
             	User user = selectUserByNum(itemRequest.getUserNum());
             	if(user != null){
@@ -165,5 +164,29 @@ public class ItemServiceImpl implements ItemService {
             throw new DatabaseException(e.getMessage());
         }
 	}
+
+	/**
+	 * 查询清除信息日志列表
+	 * @param itemRequest
+	 * @return
+	 * @throws DatabaseException
+	 */
+	@Override
+	public Page<ItemResponse> fetchItemBackupList(ItemRequest itemRequest) throws DatabaseException {
+		try {
+            if (itemRequest == null){
+                LOG.error("fetchItemBackupList 信息为空",itemRequest);
+                return null;
+            }
+			PageMybatisInterceptor.startPage(itemRequest.getPageNum(),itemRequest.getPageSize());
+			itemResponseMapper.findItemsLogPage(itemRequest);
+			Page<ItemResponse> page = PageMybatisInterceptor.endPage();
+			return page;
+		} catch (Throwable e) {
+			LOG.error("fetchItemBackupList 异常",itemRequest);
+			throw new DatabaseException(e.getMessage());
+		}
+	}
+
 
 }

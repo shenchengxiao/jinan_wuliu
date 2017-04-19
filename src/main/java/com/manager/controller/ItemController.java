@@ -135,7 +135,7 @@ public class ItemController {
     	}
     	return apiResponse;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/pushItemLog")
     @GetMapping(value = "/pushItemLog")
@@ -152,9 +152,35 @@ public class ItemController {
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
 		}
-        
+
         return apiResponse;
-        
+
     }
-	
+
+
+	/**
+	 * 获取清除日志列表
+	 * @param request
+	 * @param itemRequest
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/log_list",method = RequestMethod.GET)
+	public APIResponse<Page<ItemResponse>> logList(HttpServletRequest request , ItemRequest itemRequest){
+		APIResponse<Page<ItemResponse>> apiResponse = new APIResponse<>();
+		Page<ItemResponse> page = null;
+		try {
+			page = itemHandler.getItemsLogList(itemRequest);
+			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+			apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+			apiResponse.setData(page);
+		} catch (YCException e) {
+			LOG.error("获取清除日志列表发生异常",itemRequest);
+			apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+			apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+		}
+
+		return apiResponse;
+
+	}
 }

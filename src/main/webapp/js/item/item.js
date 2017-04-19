@@ -157,7 +157,7 @@ function getItemList(){
                 var operation, upDown = ''; //操作按钮
                 if (list != null && list.length>0){
 	                $.each(list, function (index, item) {
-	                    var _typeId = item.typeId;//banner状态
+	                    var _typeId = item.typeId;
 	                    if(_typeId == 0){
 	                    	_typeId = "车源";
 	                    }else if(_typeId == 1){
