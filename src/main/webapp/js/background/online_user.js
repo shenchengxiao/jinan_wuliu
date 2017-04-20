@@ -134,6 +134,19 @@ function getOnlineUserList(){
                             enabled = "有效";
                         }
 
+                        var platform = item.platformType;
+                        switch (platform){
+                            case 0:
+                                platform = 'windows'
+                                break;
+                            case 1:
+                                platform = 'iOS'
+                                break;
+                            case 2:
+                                platform = 'Andoird'
+                                break;
+                        }
+
                         temp += '<tr>'
                             +'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="userIdArry" value="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
@@ -147,6 +160,7 @@ function getOnlineUserList(){
                             + '<td data-title="服务结束时间">' + timestampFormat(item.endTime) + '</td>'
                             + '<td data-title="硬盘号">' + item.hardNum + '</td>'
                             + '<td data-title="网卡号">' + item.networkNum + '</td>'
+                            + '<td data-title="平台">'+  platform +  '</td>'
                             + '<td data-title="状态">'+  enabled +  '</td>'
                             + '</tr>';
                     })

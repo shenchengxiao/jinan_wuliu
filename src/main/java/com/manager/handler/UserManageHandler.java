@@ -1,7 +1,7 @@
 package com.manager.handler;
 
-import com.alibaba.fastjson.JSON;
 import com.manager.common.SystemParam;
+import com.manager.enums.ManagerTypeEnum;
 import com.manager.enums.PlatformTypeEnum;
 import com.manager.enums.YesNoEnum;
 import com.manager.exception.DatabaseException;
@@ -18,6 +18,7 @@ import com.manager.service.UserInfoService;
 import com.manager.utils.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -47,6 +49,12 @@ public class UserManageHandler {
 
     @Value("${api.kick.out}")
     private String kickOutUser;
+
+    @Value("${jinan.user.url}")
+    private String host;
+
+    @Value("${online.list.method}")
+    private String onlineUserList;
 
     Logger LOG = LoggerFactory.getLogger(UserManageHandler.class);
 
@@ -78,7 +86,7 @@ public class UserManageHandler {
         user.setBeginTime(DateTimeUtil.convertDate(request.getStartTime()));
         user.setEndTime(DateTimeUtil.convertDate(request.getEndTime()));
         user.setStatus(YesNoEnum.create(request.getIsAbled()));
-        user.setIsManager(YesNoEnum.create(request.getIsManager()));
+        user.setIsManager(ManagerTypeEnum.create(request.getIsManager()));
         user.setIsSynchro(YesNoEnum.create(request.getIsSync()));
         user.setMailbox(request.getUserEmail());
         user.setPostCode(request.getPostCode());
@@ -205,6 +213,29 @@ public class UserManageHandler {
      * @throws YCException
      */
     public Page<UserMangeResponse> fetchOnlineUserList(OnlineUserRequest request) throws YCException {
+        List<Integer> list = new ArrayList<>();
+        String onlineUserUrl= host+onlineUserList;
+        String resultData = fetchUserIds(onlineUserUrl);
+        if (resultData != null) {
+            JSONObject jsonObject = JSONObject.fromObject(resultData);
+            JSONArray jsonArray = JSONArray.fromObject(jsonObject.get("data"));
+            for (Object obj : jsonArray) {
+                JSONObject jObject = JSONObject.fromObject(obj.toString());
+                String name = jObject.getString("name");
+                String userid =  StringUtils.substringAfterLast(name, "_");
+                list.add(Integer.valueOf(userid));
+            }
+            //ID去重
+            HashSet idset = new HashSet();
+            for (Integer id : list){
+                idset.add(id);
+            }
+            List<Integer> integerList = new ArrayList<>();
+            for (Object object : idset){
+                integerList.add((Integer) object);
+            }
+            request.setIdsList(integerList);
+        }
         Page<UserMangeResponse> userMangeResponsePage = null;
         try {
             userMangeResponsePage = userInfoService.getUserByUserIds(request);
@@ -254,15 +285,18 @@ public class UserManageHandler {
 
     }
 
-//    public String fetchUserIds(){
-//        List<NameValuePair> params = new ArrayList<NameValuePair>();
-//        params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
-//        params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
-////        JSONObject reqJson = new JSONObject();
-////        reqJson.put("business_id", businessId);
-//        String userIds =  URLConnUtil.doPost(rwChannelUrl+action,params);
-//        return userIds;
-//    }
+    /**
+     * 查询在线用户
+     * @param url
+     * @return
+     */
+    public String fetchUserIds(String url){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
+        params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
+        String userIds =  URLConnUtil.doPost(url,params);
+        return userIds;
+    }
 
     public boolean kickOutByUserId(List<Integer> userIds,String action) throws YCException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();

@@ -234,7 +234,7 @@ function getUserList(){
                                 platform = 'windows'
                                 break;
                             case 1:
-                                platform = 'Ios'
+                                platform = 'iOS'
                                 break;
                             case 2:
                                 platform = 'Andoird'

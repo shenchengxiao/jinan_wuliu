@@ -8,6 +8,7 @@
         <typeHandler handler="com.manager.enums.IntegerEnumTypeHandler" javaType="com.manager.enums.UserRoleEnum" />
         <typeHandler handler="com.manager.enums.IntegerEnumTypeHandler" javaType="com.manager.enums.YesNoEnum" />
         <typeHandler handler="com.manager.enums.IntegerEnumTypeHandler" javaType="com.manager.enums.PlatformTypeEnum" />
+        <typeHandler handler="com.manager.enums.IntegerEnumTypeHandler" javaType="com.manager.enums.ManagerTypeEnum" />
     </typeHandlers>
 
     <plugins>

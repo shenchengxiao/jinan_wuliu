@@ -83,21 +83,36 @@
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search">查找</button>
                                     </div>
-                                    <div class="span2" align="right">
-                                            <div class="controls">
-                                                <a href="javascript:;" class="btn green" id="btn_chooseAll">
-                                                                                                                                                                              全选
-                                                    <i class="icon-down"></i>
-                                                </a>&nbsp;&nbsp;
-                                                <a href="javascript:;" class="btn red" id="btn_send">
-                                                    	发送消息     
-                                                    <i class="icon-down"></i>
-                                                </a>&nbsp;&nbsp;
-                                                <!-- <input type="hidden" name="" value="" id="ids"> -->
-                                            </div>
-                                    </div>
+
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
+                                <div class="span11" align="right">
+                                    <div class="controls">
+
+                                        <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                            修改密码
+                                            <i class="icon-down"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="javascript:;" class="btn red" id="btn_send">
+                                            延期时间
+                                            <i class="icon-down"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="javascript:;" class="btn red" id="btn_send">
+                                            解绑
+                                            <i class="icon-down"></i>
+                                        </a>&nbsp;&nbsp;
+
+                                        <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                            全选
+                                            <i class="icon-down"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="javascript:;" class="btn red" id="btn_send">
+                                            发送消息
+                                            <i class="icon-down"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <!-- <input type="hidden" name="" value="" id="ids"> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="box">

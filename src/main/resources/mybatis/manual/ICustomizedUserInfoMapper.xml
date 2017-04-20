@@ -114,6 +114,7 @@
         u.begin_time,
         u.end_time,
         u.status,
+        u.platform_type,
         u.registrationID,
         ub.hardpan_num,
         ub.network_card
