@@ -4,6 +4,7 @@ import com.manager.core.PasswordEncrypt;
 import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
 import com.manager.pojo.Admin;
+import com.manager.pojo.User;
 import com.manager.request.user.UserInfoRequest;
 import com.manager.service.AdminInfoService;
 import com.manager.utils.Page;
@@ -13,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -157,4 +160,5 @@ public class UserInfoHandler {
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
+    
 }

@@ -9,6 +9,7 @@ import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
 import com.manager.pojo.UserExample.Criteria;
 import com.manager.request.user.OnlineUserRequest;
+import com.manager.request.user.UserInfoRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -216,7 +218,25 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 	@Override
 	public User selectById(String ids) {
-		// TODO Auto-generated method stub
 		return userMapper.selectByPrimaryKey(Integer.valueOf(ids));
+	}
+
+	@Override
+	public List<User> selectByParam(User user) throws DatabaseException {
+		try{
+			UserExample example = new UserExample();
+			Criteria criteria = example.createCriteria();
+			if(StringUtils.isNoneEmpty(user.getUserNum())){
+				criteria.andUserNumLike(user.getUserNum()+"%");
+			}
+			if(StringUtils.isNoneEmpty(user.getUsername())){
+				criteria.andUsernameLike(user.getUsername()+"%");
+			}
+			
+			return userMapper.selectByExample(example);
+		} catch (Throwable e) {
+	        LOG.error("selectByParam 异常",user);
+	        throw new DatabaseException(e.getMessage());
+	    }
 	}
 }

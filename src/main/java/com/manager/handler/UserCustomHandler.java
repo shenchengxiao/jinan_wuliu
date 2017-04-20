@@ -30,7 +30,7 @@ public class UserCustomHandler {
 	
 	public boolean addUserCustom(User user,UserCustom userCustom) throws YCException {
         /** 参数校验 */
-        Validator.isEmpty(user.getUserNum(),YCSystemStatusEnum.USER_ID_EMPTY);
+        Validator.isEmpty(user.getUsername(),YCSystemStatusEnum.USER_ID_EMPTY);
         try {
         	List<User> users = userInfoService.queryUser(user);
         	

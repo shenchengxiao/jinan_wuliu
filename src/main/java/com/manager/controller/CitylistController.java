@@ -106,7 +106,7 @@ public class CitylistController {
     public APIResponse add(HttpServletRequest request,UserCustom userCustom){
         APIResponse apiResponse = new APIResponse<>();
         User user = new User();
-        user.setUserNum(request.getParameter("userNum"));
+        user.setUsername(request.getParameter("userName"));
         try {
         	if(userCustomHandler.addUserCustom(user, userCustom)){
         		apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());

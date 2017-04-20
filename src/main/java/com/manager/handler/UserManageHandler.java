@@ -278,4 +278,29 @@ public class UserManageHandler {
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
+    
+    /**
+     * 返回联想账号
+     * @param user
+     * @return
+     * @throws YCException
+     */
+	public List<String> selectByParam(User user) throws YCException {
+		
+		List<String> usernames = new ArrayList<>();
+		try{
+			List<User> userList = userInfoService.selectByParam(user);
+			
+			if(userList != null && userList.size()>0){
+				for(User u : userList){
+					usernames.add(u.getUsername());
+				}
+			}
+		}  catch (DatabaseException e) {
+	        LOG.error("selectByParam exception",user);
+	        throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+	    }
+		return usernames;
+	    	
+	}
 }

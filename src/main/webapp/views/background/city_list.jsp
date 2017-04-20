@@ -54,19 +54,16 @@
 					                        <div class="control-group">
 					                            <label class="control-label">账户: <span class="required">*</span></label>
 					                            <div class="controls">
-					                                <input type="text" class="span8 m-wrap" name="userNum" id="userNum">
+					                                <input type="text" class="span8 m-wrap" name="userName" id="userName" data-provide="typeahead">
 					                            </div>
 					                        </div>
 					                        <div class="control-group">
 					                            <label class="control-label">可接收城市: &nbsp;&nbsp;</label>
 					                            <div class="controls">
 					                            <select id="cityTree" name="receiveCity" class="easyui-combotree" 
-					                            data-options="url:'../../tree/tree_data1.json',multiple : true,onLoadSuccess: function (row, data) {
-										            $('#cityTree').combotree('tree').tree('collapseAll');
-										        },cascadeCheck:true,onCheck:checked" style="width:66%;height: 100%;"></select>
+					                            data-options="url:'../../tree/tree_data1.json',multiple : true,onLoadSuccess: loadTree,cascadeCheck:true" style="width:66%;height: 100%;"></select>
 										        <button type="button" class="btn btn-primary green" onclick="invet('cityTree')">反选</button>
-										        <button type="button" class="btn btn-primary green" onclick="isfold('cityTree')">展开</button>
-										        <button type="button" class="btn btn-primary green" onclick="fold('cityTree')">折叠</button>
+										        <button type="button" class="btn btn-primary green" onclick="isfold('cityTree')">展开/折叠</button>
 					                            </div>
 					                        </div>
 					                        <div class="control-group">
@@ -75,12 +72,14 @@
 					                            <select id="sendCity" name="sendCity" class="easyui-combotree" 
 					                            data-options="url:'../../tree/tree_data1.json',multiple : true,cascadeCheck:true,
 					                            onLoadSuccess: function (row, data) {
-										            $('#sendCity').combotree('tree').tree('collapseAll');
+										            var tree = $('#sendCity').combotree('tree');
+												    var roots=tree.tree('getRoots');
+												    tree.tree('collapseAll');
+												    tree.tree('expand', roots[0].target); 
 										        }"
 					                            style="width:66%;height: 100%;"></select>
 					                            <button type="button" class="btn btn-primary green" onclick="invet('sendCity')">反选</button>
-					                            <button type="button" class="btn btn-primary green" onclick="isfold('sendCity')">展开</button>
-										        <button type="button" class="btn btn-primary green" onclick="fold('sendCity')">折叠</button>
+					                            <button type="button" class="btn btn-primary green" onclick="isfold('sendCity')">展开/折叠</button>
 					                            </div>
 					                        </div>
 					                    </div>

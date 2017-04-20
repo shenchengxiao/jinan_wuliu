@@ -4,6 +4,7 @@ import com.manager.annotations.Authentication;
 import com.manager.enums.UserRoleEnum;
 import com.manager.exception.YCException;
 import com.manager.handler.UserManageHandler;
+import com.manager.pojo.User;
 import com.manager.request.user.OnlineUserRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -170,5 +173,21 @@ public class UserManageController {
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }
         return apiResponse;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/usernames",method = RequestMethod.POST)
+    public APIResponse selectByParam(User user){
+    	APIResponse apiResponse = new APIResponse();
+    	try {
+    		apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(userManageHandler.selectByParam(user));
+	    } catch (Throwable e) {
+	        LOG.error("获取用户名发生异常",user);
+	        apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+	        apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+	    }
+    	return apiResponse;
     }
 }

@@ -2,6 +2,21 @@
 var xunhuan_flag = "1";
 $(function(){
 	
+	$.fn.typeahead.Constructor.prototype.blur = function() {
+	      var that = this;
+	      setTimeout(function () { that.hide() }, 250);
+	};
+	 
+   $('#userName').typeahead({
+      source: function(query, process) {
+    	  var parameter = {username: query};
+    	  var data = '';
+          $.post(manage_path+'/api/user_manage/usernames', parameter, function (data) {
+              process(data.data);
+          });
+      }
+   });
+	
     $('#btn_add_citylist').on('click',function(){
         //非空验证
         var b = $('#add_citylist_form').valid();//true false
@@ -25,12 +40,12 @@ $(function(){
         focusInvalid:false,
         ignore:'',
         rules:{
-        	userNum:{
+        	userName:{
                 required: true
             }
         },
         messages:{
-        	userNum:{
+        	userName:{
                 required:'请输入账户'
             }
         },
@@ -170,24 +185,33 @@ function addcitylist(){
     });
 }
 
+var fold = true;
+
 /**
  * 展开
  * @param id
  */
 function isfold(id){
-	$('#'+id).combotree('tree').tree('expandAll');
+	if(fold == true){
+		$('#'+id).combotree('tree').tree('expandAll');
+		fold = false;
+	}else{
+		var tree = $('#'+id).combotree('tree');
+		var roots = tree.tree('getRoots');
+		tree.tree('collapseAll');
+		tree.tree('expand', roots[0].target); 
+		fold = true;
+	}
+	
+	
 }
 
-/**
- * 折叠
- * @param id
- */
-function fold(id){
-	$('#'+id).combotree('tree').tree('collapseAll');
+function loadTree(row, data) {
+    var tree = $('#cityTree').combotree('tree');
+    var roots=tree.tree('getRoots');
+    tree.tree('collapseAll');
+    tree.tree('expand', roots[0].target); 
 }
-
-
-
 
 
 

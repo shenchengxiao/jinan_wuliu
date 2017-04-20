@@ -42,6 +42,7 @@
 <script src="${ctx}/js/libs/jquery/toast.js"></script>
 <script src="${ctx}/js/libs/jquery/jqPaginator.js"></script>
 <script src="${ctx}/js/libs/laydate.dev.js"></script>
+<script src="${ctx}/js/libs/typeahead/bootstrap-typeahead.js"></script>
 <script src="${ctx}/js/app.js"></script>
 <script src="${ctx}/js/common.js"></script>
 

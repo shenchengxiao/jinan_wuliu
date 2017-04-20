@@ -5,6 +5,7 @@ import java.util.List;
 import com.manager.exception.DatabaseException;
 import com.manager.pojo.User;
 import com.manager.request.user.OnlineUserRequest;
+import com.manager.request.user.UserInfoRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 import com.manager.utils.Page;
@@ -31,4 +32,6 @@ public interface UserInfoService {
     boolean batchUpdateUserStatus(List<Integer> ids) throws DatabaseException;
 
 	User selectById(String ids);
+	
+	List<User> selectByParam(User user) throws DatabaseException ;
 }
