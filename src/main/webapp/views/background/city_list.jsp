@@ -54,7 +54,7 @@
 					                        <div class="control-group">
 					                            <label class="control-label">账户: <span class="required">*</span></label>
 					                            <div class="controls">
-					                                <input type="text" class="span8 m-wrap" name="userName" id="userName" data-provide="typeahead">
+					                                <input type="text" class="span8 m-wrap" name="userName" id="userName" data-provide="typeahead" readonly="readonly">
 					                            </div>
 					                        </div>
 					                        <div class="control-group">
@@ -83,10 +83,14 @@
 					                            </div>
 					                        </div>
 					                    </div>
-					                    <div class="modal-footer">
-					                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
+					                    <div class="form-actions" align="center">
+	                                        <a href="javascript:;" class="btn green" id="btn_add_citylist">提交</a>
+	                                        <a href="user_list.jsp" class="btn grey">取消</a>
+	                                    </div>
+					                    <!-- <div class="modal-footer">
+					                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					                        <button type="button" class="btn btn-primary green" id="btn_add_citylist">提交</button>
-					                    </div>
+					                    </div> -->
 					                </div>
 					            </div>
 					    </form>

@@ -1,6 +1,7 @@
 'use strict'
 var xunhuan_flag = "1";
 $(function(){
+	getUserDetail();
 	
 	$.fn.typeahead.Constructor.prototype.blur = function() {
 	      var that = this;
@@ -117,34 +118,6 @@ function treeChecked(selected, treeMenu) {
             $('#' + treeMenu).tree('uncheck', node.target);  
         }  
     }  
-}  
-
-function onSelect(item){
-	var parent = item;  
-    var tree = $('#cityTree').combotree('tree');  
-    var path = new Array();  
-    do {  
-        path.unshift(parent.text);  
-        var parent = tree.tree('getParent', parent.target);  
-    } while (parent);  
-    var pathStr = '';  
-    for (var i = 0; i < path.length; i++) {  
-        pathStr += path[i];  
-        if (i < path.length - 1) {  
-            pathStr += ' - ';  
-        }  
-    }  
-    $('#cityTree').text(pathStr);  
-}
-
-function checked(node,checked){
-    /*if(checked)
-    {
-    	var fdStart = node.id.indexOf("p");
-    	if(fdStart == 0){
-        	alert(node.id);
-    	}
-    }*/
 }
 
 /**
@@ -168,7 +141,7 @@ function addcitylist(){
             if(data.status == 0){
                 $.toast('操作成功',5000);
                 setTimeout(function(){
-                	location.reload();
+                	window.location.href = 'user_list.jsp';
                 },1000);
             }else if(data.status == '500002'){
             	$.toast('该账号不存在',5000);
@@ -213,6 +186,73 @@ function loadTree(row, data) {
     tree.tree('expand', roots[0].target); 
 }
 
+/**
+ *  功能描述：获取详情
+ *  请求方式：GET
+ *  请求地址：/api/user_manage/detail
+ *  函数名称：getUserDetail
+ *  参数：id:ID
+ */
+
+function getUserDetail(){
+    var id=getUrlParam("id");
+    $.ajax({
+        url:manage_path+'/api/user_manage/detail',
+        type:'GET',
+        dataType:'json',
+        data:{
+            id:id
+        },
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                var json = data.data;
+                $('input[name=id]').val(json.id);
+                $('input[name=userName]').val(json.userName);
+                $('input[name=userNum]').val(json.userNum);
+                
+                $("#cityTree").combotree("setValues",json.receiveCity);
+            	$("#sendCity").combotree("setValues",json.sendCity);
+            	if(json.receiveCity != ''){
+            		textSelected('cityTree',json.receiveCity);
+            	}
+            	if(json.sendCity != ''){
+            		textSelected('sendCity',json.sendCity);
+            	}
+            	
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应，请稍候重试',5000);
+        }
+    });
+}
+
+function textSelected(id,val){
+	var s = new Array();
+	var arrVal = val.split(",");
+	var tree = $("#"+id).combotree('tree');
+	var childNode = tree.tree("getChildren");
+	for(var j= 0;j<arrVal.length;j++)
+    {
+		for(var i= 0;i<childNode.length;i++)
+	    {
+			var text = childNode[i].text;
+			
+			if(text == arrVal[j]){
+				s.push(childNode[i].id);
+			}
+				
+	    }
+    }
+	$("#"+id).combotree("setValues",s);
+	
+}
 
 
 
