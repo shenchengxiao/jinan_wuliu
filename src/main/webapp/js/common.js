@@ -6,6 +6,13 @@ $(function () {
 
 
     $("#username").html(App.req.user.uname);
+    if(App.req.user.role == 16){
+    	$("#role").html("超级管理员");
+    }else if(App.req.user.role == 32){
+    	$("#role").html("客服人员");
+    }
+    
+    
     $("#logout").click(logout); //退出登录
 
 

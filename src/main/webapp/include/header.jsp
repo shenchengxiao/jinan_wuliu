@@ -35,7 +35,8 @@
 					<li class="dropdown user" style="margin-top: 5px;">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<!--<img alt="" src="images/avatar1_small.jpg"/>-->
-							<span id="username" class="username">admin</span>
+							<span id="username" class="username">admin</span>&nbsp;&nbsp;&nbsp;
+							<span id="role" class="username">超级管理员</span>
 							<i class="icon-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">

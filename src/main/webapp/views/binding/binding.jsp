@@ -70,13 +70,13 @@
 					                            </div>
 					                        </div>
 					                        <div class="control-group">
-					                            <label class="control-label">硬盘号: </label>
+					                            <label class="control-label">设备码: </label>
 					                            <div class="controls">
 					                                <input type="text" class="span8 m-wrap" name="hardpanNum" id="hardpanNum">
 					                            </div>
 					                        </div>
 					                        <div class="control-group">
-					                            <label class="control-label">网卡号:</label>
+					                            <label class="control-label">话机码:</label>
 					                            <div class="controls">
 					                                <input type="text" class="span8 m-wrap" name="networkCard" id="networkCard">
 					                            </div>
