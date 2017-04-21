@@ -33,70 +33,7 @@ public class BindingController {
     
     Logger LOG = LoggerFactory.getLogger(BindingController.class);
 
-    /*@ResponseBody
-    @RequestMapping(value = "/list")
-    @GetMapping(value = "/list")
-    public APIResponse<Page<BlackWordResponse>> list(HttpServletRequest request , BlackWordRequest blackWordRequest){
-        APIResponse<Page<BlackWordResponse>> apiResponse = new APIResponse<>();
-        Page<BlackWordResponse> page = null;
-        try {
-			page = blackWordHandler.fetchBlackwordList(blackWordRequest);
-			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
-	        apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
-	        apiResponse.setData(page);
-		} catch (YCException e) {
-			LOG.error("获取黑词列表发生异常",blackWordRequest);
-            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
-            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
-		}
-        
-        return apiResponse;
-        
-    }*/
-    
-    /**
-     * 删除
-     * @param request
-     * @param id
-     * @return
-     */
-    /*@ResponseBody
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    public APIResponse delete(HttpServletRequest request, Integer id){
-        APIResponse apiResponse = new APIResponse<>();
-        try {
-        	blackWordHandler.deleteBlackword(id);
-            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
-            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
-        } catch (Throwable e) {
-            LOG.error("删除黑词发生异常",id);
-            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
-            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
-        }
-        return apiResponse;
-    }*/
-    
-    /**
-     * 修改黑词状态
-     * @param request
-     * @param blackWordRequest
-     * @return
-     */
-    /*@ResponseBody
-    @RequestMapping(value = "/update_status",method = RequestMethod.POST)
-    public APIResponse updateStatus(HttpServletRequest request, BlackWord blackWord){
-        APIResponse apiResponse = new APIResponse<>();
-        try {
-        	blackWordHandler.updateBlackword(blackWord);
-            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
-            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
-        } catch (Throwable e) {
-            LOG.error("修改黑词状态发生异常",blackWord.getbWId());
-            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
-            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
-        }
-        return apiResponse;
-    }*/
+
     
     @ResponseBody
     @RequestMapping(value = "/add",method = RequestMethod.POST)
@@ -118,28 +55,26 @@ public class BindingController {
         }
         return apiResponse;
     }
-    
+
     /**
-     * 获取详情
+     * 用户解绑
      * @param request
-     * @param id
+     * @param userBinding
      * @return
      */
-    /*@ResponseBody
-    @RequestMapping(value = "/detail",method = RequestMethod.GET)
-    public APIResponse<BlackWord> detail(HttpServletRequest request , Integer id){
-        APIResponse<BlackWord> apiResponse = new APIResponse<>();
-        BlackWord blackWordResponse = null;
+    @ResponseBody
+    @RequestMapping(value = "/unbind",method = RequestMethod.POST)
+    public APIResponse unbind(HttpServletRequest request , UserBinding userBinding){
+        APIResponse apiResponse = new APIResponse();
         try {
-        	blackWordResponse = blackWordHandler.getBlackwordDetail(id);
+            bindingHandler.userUnbind(userBinding);
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
-            apiResponse.setData(blackWordResponse);
         } catch (Throwable e) {
-            LOG.error("获取广告详情信息发生异常",id);
+            LOG.error("用户设备解绑发生异常",userBinding);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }
         return apiResponse;
-    }*/
+    }
 }

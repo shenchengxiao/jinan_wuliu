@@ -190,4 +190,27 @@ public class UserManageController {
 	    }
     	return apiResponse;
     }
+
+
+    /**
+     * 重置密码与到期时间
+     * @param request
+     * @param userManageRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/reset",method = RequestMethod.POST)
+    public APIResponse reset(HttpServletRequest request,UserManageRequest userManageRequest){
+        APIResponse apiResponse = new APIResponse();
+        try {
+            userManageHandler.modifyPasswdOrDate(userManageRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("重置密码或者到期时间发生异常",userManageRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 }

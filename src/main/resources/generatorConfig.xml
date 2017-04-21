@@ -13,7 +13,7 @@
         <commentGenerator>
             <property name="suppressAllComments" value="false"/>
         </commentGenerator>
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://118.190.13.91:3306/jnwl" userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://118.190.13.91:3306/jnwl" userId="root" password="Mzk@2017!@#321">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>

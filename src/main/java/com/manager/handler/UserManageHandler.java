@@ -207,6 +207,33 @@ public class UserManageHandler {
     }
 
     /**
+     * 更新密码、到期时间
+     * @param request
+     * @throws YCException
+     */
+    public void modifyPasswdOrDate(UserManageRequest request) throws YCException {
+        /** 参数校验 */
+        Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
+        Validator.isEmpty(request.getId(),"用户主键ID不能为空");
+        User user = new User();
+        user.setId(request.getId());
+        user.setPassword(request.getPassword());
+        user.setPasswordConfirm(request.getPasswordVerify());
+        if (StringUtils.isNoneBlank(request.getStartTime())) {
+            user.setBeginTime(DateTimeUtil.convertDate(request.getStartTime()));
+        }
+        if (StringUtils.isNoneBlank(request.getEndTime())) {
+            user.setEndTime(DateTimeUtil.convertDate(request.getEndTime()));
+        }
+        try {
+            userInfoService.updateUser(user);
+        }  catch (DatabaseException e) {
+            LOG.error("modifyPasswdOrDate exception",request);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
      * 获取在线用户列表
      * @param request
      * @return

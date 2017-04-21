@@ -61,12 +61,14 @@ $(function(){
     });
 
 
+
+
     $('#user_manage_list').on('change','input[name="chooseTag"]',function(){
         /*$this = $(this);*/
         var thisID = $(this).next('input').val();
         if($(this).is(':checked')){
             idsArr.push(thisID);
-            setIdsInfo(); 
+            setIdsInfo();
             $(this).parent().css({
                 color:'green'
             });
@@ -98,15 +100,13 @@ $(function(){
     };
 
 
-  //创建modal弹出层class="modal"
+  //创建modal弹出层 发布消息
     $('#btn_send').on('click',function(){
-    	var ids = $('#ids').val();
-    	if(ids != null && ids.length > 0){
-    		
-    		clearModal();//清空modal弹出层里面的参数；
-    		$('#sendUserMessageModal').modal('show');//modle层显示
+    	if(idsArr == null || idsArr.length == 0){
+            alert("请先选择用户");
     	}else{
-    		alert("请先选择用户");
+            clearModal();//清空modal弹出层里面的参数；
+            $('#sendUserMessageModal').modal('show');//modle层显示
     	}
     	
     });
@@ -115,7 +115,7 @@ $(function(){
         //非空验证
         var b = $('#send_usermessagee_form').valid();//true false
         if(b){
-        	sendsysmessage();//添加黑词
+        	sendsysmessage();
             $('#sendUserMessageModal').modal('hide');//modle层隐藏
         }else{
             return false;
@@ -127,8 +127,132 @@ $(function(){
     	$("#content").val("");
     });
 
+
+    //创建modal弹出层 重置密码
+    $('#btn_password').on('click',function(){
+        //判断是否选中用户且只能选择一个用户
+        if(idsArr == null || idsArr.length == 0 ){
+            alert("请先选择一个用户");
+        }else if (idsArr.length > 1){
+            alert("暂不支持批量修改");
+        }else {
+            for(var i=0;i<idsArr.length;i++) {
+                var id = idsArr[i];
+                getUserDetail(id);
+            }
+            clearModal();
+            $('#resetPasswordModal').modal('show');//modle层显示
+        }
+    });
+
+    //提交重置信息
+    $('#btn_reset_password').on('click',function(){
+        //非空验证
+        var flag = $('#reset_password_form').valid();//true false
+        if(flag){
+            resetUserInfo();
+            $('#resetPasswordModal').modal('hide');//modle层隐藏
+        }else{
+            return false;
+        }
+    });
+
+
+    //创建modal弹出层 修改到期时间
+    $('#btn_postpone').on('click',function(){
+        //判断是否选中用户且只能选择一个用户
+        if(idsArr == null || idsArr.length == 0 ){
+            alert("请先选择一个用户");
+        }else if (idsArr.length > 1){
+            alert("暂不支持批量修改");
+        }else {
+            for(var i=0;i<idsArr.length;i++) {
+                var id = idsArr[i];
+                getExpireDate(id);
+            }
+            clearModal();
+            $('#resetExpireDateModal').modal('show');//modle层显示;
+        }
+    });
+
+
+    //提交修改日期信息
+    $('#btn_reset_expireDate').on('click',function(){
+        //非空验证
+        var flag = $('#reset_expireDate_form').valid();//true false
+        if(flag){
+            resetUserInfo();
+            $('#resetExpireDateModal').modal('hide');//modle层隐藏
+        }else{
+            return false;
+        }
+    });
+
+
+    //解绑
+    $('#btn_unbind').on('click',function(){
+        //判断是否选中用户且只能选择一个用户
+        if(idsArr == null || idsArr.length == 0 ){
+            alert("请先选择一个用户");
+        }else if (idsArr.length > 1){
+            alert("暂不支持批量修改");
+        }else {
+            for(var i=0;i<idsArr.length;i++) {
+                var id = idsArr[i];
+                userUnbind(id);
+            }
+        }
+    });
+
     /**
-     *  功能描述：添加黑词验证
+     * 校验重置密码参数
+     */
+    $('#reset_password_form').validate({
+        errorElement:'span',
+        errorClass:'help-inline',
+        focusInvalid:false,
+        ignore:'',
+        rules:{
+            password:{
+                required: true
+            },
+            passwordVerify:{
+                required: true,
+                equalTo: "#reset_password"
+            }
+        },
+        messages:{
+            password:{
+                required:'请输入新密码'
+            },
+            passwordVerify:{
+                required:'请输入确认密码',
+                equalTo: "两次输入密码不一致"
+            }
+        },
+        invalidHandler:function(event,validator){
+            $('.alert-success').hide();
+            $('.alert-error').show();
+        },
+        highlight:function(element){
+            $(element).closest('.help-inline').removeClass('ok');
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+        },
+        unhighlight:function(element){
+            $(element).closest('.control-group').removeClass('error');
+        },
+        success:function(label){
+            label.addClass('valid').addClass('help-inline ok').closest('.control-group').removeClass('error').addClass('success');
+        },
+        submitHandler:function(form){
+            $('.alert-success').show();
+            $('.alert-error').hide();
+        }
+    });
+
+
+    /**
+     *  功能描述：验证
      */
 
     $('#send_usermessagee_form').validate({
@@ -198,9 +322,13 @@ function sendsysmessage(){
 //清空modal里面的参数
 function clearModal(){
 	$('textarea[name=content]').val('');
-    /*$('input[name=ids]').val('');*/
-    
+
     $('#myModalLabel').text('发送消息通知');
+
+    //清空修改密码参数
+    $('#reset_password').val('');
+    $('#reset_passwordVerify').val('');
+
 }
 
 /**
@@ -254,13 +382,13 @@ function getUserList(){
                         var push ='<a href="user_push.jsp?id='+item.id+'" class="btn yellow mini" data-toggle="tooltip" data-placement="top" title="发布" ><i class="icon-hand-right"></i></a>&nbsp;'
 
                         var citylist ='<a href="city_list.jsp?id='+item.id+'" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="定制城市" ><i class="icon-globe"></i></a>&nbsp;'
-                        
+
                         //操作按钮拼接
-                        operation = upDown + ' <a href="user_edit.jsp?id='+item.id+'" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" ><i class="icon-edit icon-white"></i></a> ' 
+                        operation = upDown + ' <a href="user_edit.jsp?id='+item.id+'" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" ><i class="icon-edit icon-white"></i></a> '
                         	+ Deleted + push + citylist;
 
                         temp += '<tr>'
-                        	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.id+'"/>'+ '</td>'
+                        	+'<td data-title="">' +'<input type="checkbox" name="chooseTag" ><input type="hidden" name="idArr" value="'+item.id+'" id="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
                             + '<td data-title="用户编号">' + item.userNum + '</td>'
                             + '<td data-title="用户密码">' + item.password + '</td>'
@@ -347,3 +475,163 @@ function modifyStatus(id,beUsed){
     })
 
 }
+
+
+
+/**
+ *  功能描述：获取用户密码信息
+ *  请求方式：GET
+ *  请求地址：/api/user_manage/detail
+ *  函数名称：getUserDetail
+ *  参数：id:ID
+ */
+
+function getUserDetail(id){
+    $.ajax({
+        url:manage_path+'/api/user_manage/detail',
+        type:'GET',
+        dataType:'json',
+        data:{
+            id:id
+        },
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                var json = data.data;
+
+                $('#reset_id').val(json.id);
+                $('#reset_userName').val(json.userName);
+
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应，请稍候重试',5000);
+        }
+    });
+}
+
+
+
+/**
+ *  功能描述：获取用户到期时间信息
+ *  请求方式：GET
+ *  请求地址：/api/user_manage/detail
+ *  函数名称：getExpireDate
+ *  参数：id:ID
+ */
+
+function getExpireDate(id){
+    $.ajax({
+        url:manage_path+'/api/user_manage/detail',
+        type:'GET',
+        dataType:'json',
+        data:{
+            id:id
+        },
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                var json = data.data;
+
+                $('#resetExpireDate_id').val(json.id);
+                $('#reset_expireDate').val(json.userName);
+                $('input[name=startTime]').val(timestampFormat(json.startTime));
+                $('input[name=endTime]').val(timestampFormat(json.endTime));
+
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应，请稍候重试',5000);
+        }
+    });
+}
+
+
+/**
+ *  功能描述：重置用户信息
+ *  请求方式：POST
+ *  请求地址：/api/user_manage/reset
+ *  函数名称：resetUserInfo
+ */
+function resetUserInfo() {
+    var passVal = $('#reset_password').val();
+    var data;
+    if (passVal != null && passVal != ""){
+        data = $('#reset_password_form').serialize();
+    }else {
+        data = $('#reset_expireDate_form').serialize()
+    }
+
+    $.ajax({
+        url:manage_path+'/api/user_manage/reset',
+        type:'POST',
+        dataType:'json',
+        data: data,
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                $.toast('操作成功',1000);
+                setTimeout(function(){
+                    window.location.href = 'user_list.jsp';
+                },1000);
+            }else {
+                $.toast('操作失败,系统错误',1000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    });
+}
+
+
+/**
+ *  功能描述：用户设备解绑
+ *  请求方式：POST
+ *  请求地址：/api/user_manage/reset
+ *  函数名称：resetUserInfo
+ */
+function userUnbind(id) {
+    $.ajax({
+        url:manage_path+'/api/binding/unbind',
+        type:'POST',
+        dataType:'json',
+        data: {userId:id},
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                $.toast('操作成功',1000);
+                setTimeout(function(){
+                    window.location.href = 'user_list.jsp';
+                },1000);
+            }else {
+                $.toast('操作失败,系统错误',1000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    });
+}
+
+

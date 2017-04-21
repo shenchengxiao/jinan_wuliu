@@ -89,15 +89,15 @@
                                 <div class="span11" align="right">
                                     <div class="controls">
 
-                                        <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                        <a href="javascript:;" class="btn blue" id="btn_password">
                                             修改密码
                                             <i class="icon-down"></i>
                                         </a>&nbsp;&nbsp;
-                                        <a href="javascript:;" class="btn red" id="btn_send">
+                                        <a href="javascript:;" class="btn purple" id="btn_postpone">
                                             延期时间
                                             <i class="icon-down"></i>
                                         </a>&nbsp;&nbsp;
-                                        <a href="javascript:;" class="btn red" id="btn_send">
+                                        <a href="javascript:;" class="btn yellow" id="btn_unbind">
                                             解绑
                                             <i class="icon-down"></i>
                                         </a>&nbsp;&nbsp;
@@ -110,7 +110,6 @@
                                             发送消息
                                             <i class="icon-down"></i>
                                         </a>&nbsp;&nbsp;
-                                        <!-- <input type="hidden" name="" value="" id="ids"> -->
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +164,7 @@
                         <h4 class="modal-title" id="myModalLabel">发送消息通知</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="userIds" value="" id="ids">
+                        <input type="hidden" name="userIds"  id="ids">
                         <div class="control-group">
                             <label class="control-label">消息内容: <span class="required">*</span></label>
                             <div class="controls">
@@ -182,6 +181,85 @@
             </div>
         </div>
        
+    </form>
+
+    <!-- 重置密码 -->
+    <form action="#" class="form-horizontal" id="reset_password_form">
+        <div class="modal fade hide" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h4 class="modal-title" id="resetModalLabel">重置密码</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="reset_id" name="id">
+                        <div class="control-group">
+                            <label class="control-label">用户名称<span class="required">*</span></label>
+                            <div class="controls">
+                                <input class="span8 m-wrap" type="text" id="reset_userName" name="userName" readonly /></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">新密码<span class="required">*</span></label>
+                            <div class="controls">
+                                <input class="span8 m-wrap" type="text" id="reset_password" name="password" /></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">确认密码<span class="required">*</span></label>
+                            <div class="controls">
+                                <input class="span8 m-wrap" type="text" id="reset_passwordVerify" name="passwordVerify" /></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary green" id="btn_reset_password">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <!-- 修改到期时间 -->
+    <form action="#" class="form-horizontal" id="reset_expireDate_form">
+        <div class="modal fade hide" id="resetExpireDateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h4 class="modal-title" id="resetExpireDateModalLabel">修改到期时间</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="resetExpireDate_id" name="id">
+                        <div class="control-group">
+                            <label class="control-label">用户名称<span class="required">*</span></label>
+                            <div class="controls">
+                                <input class="span8 m-wrap" type="text" id="reset_expireDate" name="userName" readonly /></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">服务开始日期<span class="required">*</span></label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input data-laydate="start" class="m-wrap span12" type="text" value="" name="startTime"  readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">服务结束日期<span class="required">*</span></label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input data-laydate="end" class="m-wrap span12" type="text" value="" name="endTime"  readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary green" id="btn_reset_expireDate">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
     <!-- modal 添加 end -->
 </div>
