@@ -2,6 +2,8 @@ package com.manager.service;
 
 import com.manager.exception.DatabaseException;
 import com.manager.pojo.UserCustom;
+import com.manager.request.custom.UserCustomRequest;
+import com.manager.utils.Page;
 
 import java.util.List;
 
@@ -20,4 +22,10 @@ public interface UserCustomService {
     boolean updateUserCustomInfoByParam(UserCustom userCustom) throws DatabaseException;
     
     List<UserCustom> queryCustomInfo(UserCustom userCustom) throws DatabaseException;
+
+	Page<UserCustom> selectUserCustom(UserCustomRequest userCustomRequest) throws DatabaseException;
+
+	UserCustom getUserCustomById(Integer id) throws DatabaseException;
+
+	boolean updateUserCustom(UserCustom userCustom) throws DatabaseException;
 }

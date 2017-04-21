@@ -1,13 +1,19 @@
 package com.manager.service.impl;
 
 import com.manager.exception.DatabaseException;
+import com.manager.interceptor.PageMybatisInterceptor;
 import com.manager.mapper.UserCustomMapper;
+import com.manager.pojo.User;
 import com.manager.pojo.UserCustom;
 import com.manager.pojo.UserCustomExample;
 
 import com.manager.pojo.UserCustomExample.Criteria;
-
+import com.manager.request.custom.UserCustomRequest;
+import com.manager.response.ItemResponse;
 import com.manager.service.UserCustomService;
+import com.manager.utils.Page;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -113,5 +119,52 @@ public class UserCustomServiceImpl implements UserCustomService{
             LOG.error("updateUserCustomInfoByUserId 异常",userCustom);
             throw new DatabaseException(e.getMessage());
         }
+	}
+
+	@Override
+	public Page<UserCustom> selectUserCustom(UserCustomRequest userCustomRequest) throws DatabaseException {
+		try {
+            /*if (request == null){
+                LOG.error("fetchUserInfoList 信息为空",request);
+                return null;
+            }*/
+           
+//            if (StringUtils.isNotBlank(userCustomRequest.getUsername())){
+//            	User user = selectUserByNum(userCustomRequest.getUsername());
+//            	if(user != null){
+//            		itemRequest.setUserId(user.getId());
+//            	}
+//            }
+			UserCustomExample example = new UserCustomExample();
+			Criteria criteria = example.createCriteria();
+			if(userCustomRequest.getUsername() != null && userCustomRequest.getUsername() != ""){
+				criteria.andUsernameEqualTo(userCustomRequest.getUsername());
+			}
+            PageMybatisInterceptor.startPage(userCustomRequest.getPageNum(),userCustomRequest.getPageSize());
+            userCustomMapper.selectByExample(example);
+            Page<UserCustom> page = PageMybatisInterceptor.endPage();
+            return page;
+        } catch (Throwable e) {
+            LOG.error("selectUserCustom 异常",userCustomRequest);
+            throw new DatabaseException(e.getMessage());
+        }
+	}
+
+	@Override
+	public UserCustom getUserCustomById(Integer id) throws DatabaseException {
+		// TODO Auto-generated method stub
+		UserCustom userCustom = userCustomMapper.selectByPrimaryKey(id);
+		
+		return userCustom;
+	}
+
+	@Override
+	public boolean updateUserCustom(UserCustom userCustom) throws DatabaseException {
+		// TODO Auto-generated method stub
+		int i = userCustomMapper.updateByPrimaryKeySelective(userCustom);
+		if(i > 0){
+			return true;
+		}
+		return false;
 	}
 }
