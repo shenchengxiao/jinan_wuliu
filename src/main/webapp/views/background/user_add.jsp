@@ -100,8 +100,11 @@
                                                 <option value="1" selected>有效</option>
                                             </select>
                                             <select class="m-wrap span3" name="isManager" >
-                                                <option value="0">不是管理员</option>
-                                                <option value="1" selected>是管理员</option>
+                                                <option value="1" selected>系统管理员</option>
+                                                <option value="2" >工作人员</option>
+                                                <option value="3" >车主</option>
+                                                <option value="4" >货主</option>
+                                                <option value="5" >未认证用户</option>
                                             </select>
                                             <select class="m-wrap span3" name="isSync" >
                                                 <option value="0">不同步</option>
@@ -216,10 +219,10 @@
                                     <div class="control-group">
                                         <label class="control-label">可发布城市:</label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text"  name="sendCity" /></div>
+                                            <input class="m-wrap span12" type="text"  name="sendCity" value="济南" readonly/></div>
                                         <label class="control-label">可接收城市:</label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text" name="receiveCity" /></div>
+                                            <input class="m-wrap span12" type="text" name="receiveCity" value="济南" readonly/></div>
                                     </div>
 
                                     <div class="control-group">

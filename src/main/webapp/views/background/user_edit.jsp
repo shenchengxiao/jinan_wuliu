@@ -101,8 +101,11 @@
                                                 <option value="1" >有效</option>
                                             </select>
                                             <select class="m-wrap span3" name="isManager" id="is_manager_id" >
-                                                <option value="0">不是管理员</option>
-                                                <option value="1" >是管理员</option>
+                                                <option value="1" selected>系统管理员</option>
+                                                <option value="2" >工作人员</option>
+                                                <option value="3" >车主</option>
+                                                <option value="4" >货主</option>
+                                                <option value="5" >未认证用户</option>
                                             </select>
                                             <select class="m-wrap span3" name="isSync" id="is_sync_id">
                                                 <option value="0">不同步</option>
@@ -217,10 +220,10 @@
                                     <div class="control-group">
                                         <label class="control-label">可发布城市:</label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text"  name="sendCity" /></div>
+                                            <input class="m-wrap span12" type="text"  name="sendCity" readonly/></div>
                                         <label class="control-label">可接收城市:</label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text" name="receiveCity" /></div>
+                                            <input class="m-wrap span12" type="text" name="receiveCity" readonly/></div>
                                     </div>
 
                                     <div class="control-group">

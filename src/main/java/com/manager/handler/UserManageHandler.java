@@ -110,6 +110,9 @@ public class UserManageHandler {
         userCustom.setSendCity(request.getSendCity());
         userCustom.setReceiveProvince(request.getReceiveProvince());
         userCustom.setReceiveCity(request.getReceiveCity());
+        userCustom.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
+        userCustom.setIsManager(ManagerTypeEnum.create(request.getIsManager()));
+        userCustom.setUsername(request.getUserName());
 
         //是否绑定电脑信息入库
         UserBinding userBinding = new UserBinding();
