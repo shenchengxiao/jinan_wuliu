@@ -329,6 +329,8 @@ function clearModal(){
     $('#reset_password').val('');
     $('#reset_passwordVerify').val('');
 
+
+
 }
 
 /**
@@ -388,7 +390,7 @@ function getUserList(){
                         	+ Deleted + push + citylist;
 
                         temp += '<tr>'
-                        	+'<td data-title="">' +'<input type="checkbox" name="chooseTag" ><input type="hidden" name="idArr" value="'+item.id+'" id="'+item.id+'"/>'+ '</td>'
+                        	+'<td data-title="">' +'<input type="checkbox" name="chooseTag" ><input type="hidden" name="idArr" value="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
                             + '<td data-title="用户编号">' + item.userNum + '</td>'
                             + '<td data-title="用户密码">' + item.password + '</td>'
