@@ -13,6 +13,7 @@ public class UserManageRequest extends BaseQuery{
     private String userName;
 
     /** 用户编号 */
+
     private String userNum;
 
     /** 密码 */

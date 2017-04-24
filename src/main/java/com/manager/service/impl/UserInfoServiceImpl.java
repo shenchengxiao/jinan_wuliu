@@ -9,7 +9,6 @@ import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
 import com.manager.pojo.UserExample.Criteria;
 import com.manager.request.user.OnlineUserRequest;
-import com.manager.request.user.UserInfoRequest;
 import com.manager.request.user.UserManageRequest;
 import com.manager.response.UserMangeResponse;
 
@@ -21,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;

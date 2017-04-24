@@ -39,7 +39,8 @@
     <activemq.version>5.12.0</activemq.version>
     <freemarker.version>2.3.23</freemarker.version>
     <quartz.version>2.2.2</quartz.version>
-  </properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
   <dependencies>
     <!-- 单元测试 -->
     <dependency>
@@ -236,7 +237,22 @@
       <version>2.4</version>
       <classifier>jdk15</classifier>
     </dependency>
+
+    <!-- 极光推送-->
+    <dependency>
+      <groupId>cn.jpush.api</groupId>
+      <artifactId>jpush-client</artifactId>
+      <version>3.2.17</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.jpush.api</groupId>
+      <artifactId>jiguang-common</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+
   </dependencies>
+
   <build>
     <finalName>${project.artifactId}</finalName>
     <plugins>
@@ -284,5 +300,6 @@
         </dependencies>
       </plugin>
     </plugins>
+
   </build>
 </project>

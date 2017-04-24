@@ -9,49 +9,42 @@ import java.io.Serializable;
  */
 public class UserBinding implements Serializable {
     /**
-     *   用户绑定设备信息
      * Column: user_binding.id
     @mbggenerated 2017-04-10 09:45:58
      */
     private Integer id;
 
     /**
-     *   用户id
      * Column: user_binding.user_id
     @mbggenerated 2017-04-10 09:45:58
      */
     private Integer userId;
 
     /**
-     *   账户(用户名称)
      * Column: user_binding.user_name
     @mbggenerated 2017-04-10 09:45:58
      */
     private String userName;
 
     /**
-     *   硬盘号
      * Column: user_binding.hardpan_num
     @mbggenerated 2017-04-10 09:45:58
      */
     private String hardpanNum;
 
     /**
-     *   网卡号
      * Column: user_binding.network_card
     @mbggenerated 2017-04-10 09:45:58
      */
     private String networkCard;
 
     /**
-     *   临时硬盘网卡号
      * Column: user_binding.temporary_card
     @mbggenerated 2017-04-10 09:45:58
      */
     private String temporaryCard;
 
     /**
-     *   是否绑定电脑
      * Column: user_binding.is_binding
     @mbggenerated 2017-04-10 09:45:58
      */

@@ -16,28 +16,24 @@ public class BlackWord implements Serializable {
     private Integer bWId;
 
     /**
-     *   黑词
      * Column: black_word.black_word
     @mbggenerated 2017-03-31 14:46:06
      */
     private String blackWord;
 
     /**
-     *   创建时间
      * Column: black_word.create_time
     @mbggenerated 2017-03-31 14:46:06
      */
     private Date createTime;
 
     /**
-     *   修改时间
      * Column: black_word.update_time
     @mbggenerated 2017-03-31 14:46:06
      */
     private Date updateTime;
 
     /**
-     *   是否有效（0：无效，1：有效）
      * Column: black_word.enabled
     @mbggenerated 2017-03-31 14:46:06
      */
