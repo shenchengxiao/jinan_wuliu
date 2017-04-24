@@ -284,6 +284,7 @@ public class UserManageHandler {
      * @throws YCException
      */
     public void kickOutUser(String[] userIds) throws YCException {
+        String kickoutUrl = host + kickOutUser;
         List<Integer> list = new ArrayList<>();
         List<Integer> listAll = new ArrayList<>();
         int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
@@ -307,7 +308,7 @@ public class UserManageHandler {
         }
         try {
             //踢出用户(pc客户端)
-            kickOutByUserId(list,kickOutUser);
+            kickOutByUserId(list,kickoutUrl);
             //更新用户状态
             userInfoService.batchUpdateUserStatus(listAll);
         }  catch (DatabaseException e) {
@@ -330,11 +331,19 @@ public class UserManageHandler {
         return userIds;
     }
 
+    /**
+     * 踢出在线用户
+     * @param userIds
+     * @param action
+     * @return
+     * @throws YCException
+     */
     public boolean kickOutByUserId(List<Integer> userIds,String action) throws YCException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
         JSONObject reqJson = new JSONObject();
+        reqJson.put("userIds",userIds);
         String result =  URLConnUtil.doPost(SystemParam.INTERFACE_URL+action,reqJson.toString(),params);
         JSONObject jsonObject = JSONObject.fromObject(result);
         if(jsonObject.getString("status") .equals("0")){

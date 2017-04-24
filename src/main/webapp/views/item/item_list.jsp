@@ -12,16 +12,7 @@
     <%@ include file="/common/taglibs.jsp"%>
     <jsp:include page="/common/common.jsp"></jsp:include>
     <![endif]-->
-    <style>
-        .table-bordered th,
-        .table-bordered td {
-            border-left: 1px solid #ddd;
-            border-top: 1px solid #ddd;
-        }
-        #adTime{
-            display: none;
-        }
-    </style>
+
 </head>
 
 <body class="page-header-fixed">

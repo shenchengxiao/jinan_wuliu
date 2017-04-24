@@ -231,7 +231,7 @@
                                         <div class="span4">
                                             <select class="m-wrap span3" name="platformType" id="platformType">
                                                 <option value="0">windows</option>
-                                                <option value="1">Ios</option>
+                                                <option value="1">iOS</option>
                                                 <option value="2">Android</option>
                                             </select>
                                         </div>

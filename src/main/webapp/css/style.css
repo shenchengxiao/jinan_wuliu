@@ -5418,7 +5418,10 @@ Invoice page
   text-align: center;
   vertical-align: middle;
 }
-
+#item_List td{
+  text-align: center;
+  vertical-align: middle;
+}
 
 
 .popover-content {
