@@ -39,6 +39,7 @@
     <activemq.version>5.12.0</activemq.version>
     <freemarker.version>2.3.23</freemarker.version>
     <quartz.version>2.2.2</quartz.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 </properties>
   <dependencies>
     <!-- 单元测试 -->
