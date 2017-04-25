@@ -147,9 +147,10 @@
     <update id="batchUpdateStatus"  parameterType="java.util.List">
         update
         user
-        SET status = 1
+        SET status = 0
         where id IN
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        <foreach item="item" index="index" collection="list" open="("
+                 separator="," close=")">
             #{item}
         </foreach>
 

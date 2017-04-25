@@ -291,13 +291,15 @@ public class UserManageHandler {
         List<Integer> listAll = new ArrayList<>();
         //int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
         Map<String, String> map = new HashMap<>();
-        map.put("type", "0");
+        map.put("type", "2");
         String[] idArry = userIds;
         for (String ids : idArry) {
         	User user = userInfoService.selectById(ids);
         	if(user != null && user.getPlatformType() != null){
         		if(user.getPlatformType().getValue() == 0){
         			list.add(Integer.valueOf(ids));
+                    //踢出用户(pc客户端)
+                    kickOutByUserId(list,kickoutUrl);
         		}else if(user.getPlatformType().getValue() == 1  && user.getRegistrationid() != null){
         			//踢出ios用户
         			String msgContent = "被物流网客服强迫下线";
@@ -311,8 +313,7 @@ public class UserManageHandler {
         	listAll.add(Integer.valueOf(ids));
         }
         try {
-            //踢出用户(pc客户端)
-            kickOutByUserId(list,kickoutUrl);
+
             //更新用户状态
             userInfoService.batchUpdateUserStatus(listAll);
         }  catch (DatabaseException e) {
