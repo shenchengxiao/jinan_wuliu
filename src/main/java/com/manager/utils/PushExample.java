@@ -55,9 +55,10 @@ public class PushExample {
 	 * @param msgContent
 	 * @param registrationID
 	 */
-	public static void SendUsersPushToAndroid(String title, String msgContent, String... registrationID) {
+	public static void SendUsersPushToAndroid(String title, String msgContent,Map<String, String> map, String... registrationID) {
 		ClientConfig clientConfig = ClientConfig.getInstance();
-		Map<String, String> map = new HashMap<String, String>();
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("type", "1");
         final JPushClient jpushClient = new JPushClient(MASTER_SECRET, APP_KEY, null, clientConfig);
         PushResult result = new PushResult();
         
@@ -83,9 +84,9 @@ public class PushExample {
 	 * @param msgContent
 	 * @param registrationID
 	 */
-	public static void SendUsersPushToIOS(String msgContent, String... registrationID) {
+	public static void SendUsersPushToIOS(String msgContent,Map<String, String> map, String... registrationID) {
 		ClientConfig clientConfig = ClientConfig.getInstance();
-		Map<String, String> map = new HashMap<String, String>();
+//		Map<String, String> map = new HashMap<String, String>();
 		final JPushClient jpushClient = new JPushClient(MASTER_SECRET, APP_KEY, null, clientConfig);
 		PushResult result = new PushResult();
 		

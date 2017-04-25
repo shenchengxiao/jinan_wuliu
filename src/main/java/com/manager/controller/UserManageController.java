@@ -162,6 +162,7 @@ public class UserManageController {
     @ResponseBody
     @RequestMapping(value = "/kick_out",method = RequestMethod.POST)
     public APIResponse kickOut(HttpServletRequest request,String[] userIdsArray){
+    	
         APIResponse apiResponse = new APIResponse();
         try {
             userManageHandler.kickOutUser(userIdsArray);

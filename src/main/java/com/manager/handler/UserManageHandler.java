@@ -28,8 +28,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -287,7 +289,9 @@ public class UserManageHandler {
         String kickoutUrl = host + kickOutUser;
         List<Integer> list = new ArrayList<>();
         List<Integer> listAll = new ArrayList<>();
-        int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
+        //int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "0");
         String[] idArry = userIds;
         for (String ids : idArry) {
         	User user = userInfoService.selectById(ids);
@@ -296,12 +300,12 @@ public class UserManageHandler {
         			list.add(Integer.valueOf(ids));
         		}else if(user.getPlatformType().getValue() == 1  && user.getRegistrationid() != null){
         			//踢出ios用户
-        			String msgContent = "{\"type\":\"" + type + "\",\"content\":" + "系统通知:被踢出下线"+ "}";
-        			PushExample.SendUsersPushToIOS(msgContent, user.getRegistrationid());
+        			String msgContent = "被物流网客服强迫下线";
+        			PushExample.SendUsersPushToIOS(msgContent,map, user.getRegistrationid());
         		}else if(user.getPlatformType().getValue() == 2  && user.getRegistrationid() != null){
         			//踢出安卓用户
-        			String msgContent = "{\"type\":\"" + type + "\",\"content\":" + "系统通知:被踢出下线"+ "}";
-        			PushExample.SendUsersPushToAndroid("济南网通知:", msgContent, user.getRegistrationid());
+        			String msgContent = "被物流网客服强迫下线";
+        			PushExample.SendUsersPushToAndroid("济南网通知:", msgContent,map, user.getRegistrationid());
         		}
         	}
         	listAll.add(Integer.valueOf(ids));
