@@ -36,17 +36,17 @@ function refreshBtns(state)
  */
 function buildBtns()
 {
-    $btnSignIn = $("#btnSignIn");
-    $btnSignOut = $("#btnSignOut");
-    $btnCallOut = $("#btnCallOut");// 呼出
-    $btnSetIdle = $("#btnSetIdle");
-    $btnSetBusy = $("#btnSetBusy");
-	$btnHangup  = $("#btnHangup");
-	$btnPhoneState = $("#btnPhoneState"); // 获取话机当前状态            
-	$btnFlashTime = $("#btnFlashTime"); // 设置闪断时间
-	$btnBroken = $("#btnBroken"); // 闪断
-	$btnStartRecording = $("#btnStartRecording"); //开始录音
-	$btnEndRecording = $("#btnEndRecording"); // 结束录音
+    var $btnSignIn = $("#btnSignIn");
+    var $btnSignOut = $("#btnSignOut");
+    var $btnCallOut = $("#btnCallOut");// 呼出
+    var $btnSetIdle = $("#btnSetIdle");
+    var $btnSetBusy = $("#btnSetBusy");
+	var $btnHangup  = $("#btnHangup");
+	var $btnPhoneState = $("#btnPhoneState"); // 获取话机当前状态            
+	var $btnFlashTime = $("#btnFlashTime"); // 设置闪断时间
+	var $btnBroken = $("#btnBroken"); // 闪断
+	var $btnStartRecording = $("#btnStartRecording"); //开始录音
+	var $btnEndRecording = $("#btnEndRecording"); // 结束录音
 }
 
 /**
@@ -67,7 +67,7 @@ function addMessages(msg)
 
 
 	
-}
+
 /**
  * 点击呼出按钮
  

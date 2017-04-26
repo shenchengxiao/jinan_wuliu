@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>话机管理</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>话机管理</title>
 	<%@ include file="/common/taglibs.jsp"%>
     <jsp:include page="/common/common.jsp"></jsp:include>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script type="text/javascript" src="../../js/hion/jquery-1.8.3.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../js/hion/css.css">
 	<script type="text/javascript" src="../../js/hion/call.js"></script>
@@ -17,13 +17,13 @@
 		
 		#left{width:27%; height:550px; float:left}
 		#messages{width:72%; height:550px; float:right}
-		.btnDial{width:163px; height:39px; background:url('../../images/hion/Uc3_p1_24.jpg');} <!--拨号-->
+		.btnDial{width:163px; height:39px; background:url('../.../../images/hions/hion/Uc3_p1_24.jpg');} <!--拨号-->
 		
 	</style>
 </head>
 <!---->
-<object id="UsbPhone"  border=0 width=0 height=0
-	classid="CLSID:4CF8112F-57D5-474B-A4BC-70F72244BCD9">
+<object id="UsbPhone"  border=1 width=400 height=500 codebase="/WEB-INF/lib/UsbPhoneV3.1.ocx"
+	classid="CLSID:09DC78F8-33B2-4F82-B01B-A1F1C1D09E5E">
 </object>
 <script language="javascript">
 var myocx = document.getElementById("UsbPhone");
@@ -80,22 +80,24 @@ var OnDeviceDetect = function(bState, lAudioDeviceID){
 }
 
 
-function	Init()
+function Init()
 {
-	idev=myocx.Init();
-	if(idev<0)
-	{
-		addMessages("Init ERR!");
-	}
-	else
-	{
-		addMessages("Init OK!");
+	if(myocx.readyState==4){ 
+	    idev = myocx.Init();
+	 	if(idev < 0){
+		 	
+	 		addMessages("Init ERR!");
+	 	}else{
+		 	
+	 		addMessages("Init OK!");
+	 	}
+	}else{  
+	     alert("加载失败!");  
 	}
 }
 
 
 window.onload = function(){ 
-
 	//addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
 	addEventHandler(myocx,"DeviceDetect",OnDeviceDetect);
 	Init();
@@ -109,14 +111,14 @@ window.onload = function(){
 
 function ceshi(){
 	var del = document.getElementById("del");
-	del.style.background = "url('../../images/hion/Uc3_p1_21.jpg')";
+	del.style.background = "url('../.../../images/hions/hion/Uc3_p1_21.jpg')";
 	
 	
 }
 
 function voip()
 {
-	document.getElementById("btnVOIPIO").style.background="url(../../images/hion/Uc3_p1_1.jpg)";
+	document.getElementById("btnVOIPIO").style.background="url(../.../../images/hions/hion/Uc3_p1_1.jpg)";
 }
 
 
@@ -182,10 +184,9 @@ function getUrl()
 
                         </div>
 						<form name="CheckPrinter">
-							
 							<div id="left" style="border: black 1px solid;" >
 							<!--
-							<input name="" type="button"  style="width:163px; height:39px; background:url('./image/Uc3_p1_24.jpg')"  onclick="alert(11);"  /> 
+							<input name="" type="button"  style="width:163px; height:39px; background:url('../../images/hion/Uc3_p1_24.jpg')"  onclick="alert(11);"  /> 
 							-->
 								<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本</p>
 								<input id="callee" type="text" style="width:350px; height:39px;" /><br/>

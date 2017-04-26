@@ -5,26 +5,38 @@
  */
 function buildBtns()
 {
-    $btnSignIn = $("#btnSignIn");
-    $btnSignOut = $("#btnSignOut");
-    $btnCallOut = $("#btnCallOut");// 呼出
-    $btnSetIdle = $("#btnSetIdle");//摘机
-    $btnSetBusy = $("#btnSetBusy");
-	$btnHangup  = $("#btnHangup");    //挂机
-	$btnPhoneState = $("#btnPhoneState"); // 获取话机当前状态            
-	$btnFlashTime = $("#btnFlashTime"); // 设置闪断时间
-	$btnBroken = $("#btnBroken"); // 闪断
-	$btnStartRecording = $("#btnStartRecording"); //开始录音
-	$btnEndRecording = $("#btnEndRecording"); // 结束录音
-	$btnMute = $("#btnMute");//静音
-	$btnCloseSound = $("#btnCloseSound"); //闭音
-	$btnAnswer = $("#btnAnswer");//开启自动接听
-	$btnTalkRecIO = $("#btnTalkRecIO"); //打开通话录音io口
-	$btnLeave = $("#btnLeave");//打开留言放音io口
-	$btnKeep = $("#btnKeep");//开启保留
-	$btnDialTone = $("#btnDialTone");//设置拨号音
-	$btnBill = $("#btnBill");//打开特色铃声;  
-	$btnVOIPIO = $("#btnVOIPIO"); // 打开PC
+    var $btnSignIn = $("#btnSignIn");
+    var $btnSignOut = $("#btnSignOut");
+    var $btnCallOut = $("#btnCallOut");// 呼出
+    var $btnSetIdle = $("#btnSetIdle");//摘机
+    var $btnSetBusy = $("#btnSetBusy");
+    var $btnHangup  = $("#btnHangup");    //挂机
+    var $btnPhoneState = $("#btnPhoneState"); // 获取话机当前状态            
+    var $btnFlashTime = $("#btnFlashTime"); // 设置闪断时间
+    var $btnBroken = $("#btnBroken"); // 闪断
+    var $btnStartRecording = $("#btnStartRecording"); //开始录音
+    var $btnEndRecording = $("#btnEndRecording"); // 结束录音
+    var $btnMute = $("#btnMute");//静音
+    var $btnCloseSound = $("#btnCloseSound"); //闭音
+    var $btnAnswer = $("#btnAnswer");//开启自动接听
+    var $btnTalkRecIO = $("#btnTalkRecIO"); //打开通话录音io口
+    var $btnLeave = $("#btnLeave");//打开留言放音io口
+    var $btnKeep = $("#btnKeep");//开启保留
+    var $btnDialTone = $("#btnDialTone");//设置拨号音
+    var $btnBill = $("#btnBill");//打开特色铃声;  
+    var $btnVOIPIO = $("#btnVOIPIO"); // 打开PC
+}
+
+/**
+ * 添加消息内容
+ * 
+ * @param msg
+ *            消息内容
+ */
+function addMessages(msg)
+{
+    $("#messages").prepend(
+            $("<p></p").text(new Date().toLocaleString() + " " + msg));
 }
 
 /**
@@ -257,7 +269,7 @@ function clickCallOut()
 	UsbPhone.Init();
 	if(UsbPhone.Dial(lAudioDeviceID, OutNum) != 0 )
 	{
-		//alert('呼出成功');
+//		alert('呼出成功');
 		/**
 		$btnCallOut.attr("disabled", "disabled");
 		$btnSetIdle.removeAttr("disabled");
@@ -267,7 +279,7 @@ function clickCallOut()
 		$btnLeave.removeAttr("disabled");
 		document.getElementById("btnSetIdle").style.background="url(./image/Uc3_p1_21.jpg)";*/
 		addMessages("呼出成功:" + "坐席:" +lAudioDeviceID + "号码:" + OutNum );
-		alert('呼出成功!!!!!!');
+		//alert('呼出成功!!!!!!');
 	}
 	else
 	{
@@ -565,11 +577,11 @@ function clickTalkRecIO()
 
 var url = window.location.href;
 //alert(url);
-var pathfile = url.substring(8,(url.length-16));
+var pathfile = url.substring(21,(url.length-16));
 //alert(pathfile);
 
 var strFolder = pathfile + "Record";
-
+strFolder = "E:\\newtmp";
 
 //var strFolder = recid + "Record";
 //alert(strFolder);
@@ -577,10 +589,10 @@ var strFolder = pathfile + "Record";
 var objFSO = new ActiveXObject("Scripting.FileSystemObject");
 // 检查文件夹是否存在
 if (!objFSO.FolderExists(strFolder)){
-// 创建文件夹
-  var strFolderName = objFSO.CreateFolder (strFolder);  
-//document.write("创建文件夹: " + strFolderName + "<br>"); 
- alert("创建文件夹: " + strFolderName );
+  // 创建文件夹
+  var strFolderName = objFSO.CreateFolder(strFolder);
+  //document.write("创建文件夹: " + strFolderName + "<br>"); 
+  alert("创建文件夹: " + strFolderName );
 }
 
 
