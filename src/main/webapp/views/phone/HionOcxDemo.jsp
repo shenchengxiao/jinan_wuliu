@@ -23,7 +23,7 @@
 </head>
 <!---->
 <object id="UsbPhone"  border=1 width=400 height=500 codebase="/WEB-INF/lib/UsbPhoneV3.1.ocx"
-	classid="CLSID:09DC78F8-33B2-4F82-B01B-A1F1C1D09E5E">
+	classid="CLSID:4CF8112F-57D5-474B-A4BC-70F72244BCD9">
 </object>
 <script language="javascript">
 var myocx = document.getElementById("UsbPhone");
