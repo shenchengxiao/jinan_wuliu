@@ -10,7 +10,12 @@
     <title>用户管理</title>
     <!-- build:css css/main.css -->
     <jsp:include page="/common/common.jsp"></jsp:include>
-    <![endif]-->
+    <style>
+        .table-advance th.highlight td.success {
+            border-left: 2px solid #66ee66;
+        }
+
+    </style>
 </head>
 
 <body class="page-header-fixed">
@@ -129,8 +134,8 @@
                                         <th>县区</th>
                                         <th>服务开始时间</th>
                                         <th>服务结束时间</th>
-                                        <th>硬盘号</th>
-                                        <th>网卡号</th>
+                                        <th>设备码</th>
+                                        <th>话机码</th>
                                         <th>状态</th>
                                         <th>平台</th>
                                         <th>操作</th>

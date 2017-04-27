@@ -97,8 +97,8 @@ public class UserManageHandler {
         user.setLoginIp(request.getLoginIp());
         user.setIdentification(request.getIdentityNum());
         user.setAddress(request.getAddress());
-        user.setLastQuitNum(request.getLastQuitNum());
-        user.setThisLoadNum(request.getThisLoadNum());
+//        user.setLastQuitNum(request.getLastQuitNum());
+//        user.setThisLoadNum(request.getThisLoadNum());
         user.setCheckLimit(request.getCheckLimit());
         user.setCheckNum(request.getCheckNum());
         user.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
@@ -256,7 +256,13 @@ public class UserManageHandler {
             for (Object obj : jsonArray) {
                 JSONObject jObject = JSONObject.fromObject(obj.toString());
                 String name = jObject.getString("name");
-                String userid =  StringUtils.substringAfterLast(name, "_");
+                String userid ="";
+                //先处理
+                if (name.contains("_")) {
+                   userid = StringUtils.substringAfterLast(name, "_");
+                }else {
+                    userid = name;
+                }
                 list.add(Integer.valueOf(userid));
             }
             //ID去重
@@ -292,9 +298,9 @@ public class UserManageHandler {
         //int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
         Map<String, String> map = new HashMap<>();
         map.put("type", "2");
-        String[] idArry = userIds;
-        for (String ids : idArry) {
-        	User user = userInfoService.selectById(ids);
+        for (String ids : userIds) {
+            Integer id = Integer.valueOf(ids);
+        	User user = userInfoService.selectById(id);
         	if(user != null && user.getPlatformType() != null){
         		if(user.getPlatformType().getValue() == 0){
         			list.add(Integer.valueOf(ids));

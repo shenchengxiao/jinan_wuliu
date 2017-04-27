@@ -58,7 +58,7 @@ function buildBtns()
 function addMessages(msg)
 {
     $("#messages").prepend(
-            $("<p></p").text(new Date().toLocaleString() + " " + msg));
+            $("<p></p>").text(new Date().toLocaleString() + " " + msg));
 }
 
 

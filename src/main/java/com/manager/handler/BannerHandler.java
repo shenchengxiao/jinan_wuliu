@@ -13,6 +13,7 @@ import com.manager.response.AppBannerResponse;
 import com.manager.response.BannerInfoResponse;
 import com.manager.service.AdvertService;
 import com.manager.service.BannerService;
+import com.manager.utils.DateTimeUtil;
 import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
@@ -25,6 +26,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -187,6 +189,7 @@ public class BannerHandler {
 
             //查询所有有效的广告信息
             advertInfoRequest.setBeUsed(1);
+            advertInfoRequest.setPresentTime(new Date());
             advertPage = advertService.fetchAdvertList(advertInfoRequest);
             appAdvertisementResponse.setAdvertPage(advertPage);
             return appAdvertisementResponse;

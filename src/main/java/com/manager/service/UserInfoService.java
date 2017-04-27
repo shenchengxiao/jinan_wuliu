@@ -31,7 +31,7 @@ public interface UserInfoService {
 
     boolean batchUpdateUserStatus(List<Integer> ids) throws DatabaseException;
 
-	User selectById(String ids);
+	User selectById(Integer ids);
 	
 	List<User> selectByParam(User user) throws DatabaseException ;
 }

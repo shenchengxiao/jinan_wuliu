@@ -27,9 +27,6 @@
             border-left: 1px solid #ddd;
             border-top: 1px solid #ddd;
         }
-        #adTime{
-            display: none;
-        }
     </style>
 </head>
 

@@ -47,8 +47,7 @@ function getUserDetail(id){
                 $('span[name=end_time]').html(timestampFormat(json.endTime));
                 $('span[name=ID_card]').html(json.identityNum);
                 $('span[name=address]').html(json.address);
-                $('span[name=last_quit_num]').html(json.lastQuitNum);
-                $('span[name=this_load_num]').html(json.thisLoadNum);
+
                 $('span[name=hard_number]').html(json.hardNum);
                 $('span[name=network_number]').html(json.networkNum);
                 $('span[name=limit_money]').html(json.checkLimit);

@@ -159,14 +159,14 @@
                                             <input class="m-wrap span12" type="text" name="address" /></div>
                                     </div>
 
-                                    <div class="control-group">
-                                        <label class="control-label">上次退出编号:</label>
-                                        <div class="span4">
-                                            <input class="m-wrap span12" type="text"  name="lastQuitNum" /></div>
-                                        <label class="control-label">本次下载编号:</label>
-                                        <div class="span4">
-                                            <input class="m-wrap span12" type="text" name="thisLoadNum" /></div>
-                                    </div>
+                                    <%--<div class="control-group">--%>
+                                        <%--<label class="control-label">上次退出编号:</label>--%>
+                                        <%--<div class="span4">--%>
+                                            <%--<input class="m-wrap span12" type="text"  name="lastQuitNum" /></div>--%>
+                                        <%--<label class="control-label">本次下载编号:</label>--%>
+                                        <%--<div class="span4">--%>
+                                            <%--<input class="m-wrap span12" type="text" name="thisLoadNum" /></div>--%>
+                                    <%--</div>--%>
 
                                     <div class="control-group">
                                         <label class="control-label">设备码:</label>
