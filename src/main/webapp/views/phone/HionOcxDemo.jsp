@@ -17,12 +17,12 @@
 		
 		#left{width:27%; height:550px; float:left}
 		#messages{width:72%; height:550px; float:right}
-		.btnDial{width:163px; height:39px; background:url('../.../../images/hions/hion/Uc3_p1_24.jpg');} <!--拨号-->
+		.btnDial{width:163px; height:39px; background:url('../../images/hions/hion/Uc3_p1_24.jpg');} <!--拨号-->
 		
 	</style>
 </head>
 <!---->
-<object id="UsbPhone"  border=1 width=400 height=500 codebase="/WEB-INF/lib/UsbPhoneV3.1.ocx"
+<object style="display: none;" id="UsbPhone"  border=1 width=400 height=500 codebase="/WEB-INF/lib/UsbPhoneV3.1.ocx"
 	classid="CLSID:4CF8112F-57D5-474B-A4BC-70F72244BCD9">
 </object>
 <script language="javascript">
@@ -82,18 +82,14 @@ var OnDeviceDetect = function(bState, lAudioDeviceID){
 
 function Init()
 {
-	if(myocx.readyState==4){ 
-	    idev = myocx.Init();
-	 	if(idev < 0){
-		 	
-	 		addMessages("Init ERR!");
-	 	}else{
-		 	
-	 		addMessages("Init OK!");
-	 	}
-	}else{  
-	     alert("加载失败!");  
-	}
+    idev = myocx.Init();
+ 	if(idev < 0){
+	 	
+ 		addMessages("Init ERR!");
+ 	}else{
+	 	
+ 		addMessages("Init OK!");
+ 	}
 }
 
 
@@ -101,7 +97,7 @@ window.onload = function(){
 	//addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
 	addEventHandler(myocx,"DeviceDetect",OnDeviceDetect);
 	Init();
-	buildBtns();
+	//buildBtns();
     registerUsbPhoneEvents();
 	
 
@@ -111,14 +107,14 @@ window.onload = function(){
 
 function ceshi(){
 	var del = document.getElementById("del");
-	del.style.background = "url('../.../../images/hions/hion/Uc3_p1_21.jpg')";
+	del.style.background = "url('../../images/hions/hion/Uc3_p1_21.jpg')";
 	
 	
 }
 
 function voip()
 {
-	document.getElementById("btnVOIPIO").style.background="url(../.../../images/hions/hion/Uc3_p1_1.jpg)";
+	document.getElementById("btnVOIPIO").style.background="url(../../images/hions/hion/Uc3_p1_1.jpg)";
 }
 
 
@@ -193,7 +189,7 @@ function getUrl()
 								<input type="button" id="btnCallOut" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_24.jpg')" onClick="clickCallOut()" />
 								<input type="button" id="btnSetIdle" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_27.jpg')" onClick="clickOffHand()" disabled="disabled" /><br/>
 								<input type="button" id="btnTalkRecIO" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_5.jpg')" onclick="clickTalkRecIO()" disabled="disabled" />
-								<input type="button" id="btnStartRecording" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_14.jpg')" onclick="clickRecordFile()" disabled="disabled"  /><br/>
+								<input type="button" id="btnStartRecording" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_14.jpg')" onclick="clickRecordFile()"  /><br/>
 								<input type="button" id="btnCloseSound" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_15.jpg')" onclick="clickCloseSound()" disabled="disabled"  />
 								<input type="button" id="btnKeep" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_12.jpg')" onclick="clickHold()" disabled="disabled"  /><br/>
 								<input type="button" id="btnLeave" style="width:173px; height:39px;background:url('../../images/hion/Uc3_p1_10.jpg')" onclick="clickLiuyanRecIO()" disabled="disabled" />

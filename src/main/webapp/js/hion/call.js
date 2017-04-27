@@ -3,8 +3,8 @@
 /**
  * 构造按钮对象
  */
-function buildBtns()
-{
+/*function buildBtns()
+{*/
     var $btnSignIn = $("#btnSignIn");
     var $btnSignOut = $("#btnSignOut");
     var $btnCallOut = $("#btnCallOut");// 呼出
@@ -25,7 +25,7 @@ function buildBtns()
     var $btnDialTone = $("#btnDialTone");//设置拨号音
     var $btnBill = $("#btnBill");//打开特色铃声;  
     var $btnVOIPIO = $("#btnVOIPIO"); // 打开PC
-}
+//}
 
 /**
  * 添加消息内容
@@ -118,7 +118,7 @@ function OnPhoneRing(lAudioDeviceID,bState)
 	{
 		addMessages('正在响铃');
 		$btnSetIdle.removeAttr("disabled");
-		//btnSetIdle.style.background="url(./image/Uc3_p1_27.jpg)";
+		//btnSetIdle.style.background="url(../../images/hion/Uc3_p1_27.jpg)";
 		
 		$btnCallOut.attr("disabled", "disabled");
 	}
@@ -201,7 +201,7 @@ function OnPhoneStateChange(lAudioDeviceID,bState){
 		$btnCloseSound.removeAttr("disabled");
 		$btnKeep.removeAttr("disabled");
 		$btnLeave.removeAttr("disabled");
-		document.getElementById("btnSetIdle").style.background="url(./image/Uc3_p1_21.jpg)";
+		document.getElementById("btnSetIdle").style.background="url(../.../../imagess/Uc3_p1_21.jpg)";
 		
 	}else if(bState==2){
 		sta="终端在保留的状态下按免提键退出了保留";
@@ -270,14 +270,13 @@ function clickCallOut()
 	if(UsbPhone.Dial(lAudioDeviceID, OutNum) != 0 )
 	{
 //		alert('呼出成功');
-		/**
-		$btnCallOut.attr("disabled", "disabled");
-		$btnSetIdle.removeAttr("disabled");
-		$btnTalkRecIO.removeAttr("disabled");
-		$btnCloseSound.removeAttr("disabled");
-		$btnKeep.removeAttr("disabled");
-		$btnLeave.removeAttr("disabled");
-		document.getElementById("btnSetIdle").style.background="url(./image/Uc3_p1_21.jpg)";*/
+		$("#btnCallOut").attr("disabled", "disabled");
+		$("#btnSetIdle").removeAttr("disabled");
+		$("#btnTalkRecIO").removeAttr("disabled");
+		$("#btnCloseSound").removeAttr("disabled");
+		$("#btnKeep").removeAttr("disabled");
+		$("#btnLeave").removeAttr("disabled");
+		document.getElementById("btnSetIdle").style.background="url(../../images/hion/Uc3_p1_21.jpg)";
 		addMessages("呼出成功:" + "坐席:" +lAudioDeviceID + "号码:" + OutNum );
 		//alert('呼出成功!!!!!!');
 	}
@@ -367,56 +366,55 @@ function clickOffHand()
 	var SetIdle = document.getElementById('btnSetIdle');
 
 	var dizhi = SetIdle.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
+	var VOIP = dizhi.substring(5,dizhi.length-2);
 	//alert(VOIP);
 	var lAudioDeviceID = 0;
 	
-	if(VOIP == "./image/Uc3_p1_27.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_27.jpg"){
 		UsbPhone.Init();
 		var res = UsbPhone.OffHand(lAudioDeviceID);
 		if(res != 0){
 			
 			//alert(' 进入摘机方法');
-			/**
-			$btnCallOut.attr("disabled", "disabled");//拨号
-			$btnVOIPIO.attr("disabled", "disabled");// PC
-			$btnTalkRecIO.removeAttr("disabled"); // 通话录音IO口
-			$btnCloseSound.removeAttr("disabled");//闭音
-			$btnKeep.removeAttr("disabled");//保留
-			$btnLeave.removeAttr("disabled");//留言放音IO口*/
-			SetIdle.style.background="url(./image/Uc3_p1_21.jpg)";
+			$("#btnCallOut").attr("disabled", "disabled");//拨号
+			$("#btnVOIPIO").attr("disabled", "disabled");// PC
+			$("#btnTalkRecIO").removeAttr("disabled"); // 通话录音IO口
+			$("#btnCloseSound").removeAttr("disabled");//闭音
+			$("#btnKeep").removeAttr("disabled");//保留
+			$("#btnLeave").removeAttr("disabled");//留言放音IO口
+			SetIdle.style.background="url(../.../../imagess/Uc3_p1_21.jpg)";
 			//OnStopLiuyan(lAudioDeviceID);
 			addMessages("摘机成功=>"  + "坐席:" +lAudioDeviceID);
 			//alert('摘机完成');
 			
 		}
-	//	else
-	//	{
-	//		addMessages("摘机失败");
-	//	}
+		else
+		{
+			addMessages("摘机失败");
+		}
 		
-	}else if(VOIP == "./image/Uc3_p1_21.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_21.jpg"){
 		UsbPhone.Init();
 		var rese = UsbPhone.OnHand(lAudioDeviceID);
 		if(rese != 0)
 		{
-			$btnCallOut.removeAttr("disabled");
-			$btnVOIPIO.removeAttr("disabled");
-			$btnSetIdle.attr("disabled", "disabled");
-			$btnTalkRecIO.attr("disabled", "disabled"); // 通话录音IO口
-			$btnCloseSound.attr("disabled", "disabled");//闭音
-			$btnKeep.attr("disabled", "disabled");//保留
-			$btnLeave.attr("disabled", "disabled");//留言放音IO口
+			$("#btnCallOut").removeAttr("disabled");
+			$("#btnVOIPIO").removeAttr("disabled");
+			$("#btnSetIdle").attr("disabled", "disabled");
+			$("#btnTalkRecIO").attr("disabled", "disabled"); // 通话录音IO口
+			$("#btnCloseSound").attr("disabled", "disabled");//闭音
+			$("#btnKeep").attr("disabled", "disabled");//保留
+			$("#btnLeave").attr("disabled", "disabled");//留言放音IO口
 			
-			//document.getElementById("btnSetIdle").style.background="url(./image/Uc3_p1_27.jpg)";//摘机
-			document.getElementById("btnTalkRecIO").style.background="url(./image/Uc3_p1_5.jpg)";// 通话录音io口
+			//document.getElementById("btnSetIdle").style.background="url(../../images/hion/Uc3_p1_27.jpg)";//摘机
+			document.getElementById("btnTalkRecIO").style.background="url(../../images/hion/Uc3_p1_5.jpg)";// 通话录音io口
 			
-			document.getElementById("btnStartRecording").style.background="url(./image/Uc3_p1_14.jpg)";//开始录音
-			document.getElementById("btnCloseSound").style.background="url(./image/Uc3_p1_15.jpg)";//闭音
-			document.getElementById("btnKeep").style.background="url(./image/Uc3_p1_12.jpg)";// 保留
-			document.getElementById("btnLeave").style.background="url(./image/Uc3_p1_10.jpg)";//留言放音
+			document.getElementById("btnStartRecording").style.background="url(../../images/hion/Uc3_p1_14.jpg)";//开始录音
+			document.getElementById("btnCloseSound").style.background="url(../../images/hion/Uc3_p1_15.jpg)";//闭音
+			document.getElementById("btnKeep").style.background="url(../../images/hion/Uc3_p1_12.jpg)";// 保留
+			document.getElementById("btnLeave").style.background="url(../../images/hion/Uc3_p1_10.jpg)";//留言放音
 			
-			SetIdle.style.background="url(./image/Uc3_p1_27.jpg)";
+			SetIdle.style.background="url(../../images/hion/Uc3_p1_27.jpg)";
 			addMessages("挂机成功=>" + "坐席:" +lAudioDeviceID);
 		}
 		else
@@ -481,28 +479,28 @@ function clickRingSet(){
 	var Bill = document.getElementById('btnBill');
 	//alert(dd.style.background);
 	var dizhi = Bill.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
-	//alert(dizhi.substring(5,dizhi.length-2)); ivalue.style.background="url(./image/Uc3_p1_1.jpg)";
+	var VOIP = dizhi.substring(5,dizhi.length-2);
+	//alert(dizhi.substring(5,dizhi.length-2)); ivalue.style.background="url(../../images/hion/Uc3_p1_1.jpg)";
 	
 	var lAudioDeviceID = 0;
 	var ivalue = $btnBill.val();
-	if(VOIP == "./image/Uc3_p1_9.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_9.jpg"){
 		var nRing = 1;
 		UsbPhone.Init();
 		var res = UsbPhone.RingSet(lAudioDeviceID,nRing);
 		if(res != 0){
 			addMessages("打开特色铃声");
 			//$btnBill.val("关闭特色铃声");
-			Bill.style.background="url(./image/Uc3_p1_8.jpg)";
+			Bill.style.background="url(../../images/hion/Uc3_p1_8.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_8.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_8.jpg"){
 		var nRing = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.RingSet(lAudioDeviceID,nRing);
 		if(res != 0){
 			addMessages("关闭特色铃声");
 			//$btnBill.val("打开特色铃声");
-			Bill.style.background="url(./image/Uc3_p1_9.jpg)";
+			Bill.style.background="url(../../images/hion/Uc3_p1_9.jpg)";
 		}
 	}
 
@@ -521,24 +519,24 @@ function clickTalkRecIO()
 	var Recording = document.getElementById('btnTalkRecIO');
 	//alert(dd.style.background);
 	var dizhi = Recording.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
+	var VOIP = dizhi.substring(5,dizhi.length-2);
 	//alert(dizhi.substring(5,dizhi.length-2));
 	
 	
 	
 	var ivalue = $btnTalkRecIO.val();
 	var lAudioDeviceID = 0;
-	if(VOIP == "./image/Uc3_p1_5.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_5.jpg"){
 		var nStatus = 1;
 		UsbPhone.Init();
 		var res = UsbPhone.SetTalkRecIO(lAudioDeviceID,nStatus);
 		if(res != 0){
 			addMessages("打开通话录音io口");
-			$btnStartRecording.removeAttr("disabled");
+			$("#btnStartRecording").removeAttr("disabled");
 			//$btnTalkRecIO.val("关闭通话录音IO口");
-			Recording.style.background="url(./image/Uc3_p1_3.jpg)";
+			Recording.style.background="url(../../images/hion/Uc3_p1_3.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_3.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_3.jpg"){
 		var nStatus = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.SetTalkRecIO(lAudioDeviceID,nStatus);
@@ -546,7 +544,7 @@ function clickTalkRecIO()
 			addMessages("关闭通话录音io口");
 			//$btnStartRecording.attr("disabled","disabled");
 			//$btnTalkRecIO.val("打开通话录音IO口");
-			Recording.style.background="url(./image/Uc3_p1_5.jpg)";
+			Recording.style.background="url(../../images/hion/Uc3_p1_5.jpg)";
 		}
 	}
 	
@@ -581,7 +579,7 @@ var pathfile = url.substring(21,(url.length-16));
 //alert(pathfile);
 
 var strFolder = pathfile + "Record";
-strFolder = "E:\\newtmp";
+//strFolder = "E:\\record";
 
 //var strFolder = recid + "Record";
 //alert(strFolder);
@@ -592,7 +590,6 @@ if (!objFSO.FolderExists(strFolder)){
   // 创建文件夹
   var strFolderName = objFSO.CreateFolder(strFolder);
   //document.write("创建文件夹: " + strFolderName + "<br>"); 
-  alert("创建文件夹: " + strFolderName );
 }
 
 
@@ -603,31 +600,36 @@ function clickRecordFile()
 	var Recording = document.getElementById('btnStartRecording');
 	//alert(dd.style.background);
 	var dizhi = Recording.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
+	var VOIP = dizhi.substring(5,dizhi.length-2);
 	//alert(dizhi.substring(5,dizhi.length-2));
 	
 	var oldtime = new Date().getTime();
 	
 	var lAudioDeviceID = 0;
-	var strFileName = strFolder + "/" + oldtime +".mp3";
+	var strFileName = strFolder + "\\" + oldtime +".mp3";
 	//var strFileName = "sound.mp3";
 	//addMessages('录音文件地址:' + strFileName);
 	var nType = 1;
 	UsbPhone.Init();
-	if(VOIP == "./image/Uc3_p1_14.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_14.jpg"){
+		//alert(strFileName);
+		console.log("--strFileName--" + strFileName);
 		var res = UsbPhone.StartRecordFile(lAudioDeviceID,strFileName,nType);
+		//alert(res);
+		console.log("--res--1");
 		if(res != 0)
 		{
+			console.log("--res--2");
 			addMessages('开始录音');
 			//$btnStartRecording.attr("disabled","disabled");
 			//$btnEndRecording.removeAttr("disabled");
-			Recording.style.background="url(./image/Uc3_p1_20.jpg)";
+			Recording.style.background="url(../../images/hion/Uc3_p1_20.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_20.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_20.jpg"){
 		var res = UsbPhone.StopRecord(lAudioDeviceID);
 		if(res != 0){
 			addMessages('停止录音');
-			Recording.style.background="url(./image/Uc3_p1_14.jpg)";
+			Recording.style.background="url(../../images/hion/Uc3_p1_14.jpg)";
 		}
 	}
 }
@@ -687,29 +689,29 @@ function clickCloseSound()
 	var CloseSound = document.getElementById('btnCloseSound');
 	//alert(dd.style.background);
 	var dizhi = CloseSound.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
+	var VOIP = dizhi.substring(5,dizhi.length-2);
 	
 	
-	
-	var ivalue = $btnCloseSound.val();
+	debugger;
+	var ivalue = $("#btnCloseSound").val();
 	var lAudioDeviceID = 0;
-	if(VOIP == "./image/Uc3_p1_15.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_15.jpg"){
 		var bOn = 1;
 		UsbPhone.Init();
 		var res = UsbPhone.Mute(lAudioDeviceID,bOn);
 		if(res != 0){
 			addMessages("开启闭音");
 			//$btnCloseSound.val("关闭闭音");
-			CloseSound.style.background="url(./image/Uc3_p1_16.jpg)";
+			CloseSound.style.background="url(../../images/hion/Uc3_p1_16.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_16.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_16.jpg"){
 		var bOn = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.Mute(lAudioDeviceID,bOn);
 		if(res != 0){
 			addMessages("关闭闭音");
 			//$btnCloseSound.val("开启闭音");
-			CloseSound.style.background="url(./image/Uc3_p1_15.jpg)";
+			CloseSound.style.background="url(../../images/hion/Uc3_p1_15.jpg)";
 		}
 	}
 }
@@ -727,12 +729,12 @@ function clickHold(){
 	var Keep = document.getElementById('btnKeep');
 	//alert(dd.style.background);
 	var dizhi = Keep.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
-	//Keep.style.background="url(./image/Uc3_p1_11.jpg)";
+	var VOIP = dizhi.substring(5,dizhi.length-2);
+	//Keep.style.background="url(../../images/hion/Uc3_p1_11.jpg)";
 	
 	//var ivalue = $btnKeep.val();
 	var lAudioDeviceID = 0;
-	if(VOIP == "./image/Uc3_p1_12.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_12.jpg"){
 		
 		var bOn = 1;
 		UsbPhone.Init();
@@ -740,16 +742,16 @@ function clickHold(){
 		if(res != 0){
 			addMessages("开启保留");
 			//$btnKeep.val("关闭保留");
-			Keep.style.background="url(./image/Uc3_p1_11.jpg)";
+			Keep.style.background="url(../../images/hion/Uc3_p1_11.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_11.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_11.jpg"){
 		var bOn = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.Hold(lAudioDeviceID,bOn);
 		if(res != 0){
 			addMessages("关闭保留");
 			//$btnKeep.val("开启保留");
-			Keep.style.background="url(./image/Uc3_p1_12.jpg)";
+			Keep.style.background="url(../../images/hion/Uc3_p1_12.jpg)";
 		}
 	}
 }
@@ -771,28 +773,28 @@ function clickAutoAnswerOpen()
 	var Answer = document.getElementById('btnAnswer');
 	//alert(dd.style.background);
 	var dizhi = Answer.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
-	//Keep.style.background="url(./image/Uc3_p1_11.jpg)";
+	var VOIP = dizhi.substring(5,dizhi.length-2);
+	//Keep.style.background="url(../../images/hion/Uc3_p1_11.jpg)";
 	
 	var lAudioDeviceID = 0;
 	var ivalue = $btnAnswer.val();
-	if(VOIP == "./image/Uc3_p1_4.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_4.jpg"){
 		var bOn = 1;
 		UsbPhone.Init();
 		var res = UsbPhone.SetAutoAnswer(lAudioDeviceID, bOn);
 		if(res != 0){
 			addMessages("开启自动接听");
 			//$btnAnswer.val("取消自动接听");
-			Answer.style.background="url(./image/Uc3_p1_2.jpg)";
+			Answer.style.background="url(../../images/hion/Uc3_p1_2.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_2.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_2.jpg"){
 		var bOn = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.SetAutoAnswer(lAudioDeviceID, bOn);
 		if(res != 0){
 			addMessages("取消自动接听");
 			//$btnAnswer.val("开启自动接听");
-			Answer.style.background="url(./image/Uc3_p1_4.jpg)";
+			Answer.style.background="url(../../images/hion/Uc3_p1_4.jpg)";
 		}
 	}
 }
@@ -811,21 +813,21 @@ function clickLiuyanRecIO(){
 	var Leave = document.getElementById('btnLeave');
 	//alert(dd.style.background);
 	var dizhi = Leave.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
-	//Keep.style.background="url(./image/Uc3_p1_11.jpg)";
+	var VOIP = dizhi.substring(5,dizhi.length-2);
+	//Keep.style.background="url(../../images/hion/Uc3_p1_11.jpg)";
 	
 	
 	
 	//var ivalue = $btnLeave.val();
 	var lAudioDeviceID = 0;
-	if(VOIP == "./image/Uc3_p1_10.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_10.jpg"){
 		var nStatus = 1;
 		UsbPhone.Init();
 		var res = UsbPhone.SetLiuyanRecIO(lAudioDeviceID,nStatus);
 		if(res != 0){
 			addMessages("打开留言放音IO口");
 			//$btnLeave.val("关闭留言放音IO口");
-			Leave.style.background="url(./image/Uc3_p1_7.jpg)";
+			Leave.style.background="url(../../images/hion/Uc3_p1_7.jpg)";
 			UsbPhone.OffHand(lAudioDeviceID);
 			var strFileName = "liuyan.mp3";
 			var nType = 2;
@@ -835,7 +837,7 @@ function clickLiuyanRecIO(){
 				addMessages('开始留言录音');
 			}
 		}
-	}else if(VOIP == "./image/Uc3_p1_7.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_7.jpg"){
 		var nStatus = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.SetLiuyanRecIO(lAudioDeviceID,nStatus);
@@ -850,7 +852,7 @@ function clickLiuyanRecIO(){
 			}
 			addMessages("关闭留言放音IO口");
 			//$btnLeave.val("打开留言放音IO口");
-			Leave.style.background="url(./image/Uc3_p1_10.jpg)";
+			Leave.style.background="url(../../images/hion/Uc3_p1_10.jpg)";
 		}
 	}
 }
@@ -869,28 +871,28 @@ function  clickDialTone(){
 	var DialTone = document.getElementById('btnDialTone');
 	//alert(dd.style.background);
 	var dizhi = DialTone.style.background;
-	var VOIP = dizhi.substring(4,dizhi.length-1);
-	//Keep.style.background="url(./image/Uc3_p1_11.jpg)";
+	var VOIP = dizhi.substring(5,dizhi.length-2);
+	//Keep.style.background="url(../../images/hion/Uc3_p1_11.jpg)";
 	
 	var ivalue = $btnDialTone.val();
 	var lAudioDeviceID = 0;
-	if(VOIP == "./image/Uc3_p1_22.jpg"){
+	if(VOIP == "../../images/hion/Uc3_p1_22.jpg"){
 		var bOn = 1;
 		UsbPhone.Init();
 		var res = UsbPhone.SetDialTone(lAudioDeviceID,bOn);
 		if(res != 0){
 			addMessages("设置拨号音");
 			//$btnDialTone.val("取消拨号音");
-			DialTone.style.background="url(./image/Uc3_p1_13.jpg)";
+			DialTone.style.background="url(../../images/hion/Uc3_p1_13.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_13.jpg"){
+	}else if(VOIP == "../../images/hion/Uc3_p1_13.jpg"){
 		var bOn = 0;
 		UsbPhone.Init();
 		var res = UsbPhone.SetDialTone(lAudioDeviceID,bOn);
 		if(res != 0){
 			addMessages("取消拨号音");
 			//$btnDialTone.val("设置拨号音");
-			DialTone.style.background="url(./image/Uc3_p1_22.jpg)";
+			DialTone.style.background="url(../../images/hion/Uc3_p1_22.jpg)";
 		}
 	}
 }
@@ -942,14 +944,14 @@ function clickVOIPIO()
 	//alert(VOIPIO.style.background);
 	var dizhi = VOIPIO.style.background;
 	//alert(dizhi);
-	var VOIP = dizhi.substring(4,dizhi.length-1);
-	//alert(VOIP);// ivalue.style.background="url(./image/Uc3_p1_1.jpg)";
+	var VOIP = dizhi.substring(5,dizhi.length-2);
+	//alert(VOIP);// ivalue.style.background="url(../../images/hion/Uc3_p1_1.jpg)";
 	
 	
 	var ivalue = document.getElementById("btnVOIPIO");
 	var lAudioDeviceID = 0;
 
-	if(VOIP == "./image/Uc3_p1_6.jpg")
+	if(VOIP == "../../images/hion/Uc3_p1_6.jpg")
 	{
 		//alert(11111111);
 		var nStatus = 1;
@@ -958,9 +960,9 @@ function clickVOIPIO()
 		{
 			addMessages("打开VOIP 放音、录音io口");
 			//$btnVOIPIO.val("关闭PC");
-			ivalue.style.background="url(./image/Uc3_p1_1.jpg)";
+			ivalue.style.background="url(../../images/hion/Uc3_p1_1.jpg)";
 		}
-	}else if(VOIP == "./image/Uc3_p1_1.jpg")
+	}else if(VOIP == "../../images/hion/Uc3_p1_1.jpg")
 	{
 		//alert(2222222);
 		var nStatus = 0;
@@ -969,7 +971,7 @@ function clickVOIPIO()
 		{
 			addMessages("关闭VOIP 放音、录音io口");
 			//$btnVOIPIO.val("打开PC");
-			ivalue.style.background="url(./image/Uc3_p1_6.jpg)";
+			ivalue.style.background="url(../../images/hion/Uc3_p1_6.jpg)";
 		}
 	}
 }
@@ -980,7 +982,8 @@ $(function()
 	//addMessages('设备初始化成功');
 	buildBtns();
     registerUsbPhoneEvents();
-});*/
+});
+*/
 
 
 
