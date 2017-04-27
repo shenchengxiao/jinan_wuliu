@@ -124,7 +124,7 @@
         WHERE
         u.id=ub.user_id
         AND u.id IN
-        <foreach item="id" index="index" collection="list" open="("
+        <foreach item="id" index="index" collection="idsList" open="("
                  separator="," close=")">
             #{id}
         </foreach>
@@ -137,8 +137,8 @@
         <if test="phoneNumber != null and phoneNumber != ''" >
             AND u.phones = #{phoneNumber}
         </if>
-        <if test="isAbled != null and isAbled != ''" >
-            AND u.status = #{isAbled}
+        <if test="isUsed != null and isUsed != ''" >
+            AND u.status = #{isUsed}
         </if>
         ORDER BY u.id DESC
     </select>

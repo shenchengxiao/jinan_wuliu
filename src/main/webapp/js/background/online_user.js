@@ -15,13 +15,7 @@ $(function(){
     var idsArr  = [];
     //ids 传递ids的集合对象
     function setIdsInfo(){
-        var arrId = [];
-        $.each(idsArr,function(index,item){
-            arrId.push(item);
-        });
-
-        var json = JSON.stringify(arrId);
-        $('#userIds').val(json);
+        $('#userIds').val(idsArr);
     }
 
     //全选||非全选
@@ -158,8 +152,8 @@ function getOnlineUserList(){
                             + '<td data-title="县区">' + item.county + '</td>'
                             + '<td data-title="服务开始时间">' + timestampFormat(item.startTime) + '</td>'
                             + '<td data-title="服务结束时间">' + timestampFormat(item.endTime) + '</td>'
-                            + '<td data-title="硬盘号">' + item.hardNum + '</td>'
-                            + '<td data-title="网卡号">' + item.networkNum + '</td>'
+                            + '<td data-title="设备码">' + item.hardNum + '</td>'
+                            + '<td data-title="话机码">' + item.networkNum + '</td>'
                             + '<td data-title="平台">'+  platform +  '</td>'
                             + '<td data-title="状态">'+  enabled +  '</td>'
                             + '</tr>';
@@ -180,6 +174,8 @@ function getOnlineUserList(){
                         $('#pagination').jqPaginator('destory');
                     }
                 }
+            }else{
+                $.toast(data.msg,3000);
             }
         },
         complete:function(){

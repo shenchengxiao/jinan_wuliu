@@ -68,6 +68,7 @@
 			<mvc:exclude-mapping path="/api/user/logout"/>
 			<!-- app接口访问地址不拦截 -->
 			<mvc:exclude-mapping path="/api/banner/all_advert"/>
+			<mvc:exclude-mapping path="/api/advert/pc_advert"/>
 			<bean class="com.manager.interceptor.AuthenticationInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

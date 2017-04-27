@@ -222,28 +222,6 @@
                                         <!--/span-->
                                         <div class="span6 ">
                                             <div class="control-group">
-                                                <label class="control-label">上次退出编号:</label>
-                                                <div class="controls">
-                                                    <span class="text bold" name="last_quit_num"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/span-->
-                                    </div>
-                                    <!--/row-->
-                                    <!--/row-->
-                                    <div class="row-fluid">
-                                        <div class="span6 ">
-                                            <div class="control-group">
-                                                <label class="control-label">本次下载编号:</label>
-                                                <div class="controls">
-                                                    <span class="text bold" name="this_load_num"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/span-->
-                                        <div class="span6 ">
-                                            <div class="control-group">
                                                 <label class="control-label">设备码:</label>
                                                 <div class="controls">
                                                     <span class="text bold" name="hard_number"></span>
@@ -253,6 +231,7 @@
                                         <!--/span-->
                                     </div>
                                     <!--/row-->
+
                                     <!--/row-->
                                     <div class="row-fluid">
                                         <div class="span6 ">

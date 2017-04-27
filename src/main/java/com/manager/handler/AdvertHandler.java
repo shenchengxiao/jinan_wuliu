@@ -6,6 +6,7 @@ import com.manager.exception.ValidationException;
 import com.manager.exception.YCException;
 import com.manager.pojo.Advert;
 import com.manager.request.advert.AdvertInfoRequest;
+import com.manager.response.AdvertContentResponse;
 import com.manager.response.AdvertInfoResponse;
 import com.manager.service.AdvertService;
 import com.manager.utils.*;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -152,6 +154,32 @@ public class AdvertHandler {
             advertService.modifyStatus(id,status);
         } catch (DatabaseException e) {
             LOG.error("modifyStatus exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 获取广告内容（客户端）
+     * @param
+     * @return
+     * @throws YCException
+     */
+    public List<AdvertContentResponse> fetchContent() throws YCException {
+        AdvertInfoRequest request = new AdvertInfoRequest();
+        request.setPresentTime(new Date());
+        List<AdvertContentResponse> stringList = new ArrayList<>();
+        try {
+            List<Advert> list = advertService.fetchAllContent(request);
+            if (list != null && list.size() > 0){
+                for (Advert advert : list){
+                    AdvertContentResponse advertContentResponse = new AdvertContentResponse();
+                    advertContentResponse.setAdvertContent(advert.getContent());
+                    stringList.add(advertContentResponse);
+                }
+            }
+            return stringList;
+        } catch (DatabaseException e) {
+            LOG.error("modifyStatus exception",request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }

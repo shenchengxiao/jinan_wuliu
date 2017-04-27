@@ -215,8 +215,8 @@ public class UserInfoServiceImpl implements UserInfoService{
     }
 
 	@Override
-	public User selectById(String ids) {
-		return userMapper.selectByPrimaryKey(Integer.valueOf(ids));
+	public User selectById(Integer ids) {
+		return userMapper.selectByPrimaryKey(ids);
 	}
 
 	@Override

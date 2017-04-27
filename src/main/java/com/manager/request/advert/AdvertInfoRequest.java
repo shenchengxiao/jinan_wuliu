@@ -2,6 +2,8 @@ package com.manager.request.advert;
 
 import com.manager.request.BaseQuery;
 
+import java.util.Date;
+
 
 /**
  * Created by shencx on 2017/3/30.
@@ -36,6 +38,8 @@ public class AdvertInfoRequest extends BaseQuery{
 
     /** 广告标题 */
     private String advertTitle;
+
+    private Date presentTime;
 
     @Override
     public Integer getId() {
@@ -117,5 +121,13 @@ public class AdvertInfoRequest extends BaseQuery{
 
     public void setAdvertTitle(String advertTitle) {
         this.advertTitle = advertTitle;
+    }
+
+    public Date getPresentTime() {
+        return presentTime;
+    }
+
+    public void setPresentTime(Date presentTime) {
+        this.presentTime = presentTime;
     }
 }

@@ -202,8 +202,7 @@ function getUserDetail(){
                 $('input[name=endTime]').val(timestampFormat(json.endTime));
                 $('input[name=identityNum]').val(json.identityNum);
                 $('input[name=address]').val(json.address);
-                $('input[name=lastQuitNum]').val(json.lastQuitNum);
-                $('input[name=thisLoadNum]').val(json.thisLoadNum);
+
                 $('input[name=hardNum]').val(json.hardNum);
                 $('input[name=networkNum]').val(json.networkNum);
                 $('input[name=temporaryCard]').val(json.temporaryCard);

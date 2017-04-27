@@ -5,6 +5,7 @@ import com.manager.exception.YCException;
 import com.manager.handler.AdvertHandler;
 import com.manager.pojo.Advert;
 import com.manager.request.advert.AdvertInfoRequest;
+import com.manager.response.AdvertContentResponse;
 import com.manager.response.AdvertInfoResponse;
 import com.manager.utils.APIResponse;
 import com.manager.utils.Page;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * Created by shencx on 2017/3/30.
  */
@@ -140,6 +143,28 @@ public class AdvertController {
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
         } catch (Throwable e) {
             LOG.error("更新广告状态发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 获取广告内容（客户端）
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/pc_advert",method = RequestMethod.GET)
+    public APIResponse<List<AdvertContentResponse>> pcAdvert(HttpServletRequest request){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+            List<AdvertContentResponse> list = advertHandler.fetchContent();
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(list);
+        } catch (Throwable e) {
+            LOG.error("获取所有广告内容发生异常",request);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }

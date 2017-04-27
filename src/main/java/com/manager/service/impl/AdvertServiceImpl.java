@@ -6,8 +6,10 @@ import com.manager.interceptor.PageMybatisInterceptor;
 import com.manager.mapper.AdvertMapper;
 import com.manager.pojo.Advert;
 import com.manager.pojo.AdvertExample;
+import com.manager.request.BaseQuery;
 import com.manager.request.advert.AdvertInfoRequest;
 import com.manager.service.AdvertService;
+import com.manager.utils.DateTimeUtil;
 import com.manager.utils.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,7 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by shencx on 2017/3/31.
@@ -60,6 +64,9 @@ public class AdvertServiceImpl implements AdvertService{
             }
             if (advertInfoRequest.getBeUsed() != null ){
                 criteria.andStatusEqualTo(YesNoEnum.create(advertInfoRequest.getBeUsed()));
+            }
+            if (advertInfoRequest.getPresentTime() != null){
+                criteria.andStopTimeGreaterThanOrEqualTo(advertInfoRequest.getPresentTime());
             }
             example.setOrderByClause("create_time desc");
             //分页开始
@@ -189,6 +196,22 @@ public class AdvertServiceImpl implements AdvertService{
             return val>0?true:false;
         } catch (Throwable e) {
             LOG.error("modifyStatus 异常",id);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public  List<Advert> fetchAllContent(AdvertInfoRequest advertInfoRequest) throws DatabaseException {
+        try {
+            AdvertExample example = new AdvertExample();
+            AdvertExample.Criteria criteria = example.createCriteria();
+            criteria.andStopTimeGreaterThanOrEqualTo(advertInfoRequest.getPresentTime());
+            criteria.andStatusEqualTo(YesNoEnum.YES);
+            example.setOrderByClause("create_time desc");
+            List<Advert> list = advertMapper.selectByExample(example);
+            return list;
+        } catch (Throwable e) {
+            LOG.error("modifyStatus 异常",advertInfoRequest);
             throw new DatabaseException(e.getMessage());
         }
     }
