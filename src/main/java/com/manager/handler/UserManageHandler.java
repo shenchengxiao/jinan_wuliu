@@ -418,4 +418,16 @@ public class UserManageHandler {
 		return usernames;
 	    	
 	}
+
+    public List<User> verifyNameExist(String userName) throws YCException {
+        User user = new User();
+        user.setUsername(userName);
+        try {
+            List<User> list = userInfoService.queryUser(user);
+            return list;
+        } catch (DatabaseException e) {
+            LOG.error("verifyNameExist exception",userName);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
 }

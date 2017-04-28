@@ -66,10 +66,10 @@
                                     <div class="control-group">
                                         <label class="control-label">用户名称<span class="required">*</span></label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text" id="userName" name="userName"/></div>
+                                            <input class="m-wrap span12" type="text" id="userName" name="userName" autoComplete="off"/></div>
                                         <label class="control-label">用户编号<span class="required">*</span></label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text" id="userNum" name="userNum" /></div>
+                                            <input class="m-wrap span12" type="text" id="userNum" name="userNum" readonly /></div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label">用户密码<span class="required">*</span></label>

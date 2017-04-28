@@ -19,6 +19,9 @@ public class QueryInfoResponse implements Serializable{
     /** 创建时间 */
     private Date createTime;
 
+    /** 类型 */
+    private Integer type;
+
     public Long getId() {
         return id;
     }
@@ -51,6 +54,14 @@ public class QueryInfoResponse implements Serializable{
         this.createTime = createTime;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("QueryInfoResponse{");
@@ -58,6 +69,7 @@ public class QueryInfoResponse implements Serializable{
         sb.append(", searchContent='").append(searchContent).append('\'');
         sb.append(", userName='").append(userName).append('\'');
         sb.append(", createTime=").append(createTime);
+        sb.append(", type=").append(type);
         sb.append('}');
         return sb.toString();
     }
