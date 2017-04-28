@@ -90,6 +90,8 @@ function getUserDetail(id){
                 $('span[name=send_city]').html(json.sendCity);
                 $('span[name=receive_city]').html(json.receiveCity);
 
+                $('span[name=recentlyLoginIp]').html(json.recentlyLoginIp);
+
 
             }
         },

@@ -118,47 +118,15 @@ public class UserMangeResponse implements Serializable {
     /** 平台类型 */
     private Integer platformType;
     private String registrationID;
-    
+
     private String inLine;//内线#电信内线
     private String inLine1;//内线
     private String inLine2;//电信内线
-    
-    
-    
 
-    public String getInLine() {
-		return inLine;
-	}
+    /** 最近登录的IP地址 */
+    private String recentlyLoginIp;
 
-	public void setInLine(String inLine) {
-		this.inLine = inLine;
-	}
-
-	public String getInLine1() {
-		return inLine1;
-	}
-
-	public void setInLine1(String inLine1) {
-		this.inLine1 = inLine1;
-	}
-
-	public String getInLine2() {
-		return inLine2;
-	}
-
-	public void setInLine2(String inLine2) {
-		this.inLine2 = inLine2;
-	}
-
-	public String getRegistrationID() {
-		return registrationID;
-	}
-
-	public void setRegistrationID(String registrationID) {
-		this.registrationID = registrationID;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -454,20 +422,92 @@ public class UserMangeResponse implements Serializable {
         this.platformType = platformType;
     }
 
-	@Override
-	public String toString() {
-		return "UserMangeResponse [id=" + id + ", userName=" + userName + ", userNum=" + userNum + ", password="
-				+ password + ", passwordVerify=" + passwordVerify + ", phoneNumber=" + phoneNumber + ", province="
-				+ province + ", city=" + city + ", county=" + county + ", isAbled=" + isAbled + ", isManager="
-				+ isManager + ", isSync=" + isSync + ", userEmail=" + userEmail + ", postCode=" + postCode
-				+ ", companyName=" + companyName + ", registerIp=" + registerIp + ", loginIp=" + loginIp
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", identityNum=" + identityNum + ", address="
-				+ address + ", lastQuitNum=" + lastQuitNum + ", thisLoadNum=" + thisLoadNum + ", hardNum=" + hardNum
-				+ ", networkNum=" + networkNum + ", temporaryCard=" + temporaryCard + ", checkLimit=" + checkLimit
-				+ ", checkNum=" + checkNum + ", isSend=" + isSend + ", isReceive=" + isReceive + ", isReceiveSelf="
-				+ isReceiveSelf + ", isBinding=" + isBinding + ", sendProvince=" + sendProvince + ", sendCity="
-				+ sendCity + ", receiveProvince=" + receiveProvince + ", receiveCity=" + receiveCity + ", platformType="
-				+ platformType + ", registrationID=" + registrationID + "]";
-	}
+    public String getRegistrationID() {
+        return registrationID;
+    }
 
+    public void setRegistrationID(String registrationID) {
+        this.registrationID = registrationID;
+    }
+
+    public String getInLine() {
+        return inLine;
+    }
+
+    public void setInLine(String inLine) {
+        this.inLine = inLine;
+    }
+
+    public String getInLine1() {
+        return inLine1;
+    }
+
+    public void setInLine1(String inLine1) {
+        this.inLine1 = inLine1;
+    }
+
+    public String getInLine2() {
+        return inLine2;
+    }
+
+    public void setInLine2(String inLine2) {
+        this.inLine2 = inLine2;
+    }
+
+    public String getRecentlyLoginIp() {
+        return recentlyLoginIp;
+    }
+
+    public void setRecentlyLoginIp(String recentlyLoginIp) {
+        this.recentlyLoginIp = recentlyLoginIp;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("UserMangeResponse{");
+        sb.append("id=").append(id);
+        sb.append(", userName='").append(userName).append('\'');
+        sb.append(", userNum='").append(userNum).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", passwordVerify='").append(passwordVerify).append('\'');
+        sb.append(", phoneNumber='").append(phoneNumber).append('\'');
+        sb.append(", province='").append(province).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", county='").append(county).append('\'');
+        sb.append(", isAbled=").append(isAbled);
+        sb.append(", isManager=").append(isManager);
+        sb.append(", isSync=").append(isSync);
+        sb.append(", userEmail='").append(userEmail).append('\'');
+        sb.append(", postCode='").append(postCode).append('\'');
+        sb.append(", companyName='").append(companyName).append('\'');
+        sb.append(", registerIp='").append(registerIp).append('\'');
+        sb.append(", loginIp='").append(loginIp).append('\'');
+        sb.append(", startTime=").append(startTime);
+        sb.append(", endTime=").append(endTime);
+        sb.append(", identityNum='").append(identityNum).append('\'');
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", lastQuitNum='").append(lastQuitNum).append('\'');
+        sb.append(", thisLoadNum='").append(thisLoadNum).append('\'');
+        sb.append(", hardNum='").append(hardNum).append('\'');
+        sb.append(", networkNum='").append(networkNum).append('\'');
+        sb.append(", temporaryCard='").append(temporaryCard).append('\'');
+        sb.append(", checkLimit=").append(checkLimit);
+        sb.append(", checkNum=").append(checkNum);
+        sb.append(", isSend=").append(isSend);
+        sb.append(", isReceive=").append(isReceive);
+        sb.append(", isReceiveSelf=").append(isReceiveSelf);
+        sb.append(", isBinding=").append(isBinding);
+        sb.append(", sendProvince='").append(sendProvince).append('\'');
+        sb.append(", sendCity='").append(sendCity).append('\'');
+        sb.append(", receiveProvince='").append(receiveProvince).append('\'');
+        sb.append(", receiveCity='").append(receiveCity).append('\'');
+        sb.append(", platformType=").append(platformType);
+        sb.append(", registrationID='").append(registrationID).append('\'');
+        sb.append(", inLine='").append(inLine).append('\'');
+        sb.append(", inLine1='").append(inLine1).append('\'');
+        sb.append(", inLine2='").append(inLine2).append('\'');
+        sb.append(", recentlyLoginIp='").append(recentlyLoginIp).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
