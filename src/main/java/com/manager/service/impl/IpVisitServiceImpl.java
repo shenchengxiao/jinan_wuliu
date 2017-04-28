@@ -11,6 +11,7 @@ import com.manager.exception.DatabaseException;
 import com.manager.interceptor.PageMybatisInterceptor;
 import com.manager.mapper.IpVisitMapper;
 import com.manager.mapper.manual.UserLoginLogResponseMapper;
+import com.manager.pojo.IpVisit;
 import com.manager.pojo.IpVisitExample;
 import com.manager.pojo.manual.UserLoginlogResponse;
 import com.manager.request.ipvisit.IpVisitRequest;
@@ -71,6 +72,25 @@ public class IpVisitServiceImpl implements IpVisitService {
 	        LOG.error("fetchIpVisitList3 异常",request);
 	        throw new DatabaseException(e.getMessage());
 	    }
+	}
+
+	@Override
+	public void addServer(IpVisit ipVisit) throws DatabaseException {
+		// TODO Auto-generated method stub
+		mapper.insert(ipVisit);
+		
+	}
+
+	@Override
+	public void updateServer(IpVisit ipVisit) throws DatabaseException {
+		// TODO Auto-generated method stub
+		mapper.updateByPrimaryKeySelective(ipVisit);
+	}
+
+	@Override
+	public void deleteServer(Integer id) throws DatabaseException {
+		// TODO Auto-generated method stub
+		mapper.deleteByPrimaryKey(id);
 	}
 
 }

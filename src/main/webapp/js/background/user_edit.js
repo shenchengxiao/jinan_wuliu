@@ -208,6 +208,8 @@ function getUserDetail(){
                 $('input[name=temporaryCard]').val(json.temporaryCard);
                 $('input[name=checkLimit]').val(json.checkLimit);
                 $('input[name=checkNum]').val(json.checkNum);
+                $('input[name=inLine1]').val(json.inLine1);
+                $('input[name=inLine2]').val(json.inLine2);
 
                 $('#is_send_id').val(json.isSend).selected;
                 $('#is_receive_id').val(json.isReceive).selected;

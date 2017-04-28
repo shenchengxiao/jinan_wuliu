@@ -11,6 +11,7 @@ import com.manager.response.BlackWordResponse;
 import com.manager.response.IpVisitResponse;
 import com.manager.service.BlackWordService;
 import com.manager.service.IpVisitService;
+import com.manager.utils.DateTimeUtil;
 import com.manager.utils.Page;
 import com.manager.utils.Validator;
 import com.manager.utils.YCSystemStatusEnum;
@@ -56,5 +57,52 @@ public class IpVisitHandler {
         }
         return page;
     }
+
+
+	public void addServer(IpVisitRequest request) throws YCException{
+		/** 参数校验 */
+        Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
+        Validator.isEmpty(request.getIp(),"服务器ip不能为空");
+        Validator.isEmpty(request.getPort(),"服务器端口不能为空");
+        Validator.isEmpty(request.getCreateTime(),"添加时间不能为空");
+        
+        IpVisit ipVisit = new IpVisit();
+        ipVisit.setId(request.getId());
+        ipVisit.setIp(request.getIp());
+        ipVisit.setPort(request.getPort());
+        ipVisit.setCreateTime(DateTimeUtil.convertDate(request.getCreateTime()));
+        ipVisit.setDomain(request.getDomain());
+        ipVisit.setFunctionDesc(request.getFunctionDesc());
+        ipVisit.setStatus(request.getStatus());
+        
+        try {
+            //id为空则添加，否则为修改
+            if (ipVisit.getId() == null){
+            	ipVisitService.addServer(ipVisit);
+            }else {
+            	ipVisitService.updateServer(ipVisit);
+            }
+        }catch (DatabaseException e) {
+            LOG.error("addServer exception",ipVisit);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+        
+        
+        
+		
+	}
+
+
+	public void deleteServer(Integer id) throws YCException{
+		 /** 参数校验 */
+        Validator.isEmpty(id,"删除服务器的id为空");
+        try {
+        	ipVisitService.deleteServer(id);
+        } catch (DatabaseException e) {
+            LOG.error("deleteAdvertInfo exception",id);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+		
+	}
     
 }

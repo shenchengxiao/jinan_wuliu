@@ -128,6 +128,16 @@ public class UserManageHandler {
         try {
             //判断ID是否为空，是则添加，否则更新
             if (request.getId() == null){
+            	if(request.getInLine1() != null && request.getInLine1() != "" && (request.getInLine2() == null || request.getInLine2() == "")){
+            		user.setInLine("内线:"+request.getInLine1());
+            	}
+            	if(request.getInLine2() != null && request.getInLine2() != "" && (request.getInLine1() == null || request.getInLine1() == "")){
+            		user.setInLine("电信内线:"+request.getInLine2());
+            	}
+            	if(request.getInLine2() != null && request.getInLine2() != "" && request.getInLine1() != null && request.getInLine1() != ""){
+            		user.setInLine("内线:"+request.getInLine1()+"#"+"电信内线:"+request.getInLine2());
+            	}
+            	
                 Integer id = userInfoService.addUser(user);
 
                 //添加定制信息
@@ -169,6 +179,25 @@ public class UserManageHandler {
         UserMangeResponse userMangeResponse = null;
         try {
             userMangeResponse = userInfoService.getUserDetail(request);
+            if(userMangeResponse != null && userMangeResponse.getInLine() != null){
+            	String[] strArray = userMangeResponse.getInLine().split("#");
+//            	System.out.println(strArray.length);
+            	if(strArray.length == 1){
+            		if(userMangeResponse.getInLine().startsWith("内线")){
+            			String[] strArray1 = userMangeResponse.getInLine().split(":");
+                		userMangeResponse.setInLine1(strArray1[1]);
+            		}else {
+            			String[] strArray2 = userMangeResponse.getInLine().split(":");
+                		userMangeResponse.setInLine2(strArray2[1]);
+					}
+            	}else if(strArray.length == 2){
+            		String[] strArray1 = strArray[0].split(":");
+            		userMangeResponse.setInLine1(strArray1[1]);
+            		String[] strArray2 = strArray[1].split(":");
+            		userMangeResponse.setInLine2(strArray2[1]);
+            	}
+            	
+            }//内线:11111#电信内线:22222
             return userMangeResponse;
         } catch (DatabaseException e) {
             LOG.error("fetchUserManageDetail exception",id);

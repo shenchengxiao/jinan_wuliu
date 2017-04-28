@@ -38,6 +38,7 @@
         <result property="isReceive" jdbcType="TINYINT" column="is_receive" />
         <result property="isReceiveSelf" jdbcType="TINYINT" column="is_receive_self" />
         <result property="platformType" jdbcType="TINYINT" column="platform_type" />
+        <result property="inLine" jdbcType="VARCHAR" column="in_line" />
     </resultMap>
 
 
@@ -185,6 +186,7 @@
         u.check_limit,
         u.check_num,
         u.platform_type,
+        u.in_line,
         ub.hardpan_num,
         ub.network_card,
         ub.temporary_card,

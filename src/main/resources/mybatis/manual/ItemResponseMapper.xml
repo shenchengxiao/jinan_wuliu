@@ -34,7 +34,7 @@
     select
      i.item_id, i.user_id, i.user_phones, i.type_id, i.create_time, i.status,u.user_num
     ,i.content
-    from items as i LEFT JOIN user as u ON i.user_id = u.id
+    from items_backup as i LEFT JOIN user as u ON i.user_id = u.id
     where 1=1
     <if test='userId != null and userId != ""' >
       and i.user_id = #{userId}

@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -136,6 +137,7 @@ public class UserCustomServiceImpl implements UserCustomService{
 //            	}
 //            }
 			UserCustomExample example = new UserCustomExample();
+			example.setOrderByClause("update_time desc");
 			Criteria criteria = example.createCriteria();
 			if(userCustomRequest.getUsername() != null && userCustomRequest.getUsername() != ""){
 				criteria.andUsernameEqualTo(userCustomRequest.getUsername());
@@ -161,6 +163,7 @@ public class UserCustomServiceImpl implements UserCustomService{
 	@Override
 	public boolean updateUserCustom(UserCustom userCustom) throws DatabaseException {
 		// TODO Auto-generated method stub
+		userCustom.setUpdateTime(new Date());
 		int i = userCustomMapper.updateByPrimaryKeySelective(userCustom);
 		if(i > 0){
 			return true;

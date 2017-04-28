@@ -3,6 +3,7 @@ import com.manager.exception.YCException;
 import com.manager.handler.IpVisitHandler;
 import com.manager.handler.UserLoginLogHandler;
 import com.manager.pojo.manual.UserLoginlogResponse;
+import com.manager.request.advert.AdvertInfoRequest;
 import com.manager.request.ipvisit.IpVisitRequest;
 import com.manager.request.userloginlog.UserLoginLogRequest;
 import com.manager.response.IpVisitResponse;
@@ -15,8 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 /**
  * Created by zcy on 2017/3/31.
  */
@@ -107,4 +110,47 @@ public class IPVisistController {
     	
     }
     
+    /**
+     * 添加/修改服务器
+     * @param request
+     * @param advertInfoRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public APIResponse addServer(HttpServletRequest request , IpVisitRequest ipVisitRequest){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+        	ipVisitHandler.addServer(ipVisitRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("添加服务器信息发生异常",ipVisitRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+    
+    /**
+     * 删除
+     * @param request
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public APIResponse deleteServer(HttpServletRequest request , Integer id){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+        	ipVisitHandler.deleteServer(id);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("删除服务器信息发生异常",id);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 }

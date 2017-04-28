@@ -119,8 +119,38 @@ public class UserMangeResponse implements Serializable {
     private Integer platformType;
     private String registrationID;
     
+    private String inLine;//内线#电信内线
+    private String inLine1;//内线
+    private String inLine2;//电信内线
+    
+    
+    
 
-    public String getRegistrationID() {
+    public String getInLine() {
+		return inLine;
+	}
+
+	public void setInLine(String inLine) {
+		this.inLine = inLine;
+	}
+
+	public String getInLine1() {
+		return inLine1;
+	}
+
+	public void setInLine1(String inLine1) {
+		this.inLine1 = inLine1;
+	}
+
+	public String getInLine2() {
+		return inLine2;
+	}
+
+	public void setInLine2(String inLine2) {
+		this.inLine2 = inLine2;
+	}
+
+	public String getRegistrationID() {
 		return registrationID;
 	}
 

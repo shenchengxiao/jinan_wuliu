@@ -120,9 +120,27 @@ public class UserManageRequest extends BaseQuery{
     
     /** 内线*/
     private String inLine;
+    private String inLine1;
+    private String inLine2;
+    
 
+    public String getInLine1() {
+		return inLine1;
+	}
 
-    @Override
+	public void setInLine1(String inLine1) {
+		this.inLine1 = inLine1;
+	}
+
+	public String getInLine2() {
+		return inLine2;
+	}
+
+	public void setInLine2(String inLine2) {
+		this.inLine2 = inLine2;
+	}
+
+	@Override
     public Integer getId() {
         return id;
     }

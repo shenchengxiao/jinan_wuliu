@@ -236,7 +236,10 @@
                                         </div>
                                         <label class="control-label">内线:</label>
                                         <div class="span4">
-                                            <input class="m-wrap span12" type="text" name="inLine" /></div>
+                                        	<!-- <input type="hidden" name="inLine" id="inLine"> -->
+                                            <input class="m-wrap span6" type="text" id="inLine1" name="inLine1" placeholder="请输入内线,如:00000"/>
+                                            <input class="m-wrap span6" type="text" id="inLine2" name="inLine2" placeholder="请输入电信内线,如:11111"/>
+                                            </div>
                                     </div>
 
                                 </fieldset>

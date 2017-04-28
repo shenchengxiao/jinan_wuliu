@@ -47,6 +47,11 @@
                             <div class="caption">
                                 <i class="icon-reorder"></i> 服务器列表
                             </div>
+                            <div class="actions">
+                                <a class="btn green repoActivity" id="creat_server_icon">
+                                    <i class="icon-pencil"></i> 新增服务器
+                                </a>
+                            </div>
                         </div>
                         <div class="portlet-body">
                             <div class="row-fluid">
@@ -85,6 +90,7 @@
                                         <th>开始使用时间</th>
                                         <th>功能描述</th>
                                         <th>状态</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center;">
@@ -105,6 +111,70 @@
         </div>
     </div>
     <!-- 内容区域 end -->
+    <!-- modal 添加 begin -->
+    <form class="form-horizontal" id="add_server_form">
+        <div class="modal fade hide" id="addServerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h4 class="modal-title" id="myModalLabel">新增服务器</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id">
+                        <div class="control-group">
+                            <label class="control-label">服务器外网ip: <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" class="span8 m-wrap" name="ip" id="ip">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">端口号: <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" class="span8 m-wrap" name="port" id="port">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">域名访问: <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" class="span8 m-wrap" name="domain" id="domain">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">开始日期：<span class="required">*</span></label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input data-laydate="start" class="m-wrap span12" type="text" value="" name="createTime" id="createTime" readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">功能描述: <span class="required">*</span></label>
+                            <div class="controls">
+                                <input type="text" class="span8 m-wrap" name="functionDesc" id="functionDesc">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">是否启用: <span class="required">*</span></label>
+                            <div class="controls">
+                                <label class="radio">
+                                    <input type="radio" value="0" name="status" > 未启用
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" value="1" name="status" checked> 启用
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary green" id="btn_add_server">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- modal 添加 end -->
 </div>
 <!-- 页面主体 end -->
 <!-- 页尾 begin -->
