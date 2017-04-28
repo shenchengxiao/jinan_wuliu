@@ -319,6 +319,17 @@
                                         <!--/span-->
                                     </div>
 
+                                    <div class="row-fluid">
+                                        <div class="span6 ">
+                                            <div class="control-group">
+                                                <label class="control-label">最近登录的IP地址:</label>
+                                                <div class="controls">
+                                                    <span class="text bold" name="recentlyLoginIp"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </form>
                             <!-- END FORM-->

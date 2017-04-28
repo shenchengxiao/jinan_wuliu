@@ -39,6 +39,7 @@
         <result property="isReceiveSelf" jdbcType="TINYINT" column="is_receive_self" />
         <result property="platformType" jdbcType="TINYINT" column="platform_type" />
         <result property="inLine" jdbcType="VARCHAR" column="in_line" />
+        <result property="recentlyLoginIp" jdbcType="VARCHAR" column="ip_address" />
     </resultMap>
 
 
@@ -195,15 +196,19 @@
         uc.receive_city,
         uc.is_send,
         uc.is_receive,
-        uc.is_receive_self
+        uc.is_receive_self,
+        ul.ip_address
         FROM
         user u,
         user_binding ub,
-        user_custom uc
+        user_custom uc,
+        user_loginlog ul
         WHERE
         u.id=ub.user_id
         AND
         u.id=uc.user_id
+        AND
+        u.id=ul.user_id
         AND
         u.id=#{id}
     </select>

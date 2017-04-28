@@ -118,13 +118,13 @@ public class UserMangeResponse implements Serializable {
     /** 平台类型 */
     private Integer platformType;
     private String registrationID;
-    
+
     private String inLine;//内线#电信内线
     private String inLine1;//内线
     private String inLine2;//电信内线
-    
-    
-    
+
+
+
 
     public String getInLine() {
 		return inLine;
@@ -150,9 +150,8 @@ public class UserMangeResponse implements Serializable {
 		this.inLine2 = inLine2;
 	}
 
-	public String getRegistrationID() {
-		return registrationID;
-	}
+    /** 最近登录的IP地址 */
+    private String recentlyLoginIp;
 
 	public void setRegistrationID(String registrationID) {
 		this.registrationID = registrationID;
