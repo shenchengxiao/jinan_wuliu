@@ -1,4 +1,10 @@
 $(function(){
+	
+	var phone = getUrlParam("phoneNumber");
+	
+	if(phone != ''){
+		$("#phoneNumber").val(phone);
+	}
 
     getUserList();//先执行一次获取列表信息；
     $('#btn_search').on('click',function(){

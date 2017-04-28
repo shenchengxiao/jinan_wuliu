@@ -62,11 +62,13 @@ function removeEventHandler(target, type, func) {
         delete target["on" + type];  
     }  
 }
-/**
+
 var OnIncomingPhone = function(lAudioDeviceID, IncomingNum){
-	alert("Incoming Phone Number : "+IncomingNum);
+	//alert("Incoming Phone Number : "+IncomingNum);
+	window.open(manage_path+'/views/background/user_list.jsp?phoneNumber='+IncomingNum);
+	
 }
-*/
+
 var OnDeviceDetect = function(bState, lAudioDeviceID){
 	if(!bState)
 	{
@@ -94,7 +96,8 @@ function Init()
 
 
 window.onload = function(){ 
-	//addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
+	coming();
+	addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
 	addEventHandler(myocx,"DeviceDetect",OnDeviceDetect);
 	Init();
 	//buildBtns();
@@ -103,6 +106,7 @@ window.onload = function(){
 
     
 }
+
 //class="btnDial"  disabled="disabled"\]
 
 function ceshi(){

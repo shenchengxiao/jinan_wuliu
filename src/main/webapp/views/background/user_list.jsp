@@ -68,7 +68,7 @@
                                         <input type="text" name="userNum" placeholder="请输入用户编号" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <input type="text" name="phoneNumber" placeholder="请输入联系电话" class="m-wrap span12" >
+                                        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入联系电话" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
                                         <select class="m-wrap span6" name="isAbled" >
