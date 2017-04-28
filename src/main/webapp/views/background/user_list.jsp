@@ -14,6 +14,24 @@
         .table-advance th.highlight td.success {
             border-left: 2px solid #66ee66;
         }
+        .row-fluid {
+            width: 100%;
+            overflow-x: hidden;
+        }
+        @media only screen and (max-width: 1500px) and (min-width: 801px){
+            .no-more-tables table ,
+            .no-more-tables thead ,
+            .no-more-tables tbody {white-space: nowrap;}
+            .no-more-tables thead tr ,
+            .no-more-tables th { font-size:12px}
+            .no-more-tables tbody tr ,
+            .no-more-tables td { font-size:12px}
+            .my_div {overflow-x: auto;width: auto}
+            .table-condensed th,
+            .table-condensed td {
+                padding:4px 3px;
+            }
+        }
 
     </style>
 </head>
@@ -121,6 +139,7 @@
                         </div>
                         <div class="box">
                             <div class="portlet-body no-more-tables">
+                                <div class="my_div">
                                 <table class="table-bordered table-striped table-condensed cf" id="user_manage_list">
                                     <thead class="cf">
                                     <tr>
@@ -144,6 +163,7 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                                </div>
                                 <div class="row-fluid">
                                     <div class="span12">
                                         <div class="pull-right pagination">

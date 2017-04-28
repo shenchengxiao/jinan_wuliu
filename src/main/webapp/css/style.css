@@ -5141,7 +5141,7 @@ Responsive tables(new in v1.2.3)
 
 
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 800px) {
 
   /* Force table to not be like tables anymore */
   .no-more-tables table,

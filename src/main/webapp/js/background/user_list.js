@@ -67,27 +67,47 @@ $(function(){
     });
 
 
+    //绑定所有tbody下的tr,不包括最后一列
+    $('#user_manage_list tbody').on('click','tr td:not(:last-child)',function(){
+        //找到本列本行其它列
+        var check = $(this).parent().find("input[type='checkbox']");
+        var thisID = $(this).parent().find("input[name=idArr]").val();
+        if(check){
+            var flag = check[0].checked;
+            console.log(check[0]);
+            if(flag){
+                check[0].checked = false;
+                removeInArr(thisID);
+                console.log(idsArr);
+                setIdsInfo();
+            }else{
+                check[0].checked = true;
+                idsArr.push(thisID);
+                console.log(idsArr);
+                setIdsInfo();
+
+            }
+        }
+
+    });
 
 
-    $('#user_manage_list').on('change','input[name="chooseTag"]',function(){
-        /*$this = $(this);*/
+    //防止冒泡事件
+    $('#user_manage_list tbody').on('click','input[name="chooseTag"]',function(event) {
+        event.stopImmediatePropagation();
         var thisID = $(this).next('input').val();
         if($(this).is(':checked')){
             idsArr.push(thisID);
-            setIdsInfo();
-            $(this).parent().css({
-                color:'green'
-            });
             console.log(idsArr);
+            setIdsInfo();
         }else{
             removeInArr(thisID);
-            setIdsInfo();
-            $(this).parent().css({
-                color:'#000'
-            });
             console.log(idsArr);
+            setIdsInfo();
         }
-    });
+    })
+
+
 
     //查找某个值在数组中的位置
     function indexOfInArr(val) {
@@ -467,7 +487,7 @@ function modifyStatus(id,beUsed){
             if(data.status == 0){
                 $.toast('操作成功',3000);
                 setTimeout(function(){
-                    getUserList();
+                    window.location.href = 'user_list.jsp';
                 },500)
             }else{
                 $.toast(data.msg,3000);

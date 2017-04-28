@@ -10,7 +10,22 @@
     <title>在线用户</title>
     <!-- build:css css/main.css -->
     <jsp:include page="/common/common.jsp"></jsp:include>
-    <![endif]-->
+    <style>
+        @media only screen and (max-width: 1500px) and (min-width: 801px) {
+            .no-more-tables table ,
+            .no-more-tables thead ,
+            .no-more-tables tbody {white-space: nowrap;}
+            .no-more-tables thead tr ,
+            .no-more-tables th { font-size:12px}
+            .no-more-tables tbody tr ,
+            .no-more-tables td { font-size:12px}
+            .table-condensed th,
+            .table-condensed td {
+                padding:4px 3px;
+            }
+            .my_div {overflow-x: auto;width: auto}
+        }
+    </style>
 </head>
 
 <body class="page-header-fixed">
@@ -87,6 +102,7 @@
                         </div>
                         <div class="box">
                             <div class="portlet-body no-more-tables">
+                                <div class="my_div">
                                 <table class="table-bordered table-striped table-condensed cf" id="user_manage_list">
                                     <thead class="cf">
                                     <tr>
@@ -109,6 +125,7 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                                </div>
                                 <div class="row-fluid">
                                     <div class="span12">
                                         <div class="pull-right pagination">

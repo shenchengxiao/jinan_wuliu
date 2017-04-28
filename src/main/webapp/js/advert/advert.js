@@ -172,8 +172,6 @@ function getAdvertList(){
                             + '<td data-title="开始时间">' + item.startTime + '</td>'
                             + '<td data-title="结束时间">' + item.endTime + '</td>'
                             + '<td data-title="价格">' + item.price + '</td>'
-                            + '<td data-title="联系人">' + item.linkedName + '</td>'
-                            + '<td data-title="联系电话">' + item.phoneNumber + '</td>'
                             + '<td data-title="是否有效">' + adStatus + '</td>'
                             + '<td data-title="广告内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'" >'
                             +  advert_content
