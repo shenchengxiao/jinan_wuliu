@@ -3,70 +3,103 @@ package com.manager.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * [STRATO MyBatis Generator]
  * Table: phone_record
-@mbggenerated do_not_delete_during_merge 2017-04-28 17:23:47
+@mbggenerated do_not_delete_during_merge 2017-05-02 14:57:01
  */
 public class PhoneRecord implements Serializable {
     /**
      * Column: phone_record.r_id
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private Integer rId;
 
     /**
-     *   ¿Í·ş±àºÅ
+     *   ï¿½Í·ï¿½ï¿½ï¿½ï¿½
      * Column: phone_record.service_num
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private String serviceNum;
 
     /**
-     *   ´òÈëµç»°
+     *   ï¿½ï¿½ï¿½ï¿½ç»°
      * Column: phone_record.in_phone
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private String inPhone;
 
     /**
-     *   ¿Í»§±àºÅ
+     *   ï¿½Í»ï¿½ï¿½ï¿½ï¿½
      * Column: phone_record.cust_id
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private String custId;
 
     /**
-     *   ´òÈëÊ±¼ä
+     *   ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
      * Column: phone_record.in_time
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date inTime;
 
     /**
-     *   ¹Ò¶ÏÊ±¼ä
+     *   ï¿½Ò¶ï¿½Ê±ï¿½ï¿½
      * Column: phone_record.out_time
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date outTime;
 
     /**
-     *   ´´½¨Ê±¼ä
+     *   ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
      * Column: phone_record.create_time
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private Date createTime;
 
     /**
-     *   ĞŞ¸ÄÊ±¼ä
+     *   ï¿½Ş¸ï¿½Ê±ï¿½ï¿½
      * Column: phone_record.update_time
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private Date updateTime;
 
     /**
+     *   ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ç£ï¿½0ï¿½ï¿½ï¿½ï¿½
+     * Column: phone_record.is_answer
+    @mbggenerated 2017-05-02 14:57:01
+     */
+    private Integer isAnswer;
+
+    /**
+     *   ï¿½Ç·ï¿½Ò¶Ï£ï¿½1ï¿½ï¿½ï¿½Ç£ï¿½0ï¿½ï¿½ï¿½ï¿½
+     * Column: phone_record.is_hang
+    @mbggenerated 2017-05-02 14:57:01
+     */
+    private Integer isHang;
+    
+    /**æ—¶é•¿*/
+    private long duration; 
+    
+    /** æŒ‰æ¡ä»¶æŸ¥è¯¢æ—¶é•¿æ€»è®¡ */
+    private long sumduration;
+    
+    /** æŒ‰æ¡ä»¶æŸ¥è¯¢è¯åŠ¡é‡*/
+    private long count;
+    
+    /** æ—¶é•¿æ€»è®¡ */
+    private long totaltime;
+    
+    /** æ€»è¯åŠ¡é‡*/
+    private long total;
+
+    /**
      * Table: phone_record
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     private static final long serialVersionUID = 1L;
 
@@ -133,4 +166,63 @@ public class PhoneRecord implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public Integer getIsAnswer() {
+        return isAnswer;
+    }
+
+    public void setIsAnswer(Integer isAnswer) {
+        this.isAnswer = isAnswer;
+    }
+
+    public Integer getIsHang() {
+        return isHang;
+    }
+
+    public void setIsHang(Integer isHang) {
+        this.isHang = isHang;
+    }
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+
+	public long getSumduration() {
+		return sumduration;
+	}
+
+	public void setSumduration(long sumduration) {
+		this.sumduration = sumduration;
+	}
+
+	public long getCount() {
+		return count;
+	}
+
+	public void setCount(long count) {
+		this.count = count;
+	}
+
+	public long getTotaltime() {
+		return totaltime;
+	}
+
+	public void setTotaltime(long totaltime) {
+		this.totaltime = totaltime;
+	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
+	}
+    
+	
+    
 }

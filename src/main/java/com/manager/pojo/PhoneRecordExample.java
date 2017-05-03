@@ -7,19 +7,19 @@ import java.util.List;
 public class PhoneRecordExample {
     /**
      * Table: phone_record
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     protected String orderByClause;
 
     /**
      * Table: phone_record
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     protected boolean distinct;
 
     /**
      * Table: phone_record
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     protected List<Criteria> oredCriteria;
 
@@ -79,7 +79,7 @@ public class PhoneRecordExample {
     /**
      * [STRATO MyBatis Generator]
      * Table: phone_record
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -631,11 +631,131 @@ public class PhoneRecordExample {
             addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
+
+        public Criteria andIsAnswerIsNull() {
+            addCriterion("is_answer is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerIsNotNull() {
+            addCriterion("is_answer is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerEqualTo(Integer value) {
+            addCriterion("is_answer =", value, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerNotEqualTo(Integer value) {
+            addCriterion("is_answer <>", value, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerGreaterThan(Integer value) {
+            addCriterion("is_answer >", value, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_answer >=", value, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerLessThan(Integer value) {
+            addCriterion("is_answer <", value, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerLessThanOrEqualTo(Integer value) {
+            addCriterion("is_answer <=", value, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerIn(List<Integer> values) {
+            addCriterion("is_answer in", values, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerNotIn(List<Integer> values) {
+            addCriterion("is_answer not in", values, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerBetween(Integer value1, Integer value2) {
+            addCriterion("is_answer between", value1, value2, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAnswerNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_answer not between", value1, value2, "isAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangIsNull() {
+            addCriterion("is_hang is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangIsNotNull() {
+            addCriterion("is_hang is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangEqualTo(Integer value) {
+            addCriterion("is_hang =", value, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangNotEqualTo(Integer value) {
+            addCriterion("is_hang <>", value, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangGreaterThan(Integer value) {
+            addCriterion("is_hang >", value, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_hang >=", value, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangLessThan(Integer value) {
+            addCriterion("is_hang <", value, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangLessThanOrEqualTo(Integer value) {
+            addCriterion("is_hang <=", value, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangIn(List<Integer> values) {
+            addCriterion("is_hang in", values, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangNotIn(List<Integer> values) {
+            addCriterion("is_hang not in", values, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangBetween(Integer value1, Integer value2) {
+            addCriterion("is_hang between", value1, value2, "isHang");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsHangNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_hang not between", value1, value2, "isHang");
+            return (Criteria) this;
+        }
     }
 
     /**
      * This class corresponds to the database table phone_record
-    @mbggenerated do_not_delete_during_merge 2017-04-28 17:23:47
+    @mbggenerated do_not_delete_during_merge 2017-05-02 14:57:01
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -647,7 +767,7 @@ public class PhoneRecordExample {
     /**
      * [STRATO MyBatis Generator]
      * Table: phone_record
-    @mbggenerated 2017-04-28 17:23:47
+    @mbggenerated 2017-05-02 14:57:01
      */
     public static class Criterion {
         private String condition;

@@ -65,6 +65,8 @@ function removeEventHandler(target, type, func) {
 
 var OnIncomingPhone = function(lAudioDeviceID, IncomingNum){
 	//alert("Incoming Phone Number : "+IncomingNum);
+	$("#btnCallOut").removeAttr("disabled");
+	$("#callee").val(IncomingNum);
 	window.open(manage_path+'/views/background/user_list.jsp?phoneNumber='+IncomingNum);
 	
 }
@@ -135,8 +137,6 @@ function getUrl()
    var dizhi = url.substring(url.length-n,url.length);
    alert(dizhi.substring(0,18));
 }
-
-
 
 </script>
 
