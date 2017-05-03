@@ -10,6 +10,8 @@ $(function () {
     	$("#role").html("超级管理员");
     }else if(App.req.user.role == 32){
     	$("#role").html("客服人员");
+    }else if(App.req.user.role == 64){
+        $("#role").html("工作人员")
     }
     
     
@@ -62,7 +64,8 @@ $(function () {
 // 获取角色 
 var Role = {
     SuperAdmin:{Name:"超级管理员",Value:16},
-    CustomerServer:{Name:"客服人员",Value:32}
+    CustomerServer:{Name:"客服人员",Value:32},
+    Worker:{Name:"工作人员",value:64}
 }
 
 function getRoleName(roleNum,Role){

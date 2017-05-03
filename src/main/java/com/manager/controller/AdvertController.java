@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api/advert")
-@Authentication(allow = UserRoleEnum.SuperAdmin)
+//@Authentication(allow = UserRoleEnum.SuperAdmin)
 public class AdvertController {
 
     @Resource

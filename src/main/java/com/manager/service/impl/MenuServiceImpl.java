@@ -4,6 +4,7 @@ import com.manager.exception.DatabaseException;
 import com.manager.mapper.manual.ICustomizedMenuInfoMapper;
 import com.manager.pojo.manual.MenuInfoDto;
 import com.manager.request.menu.MenuRequest;
+import com.manager.request.menu.UpdateRoleMenuRequest;
 import com.manager.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,5 +49,42 @@ public class MenuServiceImpl implements MenuService{
             throw new DatabaseException(e.getMessage());
         }
 
+    }
+
+    /**
+     * 获取所有二级菜单名称
+     * @return
+     * @throws DatabaseException
+     */
+    @Override
+    public List<MenuInfoDto> fetchSecondMenuName(MenuRequest request) throws DatabaseException {
+        try {
+            List<MenuInfoDto> list = customizedMenuInfoMapper.findMenuInfoNameAndId(request);
+            return list;
+        }  catch (Throwable e) {
+            LOG.error("fetchSecondMenuName 异常",e);
+            throw new DatabaseException(e.getMessage());
+        }
+
+    }
+
+    /**
+     * 批量更新
+     * @param updateRoleMenuRequests
+     * @return
+     * @throws DatabaseException
+     */
+    @Override
+    public Integer batchUpdateRoleMenuInfo(List<UpdateRoleMenuRequest> updateRoleMenuRequests) throws DatabaseException {
+        try {
+            if (updateRoleMenuRequests == null && updateRoleMenuRequests.size() <= 0){
+                LOG.error("batchUpdateRoleMenuInfo 信息为空",updateRoleMenuRequests);
+                return Integer.valueOf(0);
+            }
+            return  customizedMenuInfoMapper.batchUpdateRoleType(updateRoleMenuRequests);
+        }  catch (Throwable e) {
+            LOG.error("batchUpdateRoleMenuInfo 异常",e);
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }

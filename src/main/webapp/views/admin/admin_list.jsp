@@ -41,11 +41,6 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="row-fluid">
-                <p id="manageuser"></p>
-            </div>
-
             <div class="row-fluid">
                 <div class="span12">
                     <div class="portlet box grey">
@@ -133,6 +128,10 @@
                                 <label>
                                     <input type="checkbox" value="32" name="roleArr">
                                     客服人员
+                                </label>
+                                <label>
+                                    <input type="checkbox" value="64" name="roleArr">
+                                    工作人员
                                 </label>
                                 <span class="help-block">请至少分配一项权限</span>
                             </div>
