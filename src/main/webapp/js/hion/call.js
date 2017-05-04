@@ -625,7 +625,8 @@ var url = window.location.href;
 var pathfile = url.substring(21,(url.length-16));
 //alert(pathfile);
 
-var strFolder = pathfile + "Record";
+var strFolder = pathfile + "/Record";
+alert(strFolder);
 //strFolder = "E:\\record";
 
 //var strFolder = recid + "Record";
