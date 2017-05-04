@@ -324,7 +324,7 @@ public class UserManageHandler {
         String kickoutUrl = host + kickOutUser;
         List<Integer> list = new ArrayList<>();
         List<Integer> listAll = new ArrayList<>();
-        //int type = 0;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
+        //int type = 0;//1.代表给单独或多个用户发送消息通知;2.踢出用户;0.代表广播系统消息
         Map<String, String> map = new HashMap<>();
         map.put("type", "2");
         for (String ids : userIds) {
@@ -383,8 +383,13 @@ public class UserManageHandler {
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
         JSONObject reqJson = new JSONObject();
-        reqJson.put("userIds",userIds);
-        String result =  URLConnUtil.doPost(SystemParam.INTERFACE_URL+action,reqJson.toString(),params);
+        reqJson.put("userids",userIds);
+        reqJson.put("type",3);
+        List<NameValuePair> params2 = new ArrayList<NameValuePair>();
+        params2.add(new BasicNameValuePair("userids", String.join(",", (String[])userIds.toArray())));
+        params2.add(new BasicNameValuePair("type", "3"));
+//        String result =  URLConnUtil.doPost(action, reqJson.toString(), params);
+        String result =  URLConnUtil.doGet(action, params2, params);
         JSONObject jsonObject = JSONObject.fromObject(result);
         if(jsonObject.getString("status") .equals("0")){
             return true;
