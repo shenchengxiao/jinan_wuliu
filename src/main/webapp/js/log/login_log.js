@@ -49,7 +49,7 @@ function getIpvisitList(){
 //	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBlackwordDetail(' + item.bWId + ')"><i class="icon-edit icon-white"></i></a> '/* + Deleted*/;
 	                    
 	                    temp += '<tr>'
-	                        + '<td data-title="用户名称">' + item.username + '</td>'
+	                        + '<td data-title="用户编号">' + item.username + '</td>'
 	                        + '<td data-title="用户ip">' + item.ipAddress + '</td>'
 	                        + '<td data-title="用户端口">' + item.port + '</td>'
 	                        + '<td data-title="登录时间">' + DateHandle(item.loginTime) + '</td>'

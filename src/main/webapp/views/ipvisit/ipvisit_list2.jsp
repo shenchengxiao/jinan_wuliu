@@ -79,7 +79,7 @@
                                 <table class="table-bordered table-striped table-condensed cf" id="ipvisit_List">
                                     <thead class="cf">
                                     <tr>
-                                        <th>用户名称</th>
+                                        <th>用户编号</th>
                                         <th>用户ip</th>
                                         <th>用户端口</th>
                                         <th>访问时间</th>

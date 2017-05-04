@@ -113,7 +113,7 @@ function getIpvisitList(){
 	                    
 	                    var upd = ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBlackwordDetail(' + item.id + ')"><i class="icon-edit icon-white"></i></a> ';
 	                    //操作按钮拼接
-	                    operation = upDown + upd + Deleted;
+	                    operation = upDown + Deleted;
 	                    
 	                    temp += '<tr>'
 	                        + '<td data-title="服务器IP">' + item.ip + '</td>'

@@ -1,5 +1,6 @@
 package com.manager.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,25 +8,39 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.manager.exception.DatabaseException;
+import com.manager.exception.YCException;
 import com.manager.mapper.UserMapper;
 import com.manager.mapper.UserMessageMapper;
 import com.manager.pojo.User;
 import com.manager.pojo.UserMessage;
 import com.manager.service.UserMessageService;
 import com.manager.utils.PushExample;
+import com.manager.utils.URLConnUtil;
+import com.manager.utils.YCSystemStatusEnum;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+
+import net.sf.json.JSONObject;
 
 @Service
 public class UserMessageServiceImpl implements UserMessageService {
 	
 //	 private static final String EXCHANGE_NAME = "JINAN_MESSAGE_EXCHANGE"; 
+	
+	 @Value("${api.kick.out}")
+     private String kickOutUser;
+
+     @Value("${jinan.user.url}")
+     private String host;
 	 
 	 @Resource
 	 private UserMessageMapper userMessageMapper;
@@ -64,6 +79,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 //    		Channel channel = connection.createChannel();  
     		// 声明转发器的类型  
 //    		channel.exchangeDeclare(EXCHANGE_NAME, "topic");
+            List<Integer> list_pc = new ArrayList<>();
             for (Integer userid : list) {
             	UserMessage userMessage = new UserMessage();
 				userMessage.setUserId(userid);
@@ -87,10 +103,14 @@ public class UserMessageServiceImpl implements UserMessageService {
             				PushExample.SendUsersPushToIOS(content,map, user.getRegistrationid());
 //							StrIOS[ios] = user.getRegistrationid();
 //							ios ++;
+						}else if(user.getPlatformType() != null && user.getPlatformType().getValue() == 0){
+							list_pc.add(userid);
 						}
             		}
             	}
 			}
+            //消息通知给pc客户端,type为4
+            SendUsersPushToPC(list_pc,4,content,host+kickOutUser);
 //            if(StrAndriod.length > 0){
 //            	PushExample.SendUsersPushToAndroid("济南网通知",content,StrAndriod);
 //            }
@@ -143,6 +163,8 @@ public class UserMessageServiceImpl implements UserMessageService {
 //                            .getBytes());  
 //                    System.out.println(" [x] Sent '" + content + "'");
             		PushExample.SendSysPush(content);
+            		//type为5是广播消息给所有用户
+            		SendUsersPushToPC(null,5,content,host+kickOutUser);
             	}
 //            channel.close();  
 //            connection.close();  
@@ -153,5 +175,23 @@ public class UserMessageServiceImpl implements UserMessageService {
             throw new DatabaseException(e.getMessage());
         }
 	}
+	
+	public boolean SendUsersPushToPC(List<Integer> userIds,Integer type,String content,String action) throws YCException {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
+        params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
+        JSONObject reqJson = new JSONObject();
+        reqJson.put("userids",userIds);
+        reqJson.put("type",type);
+        reqJson.put("content",content);
+        String result =  URLConnUtil.doPost(action,reqJson.toString(),params);
+        JSONObject jsonObject = JSONObject.fromObject(result);
+        if(jsonObject.getString("status") .equals("0")){
+            return true;
+        }else {
+            LOG.error("SendUsersPushToPC exception",userIds);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
 
 }
