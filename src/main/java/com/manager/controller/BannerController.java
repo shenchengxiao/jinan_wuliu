@@ -89,7 +89,7 @@ public class BannerController {
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
             apiResponse.setData(page);
-        } catch (YCException e) {
+        } catch (Throwable e) {
             LOG.error("list 发生异常",baseQuery);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());

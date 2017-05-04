@@ -199,17 +199,11 @@
         uc.is_receive_self,
         ul.ip_address
         FROM
-        user u,
-        user_binding ub,
-        user_custom uc,
-        user_loginlog ul
+        user u
+        LEFT JOIN  user_binding ub ON u.id=ub.user_id
+        LEFT JOIN  user_custom uc  ON u.id=uc.user_id
+        LEFT JOIN  user_loginlog ul ON  u.id=ul.user_id
         WHERE
-        u.id=ub.user_id
-        AND
-        u.id=uc.user_id
-        AND
-        u.id=ul.user_id
-        AND
         u.id=#{id}
     </select>
 </mapper>

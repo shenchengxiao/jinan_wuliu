@@ -386,10 +386,33 @@ function clickOffHand()
 			//OnStopLiuyan(lAudioDeviceID);
 			addMessages("摘机成功=>"  + "坐席:" +lAudioDeviceID);
 			//alert('摘机完成');
+			if($("#callee").val() != ''){
+				$.ajax({
+			        url:manage_path+'/api/phone/add',
+			        type:'POST',
+			        dataType:'json',
+			        data:{
+			        	inPhone:$.trim($("#callee").val()),
+			        	isAnswer:1
+			        },
+			        beforeSend:function(){
+			            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+			        },
+			        success:function(data){
+			            if(data.status == 0){
+			               //$.toast('操作成功',5000);
+			            }
+			        },
+			        complete:function(){
+			            $.progressBar().close();
+			        },
+			        error:function(XMLHttpRequest,textStatus,errorThrown){
+			            $.toast('服务器未响应,请稍候重试',5000);
+			        }
+			    });
+			}
 			
-		}
-		else
-		{
+		}else{
 			addMessages("摘机失败");
 		}
 		
@@ -416,9 +439,33 @@ function clickOffHand()
 			
 			SetIdle.style.background="url(../../images/hion/Uc3_p1_27.jpg)";
 			addMessages("挂机成功=>" + "坐席:" +lAudioDeviceID);
-		}
-		else
-		{
+			if($("#callee").val() != ''){
+				$.ajax({
+			        url:manage_path+'/api/phone/add',
+			        type:'POST',
+			        dataType:'json',
+			        data:{
+			        	inPhone:$.trim($("#callee").val()),
+			        	isHang:1
+			        },
+			        beforeSend:function(){
+			            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+			        },
+			        success:function(data){
+			            if(data.status == 0){
+			               //$.toast('操作成功',5000);
+			            }
+			        },
+			        complete:function(){
+			            $.progressBar().close();
+			        },
+			        error:function(XMLHttpRequest,textStatus,errorThrown){
+			            $.toast('服务器未响应,请稍候重试',5000);
+			        }
+			    });
+			}
+			
+		}else{
 			addMessages("挂机失败=>" + "坐席:" +lAudioDeviceID);
 		}   
 	}

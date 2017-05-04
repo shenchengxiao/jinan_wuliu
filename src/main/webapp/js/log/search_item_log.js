@@ -33,9 +33,18 @@ function getSearchLogList() {
                 var temp = "";
                 if (list != null && list.length>0){
                     $.each(list, function (index, item) {
+                        var type = item.type;
+                        if (type == 0){
+                            type= "车源";
+                        }else if (type == 1){
+                            type = "货源";
+                        }else {
+                            type = "";
+                        }
                         temp += '<tr>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
                             + '<td data-title="搜索内容">' + item.searchContent + '</td>'
+                            + '<td data-title="类型">' + type + '</td>'
                             + '<td data-title="查询时间">' + timestampFormat(item.createTime) + '</td>'
                             + '</tr>';
                     })

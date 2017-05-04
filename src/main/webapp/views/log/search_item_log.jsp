@@ -81,6 +81,7 @@
                                     <tr>
                                         <th>用户名称</th>
                                         <th>搜索内容</th>
+                                        <th>类型</th>
                                         <th>查询时间</th>
                                     </tr>
                                     </thead>

@@ -8,6 +8,7 @@
         <result property="userName" jdbcType="VARCHAR" column="username" />
         <result property="searchContent" jdbcType="VARCHAR" column="content" />
         <result property="createTime" jdbcType="TIMESTAMP" column="createtime" />
+        <result property="type" jdbcType="INTEGER" column="type" />
     </resultMap>
 
 
@@ -16,6 +17,7 @@
         SELECT
         q.id,
         q.content,
+        q.type,
         q.createtime,
         u.username
         FROM

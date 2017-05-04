@@ -32,6 +32,11 @@ public class MenuInfoDto implements Serializable{
      */
     private Integer roleType;
 
+    /**
+     * 菜单主键ID
+     */
+    private Integer menuInfoId;
+
     public Integer getId() {
         return id;
     }
@@ -72,6 +77,14 @@ public class MenuInfoDto implements Serializable{
         this.roleType = roleType;
     }
 
+    public Integer getMenuInfoId() {
+        return menuInfoId;
+    }
+
+    public void setMenuInfoId(Integer menuInfoId) {
+        this.menuInfoId = menuInfoId;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("MenuInfoDto{");
@@ -80,6 +93,7 @@ public class MenuInfoDto implements Serializable{
         sb.append(", menuUrl='").append(menuUrl).append('\'');
         sb.append(", parentId=").append(parentId);
         sb.append(", roleType=").append(roleType);
+        sb.append(", menuInfoId=").append(menuInfoId);
         sb.append('}');
         return sb.toString();
     }

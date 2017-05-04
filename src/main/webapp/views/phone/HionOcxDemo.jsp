@@ -65,17 +65,16 @@ function removeEventHandler(target, type, func) {
 
 var OnIncomingPhone = function(lAudioDeviceID, IncomingNum){
 	//alert("Incoming Phone Number : "+IncomingNum);
+	$("#btnCallOut").removeAttr("disabled");
+	$("#callee").val(IncomingNum);
 	window.open(manage_path+'/views/background/user_list.jsp?phoneNumber='+IncomingNum);
 	
 }
 
 var OnDeviceDetect = function(bState, lAudioDeviceID){
-	if(!bState)
-	{
+	if(!bState){
 		addMessages("设备拔出!");
-	}
-	else
-	{
+	}else{
 		addMessages("设备插入!");
 	}
 
@@ -96,8 +95,7 @@ function Init()
 
 
 window.onload = function(){ 
-	coming();
-	addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
+	//addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
 	addEventHandler(myocx,"DeviceDetect",OnDeviceDetect);
 	Init();
 	//buildBtns();
@@ -126,13 +124,10 @@ function getUrl()
 {
      var td  = document.getElementById('btnVOIPIO');
      var url = "";
-     if( document.all )
-     {
+     if( document.all ){
          url=td.currentStyle.backgroundImage;//IE
 		// alert(url);
-     }
-     else
-     {          
+     }else{          
          url= document.defaultView.getComputedStyle(td,null).getPropertyValue('background-image');//FF
      }
    alert(url);
@@ -142,8 +137,6 @@ function getUrl()
    var dizhi = url.substring(url.length-n,url.length);
    alert(dizhi.substring(0,18));
 }
-
-
 
 </script>
 

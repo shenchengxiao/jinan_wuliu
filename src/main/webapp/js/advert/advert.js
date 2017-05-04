@@ -195,6 +195,8 @@ function getAdvertList(){
                         $('#pagination').jqPaginator('destory');
                     }
                 }
+            }else {
+                $.toast(data.message,3000);
             }
         },
         complete:function(){

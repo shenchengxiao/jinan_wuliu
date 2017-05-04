@@ -25,4 +25,43 @@
         WHERE
         t1.be_used = 1
     </select>
+
+
+    <resultMap id="menuResult" type="com.manager.pojo.manual.MenuInfoDto">
+        <id property="menuInfoId" jdbcType="INTEGER" column="menu_info_id" />
+        <result property="menuName" jdbcType="VARCHAR" column="menu_name" />
+        <result property="roleType" jdbcType="INTEGER" column="role_type" />
+    </resultMap>
+
+
+    <!-- 获取所有二级菜单名称 -->
+    <select id="findMenuInfoNameAndId" parameterType="com.manager.request.menu.MenuRequest" resultMap="menuResult">
+        SELECT
+        t1.role_type,
+        t1.menu_info_id,
+        t2.menu_name
+        FROM
+        role_menu_info t1 LEFT JOIN menu_info t2 ON t1.menu_info_id = t2.id
+        WHERE
+        t2.be_used = 1
+        <if test="menuInfoIds != null">
+            AND t1.menu_info_id IN
+            <foreach collection="menuInfoIds" item="menuInfoId" open="(" separator="," close=")">
+             #{menuInfoId}
+            </foreach>
+        </if>
+        ORDER BY t1.menu_info_id ASC
+    </select>
+
+    <!-- 批量更新角色值 -->
+    <update id="batchUpdateRoleType" parameterType="java.util.List">
+        UPDATE
+        role_menu_info
+        SET role_type = #{item.roleType}
+        WHERE menu_info_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.menuInfoId}
+        </foreach>
+    </update>
+
 </mapper>

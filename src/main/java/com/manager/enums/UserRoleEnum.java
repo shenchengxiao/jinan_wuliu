@@ -12,7 +12,8 @@ public enum UserRoleEnum implements IEnum<Integer> {
      * 用户角色
      */
     SuperAdmin(16, "超级管理员"),
-    CustomerServer(32, "客服人员")
+    CustomerServer(32, "客服人员"),
+    Worker(64,  "工作人员")
     ;
     UserRoleEnum(int value, String title) {
         this.value = value;

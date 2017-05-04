@@ -11,6 +11,12 @@ $(function(){
 
     });
 
+    //用户编号监听事件
+    $('#userName').bind('input propertychange', function() {
+        $('#userNum').val($(this).val());
+    });
+
+
 
     //自定义校验规则
     // $.validator.addMethod("isMobile", function(value, element) {
@@ -137,7 +143,35 @@ function addUserInfo(){
     });
 }
 
-
-
+//校验用户是否已存在
+$("#userName").blur(function(){
+    $.ajax({
+        url:manage_path+'/api/user_manage/verify',
+        type:'GET',
+        dataType:'json',
+        data:{userName:$('#userName').val()},
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                if (data.data.length > 0) {
+                    var txt = "此用户已存在,请重新输入！";
+                    window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                    $('#userName').val('');
+                    $('#userNum').val('');
+                }
+            }else {
+                $.toast('操作失败,系统错误',1000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    });
+})
 
 

@@ -214,4 +214,22 @@ public class UserManageController {
         }
         return apiResponse;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/verify",method = RequestMethod.GET)
+    public APIResponse<List<User>> verify(HttpServletRequest request,String userName){
+        APIResponse<List<User>> apiResponse = new APIResponse<>();
+        List<User> list = null;
+        try {
+            list = userManageHandler.verifyNameExist(userName);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+            apiResponse.setData(list);
+        } catch (Throwable e) {
+            LOG.error("获取用户信息发生异常",userName);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 }

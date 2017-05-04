@@ -20,6 +20,7 @@
     <link href="${ctx}/css/default.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/css/date.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/js/libs/uploadify/uploadify.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/css/xcConfirm.css" rel="stylesheet" type="text/css"/>
     <![endif]-->
     <style>
         .table-bordered th,
@@ -40,6 +41,7 @@
 <script src="${ctx}/js/libs/jquery/jqPaginator.js"></script>
 <script src="${ctx}/js/libs/laydate.dev.js"></script>
 <script src="${ctx}/js/libs/typeahead/bootstrap-typeahead.js"></script>
+<script src="${ctx}/js/libs/jquery/xcConfirm.js"></script>
 <script src="${ctx}/js/app.js"></script>
 <script src="${ctx}/js/common.js"></script>
 
