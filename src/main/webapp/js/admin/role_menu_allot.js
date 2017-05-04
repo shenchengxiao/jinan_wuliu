@@ -167,7 +167,6 @@ function addMenuForRole() {
             $.progressBar({message: '<p>正在努力加载数据...</p>', modal: true, canCancel: true});
         },
         success: function (data) {
-            console.log(data);
             if(data.status == 0){
                 $.toast('操作成功',1000);
                 setTimeout(function(){
