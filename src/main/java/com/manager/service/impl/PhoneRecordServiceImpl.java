@@ -123,7 +123,7 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
             	for(PhoneRecord pr : pList){
             		if(pr.getIsAnswer() == 1 && pr.getIsHang() == 1){
             			long between = pr.getOutTime().getTime() - pr.getInTime().getTime();
-            			long min = between/(60*1000); 
+            			long min = between/(1000); 
                 		pr.setDuration(min);
             		}
             	}
@@ -136,7 +136,7 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
             	for(PhoneRecord pr : prList){
             		if(pr.getIsAnswer() == 1 && pr.getIsHang() == 1){
             			long between = pr.getOutTime().getTime() - pr.getInTime().getTime();
-            			long min = between/(60*1000);   
+            			long min = between/(1000);   
                 		pr.setDuration(min);
                 		sumduration += min;
             		}
@@ -156,7 +156,7 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
                 	for(PhoneRecord pr : prCountList){
                 		if(pr.getIsAnswer() == 1 && pr.getIsHang() == 1){
                 			long between = pr.getOutTime().getTime() - pr.getInTime().getTime();
-                			long min = between/(60*1000); 
+                			long min = between/(1000); 
                     		pr.setDuration(min);
                     		totaltime += min;
                 		}

@@ -101,7 +101,7 @@
                                 <div class="span11" align="right">
                                     <div class="controls">
 										总数量：<span id="total"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-										总时长(分钟)：<span id="totaltime"></span>
+										总时长(秒)：<span id="totaltime"></span>
                                     </div>
                                 </div>
                         </div>
@@ -115,7 +115,7 @@
                                         <th>打入电话</th>
                                         <th>打入时间</th>
                                         <th>断开时间</th>
-                                        <th>时长(分钟)</th>
+                                        <th>时长(秒)</th>
                                         <th>客服编号</th>
                                     </tr>
                                     </thead>
