@@ -95,7 +95,7 @@ function Init()
 
 
 window.onload = function(){ 
-	//addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
+	addEventHandler(myocx,"IncomingPhone",OnIncomingPhone);
 	addEventHandler(myocx,"DeviceDetect",OnDeviceDetect);
 	Init();
 	//buildBtns();
