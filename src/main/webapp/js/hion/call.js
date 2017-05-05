@@ -620,7 +620,7 @@ function clickTalkRecIO()
 //alert(jsPath.substring(8,(jsPath.length-3)));
 //alert(str.substring(0,10));---------"0123456789"
 
-var url = window.location.href;
+/*var url = window.location.href;
 //alert(url);
 var pathfile = url.substring(21,(url.length-16));
 //alert(pathfile);
@@ -638,7 +638,7 @@ if (!objFSO.FolderExists(strFolder)){
   // 创建文件夹
   var strFolderName = objFSO.CreateFolder(strFolder);
   //document.write("创建文件夹: " + strFolderName + "<br>"); 
-}
+}*/
 
 
 
@@ -654,6 +654,9 @@ function clickRecordFile()
 	var oldtime = new Date().getTime();
 	
 	var lAudioDeviceID = 0;
+	
+	var strFolder = "E:\\record";
+	
 	var strFileName = strFolder + "\\" + oldtime +".mp3";
 	//var strFileName = "sound.mp3";
 	//addMessages('录音文件地址:' + strFileName);
