@@ -182,6 +182,7 @@ public class UserManageController {
     	APIResponse apiResponse = new APIResponse();
     	try {
     		apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
             apiResponse.setData(userManageHandler.selectByParam(user));
 	    } catch (Throwable e) {

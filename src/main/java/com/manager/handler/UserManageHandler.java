@@ -287,23 +287,24 @@ public class UserManageHandler {
                 String name = jObject.getString("name");
                 String userid ="";
                 //先处理
-                if (name.contains("_")) {
-                   userid = StringUtils.substringAfterLast(name, "_");
-                }else {
+                if (!name.contains("_")) {
                     userid = name;
+                    list.add(Integer.valueOf(userid));
                 }
-                list.add(Integer.valueOf(userid));
             }
+
             //ID去重
-            HashSet idset = new HashSet();
-            for (Integer id : list){
-                idset.add(id);
+            if (list != null && list.size() > 0) {
+                HashSet idset = new HashSet();
+                for (Integer id : list) {
+                    idset.add(id);
+                }
+                List<Integer> integerList = new ArrayList<>();
+                for (Object object : idset) {
+                    integerList.add((Integer) object);
+                }
+                request.setIdsList(integerList);
             }
-            List<Integer> integerList = new ArrayList<>();
-            for (Object object : idset){
-                integerList.add((Integer) object);
-            }
-            request.setIdsList(integerList);
         }
         Page<UserMangeResponse> userMangeResponsePage = null;
         try {
@@ -382,11 +383,16 @@ public class UserManageHandler {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
-        JSONObject reqJson = new JSONObject();
-        reqJson.put("userids",userIds);
-        reqJson.put("type",3);
+//        JSONObject reqJson = new JSONObject();
+//        reqJson.put("userids",userIds);
+//        reqJson.put("type",3);
         List<NameValuePair> params2 = new ArrayList<NameValuePair>();
-        params2.add(new BasicNameValuePair("userids", String.join(",", (String[])userIds.toArray())));
+        String[] arr=new String[userIds.size()];
+        for (int i=0;i<userIds.size();i++){
+            arr[i] = String.valueOf(userIds.get(i));
+        }
+
+        params2.add(new BasicNameValuePair("userids", "arr"));
         params2.add(new BasicNameValuePair("type", "3"));
 //        String result =  URLConnUtil.doPost(action, reqJson.toString(), params);
         String result =  URLConnUtil.doGet(action, params2, params);
