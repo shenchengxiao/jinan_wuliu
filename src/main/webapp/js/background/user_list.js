@@ -77,7 +77,7 @@ $(function(){
             console.log(check[0]);
             if(flag){
                 check[0].checked = false;
-                removeInArr(thisID);
+                (thisID);
                 console.log(idsArr);
                 setIdsInfo();
             }else{
