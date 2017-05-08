@@ -287,18 +287,18 @@
                                             </div>
                                         </div>
                                         <!--/span-->
-                                        <div class="span6 ">
+                                        <!-- <div class="span6 ">
                                             <div class="control-group">
                                                 <label class="control-label">是否可以发布信息:</label>
                                                 <div class="controls">
                                                     <span class="text bold" name="is_send_message"></span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!--/span-->
                                     </div>
 
-                                    <div class="row-fluid">
+                                    <!-- <div class="row-fluid">
                                         <div class="span6 ">
                                             <div class="control-group">
                                                 <label class="control-label">是否可以接收:</label>
@@ -307,7 +307,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--/span-->
+                                        /span
                                         <div class="span6 ">
                                             <div class="control-group">
                                                 <label class="control-label">是否可以接收自己发布的:</label>
@@ -316,8 +316,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--/span-->
-                                    </div>
+                                        /span
+                                    </div> -->
 
                                     <div class="row-fluid">
                                         <div class="span6 ">
