@@ -13,4 +13,6 @@ import java.util.List;
 public interface ICustomizedQueryMapper {
 
    List<QueryInfoResponse> findQueryInfoPage(QueryRequest request);
+
+   int batchDelete(List<Integer> ids);
 }

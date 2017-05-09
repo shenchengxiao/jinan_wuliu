@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by shencx on 2017/4/19.
@@ -44,6 +45,21 @@ public class QueryServiceImpl implements QueryService{
         } catch (Throwable e) {
            LOG.error("fetchQueryInfoList 异常",e);
            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean batchDeleteQuery(List<Integer> list) throws DatabaseException {
+        try {
+            if (list == null || list.size() <= 0){
+                LOG.error("batchDeleteQuery 信息为空",list);
+                return false;
+            }
+            Integer val = customizedQueryMapper.batchDelete(list);
+            return val>0?true:false;
+        }catch (Throwable e) {
+            LOG.error("batchDeleteQuery 异常",e);
+            throw new DatabaseException(e.getMessage());
         }
     }
 }

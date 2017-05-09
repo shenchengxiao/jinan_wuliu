@@ -75,6 +75,8 @@ public class UserInfoHandler {
         Validator.isEmpty(userInfo.getUserName(), YCSystemStatusEnum.USER_NAME);
         Validator.isEmpty(userInfo.getPasswd(), YCSystemStatusEnum.USER_PASSWD);
         Validator.isEmpty(userInfo.getRole(), YCSystemStatusEnum.USER_ROLE);
+        UserInfoRequest userInfoRequest = new UserInfoRequest();
+        userInfoRequest.setPasswd(userInfo.getPasswd());
 
         try {
             //ID为空则添加，否则更新
@@ -83,6 +85,10 @@ public class UserInfoHandler {
                 userInfo.setBeUsed(1);
                 adminInfoService.addUserInfo(userInfo);
             }else {
+                Admin admin = adminInfoService.fetchUserInfoById(userInfoRequest);
+                if (admin == null){
+                    userInfo.setPasswd(PasswordEncrypt.encrypt(userInfo.getUserName(),userInfo.getPasswd()));
+                }
                 adminInfoService.updateUserInfo(userInfo);
             }
         } catch (DatabaseException e) {
@@ -119,9 +125,11 @@ public class UserInfoHandler {
     public Admin fetchUserInfoDetail(Integer id) throws YCException {
         /** 参数校验 */
         Validator.isEmpty(id,YCSystemStatusEnum.USER_ID_EMPTY);
+        UserInfoRequest userInfoRequest = new UserInfoRequest();
+        userInfoRequest.setId(id);
         Admin userInfo = null;
         try {
-            userInfo = adminInfoService.fetchUserInfoById(id);
+            userInfo = adminInfoService.fetchUserInfoById(userInfoRequest);
         } catch (DatabaseException e) {
             LOG.error("fetchUserInfoDetail exception",id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());

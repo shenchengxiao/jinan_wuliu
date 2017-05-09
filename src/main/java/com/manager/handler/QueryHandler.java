@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shencx on 2017/4/19.
@@ -42,6 +44,24 @@ public class QueryHandler {
             return page;
         } catch (DatabaseException e) {
             LOG.error("getQueryInfoList exception",queryRequest);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+    }
+
+    /**
+     * 批量删除日志
+     * @param ids
+     * @throws YCException
+     */
+    public void batchDelete(String[] ids) throws YCException {
+        List<Integer> list = new ArrayList<>();
+        for (String id : ids){
+            list.add(Integer.valueOf(id));
+        }
+        try {
+            queryService.batchDeleteQuery(list);
+        }  catch (DatabaseException e) {
+            LOG.error("batchDelete exception",ids);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }

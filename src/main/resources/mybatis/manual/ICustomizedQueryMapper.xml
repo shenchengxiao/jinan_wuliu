@@ -33,4 +33,17 @@
         </if>
         ORDER BY q.createtime DESC
     </select>
+
+
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE
+        FROM
+        query
+        WHERE
+        id IN
+        <foreach item="id" index="index" collection="list" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

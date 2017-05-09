@@ -173,6 +173,8 @@ public class BannerServiceImpl implements BannerService{
             BannerInfoExample example = new BannerInfoExample();
             BannerInfoExample.Criteria criteria = example.createCriteria();
             criteria.andBeUsedEqualTo(YesNoEnum.YES);
+            criteria.andStartTimeLessThanOrEqualTo(new Date());
+            criteria.andEndTimeGreaterThanOrEqualTo(new Date());
             example.setOrderByClause("create_time desc");
             List<BannerInfo> list = bannerInfoMapper.selectByExample(example);
             return list;

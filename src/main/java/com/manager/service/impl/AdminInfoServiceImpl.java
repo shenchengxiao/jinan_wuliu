@@ -155,16 +155,29 @@ public class AdminInfoServiceImpl implements AdminInfoService {
     }
 
     @Override
-    public Admin fetchUserInfoById(Integer id) throws DatabaseException {
+    public Admin fetchUserInfoById(UserInfoRequest request) throws DatabaseException {
         try {
-            if (id == null){
-                LOG.error("fetchUserInfoById id为空",id);
+            if (request == null){
+                LOG.error("fetchUserInfoById 为空",request);
                 return null;
             }
-            Admin userInfo = userInfoMapper.selectByPrimaryKey(id);
-            return userInfo;
+            AdminExample example = new AdminExample();
+            AdminExample.Criteria criteria = example.createCriteria();
+            if (request.getId() != null){
+                criteria.andIdEqualTo(request.getId());
+            }
+            if (StringUtils.isNoneBlank(request.getPasswd())){
+                criteria.andPasswdEqualTo(request.getPasswd());
+            }
+            List<Admin> list = userInfoMapper.selectByExample(example);
+            if (list != null && list.size() > 0){
+                return list.get(0);
+            }else {
+                return null;
+            }
+
         } catch (Throwable e) {
-            LOG.error("fetchUserInfoById 异常",id);
+            LOG.error("fetchUserInfoById 异常",request);
             throw new DatabaseException(e.getMessage());
         }
     }

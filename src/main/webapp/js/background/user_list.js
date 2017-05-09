@@ -74,16 +74,19 @@ $(function(){
         var thisID = $(this).parent().find("input[name=idArr]").val();
         if(check){
             var flag = check[0].checked;
-            console.log(check[0]);
             if(flag){
                 check[0].checked = false;
-                (thisID);
-                console.log(idsArr);
+                removeInArr(thisID);
+                $(this).parent().find("td").css({
+                        backgroundColor: ''
+                    })
                 setIdsInfo();
             }else{
                 check[0].checked = true;
                 idsArr.push(thisID);
-                console.log(idsArr);
+                $(this).parent().find("td").css({
+                    backgroundColor: '#bee4ca'
+                 })
                 setIdsInfo();
 
             }
@@ -98,12 +101,16 @@ $(function(){
         var thisID = $(this).next('input').val();
         if($(this).is(':checked')){
             idsArr.push(thisID);
-            console.log(idsArr);
             setIdsInfo();
+            $(this).parent().parent().find("td").css({
+                backgroundColor: '#bee4ca'
+            })
         }else{
             removeInArr(thisID);
-            console.log(idsArr);
             setIdsInfo();
+            $(this).parent().parent().find("td").css({
+                backgroundColor: ''
+            })
         }
     })
 
@@ -411,6 +418,14 @@ function getUserList(){
 
                         var citylist ='<a href="city_list.jsp?id='+item.id+'" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="定制城市" ><i class="icon-globe"></i></a>&nbsp;'
 
+
+                        var hardNum = item.hardNum.toString();
+                        if (hardNum.length > 10 && hardNum != 0){
+                            hardNum = hardNum.substring(0,7)+"...";
+                        }else {
+                            hardNum
+                        }
+
                         //操作按钮拼接
                         operation = upDown + ' <a href="user_edit.jsp?id='+item.id+'" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" ><i class="icon-edit icon-white"></i></a> '
                         	+ Deleted + push + citylist;
@@ -426,15 +441,15 @@ function getUserList(){
                             + '<td data-title="县区">' + item.county + '</td>'
                             + '<td data-title="服务开始时间">' + timestampFormat(item.startTime) + '</td>'
                             + '<td data-title="服务结束时间">' + timestampFormat(item.endTime) + '</td>'
-                            + '<td data-title="设备码">' + item.hardNum + '</td>'
-                            + '<td data-title="话机码">' + item.networkNum + '</td>'
+                            + '<td data-title="设备码" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.hardNum+'" >' + hardNum + '</td>'
+                            + '<td data-title="话机码" >' + item.networkNum + '</td>'
                             + '<td data-title="状态">'+  enabled +  '</td>'
                             + '<td data-title="平台">'+  platform +  '</td>'
                             + '<td data-title="操作">' + operation + '</td>'
                             + '</tr>';
                     })
                     $('#user_manage_list tbody').html(temp);
-                    // $("[data-toggle='popover']").popover();
+                    $("[data-toggle='popover']").popover();
                     //操作按钮hover显示详情
                     $("[data-toggle='tooltip']").tooltip();
                     $("[data-toggle='modal']").tooltip();

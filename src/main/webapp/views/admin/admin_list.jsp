@@ -50,7 +50,7 @@
                                 用户列表
                             </div>
                             <div class="actions">
-                                <a data-toggle="modal" href="#addUserModal" class="btn green repoActivity" id="btn_addRole_modal">
+                                <a class="btn green repoActivity" id="btn_addRole_modal">
                                     <i class="icon-pencil"></i>
                                     添加用户
                                 </a>
@@ -103,14 +103,6 @@
                         <h4 class="modal-title" id="myModalLabel">添加用户</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-error hide">
-                            <button class="close" data-dismiss="alert"></button>
-                            您的输入有错，请您检查后再提交!
-                        </div>
-                        <div class="alert alert-success hide">
-                            <button class="close" data-dismiss="alert"></button>
-                            恭喜您，您输入的内容完全正确！
-                        </div>
                         <div class="control-group">
                             <label class="control-label">用户名<span class="required">*</span></label>
                             <div class="controls">

@@ -37,7 +37,7 @@ public interface AdminInfoService {
 
     boolean deleteUserInfo(Integer id) throws DatabaseException;
 
-    Admin fetchUserInfoById(Integer id) throws DatabaseException;
+    Admin fetchUserInfoById(UserInfoRequest request) throws DatabaseException;
 
 
 }

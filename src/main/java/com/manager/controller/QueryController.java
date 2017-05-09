@@ -1,6 +1,5 @@
 package com.manager.controller;
 
-import com.manager.exception.YCException;
 import com.manager.handler.QueryHandler;
 import com.manager.request.query.QueryRequest;
 import com.manager.response.QueryInfoResponse;
@@ -47,6 +46,28 @@ public class QueryController {
             apiResponse.setData(queryInfoResponsePage);
         } catch (Throwable e) {
             LOG.error("获取查询日志列表发生异常",queryRequest);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
+
+    /**
+     * 批量删除日志
+     * @param request
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/batch_delete",method = RequestMethod.POST)
+    public APIResponse batchDelete(HttpServletRequest request, String[] ids){
+        APIResponse apiResponse = new APIResponse();
+        try {
+            queryHandler.batchDelete(ids);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("批量删除日志发生异常",ids);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }

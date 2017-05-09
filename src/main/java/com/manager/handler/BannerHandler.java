@@ -8,6 +8,7 @@ import com.manager.pojo.Advert;
 import com.manager.pojo.BannerInfo;
 import com.manager.request.BaseQuery;
 import com.manager.request.advert.AdvertInfoRequest;
+import com.manager.request.advert.BannerInfoRequest;
 import com.manager.response.AppAdvertisementResponse;
 import com.manager.response.AppBannerResponse;
 import com.manager.response.BannerInfoResponse;
@@ -48,15 +49,23 @@ public class BannerHandler {
 
     /**
      * 添加 修改
-     * @param bannerInfo
+     * @param bannerInfoRequest
      * @throws YCException
      * @throws IOException
      */
-    public void addBanner(BannerInfo bannerInfo) throws YCException, IOException {
+    public void addBanner(BannerInfoRequest bannerInfoRequest) throws YCException, IOException {
         /** 参数校验 */
-        Validator.isEmpty(bannerInfo, YCSystemStatusEnum.PARAM_EMPTY);
-        Validator.isEmpty(bannerInfo.getBannerName(),"图片名称不能为空");
-        Validator.isEmpty(bannerInfo.getImageUrl(),"图片地址不能为空");
+        Validator.isEmpty(bannerInfoRequest, YCSystemStatusEnum.PARAM_EMPTY);
+        Validator.isEmpty(bannerInfoRequest.getBannerName(),"图片名称不能为空");
+        Validator.isEmpty(bannerInfoRequest.getImageUrl(),"图片地址不能为空");
+
+        BannerInfo bannerInfo = new BannerInfo();
+        bannerInfo.setId(bannerInfoRequest.getId());
+        bannerInfo.setBannerName(bannerInfoRequest.getBannerName());
+        bannerInfo.setImageUrl(bannerInfoRequest.getImageUrl());
+        bannerInfo.setStartTime(DateTimeUtil.convertDate(bannerInfoRequest.getStartTime()));
+        bannerInfo.setEndTime(DateTimeUtil.convertDate(bannerInfoRequest.getEndTime()));
+        bannerInfo.setLinkUrl(bannerInfoRequest.getLinkUrl());
 
         try {
             if (bannerInfo.getId() == null) {
@@ -65,7 +74,7 @@ public class BannerHandler {
                 bannerService.updateBannerInfo(bannerInfo);
             }
         } catch (DatabaseException e) {
-            LOG.error("addBanner exception",bannerInfo);
+            LOG.error("addBanner exception",bannerInfoRequest);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
 
@@ -160,6 +169,13 @@ public class BannerHandler {
         bannerInfoResponse.setBannerName(bannerInfo.getBannerName());
         bannerInfoResponse.setImageUrl(bannerInfo.getImageUrl());
         bannerInfoResponse.setStatus(bannerInfo.getBeUsed().getValue());
+        if (bannerInfo.getStartTime() != null) {
+            bannerInfoResponse.setStartTime(DateTimeUtil.formatDateTime(bannerInfo.getStartTime()));
+        }
+        if (bannerInfo.getEndTime() != null) {
+            bannerInfoResponse.setEndTime(DateTimeUtil.formatDateTime(bannerInfo.getEndTime()));
+        }
+        bannerInfoResponse.setLinkUrl(bannerInfo.getLinkUrl());
         return bannerInfoResponse;
     }
 

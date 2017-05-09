@@ -47,11 +47,11 @@
         <!--<table tableName="admin">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-        <!--<table tableName="banner_info">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
-            <!--&lt;!&ndash; 转换成枚举 &ndash;&gt;-->
-            <!--<columnOverride column="be_used" javaType="com.manager.enums.YesNoEnum"/>-->
-        <!--</table>-->
+        <table tableName="banner_info">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+            <!-- 转换成枚举 -->
+            <columnOverride column="be_used" javaType="com.manager.enums.YesNoEnum"/>
+        </table>
         <!--<table tableName="query">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
@@ -61,29 +61,29 @@
             <!--&lt;!&ndash; 转换成枚举 &ndash;&gt;-->
             <!--<columnOverride column="platform_type" javaType="com.manager.enums.PlatformTypeEnum"/>-->
         <!--</table>-->
-        <table tableName="user">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-            <columnOverride column="status" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_manager" javaType="com.manager.enums.ManagerTypeEnum"/>
-            <columnOverride column="is_synchro" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="platform_type" javaType="com.manager.enums.PlatformTypeEnum"/>
-        </table>
+        <!--<table tableName="user">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+            <!--<columnOverride column="status" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_manager" javaType="com.manager.enums.ManagerTypeEnum"/>-->
+            <!--<columnOverride column="is_synchro" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="platform_type" javaType="com.manager.enums.PlatformTypeEnum"/>-->
+        <!--</table>-->
 
-        <table tableName="user_custom">
-             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-             <columnOverride column="is_send" javaType="com.manager.enums.YesNoEnum"/>
-             <columnOverride column="is_receive" javaType="com.manager.enums.YesNoEnum"/>
-             <columnOverride column="is_receive_self" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_manager" javaType="com.manager.enums.ManagerTypeEnum"/>
-            <columnOverride column="platform_type" javaType="com.manager.enums.PlatformTypeEnum"/>
-            <columnOverride column="is_binding" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_phone_limit" javaType="com.manager.enums.YesNoEnum"/>
+        <!--<table tableName="user_custom">-->
+             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+             <!--<columnOverride column="is_send" javaType="com.manager.enums.YesNoEnum"/>-->
+             <!--<columnOverride column="is_receive" javaType="com.manager.enums.YesNoEnum"/>-->
+             <!--<columnOverride column="is_receive_self" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_manager" javaType="com.manager.enums.ManagerTypeEnum"/>-->
+            <!--<columnOverride column="platform_type" javaType="com.manager.enums.PlatformTypeEnum"/>-->
+            <!--<columnOverride column="is_binding" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_phone_limit" javaType="com.manager.enums.YesNoEnum"/>-->
 
-            <columnOverride column="is_receive_car" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_receive_goods" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_send_car" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_send_goods" javaType="com.manager.enums.YesNoEnum"/>
-            <columnOverride column="is_look_phone" javaType="com.manager.enums.YesNoEnum"/>
-        </table>
+            <!--<columnOverride column="is_receive_car" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_receive_goods" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_send_car" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_send_goods" javaType="com.manager.enums.YesNoEnum"/>-->
+            <!--<columnOverride column="is_look_phone" javaType="com.manager.enums.YesNoEnum"/>-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

@@ -110,7 +110,30 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="id">
+                        <!--开始时间-->
+                        <div class="control-group">
+                            <label class="control-label">开始日期：<span class="required">*</span></label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input data-laydate="start" class="span9 m-wrap input-small start-time mh_date" type="text" value="" name="startTime" id="startTime" readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--结束时间-->
+                        <div class="control-group">
+                            <label class="control-label">结束日期：<span class="required">*</span></label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input data-laydate="end" class="span9 m-wrap input-small end-time mh_date" type="text" value="" name="endTime" id="endTime" readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">链接地址:</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap name_text_adName" name="linkUrl" id="linkUrl">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
