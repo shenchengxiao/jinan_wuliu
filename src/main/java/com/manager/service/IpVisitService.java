@@ -1,5 +1,7 @@
 package com.manager.service;
 
+import java.util.List;
+
 import com.manager.exception.DatabaseException;
 import com.manager.pojo.IpVisit;
 import com.manager.pojo.manual.UserLoginlogResponse;
@@ -21,5 +23,7 @@ public interface IpVisitService {
 	void updateServer(IpVisit ipVisit) throws DatabaseException;
 
 	void deleteServer(Integer id)throws DatabaseException;
+
+	boolean delLoginLogs(List<Integer> list) throws DatabaseException;
 
 }

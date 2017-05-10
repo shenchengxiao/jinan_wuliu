@@ -188,5 +188,25 @@ public class ItemServiceImpl implements ItemService {
 		}
 	}
 
+	@Override
+	public boolean deleteItemsLog(List<Long> ids_arr) throws DatabaseException {
+		try {
+			int result = 0;
+            if (ids_arr .size() <= 0){
+                LOG.error("deleteItemsLog ids为空",ids_arr);
+                return false;
+            }
+            for(int i = 0; i < ids_arr.size(); i++){
+            	
+            	result = itemResponseMapper.deleteItemLogByPrimaryKey(ids_arr.get(i));
+            }
+    		
+    		return result> 0?true:false;
+        } catch (Throwable e) {
+            LOG.error("deleteUserInfo 异常",ids_arr);
+            throw new DatabaseException(e.getMessage());
+        }
+	}
+
 
 }

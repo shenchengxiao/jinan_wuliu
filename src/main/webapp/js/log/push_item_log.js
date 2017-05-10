@@ -2,10 +2,10 @@
 
 $(function(){
 
-    //getItemList();//先执行一次获取banner列表信息；
+    getItemList();//获取所有的信息列表；
     $('#btn_search_item').on('click',function(){
         $("#pageNum").val(1);
-        getItemList();//获取banner列表信息；
+        getItemList();//获取信息列表；
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
@@ -102,15 +102,18 @@ function removeInArr(val) {
 
 
 $('#btn_remove').on('click',function(){
-    delmodifyState();
+    delmodifyState(idsArr);
 });
 
 });
 
-function delmodifyState(){
+function delmodifyState(idsArr){
+	if(idsArr == null || idsArr.length == 0){
+        alert("请先选择信息");
+	}else{
     if(!confirm("确定删除多条吗?")) return;
     $.ajax({
-        url: manage_path+'/api/item/deleteItems',
+        url: manage_path+'/api/item/deleteItemsLog',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -135,7 +138,7 @@ function delmodifyState(){
             $.toast('服务器未响应,请稍候重试',5000);
         }
     })
-
+	}
 }
 
 function getItemList(){
@@ -147,9 +150,9 @@ function getItemList(){
         type: 'GET',
         dataType: 'json',
         data: $('#item_list_form').serialize(), //通过表单id进行序列化提交
-        beforeSend:function(data){
+        /*beforeSend:function(data){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCancel:true});
-        },
+        },*/
         success:function(data){
             if(data.status == 0) {
                 var json = data.data;
@@ -159,9 +162,9 @@ function getItemList(){
 	                $.each(list, function (index, item) {
 	                    var _typeId = item.typeId;//banner状态
 	                    if(_typeId == 0){
-	                    	_typeId = "车源";
+	                    	_typeId = '<img src="che.png"/>';
 	                    }else if(_typeId == 1){
-	                    	_typeId = "货源";
+	                    	_typeId = '<img src="huo.png"/>';
 	                    }else{
 	                    	_typeId = "";
 	                    }
@@ -190,7 +193,7 @@ function getItemList(){
 //	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="更改状态为已成交" onclick="updateItemStatue(' + item.itemId + ')"><i class="icon-edit icon-white"></i></a> ' + Deleted;
 	                    
 	                    temp += '<tr>'
-//	                    	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.itemId+'"/>'+ '</td>'
+	                    	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.itemId+'"/>'+ '</td>'
 	                        + '<td data-title="用户编号">' + num + '</td>'
 	                        + '<td data-title="用户电话">' + item.userPhones + '</td>'
 	                        + '<td data-title="类型">' + _typeId + '</td>'

@@ -82,5 +82,9 @@
         </if>
         ORDER BY ib.create_time DESC
     </select>
+	  <delete id="deleteItemLogByPrimaryKey" parameterType="java.lang.Long" >
+	    delete from items_backup
+	    where item_id = #{itemId,jdbcType=BIGINT}
+	  </delete>
 
 </mapper>

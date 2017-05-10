@@ -289,12 +289,18 @@ $(function(){
         rules:{
             content:{
                 required: true
-            }
+            },
+            mType:{
+		    	required: true
+		    }
         },
         messages:{
         	content:{
                 required:'请输入消息内容'
-            }
+            },
+            mType:{
+	        	required:'请选择消息类型'
+	        }
         },
         invalidHandler:function(event,validator){
             $('.alert-success').hide();

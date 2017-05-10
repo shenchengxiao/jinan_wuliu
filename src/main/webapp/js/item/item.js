@@ -102,12 +102,15 @@ function removeInArr(val) {
 
 
 $('#btn_remove').on('click',function(){
-    delmodifyState();
+    delmodifyState(idsArr);
 });
 
 });
 
-function delmodifyState(){
+function delmodifyState(idsArr){
+	if(idsArr == null || idsArr.length == 0){
+        alert("请先选择信息");
+	}else{
     if(!confirm("确定删除多条吗?")) return;
     $.ajax({
         url: manage_path+'/api/item/deleteItems',
@@ -135,9 +138,9 @@ function delmodifyState(){
             $.toast('服务器未响应,请稍候重试',5000);
         }
     })
-
+	}
 }
-
+setTimeout(function(){location.reload()},30000);
 function getItemList(){
     var temp = "";
     var enabled="";
@@ -159,9 +162,9 @@ function getItemList(){
 	                $.each(list, function (index, item) {
 	                    var _typeId = item.typeId;
 	                    if(_typeId == 0){
-	                    	_typeId = "车源";
+	                    	_typeId = '<img src="che.png"/>';
 	                    }else if(_typeId == 1){
-	                    	_typeId = "货源";
+	                    	_typeId = '<img src="huo.png"/>';
 	                    }else{
 	                    	_typeId = "";
 	                    }
@@ -170,7 +173,7 @@ function getItemList(){
 	                    if(item_statue == 1){
 	                    	item_statue = "已成交";
 	                    }else{
-	                    	item_statue = "";
+	                    	item_statue = "未成交";
 	                    }
 	                    
 	                    var num = item.userNum;

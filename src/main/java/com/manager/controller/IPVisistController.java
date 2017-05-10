@@ -153,4 +153,26 @@ public class IPVisistController {
         }
         return apiResponse;
     }
+    
+    /**
+     * 批量删除登录日志
+     * @param request
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delLoginLogs",method = RequestMethod.POST)
+    public APIResponse delLoginLogs(HttpServletRequest request, String ids){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+        	ipVisitHandler.delLoginLogs(ids);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("删除信息发生异常",ids);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 }

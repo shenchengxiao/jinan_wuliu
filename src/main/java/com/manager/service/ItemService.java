@@ -21,4 +21,6 @@ public interface ItemService {
 
 	Page<ItemResponse> fetchItemBackupList(ItemRequest itemRequest) throws DatabaseException;
 
+	boolean deleteItemsLog(List<Long> list) throws DatabaseException;
+
 }

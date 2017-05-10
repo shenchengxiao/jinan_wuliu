@@ -63,6 +63,26 @@
 					            <div class="modal-dialog">
 					                <div class="modal-content">
 					                    <div class="modal-body">
+					                    	<!-- <div class="span2">
+					                    		<label class="control-label">消息类型: <span class="required">*</span></label>
+	                                            <select class="m-wrap span6" name="mType" >
+	                                                <option value="" selected>-请选择-</option>
+	                                                <option value="0">车源</option>
+	                                                <option value="1">货源</option>
+	                                            </select>
+                                    		</div>  -->    
+					                        <div class="control-group">
+					                            <label class="control-label">消息类型: <span class="required">*</span></label>
+					                            <div class="controls">
+					                                <select class="m-wrap span2" id="mType" name="mType" >
+	                                                <option value="" selected>-请选择-</option>
+	                                                <option value="100">公告</option>
+	                                                <option value="101">提示</option>
+	                                                <option value="102">警告</option>
+	                                                <option value="103">踢出</option>
+	                                            </select>
+					                            </div>
+					                        </div>
 					                        <div class="control-group">
 					                            <label class="control-label">系统消息内容: <span class="required">*</span></label>
 					                            <div class="controls">

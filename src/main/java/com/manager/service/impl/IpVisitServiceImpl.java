@@ -1,6 +1,8 @@
 package com.manager.service.impl;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.manager.exception.DatabaseException;
 import com.manager.interceptor.PageMybatisInterceptor;
 import com.manager.mapper.IpVisitMapper;
+import com.manager.mapper.UserLoginlogMapper;
 import com.manager.mapper.manual.UserLoginLogResponseMapper;
 import com.manager.pojo.IpVisit;
 import com.manager.pojo.IpVisitExample;
@@ -27,6 +30,8 @@ public class IpVisitServiceImpl implements IpVisitService {
 	private IpVisitMapper mapper;
 	@Resource
 	private UserLoginLogResponseMapper userLoginLogResponseMapper;
+	@Resource
+	private UserLoginlogMapper userLoginlogMapper;
 	
 	 Logger LOG = LoggerFactory.getLogger(IpVisitServiceImpl.class);
 
@@ -91,6 +96,27 @@ public class IpVisitServiceImpl implements IpVisitService {
 	public void deleteServer(Integer id) throws DatabaseException {
 		// TODO Auto-generated method stub
 		mapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public boolean delLoginLogs(List<Integer> ids_arr) throws DatabaseException {
+		// TODO Auto-generated method stub
+		try {
+			int result = 0;
+            if (ids_arr .size() <= 0){
+                LOG.error("delLoginLogs ids为空",ids_arr);
+                return false;
+            }
+            for(int i = 0; i < ids_arr.size(); i++){
+            	
+            	result = userLoginlogMapper.deleteByPrimaryKey(ids_arr.get(i));
+            }
+    		
+    		return result> 0?true:false;
+        } catch (Throwable e) {
+            LOG.error("deleteUserInfo 异常",ids_arr);
+            throw new DatabaseException(e.getMessage());
+        }
 	}
 
 }

@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -102,6 +103,15 @@ public class UserManageHandler {
         user.setCheckLimit(request.getCheckLimit());
         user.setCheckNum(request.getCheckNum());
         user.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
+        if(request.getInLine1() != null && request.getInLine1() != "" && (request.getInLine2() == null || request.getInLine2() == "")){
+        	user.setInLine("内线:"+request.getInLine1());
+        }
+        if(request.getInLine2() != null && request.getInLine2() != "" && (request.getInLine1() == null || request.getInLine1() == "")){
+        	user.setInLine("电信内线:"+request.getInLine2());
+        }
+        if(request.getInLine2() != null && request.getInLine2() != "" && request.getInLine1() != null && request.getInLine1() != ""){
+        	user.setInLine("内线:"+request.getInLine1()+"#"+"电信内线:"+request.getInLine2());
+        }
 
         //是否发布接收信息入库
         UserCustom userCustom = new UserCustom();
@@ -128,15 +138,6 @@ public class UserManageHandler {
         try {
             //判断ID是否为空，是则添加，否则更新
             if (request.getId() == null){
-            	if(request.getInLine1() != null && request.getInLine1() != "" && (request.getInLine2() == null || request.getInLine2() == "")){
-            		user.setInLine("内线:"+request.getInLine1());
-            	}
-            	if(request.getInLine2() != null && request.getInLine2() != "" && (request.getInLine1() == null || request.getInLine1() == "")){
-            		user.setInLine("电信内线:"+request.getInLine2());
-            	}
-            	if(request.getInLine2() != null && request.getInLine2() != "" && request.getInLine1() != null && request.getInLine1() != ""){
-            		user.setInLine("内线:"+request.getInLine1()+"#"+"电信内线:"+request.getInLine2());
-            	}
             	
                 Integer id = userInfoService.addUser(user);
 
@@ -148,7 +149,7 @@ public class UserManageHandler {
                 userBinding.setUserId(id);
                 bindingService.addBinding(userBinding);
             }else {
-                userInfoService.updateUser(user);
+                userInfoService.updateUser(user); 
 
                 //修改定制信息
                 userCustom.setUserId(request.getId());
@@ -327,7 +328,8 @@ public class UserManageHandler {
         List<Integer> listAll = new ArrayList<>();
         //int type = 0;//1.代表给单独或多个用户发送消息通知;2.踢出用户;0.代表广播系统消息
         Map<String, String> map = new HashMap<>();
-        map.put("type", "2");
+        map.put("type", "103");
+        try {
         for (String ids : userIds) {
             Integer id = Integer.valueOf(ids);
         	User user = userInfoService.selectById(id);
@@ -335,7 +337,7 @@ public class UserManageHandler {
         		if(user.getPlatformType().getValue() == 0){
         			list.add(Integer.valueOf(ids));
                     //踢出用户(pc客户端)
-                    kickOutByUserId(list,kickoutUrl);
+//                    kickOutByUserId(list,kickoutUrl);
         		}else if(user.getPlatformType().getValue() == 1  && user.getRegistrationid() != null){
         			//踢出ios用户
         			String msgContent = "被物流网客服强迫下线";
@@ -348,11 +350,12 @@ public class UserManageHandler {
         	}
         	listAll.add(Integer.valueOf(ids));
         }
-        try {
-
+            
+        	//踢出用户(pc客户端)
+        	kickOutByUserId(list,kickoutUrl);
             //更新用户状态
-            userInfoService.batchUpdateUserStatus(listAll);
-        }  catch (DatabaseException e) {
+//            userInfoService.batchUpdateUserStatus(listAll);
+        }  catch (Exception e) {
             LOG.error("kickOutUser exception",userIds);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
@@ -392,8 +395,8 @@ public class UserManageHandler {
             arr[i] = String.valueOf(userIds.get(i));
         }
 
-        params2.add(new BasicNameValuePair("userids", "arr"));
-        params2.add(new BasicNameValuePair("type", "3"));
+        params2.add(new BasicNameValuePair("userids", Arrays.toString(arr)));
+        params2.add(new BasicNameValuePair("type", "103"));
 //        String result =  URLConnUtil.doPost(action, reqJson.toString(), params);
         String result =  URLConnUtil.doGet(action, params2, params);
         JSONObject jsonObject = JSONObject.fromObject(result);

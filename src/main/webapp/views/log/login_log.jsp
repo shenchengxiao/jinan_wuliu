@@ -51,25 +51,19 @@
                         <div class="portlet-body">
                             <div class="row-fluid">
                                 <form id="ipvisit_list_form" method="get">
-                                    <!-- <div class="span2">
-                                        <input type="text" name="blackWord" placeholder="请输入关键字" class="m-wrap span12">
-                                    </div>
-                                    <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系人" class="m-wrap span12" id="linkedName">
-                                    </div>
-                                    <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
-                                    </div>
-                                    <div class="span2">
-                                        <select class="m-wrap span6" name="enabled">
-                                            <option value="">是否有效</option>
-                                            <option value="0">无效</option>
-                                            <option value="1">有效</option>
-                                        </select>
-                                    </div>
-                                    <div class="span2">
-                                        <button type="button" class="btn blue mgleft10" id="btn_search1">查找</button>
-                                    </div> -->
+                                    <div class="span4" align="right">
+                                            <div class="controls">
+                                                <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                                                                                                                                                              全选
+                                                    <i class="icon-down"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="javascript:;" class="btn red" id="btn_remove">
+                                                                                                                                                                              删除
+                                                    <i class="icon-down"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <input type="hidden" name="" value="" id="ids">
+                                            </div>
+                                        </div>
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
                             </div>
@@ -79,6 +73,7 @@
                                 <table class="table-bordered table-striped table-condensed cf" id="ipvisit_List">
                                     <thead class="cf">
                                     <tr>
+                                        <th></th>
                                         <th>用户编号</th>
                                         <th>用户ip</th>
                                         <th>用户端口</th>

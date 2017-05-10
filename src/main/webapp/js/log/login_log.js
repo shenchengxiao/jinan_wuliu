@@ -3,10 +3,136 @@
 $(function(){
 	
 	getIpvisitList();
+	
+	var clicknum = 1;
+	var idsArr  = [];
+	//ids 传递ids的集合对象
+	function setIdsInfo(){
+	    var arrId = [];
+	    $.each(idsArr,function(index,item){
+	        var IDs = {
+	            id:item
+	        };
+	        arrId.push(IDs);
+	    });
 
+	    var json = JSON.stringify(arrId);
+	    $('#ids').val(json);
+	}
+
+
+
+	//全选||非全选
+	$('#btn_chooseAll').on('click',function(){
+	    if(clicknum%2){    
+	        //第一次点击
+	        $('input[name="idArr"]').each(function(i){
+	            idsArr.push($(this).val());
+	        });
+	        setIdsInfo();
+	        console.log(idsArr);
+	        $('#btn_chooseAll').text('取消全选');
+	        $('input[name="chooseTag"]').prop({
+	            checked: 'checked'
+	        }).parent().css({
+	            color:'green'
+	        });
+	    }else{
+	        //第二次点击
+	        idsArr.length=0;
+	        setIdsInfo();
+	        $('#btn_chooseAll').text('全选');
+	        $('input[name="chooseTag"]').prop({
+	            checked: ''
+	        }).parent().css({
+	            color:'#000'
+	        });
+	        console.log(idsArr);
+	    }
+	    clicknum++; 
+	});
+
+
+	$('#ipvisit_List').on('change','input[name="chooseTag"]',function(){
+	    /*$this = $(this);*/
+	    var thisID = $(this).next('input').val();
+	    if($(this).is(':checked')){
+	        idsArr.push(thisID);
+	        setIdsInfo(); 
+	        $(this).parent().css({
+	            color:'green'
+	        });
+	        console.log(idsArr);
+	    }else{
+	        removeInArr(thisID);
+	        setIdsInfo();
+	        $(this).parent().css({
+	            color:'#000'
+	        });
+	        console.log(idsArr);
+	    }
+	});
+
+	//查找某个值在数组中的位置
+	function indexOfInArr(val) {
+	    for (var i = 0; i < idsArr.length; i++) {
+	        if (idsArr[i] == val) return i;
+	    }
+	    return -1;
+	};
+
+	//定义一个remove的方法
+	function removeInArr(val) {
+	    var index = indexOfInArr(val);
+	    if (index > -1) {
+	        idsArr.splice(index, 1);
+	    }
+	};
+
+
+	$('#btn_remove').on('click',function(){
+		delLoginLogs(idsArr);
+	});
 
 });
 
+/**
+ * 删除多条登录日志
+ * @param idsArr
+ */
+function delLoginLogs(idsArr){
+	if(idsArr == null || idsArr.length == 0){
+        alert("请先选择要删除的记录");
+	}else{
+    if(!confirm("确定删除多条吗?")) return;
+    $.ajax({
+        url: manage_path+'/api/ipvisit/delLoginLogs',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+        	'ids':$("#ids").val()
+        },
+        /*beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:false,canCancel:true});
+        },*/
+        success:function(data){
+            if(data.status == 0){
+                $.toast(data.msg,3000);
+                getItemList();
+                $('#ids').val("");
+            }else{
+                $.toast(data.msg,3000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    })
+	}
+}
 /**
  *  功能描述：获取IP访问列表信息
  *  请求方式：GET
@@ -49,6 +175,7 @@ function getIpvisitList(){
 //	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBlackwordDetail(' + item.bWId + ')"><i class="icon-edit icon-white"></i></a> '/* + Deleted*/;
 	                    
 	                    temp += '<tr>'
+	                    	+'<td data-title="">' +'<input type="checkbox" name="chooseTag"><input type="hidden" name="idArr" value="'+item.loginLogId+'"/>'+ '</td>'
 	                        + '<td data-title="用户编号">' + item.username + '</td>'
 	                        + '<td data-title="用户ip">' + item.ipAddress + '</td>'
 	                        + '<td data-title="用户端口">' + item.port + '</td>'

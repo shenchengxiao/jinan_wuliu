@@ -72,13 +72,27 @@
                                     </div>
                                     <div class="span2">
                                             <select class="m-wrap span6" name="typeId" >
+                                                <option value="" selected>-请选择-</option>
                                                 <option value="0">车源</option>
-                                                <option value="1" selected>货源</option>
+                                                <option value="1">货源</option>
                                             </select>
                                     </div>        
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search_item">查找</button>
                                     </div>
+                                    <div class="span4" align="right">
+                                            <div class="controls">
+                                                <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                                                                                                                                                              全选
+                                                    <i class="icon-down"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a href="javascript:;" class="btn red" id="btn_remove">
+                                                                                                                                                                              删除
+                                                    <i class="icon-down"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <input type="hidden" name="" value="" id="ids">
+                                            </div>
+                                        </div>
                                     
                                     <!-- <div class="span2">
                                         <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
@@ -100,6 +114,7 @@
                                 <table class="table-bordered table-striped table-condensed cf" id="item_List">
                                     <thead class="cf">
                                     <tr>
+                                        <th></th>
                                         <th>用户编号</th>
                                         <th>用户电话</th>
                                         <th>类型</th>

@@ -14,4 +14,6 @@ public interface ItemResponseMapper {
 	List<ItemResponse> selectPushItemsLogByParams(ItemRequest itemRequest);
 
 	List<ItemResponse> findItemsLogPage(ItemRequest itemRequest);
+
+	int deleteItemLogByPrimaryKey(Long itemId);
 }

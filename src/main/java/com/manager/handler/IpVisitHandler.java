@@ -1,6 +1,9 @@
 package com.manager.handler;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
 import com.manager.pojo.BlackWord;
@@ -19,6 +22,9 @@ import com.manager.utils.YCSystemStatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -103,6 +109,27 @@ public class IpVisitHandler {
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
 		
+	}
+
+
+	public void delLoginLogs(String ids) throws YCException{
+		// TODO Auto-generated method stub
+		 /** 参数校验 */
+        Validator.isEmpty(ids,YCSystemStatusEnum.USER_ID_EMPTY);
+        try {
+            List<Integer> list = new ArrayList<>();
+            JSONArray jsonArray = JSON.parseArray(ids);
+            for (Object object : jsonArray) {
+                JSONObject jsonObject = JSONObject.parseObject(object.toString());
+                String id =jsonObject.get("id").toString();
+                list.add(Integer.valueOf(id));
+            }
+
+            ipVisitService.delLoginLogs(list);
+        } catch (DatabaseException e) {
+            LOG.error("deleteUserInfo exception",ids);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
 	}
     
 }

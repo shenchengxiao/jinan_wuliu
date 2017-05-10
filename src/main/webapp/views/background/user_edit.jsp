@@ -54,14 +54,14 @@
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
                             <form id="edit_user_info_form" class="form-horizontal">
-                                <div class="alert alert-error hide">
+                                <!-- <div class="alert alert-error hide">
                                 <button class="close" data-dismiss="alert"></button>
                                 您的输入有错，请您检查后再提交!
                                 </div>
                                 <div class="alert alert-success hide">
                                 <button class="close" data-dismiss="alert"></button>
                                 恭喜您，您输入的内容完全正确！
-                                </div>
+                                </div> -->
                                 <fieldset>
                                     <input type="hidden" name="id">
                                     <div class="control-group">

@@ -4,7 +4,9 @@ import com.manager.pojo.UserLoginlog;
 import com.manager.pojo.UserLoginlogExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserLoginlogMapper {
     int countByExample(UserLoginlogExample example);
 

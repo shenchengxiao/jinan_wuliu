@@ -136,6 +136,12 @@ public class ItemController {
     	return apiResponse;
     }
 
+    /**
+     * 发布记录列表
+     * @param request
+     * @param itemRequest
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/pushItemLog")
     @GetMapping(value = "/pushItemLog")
@@ -147,7 +153,7 @@ public class ItemController {
 			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
 	        apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
 	        apiResponse.setData(page);
-		} catch (YCException e) {
+		} catch (YCException e) {	
 			LOG.error("获取信息列表发生异常",itemRequest);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
@@ -156,7 +162,27 @@ public class ItemController {
         return apiResponse;
 
     }
-
+    /**
+     * 发布记录列表中的删除多条
+     * @param request
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/deleteItemsLog",method = RequestMethod.POST)
+    public APIResponse deleteItemsLog(HttpServletRequest request, String ids){
+        APIResponse apiResponse = new APIResponse<>();
+        try {
+        	itemHandler.deleteItemsLog(ids);
+            apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+        } catch (Throwable e) {
+            LOG.error("删除信息发生异常",ids);
+            apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+            apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+        }
+        return apiResponse;
+    }
 
 	/**
 	 * 获取清除日志列表

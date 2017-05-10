@@ -6,6 +6,14 @@ public class UserMessageRequest extends BaseQuery{
 	
 	private String userIds;
 	private String content;
+	private Integer mType;
+	
+	public Integer getmType() {
+		return mType;
+	}
+	public void setmType(Integer mType) {
+		this.mType = mType;
+	}
 	public String getUserIds() {
 		return userIds;
 	}

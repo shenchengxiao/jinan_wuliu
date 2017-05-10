@@ -33,6 +33,7 @@ public class UserMessageHandler {
 	        /** 参数校验 */
 	        Validator.isEmpty(userMessageRequest.getUserIds(),YCSystemStatusEnum.USER_ID_EMPTY);
 	        Validator.isEmpty(userMessageRequest.getContent(),YCSystemStatusEnum.NULL);
+	        Validator.isEmpty(userMessageRequest.getmType(),YCSystemStatusEnum.NULL);
 	        try {
 	        	List<Integer> list = new ArrayList<>();
 	            JSONArray jsonArray = JSON.parseArray(userMessageRequest.getUserIds());
@@ -43,7 +44,7 @@ public class UserMessageHandler {
 	            }
 	            if(list != null && list.size()>0){
 	            	Validator.isEmpty(list.get(0),YCSystemStatusEnum.USER_ID_EMPTY);
-	            	userMessageService.sendUserMessage(list,userMessageRequest.getContent());
+	            	userMessageService.sendUserMessage(list,userMessageRequest.getmType(),userMessageRequest.getContent());
 	            }
 	        } catch (DatabaseException e) {
 	            LOG.error("sendUserMessage exception",userMessageRequest.toString());
@@ -52,12 +53,12 @@ public class UserMessageHandler {
 	    }
 	 
 	 
-	public void sendSysMessage(String content) throws YCException{
+	public void sendSysMessage(Integer mType, String content) throws YCException{
 		// TODO Auto-generated method stub
 		/** 参数校验 */
         Validator.isEmpty(content,YCSystemStatusEnum.NULL);
         try {
-            	userMessageService.sendSysMessage(content);
+            	userMessageService.sendSysMessage(mType,content);
         } catch (DatabaseException e) {
             LOG.error("sendSysMessage exception",content);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());

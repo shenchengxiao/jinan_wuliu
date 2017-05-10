@@ -28,12 +28,18 @@ $(function(){
         rules:{
         	content:{
                 required: true
-            }
+            },
+            mType:{
+		    	required: true
+		    }
         },
         messages:{
         	content:{
                 required:'请输入消息内容'
-            }
+            },
+            mType:{
+	        	required:'请选择消息类型'
+	        }
         },
         invalidHandler:function(event,validator){
             $('.alert-success').hide();
@@ -70,7 +76,8 @@ function sendsysmessage(){
         type:'POST',
         dataType:'json',
         data:{
-        	'content':$("#content").val()
+        	'content':$("#content").val(),
+        	'mType':$("#mType").val()
         },
         beforeSend:function(){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCance:true});

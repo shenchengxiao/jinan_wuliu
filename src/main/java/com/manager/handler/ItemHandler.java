@@ -202,4 +202,24 @@ public class ItemHandler {
         }
         return page;
 	}
+
+	public void deleteItemsLog(String ids) throws YCException{
+		// TODO Auto-generated method stub
+		 /** 参数校验 */
+        Validator.isEmpty(ids,YCSystemStatusEnum.USER_ID_EMPTY);
+        try {
+            List<Long> list = new ArrayList<>();
+            JSONArray jsonArray = JSON.parseArray(ids);
+            for (Object object : jsonArray) {
+                JSONObject jsonObject = JSONObject.parseObject(object.toString());
+                String id =jsonObject.get("id").toString();
+                list.add(Long.valueOf(id));
+            }
+
+            itemService.deleteItemsLog(list);
+        } catch (DatabaseException e) {
+            LOG.error("deleteUserInfo exception",ids);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+	}
 }

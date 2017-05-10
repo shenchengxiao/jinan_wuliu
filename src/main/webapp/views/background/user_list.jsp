@@ -189,6 +189,18 @@
                         <h4 class="modal-title" id="myModalLabel">发送消息通知</h4>
                     </div>
                     <div class="modal-body">
+                    	<div class="control-group">
+                            <label class="control-label">消息类型: <span class="required">*</span></label>
+                            <div class="controls">
+                                <select class="m-wrap span6" id="mType" name="mType" >
+                                    <option value="" selected>-请选择-</option>
+                                    <option value="100">公告</option>
+                                    <option value="101">提示</option>
+                                    <option value="102">警告</option>
+                                    <option value="103">踢出</option>
+                                </select>
+                            </div>
+                        </div>
                         <input type="hidden" name="userIds"  id="ids">
                         <div class="control-group">
                             <label class="control-label">消息内容: <span class="required">*</span></label>

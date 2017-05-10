@@ -49,7 +49,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 	 Logger LOG = LoggerFactory.getLogger(BlackWordServiceImpl.class);
 	 
 	@Override
-	public boolean sendUserMessage(List<Integer> list, String content) throws DatabaseException {
+	public boolean sendUserMessage(List<Integer> list,Integer mType, String content) throws DatabaseException {
 		try {
 			int val = -1;
 //			int andriod = 0;
@@ -57,12 +57,12 @@ public class UserMessageServiceImpl implements UserMessageService {
 //			String StrAndriod[]=new String[]{};
 //			String StrIOS[]=new String[]{};
 			
-            if (content == null){
-                LOG.error("sendUserMessage 信息为空",content);
+            if (mType == null){
+                LOG.error("sendUserMessage 没有选择信息类型",content);
                 return false;
             }
             Map<String, String> map = new HashMap<>();
-            map.put("type", "1");
+            map.put("type", String.valueOf(mType));
 //            int type = 1;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
 //            String json = "{\"type\":\"" + type + "\",\"content\":" + content+ "}";
             // 创建连接和频道  
@@ -83,6 +83,7 @@ public class UserMessageServiceImpl implements UserMessageService {
             for (Integer userid : list) {
             	UserMessage userMessage = new UserMessage();
 				userMessage.setUserId(userid);
+				userMessage.setmType(mType);
 				userMessage.setContent(content);
 				userMessage.setCreateTime(new Date());
             	
@@ -110,7 +111,7 @@ public class UserMessageServiceImpl implements UserMessageService {
             	}
 			}
             //消息通知给pc客户端,type为4
-            SendUsersPushToPC(list_pc,4,content,host+kickOutUser);
+            SendUsersPushToPC(list_pc,mType,content,host+kickOutUser);
 //            if(StrAndriod.length > 0){
 //            	PushExample.SendUsersPushToAndroid("济南网通知",content,StrAndriod);
 //            }
@@ -128,11 +129,11 @@ public class UserMessageServiceImpl implements UserMessageService {
 	}
 
 	@Override
-	public boolean sendSysMessage(String content) throws DatabaseException {
+	public boolean sendSysMessage(Integer mType,String content) throws DatabaseException {
 		try {
 			int val = -1;
-            if (content == null){
-                LOG.error("sendUserMessage 信息为空",content);
+            if (content == null || mType == null){
+                LOG.error("sendUserMessage 未选择信息类型或信息为空",content);
                 return false;
             }
 //            int type = 2;//1.代表给单独或多个用户发送消息通知;2.代表广播系统消息;0.代表提出单个或多个用户
@@ -152,6 +153,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     		// 声明转发器的类型  
 //    		channel.exchangeDeclare(EXCHANGE_NAME, "topic");
             	UserMessage userMessage = new UserMessage();
+            	userMessage.setmType(mType);
 				userMessage.setContent(content);
 				userMessage.setCreateTime(new Date());
             	
@@ -164,7 +166,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 //                    System.out.println(" [x] Sent '" + content + "'");
             		PushExample.SendSysPush(content);
             		//type为5是广播消息给所有用户
-            		SendUsersPushToPC(null,5,content,host+kickOutUser);
+            		SendUsersPushToPC(null,mType,content,host+kickOutUser);
             	}
 //            channel.close();  
 //            connection.close();  

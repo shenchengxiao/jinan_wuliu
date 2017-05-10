@@ -67,7 +67,6 @@ function addMessages(msg)
 
 
 	
-}
 /**
  * 点击呼出按钮
  

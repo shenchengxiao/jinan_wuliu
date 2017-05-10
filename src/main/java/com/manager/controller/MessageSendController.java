@@ -45,14 +45,14 @@ public class MessageSendController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/sendsys",method = RequestMethod.POST)
-	public APIResponse sendSysMessage(HttpServletRequest request, String content){
+	public APIResponse sendSysMessage(HttpServletRequest request, UserMessageRequest userMessageRequest){
 		APIResponse apiResponse = new APIResponse<>();
 		try {
-			userMessageHandler.sendSysMessage(content);
+			userMessageHandler.sendSysMessage(userMessageRequest.getmType(),userMessageRequest.getContent());
 			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
 			apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
 		} catch (Throwable e) {
-			LOG.error("发送消息通知出现异常",content);
+			LOG.error("发送消息通知出现异常",userMessageRequest.getContent());
 			apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
 			apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
 		}
