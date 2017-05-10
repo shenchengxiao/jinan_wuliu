@@ -70,6 +70,19 @@
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search_query">查找</button>
                                     </div>
+                                    <div class="span4" align="right">
+                                        <div class="controls">
+                                            <a href="javascript:;" class="btn green" id="btn_chooseAll">
+                                                全选
+                                                <i class="icon-down"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:;" class="btn red" id="btn_delete">
+                                                删除
+                                                <i class="icon-down"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <input type="hidden" name="" value="" id="query_ids">
+                                        </div>
+                                    </div>
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
                             </div>
@@ -79,6 +92,7 @@
                                 <table class="table-bordered table-striped table-condensed cf" id="query_list">
                                     <thead class="cf">
                                     <tr>
+                                        <th></th>
                                         <th>用户名称</th>
                                         <th>搜索内容</th>
                                         <th>类型</th>

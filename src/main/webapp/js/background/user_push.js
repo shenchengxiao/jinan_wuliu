@@ -36,10 +36,6 @@ $(function(){
             /*userNum: {
                 required: true
             },*/
-            userPhones:{
-                required: true,
-                isMobile : true
-            },
             content:{
                 required: true
             }

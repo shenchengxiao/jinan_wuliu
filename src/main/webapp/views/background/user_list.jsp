@@ -89,14 +89,14 @@
                                         <input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入联系电话" class="m-wrap span12" >
                                     </div>
                                     <div class="span2">
-                                        <select class="m-wrap span6" name="isAbled" >
+                                        <select class="m-wrap span8" name="isAbled" >
                                             <option value="">请选择</option>
                                             <option value="0">无效</option>
                                             <option value="1">有效</option>
                                         </select>
                                     </div>
                                     <div class="span2">
-                                        <select class="m-wrap span6" name="platformType" >
+                                        <select class="m-wrap span8" name="platformType" >
                                             <option value="">请选择</option>
                                             <option value="0">windows</option>
                                             <option value="1">iOS</option>
@@ -307,7 +307,6 @@
 <!-- build:js scripts/build.js -->
 <!-- endbuild -->
 <script src="${pageContext.request.contextPath}/js/background/user_list.js"></script>
-
 </body>
 
 </html>

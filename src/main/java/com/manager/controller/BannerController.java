@@ -7,6 +7,7 @@ import com.manager.handler.BannerHandler;
 import com.manager.pojo.BannerInfo;
 import com.manager.request.BaseQuery;
 import com.manager.request.advert.AdvertInfoRequest;
+import com.manager.request.advert.BannerInfoRequest;
 import com.manager.response.AppAdvertisementResponse;
 import com.manager.response.BannerInfoResponse;
 import com.manager.utils.APIResponse;
@@ -53,19 +54,19 @@ public class BannerController {
     /**
      * 添加banner
      * @param request
-     * @param bannerInfo
+     * @param bannerInfoRequest
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/editor",method = RequestMethod.POST)
-    public APIResponse editor(HttpServletRequest request, BannerInfo bannerInfo){
+    public APIResponse editor(HttpServletRequest request, BannerInfoRequest bannerInfoRequest){
         APIResponse apiResponse = new APIResponse();
         try {
-            bannerHandler.addBanner(bannerInfo);
+            bannerHandler.addBanner(bannerInfoRequest);
             apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
         } catch (Throwable e) {
-            LOG.error("editor 发生异常",bannerInfo);
+            LOG.error("editor 发生异常",bannerInfoRequest);
             apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
             apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
         }

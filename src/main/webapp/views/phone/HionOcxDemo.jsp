@@ -179,9 +179,9 @@ function getUrl()
                             </div>
 
                         </div>
+   <div style="overflow:hidden;width: 1000px;height: 570px;">
 	<form name="CheckPrinter">
-		
-		<div id="left" style="border: black 1px solid;" >
+		<div id="left" style="border: black 1px solid;width: 350px;height: 570px;">
 		<!--
 		<input name="" type="button"  style="width:163px; height:39px; background:url('./image/Uc3_p1_24.jpg')"  onclick="alert(11);"  /> 
 		-->
@@ -218,8 +218,9 @@ function getUrl()
 			<input type="button" id="btnAnswer" style="width:173px; height:39px;background:url('./image/Uc3_p1_4.jpg')" onclick="clickAutoAnswerOpen()" />
 			<input type="button" id="btnPhoneState" style="width:173px; height:39px;background:url('./image/Uc3_p1_18.jpg')" onClick="clickPhoneState()" /><br/>
 		</div>
-		<div id="messages" style="padding: 0px; margin: 0px; border: black 1px solid;overflow: auto;"></div>
+		<div id="messages" style="padding: 0px; margin: 0px; border: black 1px solid;overflow: auto;height: 570px;width:450px;float: left;"></div>
 	</form>
+   </div>
 </div>
                 </div>
             </div>

@@ -42,11 +42,23 @@ $(function(){
         rules:{
             bannerName:{
                 required:true
+            },
+            startTime:{
+                required:true
+            },
+            endTime:{
+                required:true
             }
         },
         messages:{
             bannerName:{
                 required:'请输入banner名称'
+            },
+            startTime:{
+                required:'请选择开始时间'
+            },
+            endTime:{
+                required:'请选择结束时间'
             }
         },
         invalidHandler:function(event,validator){
@@ -103,10 +115,10 @@ function getBannerList(){
 
                         if (adStatus == 1) {
                             adStatus = "启用";
-                            upDown = ' <a href="#" class="btn mini green" data-toggle="tooltip" data-placement="top" title="禁用" onclick="modifyStatus(' + item.id + ',0)"><i class="icon-ok-circle"></i></a>';
+                            upDown = ' <a href="#" class="btn mini grey" data-toggle="tooltip" data-placement="top" title="禁用" onclick="modifyStatus(' + item.id + ',0)"><i class="icon-ban-circle"></i></a>';
                         } else {
                             adStatus = "禁用";
-                            upDown = ' <a href="#" class="btn mini grey" data-toggle="tooltip" data-placement="top" title="启用" onclick="modifyStatus(' + item.id + ',1)"><i class="icon-ban-circle"></i></a>';
+                            upDown = ' <a href="#" class="btn mini green" data-toggle="tooltip" data-placement="top" title="启用" onclick="modifyStatus(' + item.id + ',1)"><i class="icon-ok-circle"></i></a>';
                         }
 
                         var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteBanner(' + item.id + ')"><i class="icon-remove icon-white"></i></a>';
@@ -256,7 +268,9 @@ function getBannerDetail(id){
                 $('input[name=bannerName]').val(json.bannerName);
                 $('input[name=imageUrl]').val(json.imageUrl);
                 $('#logoImg').attr('src', ip_port_path + json.imageUrl);
-
+                $('input[name=startTime]').val(json.startTime);
+                $('input[name=endTime]').val(json.endTime);
+                $('input[name=linkUrl]').val(json.linkUrl);
             }
         },
         complete:function(){
@@ -309,6 +323,9 @@ function clearModal(){
     $('input[name=bannerName]').val('');
     $('#logoImg').removeAttr('src');
     $('input[name=imageUrl]').val('');
+    $('input[name=startTime]').val('');
+    $('input[name=endTime]').val('');
+    $('input[name=linkUrl]').val('');
     $('#myModalLabel').text('新增Banner');
 }
 

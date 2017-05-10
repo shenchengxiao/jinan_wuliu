@@ -193,7 +193,7 @@
                                             <input class="m-wrap span12" type="text" name="checkNum" /></div>
                                     </div>
 
-                                    <div class="control-group">
+                                    <!-- <div class="control-group">
                                         <label class="control-label">选项<span class="required">*</span></label>
                                         <div class="span6">
                                             <select class="m-wrap span3" name="isSend" id="is_send_id ">
@@ -215,7 +215,7 @@
                                         </div>
 
 
-                                    </div>
+                                    </div> -->
 
                                     <div class="control-group">
                                         <label class="control-label">可发布城市:</label>

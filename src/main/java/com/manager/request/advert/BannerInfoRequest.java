@@ -1,31 +1,19 @@
-package com.manager.response;
+package com.manager.request.advert;
 
-import java.io.Serializable;
+import com.manager.enums.YesNoEnum;
 
 /**
- * Created by shencx on 2017/4/1.
+ * Created by shencx on 2017/5/8.
  */
-public class BannerInfoResponse implements Serializable{
+public class BannerInfoRequest {
 
-    /**
-     * 主键ID
-     */
     private Integer id;
 
-    /**
-     * 图片名称
-     */
+    /** 图片名称 */
     private String bannerName;
 
-    /**
-     * 图片地址
-     */
+    /** 图片地址 */
     private String imageUrl;
-
-    /**
-     * 状态
-     */
-    private Integer status;
 
     /** 开始时间 */
     private String startTime;
@@ -60,14 +48,6 @@ public class BannerInfoResponse implements Serializable{
         this.imageUrl = imageUrl;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public String getStartTime() {
         return startTime;
     }
@@ -90,19 +70,5 @@ public class BannerInfoResponse implements Serializable{
 
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("BannerInfoResponse{");
-        sb.append("id=").append(id);
-        sb.append(", bannerName='").append(bannerName).append('\'');
-        sb.append(", imageUrl='").append(imageUrl).append('\'');
-        sb.append(", status=").append(status);
-        sb.append(", startTime='").append(startTime).append('\'');
-        sb.append(", endTime='").append(endTime).append('\'');
-        sb.append(", linkUrl='").append(linkUrl).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -13,6 +13,116 @@ $(function(){
         }
     });
 
+    var clicknum = 1;
+    var idsArr  = [];
+    //ids 传递ids的集合对象
+    function setIdsInfo(){
+        var arrId = [];
+        $.each(idsArr,function(index,item){
+            arrId.push(item);
+        });
+        $('#query_ids').val(arrId);
+    }
+
+
+
+    //全选||非全选
+    $('#btn_chooseAll').on('click',function(){
+        if(clicknum%2){
+            //第一次点击
+            $('input[name="idsArr"]').each(function(i){
+                idsArr.push($(this).val());
+            });
+            setIdsInfo();
+            $('#btn_chooseAll').text('取消全选');
+            $('input[name="chooseTag"]').prop({
+                checked: 'checked'
+            })
+        }else{
+            //第二次点击
+            idsArr.length=0;
+            setIdsInfo();
+            $('#btn_chooseAll').text('全选');
+            $('input[name="chooseTag"]').prop({
+                checked: ''
+            })
+        }
+        clicknum++;
+    });
+
+
+    //绑定所有tbody下的tr
+    $('#query_list tbody').on('click','tr',function(){
+        var check = $(this).find("input[type='checkbox']");
+        var thisID = $(this).find("input[name=idsArr]").val();
+        if(check){
+            var flag = check[0].checked;
+            if(flag){
+                check[0].checked = false;
+                removeInArr(thisID);
+                $(this).find("td").css({
+                    backgroundColor: ''
+                })
+                setIdsInfo();
+            }else{
+                check[0].checked = true;
+                idsArr.push(thisID);
+                $(this).find("td").css({
+                    backgroundColor: '#bee4ca'
+                })
+                setIdsInfo();
+            }
+        }
+
+    });
+
+
+    //防止冒泡事件
+    $('#query_list tbody').on('click','input[name="chooseTag"]',function(event) {
+        event.stopImmediatePropagation();
+        var thisID = $(this).next('input').val();
+        if($(this).is(':checked')){
+            idsArr.push(thisID);
+            setIdsInfo();
+            $(this).parent().parent().find("td").css({
+                backgroundColor: '#bee4ca'
+            })
+        }else{
+            removeInArr(thisID);
+            setIdsInfo();
+            $(this).parent().parent().find("td").css({
+                backgroundColor: ''
+            })
+        }
+    })
+
+
+
+    //查找某个值在数组中的位置
+    function indexOfInArr(val) {
+        for (var i = 0; i < idsArr.length; i++) {
+            if (idsArr[i] == val) return i;
+        }
+        return -1;
+    };
+
+    //定义一个remove的方法
+    function removeInArr(val) {
+        var index = indexOfInArr(val);
+        if (index > -1) {
+            idsArr.splice(index, 1);
+        }
+    };
+
+
+    $('#btn_delete').on('click',function(){
+        if(idsArr == null || idsArr.length == 0 ){
+            alert("请先选择一个用户");
+        }else {
+            batchDelete();
+        }
+    });
+
 });
 
 
@@ -42,6 +152,7 @@ function getSearchLogList() {
                             type = "";
                         }
                         temp += '<tr>'
+                            +'<td data-title="">' +'<input type="checkbox" name="chooseTag" ><input type="hidden" name="idsArr" value="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
                             + '<td data-title="搜索内容">' + item.searchContent + '</td>'
                             + '<td data-title="类型">' + type + '</td>'
@@ -76,7 +187,36 @@ function getSearchLogList() {
 }
 
 
+function batchDelete(){
+    if(!confirm("确定要删除吗?")) return;
+    $.ajax({
+        url: manage_path+'/api/query/batch_delete',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'ids':$("#query_ids").val()
+        },
+        beforeSend:function(){
+            $.progressBar({message:'<p>正在努力加载数据...</p>',modal:false,canCancel:true});
+        },
+        success:function(data){
+            if(data.status == 0){
+                $.toast(data.msg,3000);
+                getSearchLogList();
+                $('#query_ids').val("");
+            }else{
+                $.toast(data.msg,3000);
+            }
+        },
+        complete:function(){
+            $.progressBar().close();
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $.toast('服务器未响应,请稍候重试',5000);
+        }
+    })
 
+}
 
 
 

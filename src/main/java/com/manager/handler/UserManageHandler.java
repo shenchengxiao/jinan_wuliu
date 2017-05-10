@@ -115,9 +115,9 @@ public class UserManageHandler {
 
         //是否发布接收信息入库
         UserCustom userCustom = new UserCustom();
-        userCustom.setIsSend(YesNoEnum.create(request.getIsSend()));
-        userCustom.setIsReceive(YesNoEnum.create(request.getIsReceive()));
-        userCustom.setIsReceiveSelf(YesNoEnum.create(request.getIsReceiveSelf()));
+//        userCustom.setIsSend(YesNoEnum.create(request.getIsSend()));
+//        userCustom.setIsReceive(YesNoEnum.create(request.getIsReceive()));
+//        userCustom.setIsReceiveSelf(YesNoEnum.create(request.getIsReceiveSelf()));
         userCustom.setSendProvince(request.getSendProvince());
         userCustom.setSendCity(request.getSendCity());
         userCustom.setReceiveProvince(request.getReceiveProvince());
@@ -126,7 +126,7 @@ public class UserManageHandler {
         userCustom.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
         userCustom.setIsManager(ManagerTypeEnum.create(request.getIsManager()));
         userCustom.setUsername(request.getUserName());
-        userCustom.setIsBinding(YesNoEnum.create(request.getIsBinding()));
+//        userCustom.setIsBinding(YesNoEnum.create(request.getIsBinding()));
 
         //是否绑定电脑信息入库
         UserBinding userBinding = new UserBinding();
@@ -134,7 +134,7 @@ public class UserManageHandler {
         userBinding.setHardpanNum(request.getHardNum());
         userBinding.setNetworkCard(request.getNetworkNum());
         userBinding.setTemporaryCard(request.getTemporaryCard());
-        userBinding.setIsBinding(request.getIsBinding().byteValue());
+//        userBinding.setIsBinding(request.getIsBinding().byteValue());
         try {
             //判断ID是否为空，是则添加，否则更新
             if (request.getId() == null){

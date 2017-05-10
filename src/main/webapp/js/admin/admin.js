@@ -66,7 +66,7 @@ $(function(){
         }
     });
 
-    // 添加角色
+    // 添加修改角色
     $('#btn_add_role').click(function(){
         var b = $('#add_role_form').valid();
         if(b){
@@ -79,13 +79,13 @@ $(function(){
 
 
     $('#btn_addRole_modal').on('click',function(){
+        //清空model
         $('input[name=id]').val('');
         $('input[name=userName]').val('');
         $('input[name=passwd]').val('').data("original","");
-        var aCh = $('input[name=roleArr]');
-        $.each(aCh,function(index,item){
-            item.checked = false;
-        });
+        $('input[name=roleArr]').parent().removeClass('checked');
+        $('#myModalLabel').text('添加用户');
+        $('#addUserModal').modal('show')
     });
 
 });
@@ -104,7 +104,8 @@ function checkBox(typeStr) {
             if (roleArr[i] == aCh[j].value ) {
                 aCh[j].defaultChecked = true;
                 var index = j;
-                $('input[name=roleArr]').eq(index).parent().addClass('checked');
+                $('input[name=roleArr]').eq(index).parent().addClass('checked');//父类选中
+                $('input[name=roleArr]').eq(index).prop("checked",true);  //本身选中
             }
         }
     }
@@ -117,21 +118,8 @@ function checkBox(typeStr) {
  *  函数名称：addRole
  */
 function addRole(){
-    var aCh = $('input[name=roleArr]');
-    var isChecked = false;
-    for(var i=0;i<aCh.length;i++){
-        if(aCh[i].checked){
-            isChecked = true;
-        }
-    }
-    //如果密码没有变化,则不提交
+
     var data = $('#add_role_form').serialize();
-    var oriPassword = $('input[name=passwd]').data("original");
-    if($('input[name=passwd]').val()==oriPassword){
-        console.log($('input[name=passwd]').val());
-        data = data.replace(/&passwd=[^&]*&/,"&");
-        console.log(data);
-    }
     $.ajax({
         url:manage_path+'/api/user/add',
         type:'post',
@@ -142,8 +130,10 @@ function addRole(){
         },
         success:function(data){
             if(data.status == 0){
-                $.toast('提交成功',3000);
-                getUserList();
+                $.toast('提交成功',1000);
+                setTimeout(function(){
+                    window.location.reload();
+                },1000)
             }
         },
         complete:function(){
@@ -166,7 +156,7 @@ function addRole(){
  *  @param ：id
  */
 function getUserDetail(id){
-
+    $('#addUserModal').modal('show');
     $.ajax({
         url:manage_path+'/api/user/detail',
         type:'GET',
@@ -179,6 +169,7 @@ function getUserDetail(id){
         },
         success:function(data){
             if(data.status == 0){
+                $('#myModalLabel').text('修改用户');
                 var json = data.data;
                 $('input[name=id]').val(id);
                 $('input[name=userName]').val(json.userName);
@@ -248,7 +239,7 @@ function getUserList(){
                             '<td data-title="管理权限">' + getRoleName(list[i].role, Role) + '</td>' +
                             '<td data-title="状态">' + accountStatus + '</td>' +
                             '<td data-title="操作">' +
-                            '<a class="btn mini blue" data-toggle="modal" href="#addUserModal" onclick="getUserDetail(' + list[i].id + ')" data-toggle="tooltip" data-placement="top" title="编辑"><i class="icon-edit icon-white"></i></a>&nbsp;' + operate + Deleted
+                            '<a class="btn mini blue" onclick="getUserDetail(' + list[i].id + ')" data-toggle="tooltip" data-placement="top" title="编辑"><i class="icon-edit icon-white"></i></a>&nbsp;' + operate + Deleted
                         '</td> </tr>';
                     }
                     $('#jn_user_list tbody').html(arow);
