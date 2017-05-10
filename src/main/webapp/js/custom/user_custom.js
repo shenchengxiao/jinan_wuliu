@@ -9,7 +9,7 @@ $(function(){
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
-            $("#btn_search").click();
+            $("#btn_search_item").click();
         }
     });
     
@@ -144,7 +144,7 @@ function getItemList(){
     var temp = "";
     var enabled="";
     var arr = [];
-    $.ajax({
+   $.ajax({
         url: manage_path+'/api/custom/userCustomList',
         type: 'GET',
         dataType: 'json',
@@ -213,7 +213,7 @@ function getItemList(){
                     $.toast("没有查到数据",3000);
                     $('#item_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }
@@ -225,7 +225,7 @@ function getItemList(){
         error: function(XMLHttpRequest, textStatus, errorThrown){
             $.toast('服务器未响应,请稍候重试',5000);
         }
-    })
+    });
 }
 
 function updateUserCustom(){

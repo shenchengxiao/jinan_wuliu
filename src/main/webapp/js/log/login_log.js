@@ -51,6 +51,52 @@ $(function(){
 	    }
 	    clicknum++; 
 	});
+	
+	//绑定所有tbody下的tr,不包括最后一列
+    $('#ipvisit_List tbody').on('click','tr td:not(:last-child)',function(){
+        //找到本列本行其它列
+        var check = $(this).parent().find("input[type='checkbox']");
+        var thisID = $(this).parent().find("input[name=idArr]").val();
+        if(check){
+            var flag = check[0].checked;
+            if(flag){
+                check[0].checked = false;
+                removeInArr(thisID);
+                $(this).parent().find("td").css({
+                        backgroundColor: ''
+                    })
+                setIdsInfo();
+            }else{
+                check[0].checked = true;
+                idsArr.push(thisID);
+                $(this).parent().find("td").css({
+                    backgroundColor: '#bee4ca'
+                 })
+                setIdsInfo();
+
+            }
+        }
+
+    });
+    
+  //防止冒泡事件
+    $('#ipvisit_List tbody').on('click','input[name="chooseTag"]',function(event) {
+        event.stopImmediatePropagation();
+        var thisID = $(this).next('input').val();
+        if($(this).is(':checked')){
+            idsArr.push(thisID);
+            setIdsInfo();
+            $(this).parent().parent().find("td").css({
+                backgroundColor: '#bee4ca'
+            })
+        }else{
+            removeInArr(thisID);
+            setIdsInfo();
+            $(this).parent().parent().find("td").css({
+                backgroundColor: ''
+            })
+        }
+    })
 
 
 	$('#ipvisit_List').on('change','input[name="chooseTag"]',function(){
@@ -118,7 +164,7 @@ function delLoginLogs(idsArr){
         success:function(data){
             if(data.status == 0){
                 $.toast(data.msg,3000);
-                getItemList();
+                getIpvisitList();
                 $('#ids').val("");
             }else{
                 $.toast(data.msg,3000);
@@ -198,7 +244,7 @@ function getIpvisitList(){
                     $.toast("没有查到数据",3000);
                     $('#ipvisit_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

@@ -9,7 +9,7 @@ $(function(){
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
-            $("#btn_search").click();
+            $("#btn_search_item").click();
         }
     });
 
@@ -62,6 +62,53 @@ $('#btn_chooseAll').on('click',function(){
     }
     clicknum++; 
 });
+
+//绑定所有tbody下的tr,不包括最后一列
+$('#item_List tbody').on('click','tr td:not(:last-child)',function(){
+    //找到本列本行其它列
+    var check = $(this).parent().find("input[type='checkbox']");
+    var thisID = $(this).parent().find("input[name=idArr]").val();
+    if(check){
+        var flag = check[0].checked;
+        if(flag){
+            check[0].checked = false;
+            removeInArr(thisID);
+            $(this).parent().find("td").css({
+                    backgroundColor: ''
+            });
+            setIdsInfo();
+        }else{
+            check[0].checked = true;
+            idsArr.push(thisID);
+            $(this).parent().find("td").css({
+                backgroundColor: '#bee4ca'
+             })
+            setIdsInfo();
+
+        }
+    }
+
+});
+
+
+//防止冒泡事件
+$('#item_List tbody').on('click','input[name="chooseTag"]',function(event) {
+    event.stopImmediatePropagation();
+    var thisID = $(this).next('input').val();
+    if($(this).is(':checked')){
+        idsArr.push(thisID);
+        setIdsInfo();
+        $(this).parent().parent().find("td").css({
+            backgroundColor: '#bee4ca'
+        })
+    }else{
+        removeInArr(thisID);
+        setIdsInfo();
+        $(this).parent().parent().find("td").css({
+            backgroundColor: ''
+        })
+    }
+})
 
 
 $('#item_List').on('change','input[name="chooseTag"]',function(){
@@ -197,7 +244,7 @@ function getItemList(){
 	                        + '<td data-title="用户编号">' + num + '</td>'
 	                        + '<td data-title="用户电话">' + item.userPhones + '</td>'
 	                        + '<td data-title="类型">' + _typeId + '</td>'
-	                        + '<td data-title="内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'">'
+	                        + '<td data-title="内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.content+'"> '
 	                        + advert_content + '</td>'
 	                        + '<td data-title="发布时间">' + DateHandle(item.createTime) + '</td>'
 	                        + '<td data-title="状态">' + item_statue + '</td>'
@@ -216,7 +263,7 @@ function getItemList(){
                     $.toast("没有查到数据",3000);
                     $('#item_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }
@@ -228,7 +275,7 @@ function getItemList(){
         error: function(XMLHttpRequest, textStatus, errorThrown){
             $.toast('服务器未响应,请稍候重试',5000);
         }
-    })
+    });
 }
 
 function modifyStatus_remove(id){

@@ -9,7 +9,7 @@ $(function(){
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
-            $("#btn_search").click();
+            $("#btn_search1").click();
         }
     });
     //创建modal弹出层class="modal"
@@ -168,7 +168,7 @@ function getBlackwordList(){
                     $.toast("没有查到数据",3000);
                     $('#blackword_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

@@ -9,7 +9,7 @@ $(function(){
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
-            $("#btn_search").click();
+            $("#btn_search_item").click();
         }
     });
 
@@ -217,7 +217,7 @@ function getItemList(){
                     $.toast("没有查到数据",3000);
                     $('#item_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

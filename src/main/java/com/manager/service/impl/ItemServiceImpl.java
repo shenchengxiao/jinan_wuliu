@@ -148,6 +148,8 @@ public class ItemServiceImpl implements ItemService {
             	User user = selectUserByNum(itemRequest.getUserNum());
             	if(user != null){
             		itemRequest.setUserId(user.getId());
+            	}else{
+            		itemRequest.setUserId(-1);
             	}
             }
             if(StringUtils.isNotBlank(itemRequest.getCreateTime())){
