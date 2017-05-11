@@ -370,7 +370,7 @@ Login page
   margin-right: -30px;
 }
  
-#UserName,#UserPass{
+#UserName,#UserPass,#veryCode{
   border-left: 2px solid #35aa47 !important;
  }
 

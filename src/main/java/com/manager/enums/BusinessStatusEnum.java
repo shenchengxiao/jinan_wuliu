@@ -24,6 +24,8 @@ public enum BusinessStatusEnum implements IBusinessStatusEnum {
     /** 1002XXXXX业务数据验证错误*/
     VALIDATE_ERROR(                                 100200000, "验证错误."),
     USER_FORGETPWD_SMS_ERR(                         100200001, "短信验证码输入错误."),
+    VERIFY_CODE_ERROR(                              100200002,  "验证码错误"),
+
     /** 100200[1,2,3]XX操作类错误*/
     INSERT_FAIL(                                    100200101, "插入失败."),
     UPDATE_FAIL(                                    100200201, "更新失败."),

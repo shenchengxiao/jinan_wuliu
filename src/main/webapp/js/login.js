@@ -16,6 +16,11 @@ $(function(){
         }
     });
 
+    $("#changeImage").click(function () {
+        changeImg();
+    });
+
+
 
  /**
  *  功能描述：表单验证
@@ -34,6 +39,10 @@ $('#form_login').validate({
             passwd:{
                 required:true
             },
+            verifyCode:{
+                maxlength:4,
+                required:true
+            }
         },
         messages:{
             userName:{
@@ -41,6 +50,10 @@ $('#form_login').validate({
             },
             passwd:{
                 required:'请输入密码'
+            },
+            verifyCode:{
+                maxlength:'最多输入四个字符',
+                required:'请输入验证码'
             }
         },
         invalidHandler:function(event,validator){
@@ -68,6 +81,7 @@ $('#form_login').validate({
 function login(){
     var userName = $("#UserName").val();
     var password = $("#UserPass").val();
+    var verifyCode = $("#veryCode").val();
     $.ajax({
         url:manage_path+'/api/user/login',
         type: 'POST',
@@ -77,13 +91,15 @@ function login(){
         },
         data: {
             "userName":userName,
-            "passwd":password
+            "passwd":password,
+            "verifyCode":verifyCode
         },
         success:function(data) {
             if(data.status == 0){
                 window.location.href = manage_path+'/views/index.jsp';
             }else{
-                $.toast('用户名或密码错误，请重新输入',3000);
+                changeImg();
+                $.toast(data.msg,3000);
             }
         },
         complete:function(){
@@ -109,3 +125,11 @@ function getRootPath()
 }
 //定义路径全局变量
 var manage_path=getRootPath();
+
+
+//刷新验证码
+function changeImg(){
+    //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上随机数
+    document.getElementById("imgObj").src=manage_path+"/api/verify/code?t="+Math.random();
+}
+

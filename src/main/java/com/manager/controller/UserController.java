@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by shencx on 2017/3/24.
@@ -39,17 +43,24 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public APIResponse<Admin> userLogin(HttpServletRequest request, UserInfoRequest userInfoRequest){
+    public APIResponse<Admin> userLogin(HttpServletRequest request,HttpServletResponse response, UserInfoRequest userInfoRequest){
         APIResponse<Admin> apiResponse = new APIResponse<Admin>();
+        String validateC = (String) request.getSession().getAttribute("validateCode");
         Admin userInfo = null;
         try {
             userInfo = userInfoHandler.getUserInfoByNameAndPasswd(userInfoRequest);
             if (userInfo != null){
-                AuthUser user = ActionContext.getActionContext().currentUser();
-                user.login(Long.valueOf(userInfo.getId()),userInfo.getUserName(),userInfo.getRole());
-                apiResponse.setStatus(BusinessStatusEnum.SUCCESS.getStatus());
-                apiResponse.setMsg(BusinessStatusEnum.SUCCESS.getDesc());
-                apiResponse.setData(userInfo);
+                if (userInfoRequest.getVerifyCode().equalsIgnoreCase(validateC)){
+                    AuthUser user = ActionContext.getActionContext().currentUser();
+                    user.login(Long.valueOf(userInfo.getId()),userInfo.getUserName(),userInfo.getRole());
+                    apiResponse.setStatus(BusinessStatusEnum.SUCCESS.getStatus());
+                    apiResponse.setMsg(BusinessStatusEnum.SUCCESS.getDesc());
+                    apiResponse.setData(userInfo);
+                }else {
+                    apiResponse.setStatus(BusinessStatusEnum.VERIFY_CODE_ERROR.getCode());
+                    apiResponse.setMsg(BusinessStatusEnum.VERIFY_CODE_ERROR.getDesc());
+                }
+
             }else {
                 apiResponse.setStatus(BusinessStatusEnum.EMPTY_RESULT.getCode());
                 apiResponse.setMsg(BusinessStatusEnum.EMPTY_RESULT.getDesc());
@@ -191,4 +202,5 @@ public class UserController {
         }
         return apiResponse;
     }
+
 }
