@@ -6,14 +6,9 @@ $(function () {
 
 
     $("#username").html(App.req.user.uname);
-    if(App.req.user.role == 16){
-    	$("#role").html("超级管理员");
-    }else if(App.req.user.role == 32){
-    	$("#role").html("客服人员");
-    }else if(App.req.user.role == 64){
-        $("#role").html("工作人员")
-    }
-    
+    var role_name = getRoleName(App.req.user.role,Role);
+    $("#role").html(role_name);
+
     
     $("#logout").click(logout); //退出登录
 
@@ -65,7 +60,7 @@ $(function () {
 var Role = {
     SuperAdmin:{Name:"超级管理员",Value:16},
     CustomerServer:{Name:"客服人员",Value:32},
-    Worker:{Name:"工作人员",value:64}
+    Worker:{Name:"工作人员",Value:64}
 }
 
 function getRoleName(roleNum,Role){
