@@ -1,5 +1,3 @@
-'use strict'
-
 $(function(){
 
     getItemList();//先执行一次获取banner列表信息；
