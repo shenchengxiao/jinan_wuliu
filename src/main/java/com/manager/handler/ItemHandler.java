@@ -27,6 +27,7 @@ import com.manager.common.SystemParam;
 import com.manager.exception.DatabaseException;
 import com.manager.exception.YCException;
 import com.manager.mapper.UserMapper;
+import com.manager.pojo.Deletehistory;
 import com.manager.pojo.Items;
 import com.manager.request.item.ItemRequest;
 import com.manager.response.ItemResponse;
@@ -219,6 +220,18 @@ public class ItemHandler {
             itemService.deleteItemsLog(list);
         } catch (DatabaseException e) {
             LOG.error("deleteUserInfo exception",ids);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+	}
+
+	public Page<Deletehistory> selectItemCleanNotes(ItemRequest itemRequest) throws YCException{
+		// TODO Auto-generated method stub
+		Page<Deletehistory> page = null;
+        try {
+            page = itemService.selectItemCleanNotes(itemRequest);
+            return page;
+        }catch (DatabaseException e) {
+            LOG.error("selectItemCleanNotes exception",itemRequest);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
 	}

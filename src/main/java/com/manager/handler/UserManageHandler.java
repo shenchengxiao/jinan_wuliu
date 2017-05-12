@@ -397,6 +397,7 @@ public class UserManageHandler {
 
         params2.add(new BasicNameValuePair("userids", Arrays.toString(arr)));
         params2.add(new BasicNameValuePair("type", "103"));
+        params2.add(new BasicNameValuePair("content", "您已被物流网终端客服提出下线,请联系客服!"));
 //        String result =  URLConnUtil.doPost(action, reqJson.toString(), params);
         String result =  URLConnUtil.doGet(action, params2, params);
         JSONObject jsonObject = JSONObject.fromObject(result);

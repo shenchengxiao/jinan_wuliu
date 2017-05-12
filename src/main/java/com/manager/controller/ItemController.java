@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.exception.YCException;
 import com.manager.handler.ItemHandler;
+import com.manager.pojo.Deletehistory;
 import com.manager.pojo.Items;
 import com.manager.request.blackword.BlackWordRequest;
 import com.manager.request.item.ItemRequest;
@@ -205,8 +206,31 @@ public class ItemController {
 			apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
 			apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
 		}
-
 		return apiResponse;
-
 	}
+	
+	/**
+	 * 获取每日清空日志的记录
+	 * @param request
+	 * @param itemRequest
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/clean_notes",method = RequestMethod.GET)
+	public APIResponse<Page<Deletehistory>> selectItemCleanNotes(HttpServletRequest request,ItemRequest itemRequest){
+		APIResponse<Page<Deletehistory>> apiResponse = new APIResponse<>();
+		Page<Deletehistory> page = null;
+		try {
+			page = itemHandler.selectItemCleanNotes(itemRequest);
+			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+			apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+			apiResponse.setData(page);
+		} catch (YCException e) {
+			LOG.error("获取清除日志记录发生异常",itemRequest);
+			apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+			apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+		}
+		return apiResponse;
+	}
+	
 }

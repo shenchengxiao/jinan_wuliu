@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.manager.exception.DatabaseException;
 import com.manager.interceptor.PageMybatisInterceptor;
+import com.manager.mapper.DeletehistoryMapper;
 import com.manager.mapper.ItemsMapper;
 import com.manager.mapper.UserMapper;
 import com.manager.mapper.manual.ItemResponseMapper;
+import com.manager.pojo.Deletehistory;
+import com.manager.pojo.DeletehistoryExample;
 import com.manager.pojo.Items;
 import com.manager.pojo.User;
 import com.manager.pojo.UserExample;
@@ -33,6 +36,8 @@ public class ItemServiceImpl implements ItemService {
 	private UserMapper userMapper;
 	@Resource
 	private ItemResponseMapper itemResponseMapper;
+	@Resource
+	private DeletehistoryMapper deletehistoryMapper;
 	
 	
 	Logger LOG = LoggerFactory.getLogger(ItemServiceImpl.class);
@@ -206,6 +211,25 @@ public class ItemServiceImpl implements ItemService {
             LOG.error("deleteUserInfo 异常",ids_arr);
             throw new DatabaseException(e.getMessage());
         }
+	}
+
+	@Override
+	public Page<Deletehistory> selectItemCleanNotes(ItemRequest itemRequest) throws DatabaseException {
+		// TODO Auto-generated method stub
+		try {
+            if (itemRequest == null){
+                LOG.error("selectItemCleanNotes 信息为空",itemRequest);
+                return null;
+            }
+            DeletehistoryExample example = new DeletehistoryExample();
+			PageMybatisInterceptor.startPage(itemRequest.getPageNum(),itemRequest.getPageSize());
+			deletehistoryMapper.selectByExample(example);
+			Page<Deletehistory> page = PageMybatisInterceptor.endPage();
+			return page;
+		} catch (Throwable e) {
+			LOG.error("selectItemCleanNotes 异常",itemRequest);
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 

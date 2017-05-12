@@ -3,6 +3,7 @@ package com.manager.service;
 import java.util.List;
 
 import com.manager.exception.DatabaseException;
+import com.manager.pojo.Deletehistory;
 import com.manager.request.item.ItemRequest;
 import com.manager.response.ItemResponse;
 import com.manager.utils.Page;
@@ -22,5 +23,7 @@ public interface ItemService {
 	Page<ItemResponse> fetchItemBackupList(ItemRequest itemRequest) throws DatabaseException;
 
 	boolean deleteItemsLog(List<Long> list) throws DatabaseException;
+
+	Page<Deletehistory> selectItemCleanNotes(ItemRequest itemRequest) throws DatabaseException;
 
 }
