@@ -151,16 +151,25 @@ function getSearchLogList() {
                         }else {
                             type = "";
                         }
+                        
+                      //截取字符串
+                        var content = item.searchContent.toString();
+                        if (content.length > 10 && content != 0){
+                            content = content.substring(0,40)+"...";
+                        }else {
+                            content;
+                        }
+                        
                         temp += '<tr>'
                             +'<td data-title="">' +'<input type="checkbox" name="chooseTag" ><input type="hidden" name="idsArr" value="'+item.id+'"/>'+ '</td>'
                             + '<td data-title="用户名称">' + item.userName + '</td>'
-                            + '<td data-title="搜索内容">' + item.searchContent + '</td>'
+                            + '<td data-title="搜索内容" style="color:#0b94ea;max-width:200px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.searchContent+'">' + content + '</td>'
                             + '<td data-title="类型">' + type + '</td>'
                             + '<td data-title="查询时间">' + timestampFormat(item.createTime) + '</td>'
                             + '</tr>';
                     })
                     $('#query_list tbody').html(temp);
-                    // $("[data-toggle='popover']").popover();
+                    $("[data-toggle='popover']").popover();
                     //操作按钮hover显示详情
                     $("[data-toggle='tooltip']").tooltip();
                     $("[data-toggle='modal']").tooltip();
@@ -172,7 +181,7 @@ function getSearchLogList() {
                     $.toast("没有查到数据",3000);
                     $('#query_list tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

@@ -1,17 +1,17 @@
-'use strict'
-
 $(function(){
 
     getBlackwordList();//先执行一次获取banner列表信息；
+    
     $('#btn_search1').on('click',function(){
         $("#pageNum").val(1);
         getBlackwordList();//获取banner列表信息；
     });
     $(document).keydown(function(event){
         if(event.keyCode==13){
-            $("#btn_search").click();
+        	$('#btn_search1').click();
         }
     });
+    
     //创建modal弹出层class="modal"
     $('#creat_banner_icon').on('click',function(){
         clearModal();//清空modal弹出层里面的参数；
@@ -168,7 +168,7 @@ function getBlackwordList(){
                     $.toast("没有查到数据",3000);
                     $('#blackword_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

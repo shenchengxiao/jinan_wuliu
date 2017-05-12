@@ -187,17 +187,17 @@ function getUrl()
 		-->
 			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本</p>
 			<input id="callee" type="text" style="width:350px; height:39px;" /><br/>
-			<input type="button" id="btnCallOut" style="width:173px; height:39px;background:url('./image/Uc3_p1_24.jpg')" onClick="clickCallOut()" />
-			<input type="button" id="btnSetIdle" style="width:173px; height:39px;background:url('./image/Uc3_p1_27.jpg')" onClick="clickOffHand()" disabled="disabled" /><br/>
-			<input type="button" id="btnTalkRecIO" style="width:173px; height:39px;background:url('./image/Uc3_p1_5.jpg')" onclick="clickTalkRecIO()" disabled="disabled" />
-			<input type="button" id="btnStartRecording" style="width:173px; height:39px;background:url('./image/Uc3_p1_14.jpg')" onclick="clickRecordFile()" disabled="disabled"  /><br/>
-			<input type="button" id="btnCloseSound" style="width:173px; height:39px;background:url('./image/Uc3_p1_15.jpg')" onclick="clickCloseSound()" disabled="disabled"  />
-			<input type="button" id="btnKeep" style="width:173px; height:39px;background:url('./image/Uc3_p1_12.jpg')" onclick="clickHold()" disabled="disabled"  /><br/>
-			<input type="button" id="btnLeave" style="width:173px; height:39px;background:url('./image/Uc3_p1_10.jpg')" onclick="clickLiuyanRecIO()" disabled="disabled" />
-			<input type="button" id="btnVOIPIO" style="width:173px; height:39px;background:url('./image/Uc3_p1_6.jpg')" onclick="clickVOIPIO()" /><br/>
+			<input type="button" id="btnCallOut" style="width:49%; height:7%;background:url('./image/Uc3_p1_24.jpg')" onClick="clickCallOut()" />
+			<input type="button" id="btnSetIdle" style="width:49%; height:7%;background:url('./image/Uc3_p1_27.jpg')" onClick="clickOffHand()" disabled="disabled" /><br/>
+			<input type="button" id="btnTalkRecIO" style="width:49%; height:7%;background:url('./image/Uc3_p1_5.jpg')" onclick="clickTalkRecIO()" disabled="disabled" />
+			<input type="button" id="btnStartRecording" style="width:49%; height:7%;background:url('./image/Uc3_p1_14.jpg')" onclick="clickRecordFile()" disabled="disabled"  /><br/>
+			<input type="button" id="btnCloseSound" style="width:49%; height:7%;background:url('./image/Uc3_p1_15.jpg')" onclick="clickCloseSound()" disabled="disabled"  />
+			<input type="button" id="btnKeep" style="width:49%; height:7%;background:url('./image/Uc3_p1_12.jpg')" onclick="clickHold()" disabled="disabled"  /><br/>
+			<input type="button" id="btnLeave" style="width:49%; height:7%;background:url('./image/Uc3_p1_10.jpg')" onclick="clickLiuyanRecIO()" disabled="disabled" />
+			<input type="button" id="btnVOIPIO" style="width:49%; height:7%;background:url('./image/Uc3_p1_6.jpg')" onclick="clickVOIPIO()" /><br/>
 			
 			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;转拨</p>
-			<input type="button" id="btnFlashTime" style="width:173px; height:39px;background:url('./image/Uc3_p1_19.jpg')" onclick="clickFlashTime()" />
+			<input type="button" id="btnFlashTime" style="width:49%; height:7%;background:url('./image/Uc3_p1_19.jpg')" onclick="clickFlashTime()" />
 				<select name="selectFlashTime" id="selectFlashTime" style="width:100px; height:39px;" >   
 						<option value="0">100ms</option>   
 						<option value="1">180ms</option>   
@@ -207,16 +207,16 @@ function getUrl()
 				</select>   
 				<input id="zhuanbo" type="text" style="width:70px; height:39px;" />	<br/>
 			
-			<input type="button" id="btnBroken" style="width:173px; height:39px;background:url('./image/Uc3_p1_17.jpg')" onclick="clickFlash()" />
-			<input type="button" id="btnZhuanBo" style="width:173px; height:39px;background:url('./image/Uc3_p1_26.jpg')" onclick="clickZhuanBo()" /><br/>
+			<input type="button" id="btnBroken" style="width:49%; height:7%;background:url('./image/Uc3_p1_17.jpg')" onclick="clickFlash()" />
+			<input type="button" id="btnZhuanBo" style="width:49%; height:7%;background:url('./image/Uc3_p1_26.jpg')" onclick="clickZhuanBo()" /><br/>
 			
 			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置</p>
-			<input type="button" id="btnExitCode" style="width:173px; height:39px;background:url('./image/Uc3_p1_25.jpg')" onclick="clickOutcode()"  />
-			<input id="outcode" type="text" style="width:173px; height:39px;" />	<br/>
-			<input type="button" id="btnDialTone" style="width:173px; height:39px;background:url('./image/Uc3_p1_22.jpg')" onclick="clickDialTone()"  />
-			<input type="button" id="btnBill" style="width:173px; height:39px;background:url('./image/Uc3_p1_9.jpg')" onclick="clickRingSet()"  /><br/>
-			<input type="button" id="btnAnswer" style="width:173px; height:39px;background:url('./image/Uc3_p1_4.jpg')" onclick="clickAutoAnswerOpen()" />
-			<input type="button" id="btnPhoneState" style="width:173px; height:39px;background:url('./image/Uc3_p1_18.jpg')" onClick="clickPhoneState()" /><br/>
+			<input type="button" id="btnExitCode" style="width:49%; height:7%;background:url('./image/Uc3_p1_25.jpg')" onclick="clickOutcode()"  />
+			<input id="outcode" type="text" style="width:49%; height:7%;" />	<br/>
+			<input type="button" id="btnDialTone" style="width:49%; height:7%;background:url('./image/Uc3_p1_22.jpg')" onclick="clickDialTone()"  />
+			<input type="button" id="btnBill" style="width:49%; height:7%;background:url('./image/Uc3_p1_9.jpg')" onclick="clickRingSet()"  /><br/>
+			<input type="button" id="btnAnswer" style="width:49%; height:7%;background:url('./image/Uc3_p1_4.jpg')" onclick="clickAutoAnswerOpen()" />
+			<input type="button" id="btnPhoneState" style="width:49%; height:7%;background:url('./image/Uc3_p1_18.jpg')" onClick="clickPhoneState()" /><br/>
 		</div>
 		<div id="messages" style="padding: 0px; margin: 0px; border: black 1px solid;overflow: auto;height: 570px;width:450px;float: left;"></div>
 	</form>

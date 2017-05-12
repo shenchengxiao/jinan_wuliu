@@ -103,7 +103,7 @@ function getUpgradeList(){
                         temp += '<tr>'
                             + '<td data-title="名称" >' + item.name + '</td>'
                             + '<td data-title="版本号">'+ item.version +'</td>'
-                            + '<td data-title="升级描述" data-container="body" data-toggle="popover" data-trigger="click" data-placement="top" data-content="'+item.upgradeDesc+'" style="width:200px;overflow:hidden;color:#0b94ea;" >' + up_Desc + '</td>'
+                            + '<td data-title="升级描述" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+item.upgradeDesc+'" style="width:200px;overflow:hidden;color:#0b94ea;" >' + up_Desc + '</td>'
                             + '<td data-title="平台类型">' + item.platformType + '</td>'
                             + '<td data-title="创建时间">' + timestampFormat(item.createTime) + '</td>'
                             + '<td data-title="操作">' + operation + '</td>'
@@ -119,7 +119,7 @@ function getUpgradeList(){
                     $.toast("没有查到数据", 3000);
                     $('#upgrade_list tbody').html('');
                     if ($('#pagination').html().length > 0) {
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

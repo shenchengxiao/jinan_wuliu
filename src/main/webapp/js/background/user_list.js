@@ -1,16 +1,15 @@
 $(function(){
-	
 	var phone = getUrlParam("phoneNumber");
 	
 	if(phone != ''){
 		$("#phoneNumber").val(phone);
 	}
-
     getUserList();//先执行一次获取列表信息；
     $('#btn_search').on('click',function(){
         $("#pageNum").val(1);
         getUserList();//获取列表信息；
     });
+    
     $(document).keydown(function(event){
         if(event.keyCode==13){
             $("#btn_search").click();
@@ -467,7 +466,7 @@ function getUserList(){
                     $.toast("没有查到数据",3000);
                     $('#user_manage_list tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }

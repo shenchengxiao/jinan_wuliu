@@ -174,6 +174,9 @@ function getUserDetail(id){
                 $('input[name=id]').val(id);
                 $('input[name=userName]').val(json.userName);
                 $('input[name=passwd]').val(json.passwd).data('original',json.passwd);
+
+                //先清空
+                $('input[name=roleArr]').parent().removeClass('checked');
                 checkBox(getRoleValue(json.role,Role));
                 // checkBox('32');
             }
@@ -188,7 +191,7 @@ function getUserDetail(id){
 }
 
 
-
+1
 
 /**
  *  功能描述：获取用户列表
@@ -218,6 +221,7 @@ function getUserList(){
                         var roleName = '';
                         for (var r in Role) {
                             if (Role[r].Value & role) {
+                                console.log(Role[r].Value & role);
                                 roleName += Role[r].Name + '+';
                             }
                         }

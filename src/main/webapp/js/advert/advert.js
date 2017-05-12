@@ -2,15 +2,16 @@
 $(function(){
 
     getAdvertList();//先执行一次获取列表信息；
-    $('#btn_search').on('click',function(){
-        $("#pageNum").val(1);
-        getAdvertList();//获取列表信息；
-    });
     $(document).keydown(function(event){
         if(event.keyCode==13){
             $("#btn_search").click();
         }
     });
+    $('#btn_search').on('click',function(){
+        $("#pageNum").val(1);
+        getAdvertList();//获取列表信息；
+    });
+    
     //创建modal弹出层class="modal"
     $('#creat_advert_icon').on('click',function(){
         clearModal();//清空modal弹出层里面的参数；
@@ -192,7 +193,7 @@ function getAdvertList(){
                     $.toast("没有查到数据",3000);
                     $('#advert_list tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }else {

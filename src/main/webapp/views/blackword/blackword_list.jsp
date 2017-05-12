@@ -72,10 +72,10 @@
                                             <option value="1">有效</option>
                                         </select>
                                     </div>
+                                    <input type="text" name="pageNum" id="pageNum" value="1" style="display: none;">
                                     <div class="span2">
-                                        <button type="button" class="btn blue mgleft10" id="btn_search1">查找</button>
+                                        <button type="button" class="btn blue mgleft10" id="btn_search1" >查找</button>
                                     </div>
-                                    <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
                             </div>
                         </div>

@@ -79,8 +79,7 @@
                                             <option value="1">有效</option>
                                         </select>
                                     </div> -->
-
-                                    <input type="hidden" name="pageNum" id="pageNum" value="1">
+                                    <input type="text" name="pageNum" id="pageNum" value="1" style="display: none;">
                                 </form>
                             </div>
                         </div>

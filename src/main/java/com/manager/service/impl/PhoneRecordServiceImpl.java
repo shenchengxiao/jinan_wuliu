@@ -143,7 +143,7 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
             	}
             }
             
-            if(page.getResult() != null){
+            if(page.getResult() != null && page.getResult().size()>0){
             	PhoneRecord result = page.getResult().get(0);
                 result.setSumduration(sumduration);
                 result.setCount(count);

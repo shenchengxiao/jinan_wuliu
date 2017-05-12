@@ -29,11 +29,17 @@ public class UserInfoRequest extends BaseQuery {
      */
     private Integer status;
 
+    /**
+     * 验证码
+     */
+    private String verifyCode;
+
     @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -44,6 +50,14 @@ public class UserInfoRequest extends BaseQuery {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
     public String getPhoneNumber() {
@@ -62,11 +76,11 @@ public class UserInfoRequest extends BaseQuery {
         this.status = status;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getVerifyCode() {
+        return verifyCode;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 }

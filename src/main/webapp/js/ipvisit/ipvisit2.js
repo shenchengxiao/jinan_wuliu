@@ -72,7 +72,7 @@ function getIpvisitList(){
                     $.toast("没有查到数据",3000);
                     $('#ipvisit_List tbody').html('');
                     if($('#pagination').html().length > 0){
-                        $('#pagination').jqPaginator('destory');
+                        $('#pagination').jqPaginator('destroy');
                     }
                 }
             }
