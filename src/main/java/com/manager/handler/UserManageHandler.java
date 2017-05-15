@@ -19,14 +19,22 @@ import com.manager.utils.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,21 +67,25 @@ public class UserManageHandler {
     @Value("${online.list.method}")
     private String onlineUserList;
 
+    @Value("${delete.online.queue}")
+    private String deleteQueue;
+
     Logger LOG = LoggerFactory.getLogger(UserManageHandler.class);
 
     /**
      * 用户添加、修改
+     *
      * @param request
      * @throws YCException
      */
     public void editUser(UserManageRequest request) throws YCException {
         /** 参数校验 */
         Validator.isEmpty(request, YCSystemStatusEnum.PARAM_EMPTY);
-        Validator.isEmpty(request.getUserName(),"用户名称不能为空");
-        Validator.isEmpty(request.getUserNum(),"用户编号不能为空");
-        Validator.isEmpty(request.getPassword(),"用户密码不能为空");
-        Validator.isEmpty(request.getPasswordVerify(),"确认密码不能为空");
-        Validator.isEmpty(request.getPhoneNumber(),"电话号码不能为空");
+        Validator.isEmpty(request.getUserName(), "用户名称不能为空");
+        Validator.isEmpty(request.getUserNum(), "用户编号不能为空");
+        Validator.isEmpty(request.getPassword(), "用户密码不能为空");
+        Validator.isEmpty(request.getPasswordVerify(), "确认密码不能为空");
+        Validator.isEmpty(request.getPhoneNumber(), "电话号码不能为空");
 
         //用户基本信息
         User user = new User();
@@ -103,14 +115,14 @@ public class UserManageHandler {
         user.setCheckLimit(request.getCheckLimit());
         user.setCheckNum(request.getCheckNum());
         user.setPlatformType(PlatformTypeEnum.create(request.getPlatformType()));
-        if(request.getInLine1() != null && request.getInLine1() != "" && (request.getInLine2() == null || request.getInLine2() == "")){
-        	user.setInLine("内线:"+request.getInLine1());
+        if (request.getInLine1() != null && request.getInLine1() != "" && (request.getInLine2() == null || request.getInLine2() == "")) {
+            user.setInLine("内线:" + request.getInLine1());
         }
-        if(request.getInLine2() != null && request.getInLine2() != "" && (request.getInLine1() == null || request.getInLine1() == "")){
-        	user.setInLine("电信内线:"+request.getInLine2());
+        if (request.getInLine2() != null && request.getInLine2() != "" && (request.getInLine1() == null || request.getInLine1() == "")) {
+            user.setInLine("电信内线:" + request.getInLine2());
         }
-        if(request.getInLine2() != null && request.getInLine2() != "" && request.getInLine1() != null && request.getInLine1() != ""){
-        	user.setInLine("内线:"+request.getInLine1()+"#"+"电信内线:"+request.getInLine2());
+        if (request.getInLine2() != null && request.getInLine2() != "" && request.getInLine1() != null && request.getInLine1() != "") {
+            user.setInLine("内线:" + request.getInLine1() + "#" + "电信内线:" + request.getInLine2());
         }
 
         //是否发布接收信息入库
@@ -137,8 +149,8 @@ public class UserManageHandler {
 //        userBinding.setIsBinding(request.getIsBinding().byteValue());
         try {
             //判断ID是否为空，是则添加，否则更新
-            if (request.getId() == null){
-            	
+            if (request.getId() == null) {
+
                 Integer id = userInfoService.addUser(user);
 
                 //添加定制信息
@@ -148,8 +160,8 @@ public class UserManageHandler {
                 //添加绑定信息
                 userBinding.setUserId(id);
                 bindingService.addBinding(userBinding);
-            }else {
-                userInfoService.updateUser(user); 
+            } else {
+                userInfoService.updateUser(user);
 
                 //修改定制信息
                 userCustom.setUserId(request.getId());
@@ -161,97 +173,101 @@ public class UserManageHandler {
 
             }
         } catch (DatabaseException e) {
-            LOG.error("editUser exception",request);
+            LOG.error("editUser exception", request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
 
     /**
      * 根据ID获取详情
+     *
      * @param id
      * @return
      * @throws YCException
      */
     public UserMangeResponse fetchUserManageDetail(Integer id) throws YCException {
         /** 参数校验 */
-        Validator.isEmpty(id,"用户主键ID不能为空");
+        Validator.isEmpty(id, "用户主键ID不能为空");
         UserManageRequest request = new UserManageRequest();
         request.setId(id);
         UserMangeResponse userMangeResponse = null;
         try {
             userMangeResponse = userInfoService.getUserDetail(request);
-            if(userMangeResponse != null && userMangeResponse.getInLine() != null){
-            	String[] strArray = userMangeResponse.getInLine().split("#");
+            if (userMangeResponse != null && userMangeResponse.getInLine() != null) {
+                String[] strArray = userMangeResponse.getInLine().split("#");
 //            	System.out.println(strArray.length);
-            	if(strArray.length == 1){
-            		if(userMangeResponse.getInLine().startsWith("内线")){
-            			String[] strArray1 = userMangeResponse.getInLine().split(":");
-                		userMangeResponse.setInLine1(strArray1[1]);
-            		}else {
-            			String[] strArray2 = userMangeResponse.getInLine().split(":");
-                		userMangeResponse.setInLine2(strArray2[1]);
-					}
-            	}else if(strArray.length == 2){
-            		String[] strArray1 = strArray[0].split(":");
-            		userMangeResponse.setInLine1(strArray1[1]);
-            		String[] strArray2 = strArray[1].split(":");
-            		userMangeResponse.setInLine2(strArray2[1]);
-            	}
-            	
+                if (strArray.length == 1) {
+                    if (userMangeResponse.getInLine().startsWith("内线")) {
+                        String[] strArray1 = userMangeResponse.getInLine().split(":");
+                        userMangeResponse.setInLine1(strArray1[1]);
+                    } else {
+                        String[] strArray2 = userMangeResponse.getInLine().split(":");
+                        userMangeResponse.setInLine2(strArray2[1]);
+                    }
+                } else if (strArray.length == 2) {
+                    String[] strArray1 = strArray[0].split(":");
+                    userMangeResponse.setInLine1(strArray1[1]);
+                    String[] strArray2 = strArray[1].split(":");
+                    userMangeResponse.setInLine2(strArray2[1]);
+                }
+
             }//内线:11111#电信内线:22222
             return userMangeResponse;
         } catch (DatabaseException e) {
-            LOG.error("fetchUserManageDetail exception",id);
+            LOG.error("fetchUserManageDetail exception", id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
 
     /**
      * 获取列表
+     *
      * @param request
      * @return
      * @throws YCException
      */
     public Page<UserMangeResponse> fetchUserManageList(UserManageRequest request) throws YCException {
         /** 参数校验 */
-        Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
+        Validator.isEmpty(request, YCSystemStatusEnum.PARAM_EMPTY);
         Page<UserMangeResponse> userMangeResponsePage = null;
         try {
             userMangeResponsePage = userInfoService.getUserList(request);
             return userMangeResponsePage;
         } catch (DatabaseException e) {
-            LOG.error("fetchUserManageList exception",request);
+            LOG.error("fetchUserManageList exception", request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
 
     /**
      * 更新用户状态
+     *
      * @param id
      * @param enabled
      * @throws YCException
      */
-    public void modifyUserStatus(Integer id,Integer enabled) throws YCException {
+    public void modifyUserStatus(Integer id, Integer enabled) throws YCException {
         /** 参数校验 */
-        Validator.isEmpty(id,"主键ID不能为空");
-        Validator.isEmpty(enabled,"状态值不能为空");
+        Validator.isEmpty(id, "主键ID不能为空");
+        Validator.isEmpty(enabled, "状态值不能为空");
         try {
-            userInfoService.modifyStatus(id,enabled);
+            userInfoService.modifyStatus(id, enabled);
         } catch (DatabaseException e) {
-            LOG.error("modifyUserStatus exception",id);
+            LOG.error("modifyUserStatus exception", id);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
 
     /**
      * 更新密码、到期时间
+     *
      * @param request
      * @throws YCException
      */
     public void modifyPasswdOrDate(UserManageRequest request) throws YCException {
         /** 参数校验 */
-        Validator.isEmpty(request,YCSystemStatusEnum.PARAM_EMPTY);
-        Validator.isEmpty(request.getId(),"用户主键ID不能为空");
+        Validator.isEmpty(request, YCSystemStatusEnum.PARAM_EMPTY);
+        Validator.isEmpty(request.getId(), "用户主键ID不能为空");
         User user = new User();
         user.setId(request.getId());
         user.setPassword(request.getPassword());
@@ -264,21 +280,22 @@ public class UserManageHandler {
         }
         try {
             userInfoService.updateUser(user);
-        }  catch (DatabaseException e) {
-            LOG.error("modifyPasswdOrDate exception",request);
+        } catch (DatabaseException e) {
+            LOG.error("modifyPasswdOrDate exception", request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
 
     /**
      * 获取在线用户列表
+     *
      * @param request
      * @return
      * @throws YCException
      */
     public Page<UserMangeResponse> fetchOnlineUserList(OnlineUserRequest request) throws YCException {
         List<Integer> list = new ArrayList<>();
-        String onlineUserUrl= host+onlineUserList;
+        String onlineUserUrl = host + onlineUserList;
         String resultData = fetchUserIds(onlineUserUrl);
         if (resultData != null) {
             JSONObject jsonObject = JSONObject.fromObject(resultData);
@@ -286,7 +303,7 @@ public class UserManageHandler {
             for (Object obj : jsonArray) {
                 JSONObject jObject = JSONObject.fromObject(obj.toString());
                 String name = jObject.getString("name");
-                String userid ="";
+                String userid = "";
                 //先处理
                 if (!name.contains("_")) {
                     userid = name;
@@ -312,51 +329,48 @@ public class UserManageHandler {
             userMangeResponsePage = userInfoService.getUserByUserIds(request);
             return userMangeResponsePage;
         } catch (DatabaseException e) {
-            LOG.error("fetchOnlineUserList exception",request);
+            LOG.error("fetchOnlineUserList exception", request);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
 
     /**
      * 踢出用户
+     *
      * @param userIds
      * @throws YCException
      */
     public void kickOutUser(String[] userIds) throws YCException {
         String kickoutUrl = host + kickOutUser;
+        String delete_queue = host + deleteQueue;
         List<Integer> list = new ArrayList<>();
-        List<Integer> listAll = new ArrayList<>();
         //int type = 0;//1.代表给单独或多个用户发送消息通知;2.踢出用户;0.代表广播系统消息
         Map<String, String> map = new HashMap<>();
         map.put("type", "103");
         try {
-        for (String ids : userIds) {
-            Integer id = Integer.valueOf(ids);
-        	User user = userInfoService.selectById(id);
-        	if(user != null && user.getPlatformType() != null){
-        		if(user.getPlatformType().getValue() == 0){
-        			list.add(Integer.valueOf(ids));
-                    //踢出用户(pc客户端)
-//                    kickOutByUserId(list,kickoutUrl);
-        		}else if(user.getPlatformType().getValue() == 1  && user.getRegistrationid() != null){
-        			//踢出ios用户
-        			String msgContent = "被物流网客服强迫下线";
-        			PushExample.SendUsersPushToIOS(msgContent,map, user.getRegistrationid());
-        		}else if(user.getPlatformType().getValue() == 2  && user.getRegistrationid() != null){
-        			//踢出安卓用户
-        			String msgContent = "被物流网客服强迫下线";
-        			PushExample.SendUsersPushToAndroid("济南网通知:", msgContent,map, user.getRegistrationid());
-        		}
-        	}
-        	listAll.add(Integer.valueOf(ids));
-        }
-            
-        	//踢出用户(pc客户端)
-        	kickOutByUserId(list,kickoutUrl);
-            //更新用户状态
-//            userInfoService.batchUpdateUserStatus(listAll);
-        }  catch (Exception e) {
-            LOG.error("kickOutUser exception",userIds);
+            for (String ids : userIds) {
+                Integer id = Integer.valueOf(ids);
+                User user = userInfoService.selectById(id);
+                if (user != null && user.getPlatformType() != null) {
+                    if (user.getPlatformType().getValue() == 0) {
+                        list.add(Integer.valueOf(ids));
+                        //踢出用户(pc客户端)
+                        kickOutByUserId(list, kickoutUrl);
+                    } else if (user.getPlatformType().getValue() == 1 && user.getRegistrationid() != null) {
+                        //踢出ios用户
+                        String msgContent = "被物流网客服强迫下线";
+                        PushExample.SendUsersPushToIOS(msgContent, map, user.getRegistrationid());
+                    } else if (user.getPlatformType().getValue() == 2 && user.getRegistrationid() != null) {
+                        //踢出安卓用户
+                        String msgContent = "被物流网客服强迫下线";
+                        PushExample.SendUsersPushToAndroid("济南网通知:", msgContent, map, user.getRegistrationid());
+                    }
+                }
+                deleteQueue(ids, delete_queue);
+            }
+
+        } catch (Exception e) {
+            LOG.error("kickOutUser exception", userIds);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
 
@@ -364,25 +378,27 @@ public class UserManageHandler {
 
     /**
      * 查询在线用户
+     *
      * @param url
      * @return
      */
-    public String fetchUserIds(String url){
+    public String fetchUserIds(String url) {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
-        String userIds =  URLConnUtil.doPost(url,params);
+        String userIds = URLConnUtil.doPost(url, params);
         return userIds;
     }
 
     /**
      * 踢出在线用户
+     *
      * @param userIds
      * @param action
      * @return
      * @throws YCException
      */
-    public boolean kickOutByUserId(List<Integer> userIds,String action) throws YCException {
+    public boolean kickOutByUserId(List<Integer> userIds, String action) throws YCException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
@@ -390,8 +406,8 @@ public class UserManageHandler {
 //        reqJson.put("userids",userIds);
 //        reqJson.put("type",3);
         List<NameValuePair> params2 = new ArrayList<NameValuePair>();
-        String[] arr=new String[userIds.size()];
-        for (int i=0;i<userIds.size();i++){
+        String[] arr = new String[userIds.size()];
+        for (int i = 0; i < userIds.size(); i++) {
             arr[i] = String.valueOf(userIds.get(i));
         }
 
@@ -399,40 +415,41 @@ public class UserManageHandler {
         params2.add(new BasicNameValuePair("type", "103"));
         params2.add(new BasicNameValuePair("content", "您已被物流网终端客服提出下线,请联系客服!"));
 //        String result =  URLConnUtil.doPost(action, reqJson.toString(), params);
-        String result =  URLConnUtil.doGet(action, params2, params);
+        String result = URLConnUtil.doGet(action, params2, params);
         JSONObject jsonObject = JSONObject.fromObject(result);
-        if(jsonObject.getString("status") .equals("0")){
+        if (jsonObject.getString("status").equals("0")) {
             return true;
-        }else {
-            LOG.error("kickOutByUserId exception",userIds);
+        } else {
+            LOG.error("kickOutByUserId exception", userIds);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
     }
-    
+
     /**
      * 返回联想账号
+     *
      * @param user
      * @return
      * @throws YCException
      */
-	public List<String> selectByParam(User user) throws YCException {
-		
-		List<String> usernames = new ArrayList<>();
-		try{
-			List<User> userList = userInfoService.selectByParam(user);
-			
-			if(userList != null && userList.size()>0){
-				for(User u : userList){
-					usernames.add(u.getUsername());
-				}
-			}
-		}  catch (DatabaseException e) {
-	        LOG.error("selectByParam exception",user);
-	        throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
-	    }
-		return usernames;
-	    	
-	}
+    public List<String> selectByParam(User user) throws YCException {
+
+        List<String> usernames = new ArrayList<>();
+        try {
+            List<User> userList = userInfoService.selectByParam(user);
+
+            if (userList != null && userList.size() > 0) {
+                for (User u : userList) {
+                    usernames.add(u.getUsername());
+                }
+            }
+        } catch (DatabaseException e) {
+            LOG.error("selectByParam exception", user);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        }
+        return usernames;
+
+    }
 
     public List<User> verifyNameExist(String userName) throws YCException {
         User user = new User();
@@ -441,8 +458,58 @@ public class UserManageHandler {
             List<User> list = userInfoService.queryUser(user);
             return list;
         } catch (DatabaseException e) {
-            LOG.error("verifyNameExist exception",userName);
+            LOG.error("verifyNameExist exception", userName);
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
+    }
+
+    /**
+     * 删除在线用户队列
+     * @param userIds
+     * @param action
+     * @return
+     * @throws YCException
+     */
+    public boolean deleteQueue(String userIds, String action) throws YCException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        // 创建httppost
+        HttpPost httppost = new HttpPost(action);
+        // 创建参数队列
+        List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+        formparams.add(new BasicNameValuePair("queue", String.valueOf(34)));
+        UrlEncodedFormEntity uefEntity;
+        net.sf.json.JSONObject jsonResult = null;
+        try {
+            uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
+            httppost.setEntity(uefEntity);
+            CloseableHttpResponse response = httpclient.execute(httppost);
+            try {
+                HttpEntity entity = response.getEntity();
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    String str = "";
+                    if (entity != null) {
+                        str = EntityUtils.toString(entity);
+                        jsonResult = net.sf.json.JSONObject.fromObject(str);
+                        if (jsonResult.getString("status").equals("0")) {
+                            return true;
+                        }
+                    }
+                }
+            } finally {
+                response.close();
+            }
+        } catch (Exception e) {
+            LOG.error("调用接口系统异常", e);
+            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+        } finally {
+            // 关闭连接,释放资源
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 }
