@@ -148,6 +148,7 @@ $("#userName").blur(function(){
     $.ajax({
         url:manage_path+'/api/user_manage/verify',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{userName:$('#userName').val()},
         beforeSend:function(){

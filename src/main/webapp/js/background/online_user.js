@@ -109,6 +109,7 @@ function getOnlineUserList(){
     $.ajax({
         url: manage_path+'/api/user_manage/online_user',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#user_list_form').serialize(),
         beforeSend:function(data){

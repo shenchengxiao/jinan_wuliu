@@ -384,6 +384,7 @@ function getUserList(){
         url: manage_path+'/api/user_manage/list',
         type: 'GET',
         dataType: 'json',
+        cache:false,
         data: $('#user_list_form').serialize(),
         beforeSend:function(data){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCancel:true});
@@ -538,6 +539,7 @@ function getUserDetail(id){
     $.ajax({
         url:manage_path+'/api/user_manage/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id
@@ -577,6 +579,7 @@ function getExpireDate(id){
     $.ajax({
         url:manage_path+'/api/user_manage/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id

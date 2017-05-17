@@ -87,6 +87,7 @@ function getIpvisitList(){
     $.ajax({
         url: manage_path+'/api/ipvisit/list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#ipvisit_list_form').serialize(),
         beforeSend:function(data){

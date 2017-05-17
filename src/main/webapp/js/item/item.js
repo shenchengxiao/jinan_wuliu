@@ -148,6 +148,7 @@ function getItemList(){
     $.ajax({
         url: manage_path+'/api/item/list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#item_list_form').serialize(), //通过表单id进行序列化提交
         beforeSend:function(data){

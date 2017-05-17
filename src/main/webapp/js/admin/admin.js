@@ -160,6 +160,7 @@ function getUserDetail(id){
     $.ajax({
         url:manage_path+'/api/user/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id
@@ -203,6 +204,7 @@ function getUserList(){
     $.ajax({
         url:manage_path+"/api/user/list",
         type:"get",
+        cache:false,
         dataType:"json",
         data: $('#jn_user_list').serialize(),
         beforeSend:function(){

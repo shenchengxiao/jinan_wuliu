@@ -87,6 +87,7 @@ function getUserCustomById(id){
 	$.ajax({
 		url: manage_path+'/api/custom/getById',
 		type: 'GET',
+		cache:false,
 		dataType: 'json',
 		data: {
 			'id':id
@@ -145,6 +146,7 @@ function getItemList(){
    $.ajax({
         url: manage_path+'/api/custom/userCustomList',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#item_list_form').serialize(), //通过表单id进行序列化提交
         beforeSend:function(data){

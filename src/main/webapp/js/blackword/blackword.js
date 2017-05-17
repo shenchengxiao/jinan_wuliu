@@ -125,6 +125,7 @@ function getBlackwordList(){
     $.ajax({
         url: manage_path+'/api/blackword/list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#blackword_list_form').serialize(), //通过表单id进行序列化提交
         beforeSend:function(data){
@@ -263,7 +264,7 @@ function isChecked(id,type){
 
 /**
  *  功能描述：获取详情
- *  请求方式：POST
+ *  请求方式：GET
  *  请求地址：/api/blackword/detail
  *  函数名称：getBlackwordDetail
  *  参数：id:ID
@@ -275,6 +276,7 @@ function getBlackwordDetail(id){
     $.ajax({
         url:manage_path+'/api/blackword/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id

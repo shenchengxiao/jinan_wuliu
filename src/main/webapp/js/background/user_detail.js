@@ -20,6 +20,7 @@ function getUserDetail(id){
     $.ajax({
         url:manage_path+'/api/user_manage/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id

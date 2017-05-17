@@ -157,6 +157,7 @@ function getUserDetail(){
     $.ajax({
         url:manage_path+'/api/user_manage/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id
@@ -242,6 +243,7 @@ $("#userName").blur(function(){
     $.ajax({
         url:manage_path+'/api/user_manage/verify',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{userName:$('#userName').val()},
         beforeSend:function(){

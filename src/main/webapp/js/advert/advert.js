@@ -135,6 +135,7 @@ function getAdvertList(){
     $.ajax({
         url: manage_path+'/api/advert/list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#advert_list_form').serialize(), //通过表单id进行序列化提交
         beforeSend:function(data){
@@ -299,6 +300,7 @@ function getAdvertDetail(id){
     $.ajax({
         url:manage_path+'/api/advert/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:id

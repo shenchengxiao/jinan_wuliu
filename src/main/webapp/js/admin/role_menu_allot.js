@@ -89,6 +89,7 @@ function getSelectMenuName(role_value){
     $.ajax({
         url:manage_path+"/api/menu/selected_menu?roleId="+role_value,
         type:"get",
+        cache:false,
         dataType:"json",
         beforeSend:function(data){
             $.progressBar({message:'<p>正在努力加载数据...</p>',modal:true,canCancel:true});
@@ -128,6 +129,7 @@ function getSecondMenuList(menuInfo_ids) {
     $.ajax({
         url: manage_path+'/api/menu/second_menu_list',
         type: 'get',
+        cache:false,
         dataType: 'json',
         success: function (data) {
             if (data.status == 0) {

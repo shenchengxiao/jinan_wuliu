@@ -131,6 +131,7 @@ function getSearchLogList() {
     $.ajax({
         url: manage_path+'/api/query/list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#query_list_form').serialize(),
         beforeSend:function(data){

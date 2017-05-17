@@ -21,6 +21,7 @@ function getCleanItenLogList() {
     $.ajax({
         url: manage_path+'/api/item/log_list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#item_log_list_form').serialize(),
         beforeSend:function(data){

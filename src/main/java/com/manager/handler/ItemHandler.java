@@ -18,6 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -40,6 +41,9 @@ import com.manager.utils.YCSystemStatusEnum;
 public class ItemHandler {
 
 
+	@Value("${jinan.user.url}")
+    private String host;
+	
     @Resource
     private ItemService itemService;
     @Resource
@@ -115,7 +119,7 @@ public class ItemHandler {
         Validator.isEmpty(item.getUserPhones(),"用户电话不能为空");
         Validator.isEmpty(item.getContent(),"内容不能为空");
 
-        return this.httpclientPostItem(SystemParam.INTERFACE_URL+"backgroundpublish", item);
+        return this.httpclientPostItem(host+SystemParam.INTERFACE_URL+"backgroundpublish", item);
     }
 
     /**

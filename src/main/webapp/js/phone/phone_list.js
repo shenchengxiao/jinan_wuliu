@@ -28,6 +28,7 @@ function getPhoneList(){
     $.ajax({
         url: manage_path+'/api/phone/list',
         type: 'GET',
+        cache:false,
         dataType: 'json',
         data: $('#phone_list_form').serialize(),
         beforeSend:function(data){

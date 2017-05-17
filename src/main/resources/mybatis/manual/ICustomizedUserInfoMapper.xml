@@ -90,7 +90,7 @@
             AND u.user_num = #{userNum}
         </if>
         <if test="phoneNumber != null and phoneNumber != ''" >
-            AND u.phones = #{phoneNumber}
+            AND u.phones like '%${phoneNumber}%'
         </if>
         <if test="isAbled != null " >
             AND u.status = #{isAbled}

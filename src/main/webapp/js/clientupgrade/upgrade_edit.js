@@ -118,6 +118,7 @@ function getUpgradeDetail(){
     $.ajax({
         url:manage_path+'/api/upgrade/detail',
         type:'GET',
+        cache:false,
         dataType:'json',
         data:{
             id:upgrade_id
