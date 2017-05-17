@@ -42,6 +42,7 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
 	@Override
 	public void updateByRecord(PhoneRecord phoneRecord) throws DatabaseException {
 		try{	
+			int isHang = 0;
 			UserExample example = new UserExample();
 			Criteria criteria = example.createCriteria();
 			criteria.andPhonesLike("%"+phoneRecord.getInPhone()+"%");
@@ -59,6 +60,7 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
 				}
 			}else if(!org.springframework.util.StringUtils.isEmpty(phoneRecord.getIsHang())){
 				if(phoneRecord.getIsHang() == 1){
+					isHang = 1;
 					phoneRecord.setOutTime(new Date());
 				}
 				
@@ -81,6 +83,10 @@ public class PhoneRecordServiceImpl implements PhoneRecordService{
 				pMapper.updateByPrimaryKeySelective(phoneRecord);
 				
 				return;
+			}else{
+				if(isHang == 1){
+					return;
+				}
 			}
 			phoneRecord.setCreateTime(new Date());
 			pMapper.insertSelective(phoneRecord);
