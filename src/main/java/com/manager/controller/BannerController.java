@@ -39,7 +39,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/api/banner")
-@Authentication(allow = UserRoleEnum.SuperAdmin)
+//@Authentication(allow = UserRoleEnum.SuperAdmin)
 public class BannerController {
 
     @Resource

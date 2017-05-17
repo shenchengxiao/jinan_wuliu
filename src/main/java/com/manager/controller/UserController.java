@@ -98,7 +98,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
-    @Authentication(allow = UserRoleEnum.SuperAdmin)
+//    @Authentication(allow = UserRoleEnum.SuperAdmin)
     public APIResponse addUser(HttpServletRequest request, Admin userInfo,String roleArr){
         APIResponse apiResponse = new APIResponse();
         try {
@@ -121,7 +121,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    @Authentication(allow = UserRoleEnum.SuperAdmin)
+//    @Authentication(allow = UserRoleEnum.SuperAdmin)
     public APIResponse<Page<Admin>> list(HttpServletRequest request,UserInfoRequest userInfoRequest){
         APIResponse<Page<Admin>> apiResponse = new APIResponse<>();
         Page<Admin> page = null;
@@ -146,7 +146,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/detail",method = RequestMethod.GET)
-    @Authentication(allow = UserRoleEnum.SuperAdmin)
+//    @Authentication(allow = UserRoleEnum.SuperAdmin)
     public APIResponse<Admin> detail(HttpServletRequest request,Integer id){
         APIResponse<Admin> apiResponse = new APIResponse<>();
         Admin userInfo = null;
@@ -171,7 +171,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    @Authentication(allow = UserRoleEnum.SuperAdmin)
+//    @Authentication(allow = UserRoleEnum.SuperAdmin)
     public APIResponse delete(HttpServletRequest request, Integer id){
         APIResponse apiResponse = new APIResponse<>();
         try {
@@ -188,7 +188,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/modify_status",method = RequestMethod.POST)
-    @Authentication(allow = UserRoleEnum.SuperAdmin)
+//    @Authentication(allow = UserRoleEnum.SuperAdmin)
     public APIResponse modifyUserStatus(HttpServletRequest request, Integer id,Integer status){
         APIResponse apiResponse = new APIResponse<>();
         try {

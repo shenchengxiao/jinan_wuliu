@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping(value = "/api/user_manage")
-@Authentication(allow = UserRoleEnum.SuperAdmin)
+//@Authentication(allow = UserRoleEnum.SuperAdmin)
 public class UserManageController {
 
     Logger LOG = LoggerFactory.getLogger(UserManageController.class);

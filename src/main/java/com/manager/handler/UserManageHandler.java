@@ -476,7 +476,7 @@ public class UserManageHandler {
         HttpPost httppost = new HttpPost(action);
         // 创建参数队列
         List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-        formparams.add(new BasicNameValuePair("queue", String.valueOf(34)));
+        formparams.add(new BasicNameValuePair("queue", userIds));
         UrlEncodedFormEntity uefEntity;
         net.sf.json.JSONObject jsonResult = null;
         try {
