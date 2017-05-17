@@ -43,20 +43,25 @@ function getIpvisitList(){
 	                    }else{
 	                    	_typeId = "";
 	                    }
-	                    var adStatus = item.enabled;//banner状态
-	//                    console.log(item.endTime);
-	                    var Deleted = '<a class="btn mini red" data-toggle="tooltip" data-placement="top" title="删除" onclick="modifyStatus_remove(' + item.bWId + ')"><i class="icon-remove icon-white"></i></a>';
+	                    var port  = item.port;
+	                    if (port == null || port == ""){
+                            port = 8080;
+                        }
+                        var number = item.visitNum;
+	                    if (number == null){
+	                        number = 0
+                        }
 	                    //操作按钮拼接
 	                    operation = upDown + ' <a href="javascript:;" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" onclick="getBlackwordDetail(' + item.bWId + ')"><i class="icon-edit icon-white"></i></a> '/* + Deleted*/;
 	                    
 	                    temp += '<tr>'
 	                        + '<td data-title="用户编号">' + item.username + '</td>'
 	                        + '<td data-title="用户ip">' + item.ipAddress + '</td>'
-	                        + '<td data-title="用户端口">' + item.port + '</td>'
+	                        + '<td data-title="用户端口">' + port + '</td>'
 	                        + '<td data-title="访问时间">' + DateHandle(item.loginTime) + '</td>'
-	                        + '<td data-title="状态">' + _typeId + '</td>'
-	                        + '<td data-title="访问服务器">' + item.ip + '</td>'
-	                        + '<td data-title="访问次数">' + item.visitNum + '</td>'
+	                        // + '<td data-title="状态">' + _typeId + '</td>'
+	                        // + '<td data-title="访问服务器">' + item.ip + '</td>'
+	                        + '<td data-title="访问次数">' + number + '</td>'
 	                        + '<td data-title="操作">' + operation + '</td>'
 	                        + '</tr>';
 	                    

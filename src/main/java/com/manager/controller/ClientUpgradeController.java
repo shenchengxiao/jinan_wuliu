@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping(value = "/api/upgrade")
-@Authentication(allow = UserRoleEnum.SuperAdmin)
+//@Authentication(allow = UserRoleEnum.SuperAdmin)
 public class ClientUpgradeController {
 
     Logger LOG = LoggerFactory.getLogger(ClientUpgradeController.class);

@@ -78,7 +78,7 @@
                         </div>
                         <div class="portlet-body">
                             <div class="row-fluid">
-                                <form id="user_list_form" method="get">
+                                <form id="user_list_form" method="get" >
                                     <div class="span2">
                                         <input type="text" name="userName" placeholder="请输入用户名称" class="m-wrap span12">
                                     </div>
@@ -109,7 +109,9 @@
 
                                     <input type="hidden" name="pageNum" id="pageNum" value="1">
                                 </form>
-                                <div class="span11" align="right">
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span10" align="left">
                                     <div class="controls">
 
                                         <a href="javascript:;" class="btn blue" id="btn_password">
