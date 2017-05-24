@@ -9,7 +9,8 @@ public enum PlatformTypeEnum implements IEnum<Integer> {
 
     WINDOWS(0, "windows"),
     IOS(1, "iOS"),
-    ANDROID(2, "Android")
+    ANDROID(2, "Android"),
+    MOBILE(3,   "移动端")
     ;
     PlatformTypeEnum(int value, String title) {
         this.value = value;

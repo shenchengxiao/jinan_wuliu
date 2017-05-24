@@ -406,7 +406,10 @@ function getUserList(){
                                 platform = 'iOS'
                                 break;
                             case 2:
-                                platform = 'Andoird'
+                                platform = 'Android'
+                                break;
+                            case 3:
+                                platform = '移动端'
                                 break;
                         }
                         var enabled = item.isAbled;//banner状态
