@@ -424,13 +424,16 @@ function getUserList(){
 
                         var citylist ='<a href="city_list.jsp?id='+item.id+'" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="定制城市" ><i class="icon-globe"></i></a>&nbsp;'
 
-
-                        var hardNum = item.hardNum.toString();
-                        if (hardNum.length > 10 && hardNum != 0){
-                            hardNum = hardNum.substring(0,7)+"...";
-                        }else {
-                            hardNum
+                        var hardNum = '' ;
+                        if(item.hardNum != null){
+                            hardNum = item.hardNum.toString();
+                            if (hardNum.length > 10 && hardNum != 0){
+                                hardNum = hardNum.substring(0,7)+"...";
+                            }else {
+                                hardNum
+                            }
                         }
+
 
                         //操作按钮拼接
                         operation = upDown + ' <a href="user_edit.jsp?id='+item.id+'" id="btn_edit" class="btn blue mini" data-toggle="tooltip" data-placement="top" title="编辑" ><i class="icon-edit icon-white"></i></a> '
