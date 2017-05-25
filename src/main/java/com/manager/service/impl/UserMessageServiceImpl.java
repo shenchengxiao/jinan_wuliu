@@ -1,10 +1,6 @@
 package com.manager.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -182,18 +178,27 @@ public class UserMessageServiceImpl implements UserMessageService {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
         params.add(new BasicNameValuePair("Content-Encoding", "utf-8"));
-        JSONObject reqJson = new JSONObject();
-        reqJson.put("userids",userIds);
-        reqJson.put("type",type);
-        reqJson.put("content",content);
-        String result =  URLConnUtil.doPost(action,reqJson.toString(),params);
-        JSONObject jsonObject = JSONObject.fromObject(result);
-        if(jsonObject.getString("status") .equals("0")){
-            return true;
-        }else {
-            LOG.error("SendUsersPushToPC exception",userIds);
-            throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
-        }
+
+		List<NameValuePair> params2 = new ArrayList<NameValuePair>();
+		String[] arr =null;
+		if (userIds != null) {
+			arr = new String[userIds.size()];
+			for (int i = 0; i < userIds.size(); i++) {
+				arr[i] = String.valueOf(userIds.get(i));
+			}
+		}
+		params2.add(new BasicNameValuePair("userids", arr == null?null:Arrays.toString(arr)));
+		params2.add(new BasicNameValuePair("type", type.toString()));
+		params2.add(new BasicNameValuePair("content", content));
+
+		String result = URLConnUtil.doGet(action, params2, params);
+		JSONObject jsonObject = JSONObject.fromObject(result);
+		if (jsonObject.getString("status").equals("0")) {
+			return true;
+		} else {
+			LOG.error("SendUsersPushToPC exception", userIds);
+			throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+		}
     }
 
 }
