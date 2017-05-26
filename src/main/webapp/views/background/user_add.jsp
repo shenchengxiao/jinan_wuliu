@@ -141,7 +141,6 @@
                                                 <input data-laydate="start" class="m-wrap span12" type="text" value="" name="startTime"  readonly="true" /><span class="add-on"><i class="icon-calendar"></i></span>
                                             </div>
                                         </div>
-
                                         <label class="control-label">服务结束日期<span class="required">*</span></label>
                                         <div class="span4">
                                             <div class="input-append date">

@@ -140,7 +140,7 @@ public class UserCustomServiceImpl implements UserCustomService{
 			example.setOrderByClause("update_time desc");
 			Criteria criteria = example.createCriteria();
 			if(userCustomRequest.getUsername() != null && userCustomRequest.getUsername() != ""){
-				criteria.andUsernameEqualTo(userCustomRequest.getUsername());
+				criteria.andUsernameLike("%"+userCustomRequest.getUsername()+"%");
 			}
             PageMybatisInterceptor.startPage(userCustomRequest.getPageNum(),userCustomRequest.getPageSize());
             userCustomMapper.selectByExample(example);

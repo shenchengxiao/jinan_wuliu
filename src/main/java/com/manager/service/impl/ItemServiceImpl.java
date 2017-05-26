@@ -224,6 +224,7 @@ public class ItemServiceImpl implements ItemService {
                 return null;
             }
             DeletehistoryExample example = new DeletehistoryExample();
+            example.setOrderByClause("createtime desc");
 			PageMybatisInterceptor.startPage(itemRequest.getPageNum(),itemRequest.getPageSize());
 			deletehistoryMapper.selectByExample(example);
 			Page<Deletehistory> page = PageMybatisInterceptor.endPage();
