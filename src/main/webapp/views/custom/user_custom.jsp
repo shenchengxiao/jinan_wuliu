@@ -68,17 +68,7 @@
                                     <div class="span2">
                                         <button type="button" class="btn blue mgleft10" id="btn_search_item">查找</button>
                                     </div>
-                                    
-                                    <!-- <div class="span2">
-                                        <input type="text" name="adName" placeholder="请输入联系电话" class="m-wrap span12" id="nameText_search">
-                                    </div> -->
-                                    <!-- <div class="span2">
-                                        <select class="m-wrap span6" name="enabled">
-                                            <option value="">是否有效</option>
-                                            <option value="0">无效</option>
-                                            <option value="1">有效</option>
-                                        </select>
-                                    </div> -->
+
                                     <input type="text" name="pageNum" id="pageNum" value="1" style="display: none;">
                                 </form>
                             </div>

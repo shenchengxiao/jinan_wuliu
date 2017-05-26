@@ -10,14 +10,18 @@ $(function(){
             $("#btn_search_item").click();
         }
     });
-    
-  //创建modal弹出层class="modal"
-//    $('#btn_edit').on('click',function(){
-//    		
-//    		clearModal();//清空modal弹出层里面的参数；
-//    		$('#editCustomModal').modal('show');//modle层显示
-//    	
-//    });
+
+    //监听事件
+    $('#isBinding').bind('input propertychange', function() {
+        var selected_value = $(this).children('option:selected').val();
+        console.log(selected_value);
+        if (selected_value == 1){
+            $("#isPhoneLimit option:eq(1)").prop("selected", true);
+            $('#isPhoneLimit').attr("disabled",true);
+        }else {
+            $('#isPhoneLimit').removeAttr("disabled","disabled");
+        }
+    });
 
     $('#btn_edit_custom').on('click',function(){
         //非空验证
@@ -103,6 +107,11 @@ function getUserCustomById(id){
 				$('#isManager').val(json.isManager).selected;
 				$('input[name=platformType]').val(json.platformType);
 				$('#isBinding').val(json.isBinding).selected;
+				if (json.isBinding == 1){
+                    $('#isPhoneLimit').attr("disabled",true);
+                }else {
+                    $('#isPhoneLimit').attr("disabled",false);
+                }
 				$('#isPhoneLimit').val(json.isPhoneLimit).selected;
 				$('#isReceiveCar').val(json.isReceiveCar).selected;
 				$('#isReceiveGoods').val(json.isReceiveGoods).selected;
@@ -229,6 +238,9 @@ function getItemList(){
 }
 
 function updateUserCustom(){
+    if($('#isPhoneLimit').prop("disabled")){
+        $('#isPhoneLimit').removeAttr("disabled","disabled");
+    }
 	/*if(!confirm("确定修改信息状态为已成交吗?")) return;*/
 	$.ajax({
 		url: manage_path+'/api/custom/update',

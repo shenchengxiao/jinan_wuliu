@@ -90,7 +90,9 @@ public class UserCustomHandler {
         	if(userCustom != null){
         		userCustomResponse.setId(userCustom.getId());
         		userCustomResponse.setUsername(userCustom.getUsername());
-        		userCustomResponse.setIsManager(userCustom.getIsManager().getValue());
+        		if (userCustom.getIsManager() != null) {
+                    userCustomResponse.setIsManager(userCustom.getIsManager().getValue());
+                }
         		userCustomResponse.setPlatformType(userCustom.getPlatformType());
         		userCustomResponse.setIsBinding(userCustom.getIsBinding().getValue());
         		userCustomResponse.setIsPhoneLimit(userCustom.getIsPhoneLimit().getValue());

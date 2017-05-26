@@ -10,5 +10,5 @@ public interface UserMessageService {
 
 	boolean sendSysMessage(Integer mType, String content) throws DatabaseException;
 
-
+	boolean sendOnlineMeanWhile(String registerId) throws DatabaseException;
 }

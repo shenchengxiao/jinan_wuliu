@@ -64,4 +64,21 @@ public class UserMessageHandler {
             throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
         }
 	}
+
+
+	/**
+	 * 多帐号登陆下线通知
+	 * @param registerId
+	 * @throws YCException
+	 */
+	public void sendOnlyOnline(String registerId) throws YCException {
+		/** 参数校验 */
+		Validator.isEmpty(registerId,"设备码不能为空");
+		try {
+			userMessageService.sendOnlineMeanWhile(registerId);
+		} catch (DatabaseException e) {
+			LOG.error("sendOnlyOnline exception",registerId);
+			throw new YCException(YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getCode(), YCSystemStatusEnum.INVOKE_API_RETURN_EXCEPTION.getDesc());
+		}
+	}
 }

@@ -58,4 +58,26 @@ public class MessageSendController {
 		}
 		return apiResponse;
 	}
+
+	/**
+	 * 多设备帐号登陆下线通知
+	 * @param request
+	 * @param registerId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/off_line",method = RequestMethod.POST)
+	public APIResponse offLine(HttpServletRequest request, String registerId){
+		APIResponse apiResponse = new APIResponse<>();
+		try {
+			userMessageHandler.sendOnlyOnline(registerId);
+			apiResponse.setStatus(YCSystemStatusEnum.SUCCESS.getCode());
+			apiResponse.setMsg(YCSystemStatusEnum.SUCCESS.getDesc());
+		} catch (Throwable e) {
+			LOG.error("下线通知发生异常",registerId);
+			apiResponse.setStatus(YCSystemStatusEnum.SYSTEM_ERROR.getCode());
+			apiResponse.setMsg(YCSystemStatusEnum.SYSTEM_ERROR.getDesc());
+		}
+		return apiResponse;
+	}
 }

@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -173,7 +174,37 @@ public class UserMessageServiceImpl implements UserMessageService {
             throw new DatabaseException(e.getMessage());
         }
 	}
-	
+
+	/**
+	 * 多设备登陆帐号下线通知
+	 * @param registerId
+	 * @return
+	 * @throws DatabaseException
+	 */
+	@Override
+	public boolean sendOnlineMeanWhile(String registerId) throws DatabaseException {
+		try {
+			Map<String, String> map = new HashMap<>();
+			map.put("type", "103");
+			String content = "您的帐号在另外一台设备上登陆，请重新登录";
+			UserMessage userMessage = new UserMessage();
+			userMessage.setmType(103);
+			userMessage.setContent(content);
+			userMessage.setCreateTime(new Date());
+			int val = userMessageMapper.insert(userMessage);
+			if(val > 0){
+				if(StringUtils.isNoneBlank(registerId)){
+					PushExample.SendUsersPushToAndroid("济南网通知",content,map,registerId);
+					PushExample.SendUsersPushToIOS(content,map,registerId);
+				}
+			}
+			return (val > 0)?true:false;
+		} catch (Throwable e) {
+			LOG.error("sendOnlineMeanWhile 异常",registerId);
+			throw new DatabaseException(e.getMessage());
+		}
+	}
+
 	public boolean SendUsersPushToPC(List<Integer> userIds,Integer type,String content,String action) throws YCException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("Content-Type", "text/plain;charset=utf-8"));
