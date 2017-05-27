@@ -112,7 +112,7 @@ function treeChecked(selected, treeMenu) {
  *  函数名称：addcitylist
  */
 function addcitylist(){
-	$("#cityTree").combotree("setValues",$("#cityTree").combotree("getText"));
+	$("#hotcityTree").combotree("setValues",$("#hotcityTree").combotree("getText"));
     $.ajax({
         url:manage_path+'/api/hotcity/add',
         type:'POST',
@@ -162,7 +162,7 @@ function isfold(id){
 }
 
 function loadTree(row, data) {
-    var tree = $('#cityTree').combotree('tree');
+    var tree = $('#hotcityTree').combotree('tree');
     var roots=tree.tree('getRoots');
     tree.tree('collapseAll');
     tree.tree('expand', roots[0].target); 
@@ -193,9 +193,9 @@ function getUserDetail(){
                 	var json = result[0];
                 	$('input[name=id]').val(json.id);
                     
-                    $("#cityTree").combotree("setValues",json.hotCity);
+                    $("#hotcityTree").combotree("setValues",json.hotCity);
                 	if(json.hotCity != ''){
-                		textSelected('cityTree',json.hotCity);
+                		textSelected('hotcityTree',json.hotCity);
                 	}
                 }
             	

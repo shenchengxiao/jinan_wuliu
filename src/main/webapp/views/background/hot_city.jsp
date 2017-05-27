@@ -55,10 +55,10 @@
 					                        <div class="control-group">
 					                            <label class="control-label">热门城市: &nbsp;&nbsp;</label>
 					                            <div class="controls">
-					                            <select id="cityTree" name="hotCity" class="easyui-combotree" 
+					                            <select id="hotcityTree" name="hotCity" class="easyui-combotree" 
 					                            data-options="url:'../../tree/tree_data1.json',multiple : true,onLoadSuccess: loadTree,cascadeCheck:true" style="width:66%;height: 100%;"></select>
-										        <button type="button" class="btn btn-primary green" onclick="invet('cityTree')">反选</button>
-										        <button type="button" class="btn btn-primary green" onclick="isfold('cityTree')">展开/折叠</button>
+										        <button type="button" class="btn btn-primary green" onclick="invet('hotcityTree')">反选</button>
+										        <button type="button" class="btn btn-primary green" onclick="isfold('hotcityTree')">展开/折叠</button>
 					                            </div>
 					                        </div>
 					                    </div>
